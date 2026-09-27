@@ -183,34 +183,42 @@ ESSAY = """
 </section>
 """
 
+# Episodes are questions, not deal recaps: the thing worth an hour is the
+# mechanism underneath, not the transaction on top.
 EPISODES = [
+ ("Why Models Fail",
+  "A discounted cash flow is right up until it meets a business. Where it breaks first, why the failure is almost never arithmetic, and what a forecast is actually claiming when it says growth costs nothing.",
+  "Recording October"),
+ ("Sleep As Capital",
+  "The analyst at three in the morning is a depreciating asset nobody books. What the sleep research says about judgement under deprivation, and whether a desk that runs on it is buying output or borrowing against it.",
+  "In production"),
+ ("The Adjusted Truth",
+  "Adjusted EBITDA excludes whatever management has decided is unusual. Who audits the definition of unusual, and what happens to a multiple when the denominator is a choice.",
+  "In production"),
+ ("Managing The Number",
+  "Companies rarely fake earnings. They shape them. The entirely legal machinery for landing on consensus, and why the quarter you cannot see is the interesting one.",
+  "In production"),
+ ("Who Picks Comparables",
+  "Every comp set is an argument about what a company is. Change the peers and you change the answer, and almost nobody shows their working.",
+  "In production"),
  ("Writers Make Bankers",
   "Underneath the models the job is persuasive narrative. What separates good writing from great, and why nobody tells you that on the way in.",
   "Recording October"),
- ("The Invisible Shopper",
-  "Consumer behaviour is the hardest thing to put in a model. How do you study it rigorously enough to move a forecast rather than decorate one?",
-  "In production"),
- ("Immigration As Infrastructure",
-  "Finance reads it as a labour cost line. The research reads it as five years of compounding innovation, patents and wage growth.",
-  "In production"),
- ("Six Times Trust",
-  "P&amp;G paid a growth multiple for Thorne. A close read of what was actually in the bottle, and what was not.",
-  "In production"),
- ("Forty Percent Back",
-  "When AI lands inside a banking workflow the time has to go somewhere. A look at where it actually goes.",
+ ("The Confidence Trap",
+  "Two methods agreeing feels like proof. Often it is one assumption counted twice, wearing a second coat.",
   "In production"),
  ("Disconnected",
-  "Build something genuinely complicated with the internet switched off. A running experiment, and what it costs.",
+  "Build something genuinely complicated with the internet switched off. A running experiment in what recall costs when retrieval is free.",
   "In production"),
 ]
-ROMAN = ["I","II","III","IV","V","VI"]
+ROMAN_EP = ["I","II","III","IV","V","VI","VII","VIII"]
 
-def podcast():
+def episode_rows():
     rows = []
     for i,(title, q, status) in enumerate(EPISODES):
-        slug = title.lower().replace(" ","-").replace("&amp;","and")
+        slug = title.lower().replace(" ","-")
         rows.append(f'''      <li class="ep">
-        <span class="ep__no">No. {ROMAN[i]}</span>
+        <span class="ep__no">No. {ROMAN_EP[i]}</span>
         <div class="ep__body">
           <h3 class="ep__title">{title}</h3>
           <p class="ep__q">{q}</p>
@@ -219,20 +227,49 @@ def podcast():
         </div>
         <span class="ep__status">{status}</span>
       </li>''')
-    return ('\n<!-- =========================================================== PODCAST === -->\n'
-            '<section class="pod" id="podcast">\n'
-            '  <div class="shell">\n'
-            '    <div class="pod__head">\n'
-            '      <p class="pod__label">The Podcast</p>\n'
-            '      <h2 class="pod__title">In The Belly</h2>\n'
-            '      <p class="pod__note">Conversations on the creativity inside M&amp;A. Guests are being '
-            'booked now; episodes are listed here as they are cut.</p>\n'
-            '    </div>\n'
-            '    <ol class="pod__list">\n'
-            + "\n".join(rows) + "\n"
-            '    </ol>\n'
-            '  </div>\n'
-            '</section>\n')
+    return "\n".join(rows)
+
+
+def build_podcast():
+    html = (HEAD.format(title="In The Belly | The Trojan Horse",
+                        desc="The Trojan Horse podcast. Conversations on the mechanisms underneath M&amp;A.")
+            + '''
+<a class="back" href="index.html">&larr; The Trojan Horse</a>
+
+<header class="silohead">
+  <div class="shell">
+    <p class="silohead__kicker">The Podcast</p>
+    <h1 class="silohead__name">In The Belly</h1>
+    <p class="silohead__blurb">Conversations on the mechanisms underneath M&amp;A. Guests are being booked now; episodes appear here as they are cut.</p>
+    <div class="silohead__line" aria-hidden="true"></div>
+  </div>
+</header>
+
+<main class="pod pod--page">
+  <div class="shell">
+    <ol class="pod__list">
+''' + episode_rows() + '''
+    </ol>
+  </div>
+</main>
+''' + FOOT)
+    (ROOT / "podcast.html").write_text(html, encoding="utf-8")
+    print("podcast.html")
+
+
+ROOMS = """
+<!-- ============================================================= ROOMS === -->
+<section class="rooms">
+  <div class="shell">
+    <a class="room" href="podcast.html">
+      <span class="room__label">The Podcast</span>
+      <span class="room__name">In The Belly</span>
+      <span class="room__q">Conversations on the mechanisms underneath M&amp;A.</span>
+      <span class="room__go">Listen &rarr;</span>
+    </a>
+  </div>
+</section>
+"""
 
 FIRST = """
 <!-- ==================================================== FIRST PRINCIPLES === -->
@@ -320,7 +357,7 @@ def build_index():
 
     html = (HEAD.format(title="The Trojan Horse",
                         desc="A mergers and acquisitions journal and podcast by Francis Ruan.")
-            + CAPITAL_DEF + COVER.replace("{PICKER}", picker) + ESSAY + podcast() + FIRST + FOOT)
+            + CAPITAL_DEF + COVER.replace("{PICKER}", picker) + ESSAY + ROOMS + FIRST + FOOT)
     (ROOT / "index.html").write_text(html, encoding="utf-8")
     print("index.html")
 
@@ -357,3 +394,4 @@ if __name__ == "__main__":
     build_index()
     for s in SILOS:
         build_silo(s)
+    build_podcast()
