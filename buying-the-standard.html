@@ -17,7 +17,7 @@
 
 <a class="back" href="index.html">&larr; The Trojan Horse</a>
 
-<article class="sheet">
+<article class="sheet sheet--long">
 
   <!-- 01 TITLE -->
   <h1 class="tt">
@@ -26,19 +26,41 @@
   </h1>
 
   <!-- 02 SUBTITLE -->
-  <p class="sub">HOW A FORTY-PERSON COMPANY<br>CHANGED HANDS FOR TWO BILLION</p>
+  <p class="sub">DATABRICKS PAID AROUND TWO BILLION<br>FOR ROUGHLY FORTY PEOPLE</p>
 
   <!-- 03 BYLINE -->
   <p class="byline">Francis Ruan</p>
 
   <!-- 04 OPENING TEXT -->
-  <div class="opening"><p>Databricks announced its acquisition of Tabular on 4 June 2024, at its own Data and AI Summit. Tabular was founded by Ryan Blue, Daniel Weeks and Jason Reid, the engineers who created Apache Iceberg while at Netflix, and it sold a managed storage platform built on that format. The company employed roughly forty people at the time of sale. Databricks has confirmed publicly only that the consideration exceeded one billion dollars; reporting in August 2024 put the figure closer to two billion. Iceberg is an open table format, and its principal rival in the market at the time was Delta Lake, which Databricks itself maintains.</p></div>
+  <div class="opening"><p class="lede">I study AI for business, so my instinct with a deal like this is to look for the model, the training run, the thing that sounds like the future. Databricks bought Tabular in June 2024 and there is no model in it at all. Roughly forty people. A file format. Reporting put the price near two billion dollars, and Databricks itself has only ever confirmed that it cleared one billion, which is its own small tell about how they would like this discussed.</p></div>
+
+  <div class="body">
+    <h2 class="h2">What forty people were actually holding</h2>
+    <p>Tabular was founded by the engineers who created Apache Iceberg while they were at Netflix. Iceberg is an open table format, which is the boring layer of plumbing that decides how enormous piles of data get organised so that different tools can read them.</p>
+    <p>Here is the part that made me sit up. Databricks maintains Delta Lake, which was Iceberg's main rival. So Databricks did not buy a company that complemented its product. It bought the other side of a format war, and it bought the specific people whose names give that format its legitimacy.</p>
+    <h2 class="h2">Why I think the price makes sense</h2>
+    <p>Two billion for forty people reads insane until you price the alternative. If the industry standardises on Iceberg and Databricks is on the outside of it, every enterprise data decision for the next decade starts with a format Databricks does not control. That is not a product problem, it is a gravity problem.</p>
+    <p>My read is that they were not buying revenue and they were not buying engineers. They were buying the right to stop competing with themselves, and the ability to say that both formats now sit under one roof. Standards do not get won by being better. They get won by being the default, and defaults are bought.</p>
+    <h2 class="h2">My concern</h2>
+    <p>Iceberg is open, and the whole reason anyone trusts an open format is that no single commercial party is steering it. Now the largest commercial party in the category employs the people who created it.</p>
+    <p>I do not think that was the intent and I have seen no evidence of anything going wrong. But governance is the thing I would watch, because an open standard maintained by its biggest beneficiary is a structure that only works while everyone keeps behaving well.</p>
+    <h2 class="h2">My call</h2>
+    <p>Cheap, if it ends the format war. Expensive, if the community reads the acquisition as a capture and routes around it. The measurable version of that question is whether Iceberg's contributor base stays broad over the next few years, or quietly narrows to one company.</p>
+  </div>
 
   <!-- 05 KEY TAKEAWAY -->
-  <p class="takeaway">Databricks has confirmed only that the price exceeded one billion dollars.</p>
+  <p class="takeaway">They did not buy a product. They bought the right to stop competing with their own standard.</p>
 
   <!-- 06 FIXED BRAND MARK -->
   <figure class="mark"><img src="images/horse.png" alt="The Trojan Horse engraving"></figure>
+
+  <div class="srcs">
+    <h3>Sources</h3>
+    <ol>
+      <li>Databricks announcement, Data and AI Summit, 4 June 2024. Databricks has publicly confirmed consideration above one billion dollars; the roughly two billion figure comes from subsequent reporting and has not been confirmed by the company.</li>
+      <li>Tabular founding team and Apache Iceberg origin at Netflix, per the companies' own materials.</li>
+    </ol>
+  </div>
 
   <!-- 07 PUBLICATION FOOTER -->
   <footer class="colophon">

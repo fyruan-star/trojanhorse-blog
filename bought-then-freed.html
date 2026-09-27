@@ -17,7 +17,7 @@
 
 <a class="back" href="index.html">&larr; The Trojan Horse</a>
 
-<article class="sheet">
+<article class="sheet sheet--long">
 
   <!-- 01 TITLE -->
   <h1 class="tt">
@@ -26,19 +26,41 @@
   </h1>
 
   <!-- 02 SUBTITLE -->
-  <p class="sub">HOW SEVEN HUNDRED MILLION DOLLARS<br>BECAME AN OPEN SOURCE RELEASE</p>
+  <p class="sub">SEVEN HUNDRED MILLION DOLLARS<br>AND THEN THEY GAVE IT AWAY</p>
 
   <!-- 03 BYLINE -->
   <p class="byline">Francis Ruan</p>
 
   <!-- 04 OPENING TEXT -->
-  <div class="opening"><p>NVIDIA agreed to acquire Run:ai in April 2024 and closed the transaction in December of that year, following review by the United States Department of Justice and the European Commission. Run:ai was an Israeli company whose software orchestrated GPU workloads across Kubernetes clusters, scheduling and virtualising access to hardware that is otherwise allocated whole. The price was widely reported at approximately seven hundred million dollars, with some accounts putting it nearer eight hundred million. Neither party published a figure. On closing, NVIDIA stated that it would release the software as open source.</p></div>
+  <div class="opening"><p class="lede">This is the deal on my list that confused me longest. NVIDIA agreed to buy Run:ai in April 2024 and closed it that December after review by the Department of Justice and the European Commission. Reported price is around seven hundred million dollars, which neither side confirmed. Then, on closing, NVIDIA said it would release the software as open source. I kept rereading that, because paying seven hundred million dollars for something and immediately giving it away is not a sentence that parses on first contact.</p></div>
+
+  <div class="body">
+    <h2 class="h2">What Run:ai does</h2>
+    <p>Run:ai was an Israeli company whose software orchestrates GPU workloads across Kubernetes clusters. In plain terms, it decides which job gets which slice of which chip, and it lets one physical GPU be shared out rather than handed whole to a single task.</p>
+    <p>That matters because GPUs are the most expensive things in the building and they spend a shocking amount of time idle. Orchestration is what turns a pile of hardware into a utility.</p>
+    <h2 class="h2">Why giving it away is the whole point</h2>
+    <p>Orchestration sits one layer above the thing NVIDIA actually sells. It is a complement, not a product, and the strategic move with a complement has always been to make it free, abundant and excellent, because every dollar of friction you remove from the layer above lands as demand in the layer you own.</p>
+    <p>Free orchestration that runs anywhere still has to schedule onto something. My read is that NVIDIA spent seven hundred million dollars to make sure the scheduling layer was never a place where a competitor could get a foothold, and then removed any reason for anyone to build an alternative. On a balance sheet that size it is close to a rounding error, and it is the cheapest defensive purchase on my list.</p>
+    <h2 class="h2">The part that cuts both ways</h2>
+    <p>Open source is not a one way door. Software that orchestrates GPUs generically is also software that makes it easier to orchestrate somebody else's GPUs.</p>
+    <p>My concern is small but real: the same openness that protects the moat today lowers the switching cost tomorrow, and the people most motivated to extend an open orchestrator are exactly the ones selling alternative silicon. I would not call that a mistake. I would call it the price NVIDIA decided was worth paying.</p>
+    <h2 class="h2">My call</h2>
+    <p>A good trade, and a clearer statement of strategy than anything in the press release. The thing I would watch is not adoption, because adoption is guaranteed when something useful becomes free. It is who is contributing to it in three years, and what hardware they happen to sell.</p>
+  </div>
 
   <!-- 05 KEY TAKEAWAY -->
-  <p class="takeaway">NVIDIA open-sourced the software after the acquisition had closed.</p>
+  <p class="takeaway">You buy the layer above your moat so that nobody else can, and then you make it free so nobody needs to.</p>
 
   <!-- 06 FIXED BRAND MARK -->
   <figure class="mark"><img src="images/horse.png" alt="The Trojan Horse engraving"></figure>
+
+  <div class="srcs">
+    <h3>Sources</h3>
+    <ol>
+      <li>NVIDIA announcement of the agreement, April 2024; completion December 2024 following US and EU review.</li>
+      <li>Price of approximately seven hundred million dollars is from reporting and was not confirmed by either party; some accounts place it nearer eight hundred million.</li>
+    </ol>
+  </div>
 
   <!-- 07 PUBLICATION FOOTER -->
   <footer class="colophon">
