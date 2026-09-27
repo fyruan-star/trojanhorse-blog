@@ -136,8 +136,6 @@ COVER = """
     <p class="cover__wordmark">The Trojan Horse</p>
   </div>
 
-{PICKER}
-
   <div class="shell cover__stage">
     <img class="cover__horse" src="images/horse-light.png"
          alt="A rearing horse drawn in silver line work, its hindquarters breaking apart into fragments">
@@ -146,6 +144,7 @@ COVER = """
 
   <div class="cover__mist" aria-hidden="true"></div>
 
+{PICKER}
   <div class="shell cover__foot">
     <div class="cover__rule"></div>
     <a class="cover__scroll" href="#opening">Scroll</a>
@@ -238,7 +237,6 @@ def build_index():
       </a>''')
 
     picker = ('  <div class="shell cover__picker">\n'
-              '    <p class="cover__pick-label">Choose a vertical</p>\n'
               '    <div class="silos__grid">\n'
               + "\n".join(cards) + "\n"
               '    </div>\n'
