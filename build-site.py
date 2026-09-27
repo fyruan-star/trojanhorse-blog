@@ -136,24 +136,29 @@ COVER = """
     <p class="cover__wordmark">The Trojan Horse</p>
     <img class="cover__horse" src="images/horse-light.png"
          alt="A rearing horse drawn in silver line work, its hindquarters breaking apart into fragments">
-    <p class="cover__tag">Creative M&amp;A Journalism<br>and Podcast</p>
+    <p class="cover__tag">A Mergers and Acquisitions<br>Journal &amp; Podcast</p>
   </div>
 
   <div class="cover__mist" aria-hidden="true"></div>
 
+{PICKER}
   <div class="shell cover__foot">
     <div class="cover__rule"></div>
     <a class="cover__scroll" href="#opening">Scroll</a>
   </div>
 </header>
 
+"""
+
+ESSAY = """
 <!-- ============================================================= ESSAY === -->
 <section class="essay" id="opening">
   <div class="shell">
 
     <div class="essay__inner">
-      <p>Writing has always been where I find my peace. From childhood stories to strategic planning, having the space to break down complex ideas onto a page means everything to me.</p>
-      <p>But looking at the status quo, I&rsquo;ve noticed a heavy reliance on consensus narratives, a kind of cognitive offloading where I&rsquo;ve noticed a deterioration in exercising our ability to challenge the norm.</p>
+      <p>Ever since I was a kid, I&rsquo;ve found my peace through writing, in stories, letters, -isms, and planning. Being able to jot down and wrestle with complex ideas or experiences has always brought along great joy in my life.</p>
+      <p>Yet today&rsquo;s status quo demands the exact opposite. I see a heavy reliance on consensus narratives, a collective cognitive offloading that is increasingly eroding our fundamental instinct to question the norm.</p>
+      <p>The idea for this site actually started because I just wanted to find my own thoughts among the clutter of financial news and show it to the world through my art and personality.</p>
       <p>With the rise of over summarization and a splurge of low friction short form content, it is often easy to allow for neuroplastic degradation, or in normal english: a loss of curiosity.</p>
     </div>
 
@@ -166,9 +171,9 @@ COVER = """
     </figure>
 
     <div class="essay__inner">
-      <p>The Trojan Horse was built to challenge this complacency. By presenting the high-stakes world of M&amp;A as the outer shell, the true objective is to deliver sharp, critical thinking hidden inside. It is a vehicle meant to bypass the noise and wake up our inherent desire to ask why.</p>
-      <p>I built this to refine my voice and present my analysis as art.</p>
-      <p class="essay__sign">My Name is Francis Ruan and I welcome you to the Trojan Horse.</p>
+      <p>The Trojan Horse was built to challenge complacency. Why M&amp;A? Because corporate acquisitions are the invisible architecture of our daily lives. M&amp;A is the ultimate collision of game theory, psychology, and global power. It is a hyper-complex puzzle that forces us to look past the spreadsheets and ask why the pieces are actually moving. It&rsquo;s a vehicle meant to bypass the noise and wake up our inherent desire to decode the world.</p>
+      <p>I built this to refine my voice and present analysis as art.</p>
+      <p class="essay__sign">My name is Francis Ruan, and I welcome you to the Trojan Horse.</p>
     </div>
 
   </div>
@@ -231,22 +236,16 @@ def build_index():
         <span class="silo__count">{n} {"story" if n == 1 else "stories"}</span>
       </a>''')
 
+    picker = ('  <div class="shell cover__picker">\n'
+              '    <p class="cover__pick-label">Choose a vertical</p>\n'
+              '    <div class="silos__grid">\n'
+              + "\n".join(cards) + "\n"
+              '    </div>\n'
+              '  </div>\n')
+
     html = (HEAD.format(title="The Trojan Horse",
-                        desc="Creative M&amp;A journalism and personal blog by Francis Ruan.")
-            + CAPITAL_DEF + COVER + f'''
-<!-- ============================================================= SILOS === -->
-<main class="silos" id="verticals">
-  <div class="shell">
-    <div class="silos__head">
-      <p class="silos__label">Choose a vertical</p>
-      <div class="silos__line" aria-hidden="true"></div>
-    </div>
-    <div class="silos__grid">
-{chr(10).join(cards)}
-    </div>
-  </div>
-</main>
-''' + FOOT)
+                        desc="A mergers and acquisitions journal and podcast by Francis Ruan.")
+            + CAPITAL_DEF + COVER.replace("{PICKER}", picker) + ESSAY + FOOT)
     (ROOT / "index.html").write_text(html, encoding="utf-8")
     print("index.html")
 
