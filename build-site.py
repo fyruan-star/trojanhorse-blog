@@ -183,6 +183,57 @@ ESSAY = """
 </section>
 """
 
+EPISODES = [
+ ("Writers Make Bankers",
+  "Underneath the models the job is persuasive narrative. What separates good writing from great, and why nobody tells you that on the way in.",
+  "Recording October"),
+ ("The Invisible Shopper",
+  "Consumer behaviour is the hardest thing to put in a model. How do you study it rigorously enough to move a forecast rather than decorate one?",
+  "In production"),
+ ("Immigration As Infrastructure",
+  "Finance reads it as a labour cost line. The research reads it as five years of compounding innovation, patents and wage growth.",
+  "In production"),
+ ("Six Times Trust",
+  "P&amp;G paid a growth multiple for Thorne. A close read of what was actually in the bottle, and what was not.",
+  "In production"),
+ ("Forty Percent Back",
+  "When AI lands inside a banking workflow the time has to go somewhere. A look at where it actually goes.",
+  "In production"),
+ ("Disconnected",
+  "Build something genuinely complicated with the internet switched off. A running experiment, and what it costs.",
+  "In production"),
+]
+ROMAN = ["I","II","III","IV","V","VI"]
+
+def podcast():
+    rows = []
+    for i,(title, q, status) in enumerate(EPISODES):
+        slug = title.lower().replace(" ","-").replace("&amp;","and")
+        rows.append(f'''      <li class="ep">
+        <span class="ep__no">No. {ROMAN[i]}</span>
+        <div class="ep__body">
+          <h3 class="ep__title">{title}</h3>
+          <p class="ep__q">{q}</p>
+          <!-- DROP MP3 HERE: replace this comment with
+               <audio class="ep__audio" controls preload="none" src="audio/{i+1:02d}-{slug}.mp3"></audio> -->
+        </div>
+        <span class="ep__status">{status}</span>
+      </li>''')
+    return ('\n<!-- =========================================================== PODCAST === -->\n'
+            '<section class="pod" id="podcast">\n'
+            '  <div class="shell">\n'
+            '    <div class="pod__head">\n'
+            '      <p class="pod__label">The Podcast</p>\n'
+            '      <h2 class="pod__title">In The Belly</h2>\n'
+            '      <p class="pod__note">Conversations on the creativity inside M&amp;A. Guests are being '
+            'booked now; episodes are listed here as they are cut.</p>\n'
+            '    </div>\n'
+            '    <ol class="pod__list">\n'
+            + "\n".join(rows) + "\n"
+            '    </ol>\n'
+            '  </div>\n'
+            '</section>\n')
+
 FOOT = """
 <footer class="foot">
   <div class="shell foot__in">
@@ -244,7 +295,7 @@ def build_index():
 
     html = (HEAD.format(title="The Trojan Horse",
                         desc="A mergers and acquisitions journal and podcast by Francis Ruan.")
-            + CAPITAL_DEF + COVER.replace("{PICKER}", picker) + ESSAY + FOOT)
+            + CAPITAL_DEF + COVER.replace("{PICKER}", picker) + ESSAY + podcast() + FOOT)
     (ROOT / "index.html").write_text(html, encoding="utf-8")
     print("index.html")
 
