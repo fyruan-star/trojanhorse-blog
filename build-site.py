@@ -132,6 +132,8 @@ COVER = """
 <header class="cover">
   <div class="shell"><div class="cover__rule"></div></div>
 
+{PICKER}
+
   <div class="shell cover__stage">
     <p class="cover__wordmark">The Trojan Horse</p>
     <img class="cover__horse" src="images/horse-light.png"
@@ -141,7 +143,6 @@ COVER = """
 
   <div class="cover__mist" aria-hidden="true"></div>
 
-{PICKER}
   <div class="shell cover__foot">
     <div class="cover__rule"></div>
     <a class="cover__scroll" href="#opening">Scroll</a>
