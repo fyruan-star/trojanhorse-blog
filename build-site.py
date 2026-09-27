@@ -21,13 +21,13 @@ STORY = {
 }
 
 SILOS = [
- dict(slug="agorastes", name="Agorastes", desc=("On The Consumer",),
+ dict(slug="agorastes", name="Agorastes", word="Consumer", desc=("On The Consumer",),
       blurb="Brands bought for shelf, story and the household that already trusts them.",
       stories=["premium-without-profit", "two-versus-six"]),
- dict(slug="hygeia", name="Hygeia", desc=("On Wellness", "and Health"),
+ dict(slug="hygeia", name="Hygeia", word="Health", desc=("On Wellness", "and Health"),
       blurb="Supplements, nutrition and the long argument about living longer.",
       stories=["the-missing-fifth", "the-margin-gap", "owning-the-clock"]),
- dict(slug="techne", name="Techne", desc=("On Technology", "and Innovation"),
+ dict(slug="techne", name="Techne", word="Tech", desc=("On Technology", "and Innovation"),
       blurb="Infrastructure, standards and the software underneath the software.",
       stories=["buying-the-standard", "bought-then-freed"]),
 ]
@@ -56,9 +56,9 @@ HEAD = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" type="image/png" href="/favicon.png?v=2">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
@@ -132,10 +132,13 @@ COVER = """
 <header class="cover">
   <div class="shell"><div class="cover__rule"></div></div>
 
+  <div class="shell cover__top">
+    <p class="cover__wordmark">The Trojan Horse</p>
+  </div>
+
 {PICKER}
 
   <div class="shell cover__stage">
-    <p class="cover__wordmark">The Trojan Horse</p>
     <img class="cover__horse" src="images/horse-light.png"
          alt="A rearing horse drawn in silver line work, its hindquarters breaking apart into fragments">
     <p class="cover__tag">A Mergers and Acquisitions<br>Journal &amp; Podcast</p>
@@ -228,13 +231,10 @@ def belt(slugs):
 def build_index():
     cards = []
     for s in SILOS:
-        desc = "<br>".join(s["desc"])
-        n = len(s["stories"])
         cards.append(f'''      <a class="silo" href="{s["slug"]}.html">
         <span class="silo__name">{s["name"]}</span>
         <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
-        <span class="silo__desc">{desc}</span>
-        <span class="silo__count">{n} {"story" if n == 1 else "stories"}</span>
+        <span class="silo__word">{s["word"]}</span>
       </a>''')
 
     picker = ('  <div class="shell cover__picker">\n'
@@ -252,7 +252,7 @@ def build_index():
 
 
 def build_silo(s):
-    desc = " ".join(s["desc"])
+    desc = s["word"]
     html = (HEAD.format(title=f'{s["name"]} | The Trojan Horse',
                         desc=f'{desc}. {s["blurb"]}')
             + VINE_DEF + f'''
