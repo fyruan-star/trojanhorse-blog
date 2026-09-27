@@ -176,3 +176,8 @@ body::before{
 @media (max-width:520px){
   .body p, .asks li{ text-align:left; hyphens:manual; }
 }
+.pullish{
+  font-size:clamp(17px,1.9vw,22px) !important; line-height:1.4 !important;
+  text-align:center !important; font-style:italic;
+  margin:1.4em 0 !important; color:var(--ink);
+}

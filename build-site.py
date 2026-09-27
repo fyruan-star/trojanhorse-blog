@@ -12,6 +12,7 @@ ROOT = pathlib.Path(__file__).parent
 # slug, three-word title, the party, the M&A line printed under it
 STORY = {
  "buying-the-standard":    ("Buying The Standard",    "Databricks / Tabular",                "Enterprise Data M&amp;A"),
+ "the-boring-layer":       ("The Boring Layer",       "DDN / Blackstone",                    "AI Infrastructure M&amp;A"),
  "bought-then-freed":      ("Bought Then Freed",      "NVIDIA / Run:ai",                     "AI Infrastructure M&amp;A"),
  "the-missing-fifth":      ("The Missing Fifth",      "Unilever / Gr&uuml;ns",               "Consumer Health M&amp;A"),
  "premium-without-profit": ("Premium Without Profit", "Mars / Hotel Chocolat",               "Premium Consumer M&amp;A"),
@@ -29,7 +30,7 @@ SILOS = [
       stories=["the-missing-fifth", "the-margin-gap", "owning-the-clock"]),
  dict(slug="techne", name="Techne", word="Tech", desc=("On Technology", "and Innovation"),
       blurb="Infrastructure, standards and the software underneath the software.",
-      stories=["buying-the-standard", "bought-then-freed"]),
+      stories=["buying-the-standard", "bought-then-freed", "the-boring-layer"]),
 ]
 
 def check_disjoint():
