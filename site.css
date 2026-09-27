@@ -350,3 +350,36 @@ body::before{
   .silos__grid{ grid-template-columns:1fr; }
   .silos__grid .silo:nth-child(3){ aspect-ratio:1/1.1; }
 }
+
+/* ========================================================== DEFINITION ====
+   Ported from the curiosity plate on francisruan.com: the word set large and
+   alone, a rule under it, the gloss and the pronunciation sharing the line.
+   Set wider than the reading measure on purpose, so it breaks out of the
+   prose rather than sitting inside it. */
+.defn{
+  max-width:880px; margin:clamp(34px,5vw,60px) auto clamp(36px,5.5vw,66px);
+}
+.defn .defn__w{
+  font-family:var(--f); font-weight:600; font-style:normal;
+  font-size:clamp(3.2rem,12vw,8.5rem); line-height:.9; letter-spacing:-.035em;
+  margin:0; color:var(--silver);
+}
+.defn .defn__b{
+  display:grid; grid-template-columns:minmax(0,1fr) auto;
+  gap:1rem clamp(1.5rem,4vw,3rem); align-items:start;
+  border-top:1px solid var(--rule); margin-top:.5rem; padding-top:.9rem;
+}
+.defn .defn__d{
+  margin:0; max-width:52ch;
+  font-size:clamp(.95rem,1.15vw,1.05rem); line-height:1.55;
+  color:var(--silver-dim); text-wrap:pretty;
+}
+.defn .defn__p{
+  margin:0; white-space:nowrap; font-family:var(--f);
+  font-size:clamp(.95rem,1.6vw,1.15rem); color:var(--silver);
+}
+.defn .defn__p em{ font-style:italic; }
+@media (max-width:640px){
+  .defn .defn__b{ grid-template-columns:1fr; }
+  .defn .defn__p{ order:-1; }
+}
