@@ -155,29 +155,23 @@ COVER = """
 """
 
 ESSAY = """
-<!-- ============================================================= ESSAY === -->
+<!-- ============================================================== TALE === -->
 <section class="essay" id="opening">
   <div class="shell">
 
-    <div class="essay__inner">
-      <p>Ever since I was a kid, I&rsquo;ve found my peace through writing, in stories, letters, -isms, and planning. Being able to jot down and wrestle with complex ideas or experiences has always brought along great joy in my life.</p>
-      <p>Yet today&rsquo;s status quo demands the exact opposite. I see a heavy reliance on consensus narratives, a collective cognitive offloading that is increasingly eroding our fundamental instinct to question the norm.</p>
-      <p>The idea for this site actually started because I just wanted to find my own thoughts among the clutter of financial news and show it to the world through my art and personality.</p>
-      <p>With the rise of over summarization and a splurge of low friction short form content, it is often easy to allow for neuroplastic degradation, or in normal english: a loss of curiosity.</p>
+    <div class="tale">
+      <p class="tale__open"><span class="tale__cap">F</span>or ten years the Greeks hurled themselves against the walls of Troy and never breached them. Then they built a wooden horse, left it on the shore as a gift, and sailed away as though the war were over. The Trojans wheeled it through their own gates. That night, soldiers slipped from its belly and opened the city from within.</p>
     </div>
 
-    <figure class="defn">
-      <p class="defn__w">curiosity</p>
-      <div class="defn__b">
-        <p class="defn__d">not the wish to know a thing, which is appetite and passes, but the refusal to accept the headline as the answer. the suspicion that every explanation you were handed is the shortened version, and the willingness to be the only person in the room still asking after everybody else has moved on.</p>
-        <p class="defn__p">[ kyoor-ee-<em>os</em>-i-tee ]</p>
-      </div>
+    <figure class="creed">
+      <p class="creed__l">The strongest walls are rarely broken.</p>
+      <p class="creed__l creed__l--turn">They are opened by the people they were built to protect.</p>
     </figure>
 
-    <div class="essay__inner">
-      <p>The Trojan Horse was built to challenge complacency. Why M&amp;A? Because corporate acquisitions are the invisible architecture of our daily lives. M&amp;A is the ultimate collision of game theory, psychology, and global power. It is a hyper-complex puzzle that forces us to look past the spreadsheets and ask why the pieces are actually moving. It&rsquo;s a vehicle meant to bypass the noise and wake up our inherent desire to decode the world.</p>
-      <p>I built this to refine my voice and present analysis as art.</p>
-      <p class="essay__sign">My name is Francis Ruan, and I welcome you to the Trojan Horse.</p>
+    <div class="tale">
+      <p>Mergers and acquisitions are wars fought in boardrooms rather than on battlefields. Companies lay siege to one another, build defenses, forge alliances, and, when force fails, reach for the oldest weapon of all: an offer too attractive to refuse. Every deal is a horse left at the gates, and the question is always what it holds.</p>
+      <p>Here, I tell those deals as stories. I trace the strategy behind every move, the deception, real and imagined, that shapes what each side believes, and the leverage that passes from hand to hand. No finance degree required. Only the curiosity to stand before the horse and wonder what&rsquo;s inside.</p>
+      <p class="tale__sign">My name is Francis Ruan.<br>Welcome to The Trojan Horse.</p>
     </div>
 
   </div>
@@ -258,17 +252,16 @@ def build_podcast():
     print("podcast.html")
 
 
+# The podcast is the last thing on the page and says nothing. The mark is the
+# whole invitation; it opens the page of episodes that are still being cut.
 ROOMS = """
-<!-- ============================================================= ROOMS === -->
-<section class="rooms">
-  <div class="shell">
-    <a class="room" href="podcast.html">
-      <span class="room__label">The Podcast</span>
-      <span class="room__name">In The Belly</span>
-      <span class="room__q">Conversations on the mechanisms underneath M&amp;A.</span>
-      <span class="room__go">Listen &rarr;</span>
-    </a>
-  </div>
+<!-- =========================================================== PODCAST === -->
+<section class="spot">
+  <a class="spot__link" href="podcast.html" aria-label="In The Belly, the Trojan Horse podcast">
+    <svg class="spot__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
 </section>
 """
 
@@ -357,7 +350,7 @@ def build_index():
 
     html = (HEAD.format(title="The Trojan Horse",
                         desc="A mergers and acquisitions journal and podcast by Francis Ruan.")
-            + CAPITAL_DEF + COVER.replace("{PICKER}", picker) + ESSAY + ROOMS + FIRST + FOOT)
+            + CAPITAL_DEF + COVER.replace("{PICKER}", picker) + ESSAY + FIRST + ROOMS + FOOT)
     (ROOT / "index.html").write_text(html, encoding="utf-8")
     print("index.html")
 

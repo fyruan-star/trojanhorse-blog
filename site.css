@@ -104,18 +104,54 @@ body::before{
 }
 .cover__scroll:hover{ color:var(--silver); }
 
-/* ============================================================== ESSAY === */
+/* =============================================================== TALE === */
+/* .essay p is (0,1,1), so anything meant to beat it needs two classes.
+   .creed__l and .tale__sign are scoped for exactly that reason. */
 .essay{ padding:clamp(72px,11vw,150px) 0 clamp(50px,7vw,90px); }
-.essay__inner{ max-width:64ch; margin-inline:auto; }
+.tale{ max-width:min(660px,94%); margin-inline:auto; }
 .essay p{
   font-size:clamp(18px,1.42vw,22px); line-height:1.72;
   color:var(--silver-dim); text-wrap:pretty;
 }
 .essay p + p{ margin-top:1.15em; }
-.essay__sign{
-  margin-top:1.6em; font-style:italic;
-  font-size:clamp(19px,1.5vw,24px); color:var(--silver);
+
+/* the myth, set a shade brighter than the argument that follows it */
+.essay .tale__open{ font-size:clamp(19px,1.5vw,23px); color:var(--silver); }
+.tale__cap{
+  float:left; font-family:inherit; font-weight:500;
+  font-size:4.15em; line-height:.76; margin:.03em .07em -.04em 0;
+  color:var(--silver);
 }
+
+/* the turn. Two lines, ruled top and bottom, the second one carrying it. */
+.creed{
+  margin:clamp(48px,6.6vw,88px) auto; padding-block:clamp(30px,4.2vw,54px);
+  max-width:min(660px,94%); text-align:center;
+  border-block:1px solid rgba(226,233,243,.17);
+}
+.essay .creed__l{
+  font-size:clamp(23px,2.55vw,36px); line-height:1.28;
+  color:var(--silver-dim); text-wrap:balance;
+}
+.essay .creed__l--turn{
+  margin-top:.66em; font-style:italic; color:var(--silver);
+}
+
+.essay .tale__sign{
+  margin-top:clamp(30px,3.6vw,48px); font-style:italic; line-height:1.42;
+  font-size:clamp(20px,1.68vw,27px); color:var(--silver);
+}
+
+/* =========================================================== SPOTIFY === */
+/* Last thing on the page, and wordless on purpose. */
+.spot{ padding:clamp(20px,3vw,40px) 0 clamp(64px,9vw,112px); text-align:center; }
+.spot__link{
+  display:inline-block; line-height:0; border-radius:50%;
+  color:var(--silver-faint); transition:color .32s ease, transform .32s ease;
+}
+.spot__link:hover{ color:#1DB954; transform:translateY(-2px); }
+.spot__link:focus-visible{ outline:2px solid var(--silver); outline-offset:6px; }
+.spot__mark{ width:clamp(38px,4vw,52px); height:auto; display:block; }
 
 /* =========================================================== THE BELT === */
 .belt{ padding:clamp(34px,6vw,80px) 0 clamp(80px,11vw,150px); }
@@ -495,41 +531,6 @@ body::before{
   .fp__go{ grid-column:2; margin-top:.6em; }
 }
 
-/* ============================================================== ROOMS ====
-   The podcast lives on its own page now; this is the way in. */
-.rooms{ padding:0 0 clamp(50px,7vw,90px); }
-.room{
-  display:grid; grid-template-columns:minmax(0,1fr) auto;
-  grid-template-areas:"label go" "name go" "q go";
-  gap:.35em clamp(16px,2.6vw,36px); align-items:center;
-  max-width:820px; margin-inline:auto;
-  padding:clamp(20px,2.8vw,32px) clamp(6px,1vw,14px);
-  border-top:1px solid rgba(226,233,243,.16);
-  border-bottom:1px solid rgba(226,233,243,.16);
-  transition:background .3s ease;
-}
-.room:hover{ background:rgba(226,233,243,.05); }
-.room:focus-visible{ outline:2px solid var(--silver); outline-offset:3px; }
-.room__label{
-  grid-area:label; font-size:10.5px; letter-spacing:.28em; text-transform:uppercase;
-  color:var(--silver-faint);
-}
-.room__name{
-  grid-area:name; font-size:clamp(24px,3vw,40px); font-weight:500; line-height:1.05;
-  letter-spacing:-.012em; color:var(--silver);
-}
-.room__q{
-  grid-area:q; font-size:clamp(14px,1.34vw,16.5px); line-height:1.5;
-  color:var(--silver-dim); max-width:48ch;
-}
-.room__go{
-  grid-area:go; font-size:11px; letter-spacing:.14em; text-transform:uppercase;
-  color:var(--silver-faint); white-space:nowrap; transition:color .3s ease;
-}
-.room:hover .room__go{ color:var(--silver); }
 .pod--page{ padding-top:0; }
 .pod--page .pod__list{ border-top:1px solid rgba(226,233,243,.16); }
-@media (max-width:620px){
-  .room{ grid-template-columns:minmax(0,1fr); grid-template-areas:"label" "name" "q" "go"; }
-  .room__go{ margin-top:.5em; }
-}
+
