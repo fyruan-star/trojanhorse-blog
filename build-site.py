@@ -140,7 +140,7 @@ COVER = """
   <div class="shell cover__stage">
     <img class="cover__horse" src="images/horse-light.png"
          alt="A rearing horse drawn in silver line work, its hindquarters breaking apart into fragments">
-    <p class="cover__tag">A Mergers and Acquisitions<br>Journal &amp; Podcast</p>
+    <p class="cover__tag">Mergers &amp; Acquisitions<span class="cover__tag__sub">A Journal of Strategy &amp; Conquest</span></p>
   </div>
 
   <div class="cover__mist" aria-hidden="true"></div>
@@ -342,19 +342,18 @@ def belt(slugs):
 
 
 def build_index():
-    cards = []
-    for s in SILOS:
-        cards.append(f'''      <a class="silo" href="{s["slug"]}.html">
-        <span class="silo__name">{s["name"]}</span>
+    # One door, not three. The verticals still organise the writing; they are
+    # no longer the first decision a reader is asked to make.
+    picker = ('''  <div class="shell cover__picker">
+    <div class="silos__grid silos__grid--one">
+      <a class="silo silo--solo" href="strategemata.html">
+        <span class="silo__name">Strategemata</span>
         <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
-        <span class="silo__word">{s["word"]}</span>
-      </a>''')
-
-    picker = ('  <div class="shell cover__picker">\n'
-              '    <div class="silos__grid">\n'
-              + "\n".join(cards) + "\n"
-              '    </div>\n'
-              '  </div>\n')
+        <span class="silo__word">Read Stories</span>
+      </a>
+    </div>
+  </div>
+''')
 
     html = (HEAD.format(title="The Trojan Horse",
                         desc="A mergers and acquisitions journal and podcast by Francis Ruan.")
@@ -363,12 +362,43 @@ def build_index():
     print("index.html")
 
 
+STRAT_BLURB = ("Frontinus wrote down the stratagems of Roman commanders so the "
+               "next one would recognise the move on sight. Mine are here for "
+               "the same reason.")
+
+def build_stories_page():
+    """Every deal note on one vine, in silo order so neighbours rhyme."""
+    order = [slug for s in SILOS for slug in s["stories"]]
+    html = (HEAD.format(title="Strategemata | The Trojan Horse",
+                        desc="Every deal note in The Trojan Horse. " + STRAT_BLURB)
+            + VINE_DEF + f'''
+<a class="back" href="index.html">&larr; The Trojan Horse</a>
+
+<header class="silohead">
+  <div class="shell">
+    <p class="silohead__kicker">The Stories</p>
+    <h1 class="silohead__name">Strategemata</h1>
+    <p class="silohead__blurb">{STRAT_BLURB}</p>
+    <div class="silohead__line" aria-hidden="true"></div>
+  </div>
+</header>
+
+<main class="belt" id="stories">
+  <div class="shell">
+{belt(order)}
+  </div>
+</main>
+''' + FOOT)
+    (ROOT / "strategemata.html").write_text(html, encoding="utf-8")
+    print(f"strategemata.html  ({len(order)} stories)")
+
+
 def build_silo(s):
     desc = s["word"]
     html = (HEAD.format(title=f'{s["name"]} | The Trojan Horse',
                         desc=f'{desc}. {s["blurb"]}')
             + VINE_DEF + f'''
-<a class="back" href="index.html">&larr; All verticals</a>
+<a class="back" href="strategemata.html">&larr; All stories</a>
 
 <header class="silohead">
   <div class="shell">
@@ -393,6 +423,7 @@ if __name__ == "__main__":
     mapping = check_disjoint()
     print(f"{len(mapping)} stories, each in exactly one silo\n")
     build_index()
+    build_stories_page()
     for s in SILOS:
         build_silo(s)
     build_podcast()

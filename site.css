@@ -75,7 +75,14 @@ body::before{
   grid-column:2; align-self:center; justify-self:start;
   font-style:italic; font-weight:400;
   font-size:clamp(19px,2.05vw,30px); line-height:1.34;
-  color:var(--silver); max-width:24ch;
+  color:var(--silver); max-width:none;
+}
+/* The standfirst is the long line here, not the italic above it, so the tag
+   carries no ch cap on the wide layout and the sub holds one line. */
+.cover__tag__sub{
+  display:block; margin-top:.62em; white-space:nowrap;
+  font-style:normal; font-size:.5em; line-height:1.45;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--silver-dim);
 }
 
 /* the fog bank sitting on the fold */
@@ -240,9 +247,13 @@ body::before{
 @media (max-width:820px){
   .cover__stage{ grid-template-columns:1fr; justify-items:center;
     padding-top:clamp(74px,17vw,120px); gap:clamp(18px,4vw,34px); }
-  .cover__wordmark{ left:50%; transform:translateX(-50%); letter-spacing:.26em; }
+  /* The wordmark was absolutely positioned when this rule was written and is
+     static now, so the old centring transform dragged the full-width block
+     half a shell off the left edge. Centre it with text-align instead. */
+  .cover__wordmark{ transform:none; text-align:center; letter-spacing:.26em; }
   .cover__horse{ grid-column:1; height:clamp(200px,44vw,320px); }
   .cover__tag{ grid-column:1; justify-self:center; text-align:center; max-width:20ch; }
+  .cover__tag__sub{ white-space:normal; letter-spacing:.16em; }
 }
 @media (max-width:520px){
   .cover__wordmark{ font-size:13px; letter-spacing:.2em; }
@@ -280,6 +291,21 @@ body::before{
 }
 .silo:hover{ background:rgba(226,233,243,.06); border-color:rgba(226,233,243,.18); }
 .silo:focus-visible{ outline:2px solid var(--silver); outline-offset:3px; }
+
+.silos__grid--one{
+  grid-template-columns:auto; justify-content:center; max-width:none;
+}
+.silo--solo{
+  gap:clamp(5px,.7vw,9px);
+  padding:clamp(11px,1.35vw,16px) clamp(20px,2.6vw,34px);
+}
+.silo--solo .silo__name{ font-size:clamp(15px,1.6vw,21px); letter-spacing:.02em; }
+.silo--solo .silo__cap{ width:clamp(17px,1.85vw,24px); }
+.silo--solo .silo__word{
+  font-size:clamp(11px,1.1vw,13.5px); letter-spacing:.16em; text-transform:uppercase;
+  color:var(--silver-faint);
+}
+.silo--solo:hover .silo__word{ color:var(--silver-dim); }
 .silo__name{
   font-size:clamp(13px,1.3vw,17px); font-weight:500; line-height:1.05;
   letter-spacing:.012em; color:var(--silver);

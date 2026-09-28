@@ -32,7 +32,7 @@ PAGE = """<!doctype html>
 </head>
 <body>
 
-<a class="back" href="index.html">&larr; The Trojan Horse</a>
+<a class="back" href="strategemata.html">&larr; Strategemata</a>
 
 <article class="sheet sheet--long">
 
