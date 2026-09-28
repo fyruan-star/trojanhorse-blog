@@ -265,31 +265,6 @@ ROOMS = """
 </section>
 """
 
-FIRST = """
-<!-- ==================================================== FIRST PRINCIPLES === -->
-<section class="fp" id="first-principles">
-  <div class="shell">
-    <div class="fp__head">
-      <p class="fp__label">First Principles</p>
-      <h2 class="fp__title">Underneath It</h2>
-      <p class="fp__note">Pieces that go at the assumption rather than the deal. Slower, and the ones I care most about.</p>
-    </div>
-    <ol class="fp__list">
-      <li>
-        <a class="fp__item" href="the-wrong-question.html">
-          <span class="fp__no">No. I</span>
-          <span class="fp__body">
-            <span class="fp__h">The Wrong Question</span>
-            <span class="fp__q">A spreadsheet can be perfectly calculated and still answer the wrong question. What a record of 13,019 valuation multiples says about the habits underneath the methods.</span>
-          </span>
-          <span class="fp__go">Read &rarr;</span>
-        </a>
-      </li>
-    </ol>
-  </div>
-</section>
-"""
-
 FOOT = """
 <footer class="foot">
   <div class="shell foot__in">
@@ -350,9 +325,35 @@ def build_index():
 
     html = (HEAD.format(title="The Trojan Horse",
                         desc="A mergers and acquisitions journal and podcast by Francis Ruan.")
-            + CAPITAL_DEF + COVER.replace("{PICKER}", picker) + ESSAY + FIRST + ROOMS + FOOT)
+            + CAPITAL_DEF + COVER.replace("{PICKER}", picker) + ESSAY + ROOMS + FOOT)
     (ROOT / "index.html").write_text(html, encoding="utf-8")
     print("index.html")
+
+
+FIRST = """
+<!-- ==================================================== FIRST PRINCIPLES === -->
+<section class="fp fp--page" id="first-principles">
+  <div class="shell">
+    <div class="fp__head">
+      <p class="fp__label">First Principles</p>
+      <h2 class="fp__title">Underneath It</h2>
+      <p class="fp__note">Pieces that go at the assumption rather than the deal. Slower, and the ones I care most about.</p>
+    </div>
+    <ol class="fp__list">
+      <li>
+        <a class="fp__item" href="the-wrong-question.html">
+          <span class="fp__no">No. I</span>
+          <span class="fp__body">
+            <span class="fp__h">The Wrong Question</span>
+            <span class="fp__q">A spreadsheet can be perfectly calculated and still answer the wrong question. What a record of 13,019 valuation multiples says about the habits underneath the methods.</span>
+          </span>
+          <span class="fp__go">Read &rarr;</span>
+        </a>
+      </li>
+    </ol>
+  </div>
+</section>
+"""
 
 
 STRAT_BLURB = ("Frontinus wrote down the stratagems of Roman commanders so the "
@@ -381,7 +382,7 @@ def build_stories_page():
 {belt(order)}
   </div>
 </main>
-''' + FOOT)
+''' + FIRST + FOOT)
     (ROOT / "strategemata.html").write_text(html, encoding="utf-8")
     print(f"strategemata.html  ({len(order)} stories)")
 
