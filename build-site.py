@@ -330,6 +330,32 @@ def build_index():
     print("index.html")
 
 
+# First Principles: the pieces that go at the assumption rather than the deal.
+PRINCIPLES = [
+ ("the-wrong-question.html", "The Wrong Question",
+  "A spreadsheet can be perfectly calculated and still answer the wrong question. "
+  "What a record of 13,019 valuation multiples says about the habits underneath the methods."),
+ ("the-buyers-bank.html", "The Buyer&rsquo;s Bank",
+  "Fifty-seven companies, six technology names, and one $32bn mandate that sat on the wrong side "
+  "of the table. What the filings say a coverage desk is actually selling."),
+]
+ROMAN_FP = ["I","II","III","IV","V","VI","VII","VIII"]
+
+def principle_rows():
+    out = []
+    for i, (href, title, note) in enumerate(PRINCIPLES):
+        out.append(f'''      <li>
+        <a class="fp__item" href="{href}">
+          <span class="fp__no">No. {ROMAN_FP[i]}</span>
+          <span class="fp__body">
+            <span class="fp__h">{title}</span>
+            <span class="fp__q">{note}</span>
+          </span>
+          <span class="fp__go">Read &rarr;</span>
+        </a>
+      </li>''')
+    return "\n".join(out)
+
 FIRST = """
 <!-- ==================================================== FIRST PRINCIPLES === -->
 <section class="fp fp--page" id="first-principles">
@@ -340,20 +366,11 @@ FIRST = """
       <p class="fp__note">Pieces that go at the assumption rather than the deal. Slower, and the ones I care most about.</p>
     </div>
     <ol class="fp__list">
-      <li>
-        <a class="fp__item" href="the-wrong-question.html">
-          <span class="fp__no">No. I</span>
-          <span class="fp__body">
-            <span class="fp__h">The Wrong Question</span>
-            <span class="fp__q">A spreadsheet can be perfectly calculated and still answer the wrong question. What a record of 13,019 valuation multiples says about the habits underneath the methods.</span>
-          </span>
-          <span class="fp__go">Read &rarr;</span>
-        </a>
-      </li>
+{ROWS}
     </ol>
   </div>
 </section>
-"""
+""".replace("{ROWS}", principle_rows())
 
 
 STRAT_BLURB = ("Frontinus wrote down the stratagems of Roman commanders so the "
