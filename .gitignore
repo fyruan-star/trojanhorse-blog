@@ -1,3 +1,6 @@
 __pycache__/
 .DS_Store
 images/horse.webp
+
+# Archived writing. Kept on disk, never deployed.
+archive/

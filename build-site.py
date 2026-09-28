@@ -1,51 +1,19 @@
 #!/usr/bin/env python3
-"""Emit the index and the three silo pages from one source of truth.
+"""Emit the index, the stories page and the podcast page.
 
-The reader picks a vertical before any story is shown. Each story belongs to
-exactly one silo; SILOS below is the only place that mapping lives, and
-check_disjoint() refuses to build if a slug ever appears twice.
+The site shows one story. Everything previously published lives in archive/,
+which is git-ignored, so it stays on disk and never reaches the web. To bring
+a piece back: move its html out of archive/, add it to STORY below, rebuild.
 """
 import pathlib, sys
 
 ROOT = pathlib.Path(__file__).parent
 
-# slug, three-word title, the party, the M&A line printed under it
+# The one story the site shows. Everything else lives in archive/, which is
+# git-ignored and never deployed.
 STORY = {
- "buying-the-standard":    ("Buying The Standard",    "Databricks / Tabular",                "Enterprise Data M&amp;A"),
- "the-boring-layer":       ("The Boring Layer",       "DDN / Blackstone",                    "AI Infrastructure M&amp;A"),
- "bought-then-freed":      ("Bought Then Freed",      "NVIDIA / Run:ai",                     "AI Infrastructure M&amp;A"),
- "the-missing-fifth":      ("The Missing Fifth",      "Unilever / Gr&uuml;ns",               "Consumer Health M&amp;A"),
- "premium-without-profit": ("Premium Without Profit", "Mars / Hotel Chocolat",               "Premium Consumer M&amp;A"),
- "the-margin-gap":         ("The Margin Gap",         "Danone / Huel",                       "Functional Nutrition M&amp;A"),
- "two-versus-six":         ("Two Versus Six",         "L Catterton / Good Culture",          "Sponsor Strategy M&amp;A"),
- "owning-the-clock":       ("Owning The Clock",       "Infinite Epigenetics / Tally Health", "Longevity Tech M&amp;A"),
+ "the-buyers-bank": ("The Buyer&rsquo;s Bank", "BofA Securities", "Technology Coverage M&amp;A"),
 }
-
-SILOS = [
- dict(slug="agorastes", name="Agorastes", word="Consumer", desc=("On The Consumer",),
-      blurb="Brands bought for shelf, story and the household that already trusts them.",
-      stories=["premium-without-profit", "two-versus-six"]),
- dict(slug="hygeia", name="Hygeia", word="Health", desc=("On Wellness", "and Health"),
-      blurb="Supplements, nutrition and the long argument about living longer.",
-      stories=["the-missing-fifth", "the-margin-gap", "owning-the-clock"]),
- dict(slug="techne", name="Techne", word="Tech", desc=("On Technology", "and Innovation"),
-      blurb="Infrastructure, standards and the software underneath the software.",
-      stories=["buying-the-standard", "bought-then-freed", "the-boring-layer"]),
-]
-
-def check_disjoint():
-    seen, dupes = {}, []
-    for s in SILOS:
-        for slug in s["stories"]:
-            if slug not in STORY:
-                sys.exit(f"unknown story: {slug}")
-            if slug in seen:
-                dupes.append(f'{slug} in both {seen[slug]} and {s["slug"]}')
-            seen[slug] = s["slug"]
-    missing = set(STORY) - set(seen)
-    if dupes: sys.exit("stories duplicated across silos:\n  " + "\n  ".join(dupes))
-    if missing: sys.exit(f"stories in no silo: {sorted(missing)}")
-    return seen
 
 HEAD = """<!doctype html>
 <html lang="en">
@@ -330,56 +298,13 @@ def build_index():
     print("index.html")
 
 
-# First Principles: the pieces that go at the assumption rather than the deal.
-PRINCIPLES = [
- ("the-wrong-question.html", "The Wrong Question",
-  "A spreadsheet can be perfectly calculated and still answer the wrong question. "
-  "What a record of 13,019 valuation multiples says about the habits underneath the methods."),
- ("the-buyers-bank.html", "The Buyer&rsquo;s Bank",
-  "Fifty-seven companies, six technology names, and one $32bn mandate that sat on the wrong side "
-  "of the table. What the filings say a coverage desk is actually selling."),
-]
-ROMAN_FP = ["I","II","III","IV","V","VI","VII","VIII"]
-
-def principle_rows():
-    out = []
-    for i, (href, title, note) in enumerate(PRINCIPLES):
-        out.append(f'''      <li>
-        <a class="fp__item" href="{href}">
-          <span class="fp__no">No. {ROMAN_FP[i]}</span>
-          <span class="fp__body">
-            <span class="fp__h">{title}</span>
-            <span class="fp__q">{note}</span>
-          </span>
-          <span class="fp__go">Read &rarr;</span>
-        </a>
-      </li>''')
-    return "\n".join(out)
-
-FIRST = """
-<!-- ==================================================== FIRST PRINCIPLES === -->
-<section class="fp fp--page" id="first-principles">
-  <div class="shell">
-    <div class="fp__head">
-      <p class="fp__label">First Principles</p>
-      <h2 class="fp__title">Underneath It</h2>
-      <p class="fp__note">Pieces that go at the assumption rather than the deal. Slower, and the ones I care most about.</p>
-    </div>
-    <ol class="fp__list">
-{ROWS}
-    </ol>
-  </div>
-</section>
-""".replace("{ROWS}", principle_rows())
-
-
 STRAT_BLURB = ("Frontinus wrote down the stratagems of Roman commanders so the "
                "next one would recognise the move on sight. Mine are here for "
                "the same reason.")
 
 def build_stories_page():
     """Every deal note on one vine, in silo order so neighbours rhyme."""
-    order = [slug for s in SILOS for slug in s["stories"]]
+    order = list(STORY)
     html = (HEAD.format(title="Strategemata | The Trojan Horse",
                         desc="Every deal note in The Trojan Horse. " + STRAT_BLURB)
             + VINE_DEF + f'''
@@ -399,42 +324,12 @@ def build_stories_page():
 {belt(order)}
   </div>
 </main>
-''' + FIRST + FOOT)
+''' + FOOT)
     (ROOT / "strategemata.html").write_text(html, encoding="utf-8")
     print(f"strategemata.html  ({len(order)} stories)")
 
 
-def build_silo(s):
-    desc = s["word"]
-    html = (HEAD.format(title=f'{s["name"]} | The Trojan Horse',
-                        desc=f'{desc}. {s["blurb"]}')
-            + VINE_DEF + f'''
-<a class="back" href="strategemata.html">&larr; All stories</a>
-
-<header class="silohead">
-  <div class="shell">
-    <p class="silohead__kicker">{desc}</p>
-    <h1 class="silohead__name">{s["name"]}</h1>
-    <p class="silohead__blurb">{s["blurb"]}</p>
-    <div class="silohead__line" aria-hidden="true"></div>
-  </div>
-</header>
-
-<main class="belt" id="stories">
-  <div class="shell">
-{belt(s["stories"])}
-  </div>
-</main>
-''' + FOOT)
-    (ROOT / f'{s["slug"]}.html').write_text(html, encoding="utf-8")
-    print(f'{s["slug"]}.html  ({len(s["stories"])} stories)')
-
-
 if __name__ == "__main__":
-    mapping = check_disjoint()
-    print(f"{len(mapping)} stories, each in exactly one silo\n")
     build_index()
     build_stories_page()
-    for s in SILOS:
-        build_silo(s)
     build_podcast()
