@@ -540,3 +540,130 @@ body::before{
 .pod--page{ padding-top:0; }
 .pod--page .pod__list{ border-top:1px solid rgba(226,233,243,.16); }
 
+/* =========================================================== KATABASIS ===
+   A descent. The spine runs down the middle and its width is the money, so
+   the shape of the decade reads before a single word does. Nodes alternate
+   sides and reach back to the spine with a hairline. */
+
+.kata{ padding:clamp(20px,4vw,48px) 0 clamp(70px,10vw,130px); }
+
+/* flow-root matters: the last node's bottom margin was collapsing out
+   through .yr, leaving a 56px gap in the spine at every year boundary */
+.yr{ position:relative; display:flow-root; padding-block:clamp(30px,5vw,64px) 0; }
+
+/* each year's segment is a trapezoid from its own width to the next year's,
+   so the segments stack into one continuous tapering line */
+.yr__spine{
+  position:absolute; left:50%; transform:translateX(-50%);
+  top:0; bottom:0; width:48px; z-index:0; pointer-events:none;
+  background:linear-gradient(180deg,
+    rgba(226,233,243,.26) 0%, rgba(226,233,243,.40) 100%);
+}
+
+.yr__num{
+  position:relative; z-index:2; width:max-content; margin:0 auto clamp(18px,3vw,34px);
+  padding:.35em .9em; background:var(--navy);
+  font-size:clamp(13px,1.3vw,17px); letter-spacing:.34em;
+  color:var(--silver-dim);
+}
+
+.node{
+  position:relative; z-index:1;
+  width:calc(50% - 54px);
+  margin-block:0 clamp(28px,4.4vw,56px);
+}
+.node--l{ margin-right:auto; text-align:right; }
+.node--r{ margin-left:auto; text-align:left; }
+
+/* the marker sits at the node's inner edge and a hairline carries it to the spine */
+.node__mk{
+  position:absolute; top:.1em; width:34px; height:34px;
+  display:grid; place-items:center;
+}
+.node--l .node__mk{ right:-54px; }
+.node--r .node__mk{ left:-54px; }
+.node__mk::after{
+  content:""; position:absolute; top:50%; width:20px; height:1px;
+  background:rgba(226,233,243,.30);
+}
+.node--l .node__mk::after{ left:100%; }
+.node--r .node__mk::after{ right:100%; }
+
+/* a wax seal, the helmet pressed into it */
+.node__mk--seal{
+  border-radius:50%;
+  background:radial-gradient(circle at 36% 30%,
+    rgba(226,233,243,.26), rgba(226,233,243,.10) 62%, rgba(226,233,243,.04));
+  box-shadow:0 0 0 1px rgba(226,233,243,.34), 0 2px 10px rgba(6,11,20,.4);
+}
+.node__mk--seal img{ width:19px; height:auto; opacity:.82; }
+
+/* a toppled column, for a deal that died */
+.node__mk--col{ transform:rotate(68deg); opacity:.4; }
+.node__mk--col svg{ width:13px; height:auto; color:var(--silver); display:block; }
+
+/* a plain carved slab, for things that were not deals */
+.node--stone .node__mk{
+  width:11px; height:11px; border:1px solid rgba(226,233,243,.34);
+  background:rgba(226,233,243,.07); top:.45em;
+}
+.node--l.node--stone .node__mk{ right:-42px; }
+.node--r.node--stone .node__mk{ left:-42px; }
+
+.node__k{
+  font-size:11.5px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--silver-faint); margin-bottom:.5em;
+}
+.node__t{
+  font-size:clamp(21px,2.5vw,33px); font-weight:500; line-height:1.1;
+  letter-spacing:-.006em; color:var(--silver); margin-bottom:.42em;
+}
+.node__look, .node__p{
+  font-size:clamp(15px,1.45vw,17.5px); line-height:1.62;
+  color:var(--silver-dim); text-wrap:pretty;
+}
+.node__horse{
+  margin-top:.95em; padding-top:.9em;
+  border-top:1px solid rgba(226,233,243,.17);
+  font-size:clamp(15px,1.45vw,17.5px); line-height:1.62;
+  color:var(--silver); text-wrap:pretty;
+}
+.node__hl{
+  display:block; margin-bottom:.32em;
+  font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--silver-faint);
+}
+.node--stone .node__t{
+  font-style:italic; font-size:clamp(18px,2vw,25px); color:var(--silver-dim);
+}
+.node--column .node__t{ color:var(--silver-dim); }
+.node--column .node__k{ text-decoration:line-through; text-decoration-thickness:1px; }
+
+.kata__note{
+  max-width:min(620px,88%); margin:clamp(40px,6vw,80px) auto 0;
+  padding-top:1.4rem; border-top:1px solid rgba(226,233,243,.16);
+  font-size:13.5px; line-height:1.6; color:var(--silver-faint); text-align:center;
+}
+
+/* the cover now has two doors */
+.silos__grid--two{
+  grid-template-columns:repeat(2,auto); justify-content:center;
+  max-width:none; gap:clamp(18px,3.4vw,52px);
+}
+
+@media (max-width:760px){
+  /* spine to the left margin, every node to the right of it */
+  .yr__spine{ left:18px; transform:none; }
+  .yr__num{ margin-left:0; margin-right:auto; }
+  .node, .node--l, .node--r{
+    width:auto; margin-left:58px; margin-right:0; text-align:left;
+  }
+  /* the spine sits at 18px and is 48 wide, so its centre is 42px in. Markers
+     centre on that and the hairline now reaches right, toward the node. */
+  .node--l .node__mk, .node--r .node__mk{ left:-33px; right:auto; }
+  .node--l .node__mk::after, .node--r .node__mk::after{ left:100%; right:auto; }
+  .node--l.node--stone .node__mk, .node--r.node--stone .node__mk{ left:-21.5px; right:auto; }
+}
+@media (max-width:520px){
+  .silos__grid--two{ grid-template-columns:1fr; gap:14px; }
+}

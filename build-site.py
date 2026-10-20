@@ -281,11 +281,16 @@ def build_index():
     # One door, not three. The verticals still organise the writing; they are
     # no longer the first decision a reader is asked to make.
     picker = ('''  <div class="shell cover__picker">
-    <div class="silos__grid silos__grid--one">
+    <div class="silos__grid silos__grid--two">
       <a class="silo silo--solo" href="strategemata.html">
         <span class="silo__name">Strategemata</span>
         <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
         <span class="silo__word">Read Stories</span>
+      </a>
+      <a class="silo silo--solo" href="katabasis.html">
+        <span class="silo__name">Katabasis</span>
+        <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
+        <span class="silo__word">Ten Years</span>
       </a>
     </div>
   </div>
@@ -329,7 +334,99 @@ def build_stories_page():
     print(f"strategemata.html  ({len(order)} stories)")
 
 
+
+
+# ========================================================== KATABASIS =====
+from kata_data import YEARS
+
+KATA_BLURB = ("Greek, the going down. Ten years of technology coverage read "
+              "from the surface to wherever we are now, on the understanding "
+              "that every one of these deals was a horse somebody wheeled "
+              "through their own gates.")
+
+MAXW = 48          # px, the widest the spine ever gets
+def _clip(a, b):
+    """A trapezoid from width a at the top to width b at the bottom."""
+    ha, hb = a / MAXW * 50, b / MAXW * 50
+    return (f"polygon({50-ha:.2f}% 0%, {50+ha:.2f}% 0%, "
+            f"{50+hb:.2f}% 100%, {50-hb:.2f}% 100%)")
+
+def kata_nodes():
+    out, side = [], 0
+    for i, (year, width, nodes) in enumerate(YEARS):
+        nxt = YEARS[i+1][1] if i + 1 < len(YEARS) else width * .5
+        out.append(f'''    <section class="yr" id="y{year}">
+      <div class="yr__spine" aria-hidden="true" style="clip-path:{_clip(width, nxt)}"></div>
+      <p class="yr__num">{year}</p>
+''')
+        for n in nodes:
+            kind = n[0]
+            s_ = " node--l" if side % 2 == 0 else " node--r"
+            side += 1
+            if kind == "stone":
+                _, _, title, body = n
+                out.append(f'''      <article class="node node--stone{s_}">
+        <span class="node__mk" aria-hidden="true"></span>
+        <div class="node__b">
+          <h3 class="node__t">{title}</h3>
+          <p class="node__p">{body}</p>
+        </div>
+      </article>
+''')
+            else:
+                _, tag, title, look, horse = n
+                mk = ('<span class="node__mk node__mk--seal" aria-hidden="true">'
+                      '<img src="images/helmet.png" alt=""></span>') if kind == "seal" else (
+                     '<span class="node__mk node__mk--col" aria-hidden="true">'
+                     '<svg viewBox="0 0 100 124"><use href="#capital"/></svg></span>')
+                out.append(f'''      <article class="node node--{kind}{s_}">
+        {mk}
+        <div class="node__b">
+          <p class="node__k">{tag}</p>
+          <h3 class="node__t">{title}</h3>
+          <p class="node__look">{look}</p>
+          <p class="node__horse"><span class="node__hl">In the belly</span>{horse}</p>
+        </div>
+      </article>
+''')
+        out.append("    </section>\n")
+    return "".join(out)
+
+
+def build_katabasis():
+    html = (HEAD.format(title="Katabasis | The Trojan Horse",
+                        desc="Ten years of technology dealmaking, 2016 to 2026, "
+                             "explained from the ground up.")
+            + CAPITAL_DEF + f'''
+<a class="back" href="index.html">&larr; The Trojan Horse</a>
+
+<header class="silohead">
+  <div class="shell">
+    <p class="silohead__kicker">Ten Years</p>
+    <h1 class="silohead__name">Katabasis</h1>
+    <p class="silohead__blurb">{KATA_BLURB}</p>
+    <div class="silohead__line" aria-hidden="true"></div>
+  </div>
+</header>
+
+<main class="kata">
+  <div class="shell">
+{kata_nodes()}
+  </div>
+  <p class="kata__note">The spine is the money. It thickens as capital floods
+  in and thins when the window shuts, drawn to the shape of the cycle rather
+  than to a dataset, because an exact one would imply a precision this does not
+  have. Deal values are as announced. Where a deal closed at a different time or
+  a different number, the entry says so.</p>
+</main>
+''' + FOOT)
+    (ROOT / "katabasis.html").write_text(html, encoding="utf-8")
+    n = sum(len(y[2]) for y in YEARS)
+    print(f"katabasis.html  ({len(YEARS)} years, {n} nodes)")
+
+
 if __name__ == "__main__":
     build_index()
     build_stories_page()
+    build_katabasis()
     build_podcast()
