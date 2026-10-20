@@ -616,20 +616,21 @@ body::before{
 }
 .node__t{
   font-size:clamp(21px,2.5vw,33px); font-weight:500; line-height:1.1;
-  letter-spacing:-.006em; color:var(--silver); margin-bottom:.42em;
+  letter-spacing:-.006em; color:var(--silver); margin-bottom:.5em;
 }
-.node__look, .node__p{
-  font-size:clamp(15px,1.45vw,17.5px); line-height:1.62;
+.node__p{
+  font-size:clamp(15px,1.45vw,17.5px); line-height:1.65;
   color:var(--silver-dim); text-wrap:pretty;
 }
-.node__horse{
-  margin-top:.95em; padding-top:.9em;
+.node__p + .node__p{ margin-top:.85em; }
+
+.node__why{
+  margin-top:1.05em; padding-top:.95em;
   border-top:1px solid rgba(226,233,243,.17);
-  font-size:clamp(15px,1.45vw,17.5px); line-height:1.62;
-  color:var(--silver); text-wrap:pretty;
 }
+.node__why .node__p{ color:var(--silver); }
 .node__hl{
-  display:block; margin-bottom:.32em;
+  display:block; margin-bottom:.4em;
   font-size:11px; letter-spacing:.22em; text-transform:uppercase;
   color:var(--silver-faint);
 }
@@ -637,7 +638,6 @@ body::before{
   font-style:italic; font-size:clamp(18px,2vw,25px); color:var(--silver-dim);
 }
 .node--column .node__t{ color:var(--silver-dim); }
-.node--column .node__k{ text-decoration:line-through; text-decoration-thickness:1px; }
 
 .kata__note{
   max-width:min(620px,88%); margin:clamp(40px,6vw,80px) auto 0;
@@ -722,11 +722,32 @@ a.node__t--go:hover{ color:#fff; }
 }
 a.node__t--go:hover .node__go{ color:var(--silver-dim); }
 
-.node__stone{
-  display:inline-block; margin-top:1em;
-  font-size:12.5px; letter-spacing:.06em; font-style:italic;
+.node__read{
+  display:inline-block; margin-top:1.15em;
+  font-size:12.5px; letter-spacing:.05em;
   color:var(--silver-faint);
   border-bottom:1px solid rgba(226,233,243,.26); padding-bottom:2px;
   transition:color .3s ease, border-color .3s ease;
 }
-.node__stone:hover{ color:var(--silver); border-bottom-color:var(--silver); }
+.node__read:hover{ color:var(--silver); border-bottom-color:var(--silver); }
+
+/* a second opening paragraph, set slightly smaller than the first */
+.silohead__blurb--two{
+  margin-top:1em; font-size:clamp(15px,1.5vw,18px); color:var(--silver-faint);
+}
+
+/* the closing section, which sits inside the shell at reading width */
+.close{
+  max-width:min(660px,88%); margin:clamp(50px,7vw,96px) auto 0;
+  padding-top:clamp(26px,3.6vw,44px);
+  border-top:1px solid rgba(226,233,243,.2);
+}
+.close__h{
+  font-size:clamp(22px,2.4vw,31px); font-weight:500; line-height:1.15;
+  color:var(--silver); margin-bottom:.8em;
+}
+.close p{
+  font-size:clamp(15px,1.45vw,17.5px); line-height:1.68;
+  color:var(--silver-dim); text-wrap:pretty;
+}
+.close p + p{ margin-top:1em; }

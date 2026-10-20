@@ -287,10 +287,10 @@ def build_index():
         <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
         <span class="silo__word">Read Stories</span>
       </a>
-      <a class="silo silo--solo" href="katabasis.html">
-        <span class="silo__name">Katabasis</span>
+      <a class="silo silo--solo" href="ten-years.html">
+        <span class="silo__name">Ten Years</span>
         <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
-        <span class="silo__word">Ten Years</span>
+        <span class="silo__word">2016 to 2026</span>
       </a>
     </div>
   </div>
@@ -340,28 +340,28 @@ def build_stories_page():
 # ====================================================== THE GROUND FLOOR ===
 from primers_data import PRIMERS
 from deals_data import DEALS
+from kata_data import YEARS, INTRO, INTRO_2, CLOSE_HEAD, CLOSE
 
-# a timeline node's title to the page it opens
 DEAL_LINKS = {
- "SoftBank / ARM":      "the-blueprint",
+ "SoftBank / Arm":      "the-blueprint",
  "Broadcom / Qualcomm": "the-blocked-bid",
  "IBM / Red Hat":       "the-layer-above",
- "NVIDIA / Mellanox":   "the-wiring",
+ "Nvidia / Mellanox":   "the-wiring",
  "AMD / Xilinx":        "paid-in-paper",
- "NVIDIA / ARM":        "too-central",
+ "Nvidia / Arm":        "too-central",
  "Broadcom / VMware":   "the-price-machine",
  "Cisco / Splunk":      "reading-the-record",
  "Google / Wiz":        "third-in-line",
  "DDN / Blackstone":    "fetching",
 }
 
-# a primer is offered at the point on the spine where it first matters
+# background reading, offered where the subject first comes up
 PRIMER_AT = {
- "SoftBank / ARM":                    ("what-a-chip-is",   "what a chip actually is"),
- "IBM / Red Hat":                     ("what-the-cloud-is", "what the cloud actually is"),
- "A chatbot appears":                 ("what-ai-needs",     "what AI actually needs"),
- "The money changes shape":           ("the-building",      "what is inside the building"),
- "Where the money actually comes from": ("what-a-bank-does", "what a bank actually does"),
+ "SoftBank / Arm":                          ("what-a-chip-is",    "what a chip is"),
+ "IBM / Red Hat":                           ("what-the-cloud-is", "what the cloud is"),
+ "A change in what customers were asking for": ("what-ai-needs",  "what training a model requires"),
+ "Spending moves toward buildings and power":  ("the-building",   "what is inside a data centre"),
+ "How the construction was financed":          ("what-a-bank-does","what an investment bank does"),
 }
 
 SHEET = """<a class="back" href="{back}">&larr; {backlabel}</a>
@@ -424,15 +424,15 @@ def build_primers():
         html = (HEAD.format(title=f'{pr["lead"]} {pr["line1"]} {pr["line2"]} | The Trojan Horse'.replace("  "," ").strip(),
                             desc=pr["lede"][:180])
                 + '\n<link rel="stylesheet" href="story.css">\n'
-                + SHEET.format(back="katabasis.html", backlabel="Katabasis",
+                + SHEET.format(back="ten-years.html", backlabel="Ten Years",
                                lead=ld, line1=pr["line1"], row2=row, sub=pr["sub"],
                                lede=pr["lede"], sections=_sections(pr["sections"]),
                                takeaway=pr["takeaway"], tail=tail,
-                               series="The Ground Floor", roman=f'No. {pr["roman"]}',
-                               last="Katabasis")
+                               series="Background", roman=f'No. {pr["roman"]}',
+                               last="Ten Years in Technology")
                 + "\n</body>\n</html>\n")
         (ROOT / f'{pr["slug"]}.html').write_text(html, encoding="utf-8")
-    print(f"{len(PRIMERS)} primers")
+    print(f"{len(PRIMERS)} background pages")
 
 
 def build_deals():
@@ -444,11 +444,11 @@ def build_deals():
         html = (HEAD.format(title=f'{d["lead"]} {d["line1"]} {d["line2"]} | The Trojan Horse'.replace("  "," ").strip(),
                             desc=f'{d["party"]} &middot; {d["value"]} &middot; {d["dated"]}.')
                 + '\n<link rel="stylesheet" href="story.css">\n'
-                + SHEET.format(back="katabasis.html", backlabel="Katabasis",
+                + SHEET.format(back="ten-years.html", backlabel="Ten Years",
                                lead=ld, line1=d["line1"], row2=row, sub=d["sub"],
                                lede=d["lede"], sections=_sections(d["sections"]),
                                takeaway=d["takeaway"], tail=tail,
-                               series="Katabasis", roman=f'No. {d["roman"]}',
+                               series="Ten Years", roman=f'No. {d["roman"]}',
                                last=f'{d["party"]} &middot; {d["value"]}')
                 + "\n</body>\n</html>\n")
         (ROOT / f'{d["slug"]}.html').write_text(html, encoding="utf-8")
@@ -458,10 +458,10 @@ def build_deals():
 GROUND = """
 <section class="ground">
   <div class="shell">
-    <p class="ground__k">The Ground Floor</p>
-    <p class="ground__n">Five things that make the rest of this readable. Take
-    them first if you want, or pick them up off the spine where they start to
-    matter. No prior knowledge is assumed anywhere in them.</p>
+    <p class="ground__k">Background</p>
+    <p class="ground__n">Five short explanations of the subjects these deals
+    keep returning to. Read them first if you would rather, or pick one up from
+    the timeline where it comes up. They assume no technical knowledge.</p>
     <ol class="ground__l">
 {ITEMS}
     </ol>
@@ -479,13 +479,7 @@ def ground():
     return GROUND.replace("{ITEMS}", "\n".join(rows))
 
 
-# ========================================================== KATABASIS =====
-from kata_data import YEARS
-
-KATA_BLURB = ("Greek, the going down. Ten years of technology coverage read "
-              "from the surface to wherever we are now, on the understanding "
-              "that every one of these deals was a horse somebody wheeled "
-              "through their own gates.")
+# ==================================================== TEN YEARS, THE PAGE ===
 
 MAXW = 48          # px, the widest the spine ever gets
 def _clip(a, b):
@@ -494,13 +488,12 @@ def _clip(a, b):
     return (f"polygon({50-ha:.2f}% 0%, {50+ha:.2f}% 0%, "
             f"{50+hb:.2f}% 100%, {50-hb:.2f}% 100%)")
 
-def _stone(title):
-    """The lift-the-stone offer, placed where a term first needs explaining."""
+def _reading(title):
     pr = PRIMER_AT.get(title)
     if not pr: return ""
     slug, label = pr
-    return (f'\n          <a class="node__stone" href="{slug}.html">'
-            f'Lift the stone: {label}</a>')
+    return (f'\n          <a class="node__read" href="{slug}.html">'
+            f'Background: {label}</a>')
 
 def kata_nodes():
     out, side = [], 0
@@ -510,37 +503,28 @@ def kata_nodes():
       <div class="yr__spine" aria-hidden="true" style="clip-path:{_clip(width, nxt)}"></div>
       <p class="yr__num">{year}</p>
 ''')
-        for n in nodes:
-            kind = n[0]
+        for kind, tag, title, paras, note in nodes:
             s_ = " node--l" if side % 2 == 0 else " node--r"
             side += 1
-            if kind == "stone":
-                _, _, title, body = n
-                out.append(f'''      <article class="node node--stone{s_}">
-        <span class="node__mk" aria-hidden="true"></span>
-        <div class="node__b">
-          <h3 class="node__t">{title}</h3>
-          <p class="node__p">{body}</p>{_stone(title)}
-        </div>
-      </article>
-''')
-            else:
-                _, tag, title, look, horse = n
-                mk = ('<span class="node__mk node__mk--seal" aria-hidden="true">'
-                      '<img src="images/helmet.png" alt=""></span>') if kind == "seal" else (
-                     '<span class="node__mk node__mk--col" aria-hidden="true">'
-                     '<svg viewBox="0 0 100 124"><use href="#capital"/></svg></span>')
-                slug = DEAL_LINKS.get(title)
-                t_ = (f'<a class="node__t node__t--go" href="{slug}.html">{title}'
-                      f'<span class="node__go">Read the note &rarr;</span></a>'
-                      if slug else f'<h3 class="node__t">{title}</h3>')
-                out.append(f'''      <article class="node node--{kind}{s_}">
+            mk = {"seal": '<span class="node__mk node__mk--seal" aria-hidden="true">'
+                          '<img src="images/helmet.png" alt=""></span>',
+                  "column": '<span class="node__mk node__mk--col" aria-hidden="true">'
+                            '<svg viewBox="0 0 100 124"><use href="#capital"/></svg></span>',
+                  "stone": '<span class="node__mk" aria-hidden="true"></span>'}[kind]
+            slug = DEAL_LINKS.get(title)
+            t_ = (f'<a class="node__t node__t--go" href="{slug}.html">{title}'
+                  f'<span class="node__go">Read the full note &rarr;</span></a>'
+                  if slug else f'<h3 class="node__t">{title}</h3>')
+            k_ = f'<p class="node__k">{tag}</p>\n          ' if tag else ""
+            body = "\n          ".join(f'<p class="node__p">{x}</p>' for x in paras)
+            n_ = (f'\n          <div class="node__why">'
+                  f'<span class="node__hl">Why it mattered</span>'
+                  f'<p class="node__p">{note}</p></div>') if note else ""
+            out.append(f'''      <article class="node node--{kind}{s_}">
         {mk}
         <div class="node__b">
-          <p class="node__k">{tag}</p>
-          {t_}
-          <p class="node__look">{look}</p>
-          <p class="node__horse"><span class="node__hl">In the belly</span>{horse}</p>{_stone(title)}
+          {k_}{t_}
+          {body}{n_}{_reading(title)}
         </div>
       </article>
 ''')
@@ -549,36 +533,51 @@ def kata_nodes():
 
 
 def build_katabasis():
-    html = (HEAD.format(title="Katabasis | The Trojan Horse",
-                        desc="Ten years of technology dealmaking, 2016 to 2026, "
-                             "explained from the ground up.")
+    close = "\n".join(f'    <p>{x}</p>' for x in CLOSE)
+    html = (HEAD.format(title="Ten Years in Technology | The Trojan Horse",
+                        desc="Technology transactions from 2016 to 2026, explained "
+                             "for a reader with no background in finance or engineering.")
             + CAPITAL_DEF + f'''
 <a class="back" href="index.html">&larr; The Trojan Horse</a>
 
 <header class="silohead">
   <div class="shell">
-    <p class="silohead__kicker">Ten Years</p>
-    <h1 class="silohead__name">Katabasis</h1>
-    <p class="silohead__blurb">{KATA_BLURB}</p>
+    <p class="silohead__kicker">2016 to 2026</p>
+    <h1 class="silohead__name">Ten Years</h1>
+    <p class="silohead__blurb">{INTRO}</p>
+    <p class="silohead__blurb silohead__blurb--two">{INTRO_2}</p>
     <div class="silohead__line" aria-hidden="true"></div>
   </div>
 </header>
-
 {ground()}
 <main class="kata">
   <div class="shell">
 {kata_nodes()}
   </div>
-  <p class="kata__note">The spine is the money. It thickens as capital floods
-  in and thins when the window shuts, drawn to the shape of the cycle rather
-  than to a dataset, because an exact one would imply a precision this does not
-  have. Deal values are as announced. Where a deal closed at a different time or
-  a different number, the entry says so.</p>
+
+  <section class="close">
+    <h2 class="close__h">{CLOSE_HEAD}</h2>
+{close}
+  </section>
+
+  <p class="kata__note">The band running down this page traces the broad shape
+  of the transaction cycle. It is drawn by hand rather than plotted from a
+  dataset, because a precise series would imply an accuracy this does not have.
+  Values are identified as announced or final. Where a deal closed at a
+  different figure, the entry says so.</p>
 </main>
 ''' + FOOT)
-    (ROOT / "katabasis.html").write_text(html, encoding="utf-8")
+    (ROOT / "ten-years.html").write_text(html, encoding="utf-8")
+    # the page was published once under its old name
+    (ROOT / "katabasis.html").write_text(
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        '<title>Ten Years | The Trojan Horse</title>'
+        '<link rel="canonical" href="https://trojanhorse.blog/ten-years.html">'
+        '<meta http-equiv="refresh" content="0; url=ten-years.html">'
+        '</head><body><p><a href="ten-years.html">Ten Years in Technology</a></p>'
+        '</body></html>\n', encoding="utf-8")
     n = sum(len(y[2]) for y in YEARS)
-    print(f"katabasis.html  ({len(YEARS)} years, {n} nodes)")
+    print(f"ten-years.html  ({len(YEARS)} years, {n} entries)")
 
 
 if __name__ == "__main__":
