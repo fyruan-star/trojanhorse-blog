@@ -336,6 +336,149 @@ def build_stories_page():
 
 
 
+
+# ====================================================== THE GROUND FLOOR ===
+from primers_data import PRIMERS
+from deals_data import DEALS
+
+# a timeline node's title to the page it opens
+DEAL_LINKS = {
+ "SoftBank / ARM":      "the-blueprint",
+ "Broadcom / Qualcomm": "the-blocked-bid",
+ "IBM / Red Hat":       "the-layer-above",
+ "NVIDIA / Mellanox":   "the-wiring",
+ "AMD / Xilinx":        "paid-in-paper",
+ "NVIDIA / ARM":        "too-central",
+ "Broadcom / VMware":   "the-price-machine",
+ "Cisco / Splunk":      "reading-the-record",
+ "Google / Wiz":        "third-in-line",
+ "DDN / Blackstone":    "fetching",
+}
+
+# a primer is offered at the point on the spine where it first matters
+PRIMER_AT = {
+ "SoftBank / ARM":                    ("what-a-chip-is",   "what a chip actually is"),
+ "IBM / Red Hat":                     ("what-the-cloud-is", "what the cloud actually is"),
+ "A chatbot appears":                 ("what-ai-needs",     "what AI actually needs"),
+ "The money changes shape":           ("the-building",      "what is inside the building"),
+ "Where the money actually comes from": ("what-a-bank-does", "what a bank actually does"),
+}
+
+SHEET = """<a class="back" href="{back}">&larr; {backlabel}</a>
+
+<article class="sheet sheet--long">
+
+  <h1 class="tt">
+    {lead}<span class="tt__big">{line1}</span>
+    {row2}
+  </h1>
+
+  <p class="sub">{sub}</p>
+
+  <p class="byline">Francis Ruan</p>
+
+  <div class="opening"><p class="lede">{lede}</p></div>
+
+  <div class="body">
+{sections}
+  </div>
+
+  <p class="takeaway">{takeaway}</p>
+
+  <figure class="mark"><img src="images/horse.png" alt="The Trojan Horse engraving"></figure>
+
+{tail}
+
+  <footer class="colophon">
+    <p class="colophon__loc">At Los Angeles</p>
+    <p>Published by <em>The Trojan Horse</em></p>
+    <p>{series} &middot; {roman}</p>
+    <p class="colophon__last">{last}</p>
+  </footer>
+
+</article>
+"""
+
+def _title(lead, line1, line2):
+    ld = f'<span class="tt__lead">{lead}</span>' if lead else ""
+    row = (f'<span class="tt__row"><span class="tt__big">{line2}</span></span>'
+           if line2 else "")
+    return ld, row
+
+def _sections(sections):
+    out = []
+    for head, paras in sections:
+        out.append(f'    <h2 class="h2">{head}</h2>')
+        out.extend(f"    <p>{x}</p>" for x in paras)
+    return "\n".join(out)
+
+
+def build_primers():
+    for pr in PRIMERS:
+        ld, row = _title(pr["lead"], pr["line1"], pr["line2"])
+        words = "".join(
+          f'<li><span class="w__t">{t}</span><span class="w__d">{d}</span></li>'
+          for t, d in pr["words"])
+        tail = ('  <div class="words">\n    <h3>Words you now own</h3>\n'
+                f'    <ul>{words}</ul>\n  </div>')
+        html = (HEAD.format(title=f'{pr["lead"]} {pr["line1"]} {pr["line2"]} | The Trojan Horse'.replace("  "," ").strip(),
+                            desc=pr["lede"][:180])
+                + '\n<link rel="stylesheet" href="story.css">\n'
+                + SHEET.format(back="katabasis.html", backlabel="Katabasis",
+                               lead=ld, line1=pr["line1"], row2=row, sub=pr["sub"],
+                               lede=pr["lede"], sections=_sections(pr["sections"]),
+                               takeaway=pr["takeaway"], tail=tail,
+                               series="The Ground Floor", roman=f'No. {pr["roman"]}',
+                               last="Katabasis")
+                + "\n</body>\n</html>\n")
+        (ROOT / f'{pr["slug"]}.html').write_text(html, encoding="utf-8")
+    print(f"{len(PRIMERS)} primers")
+
+
+def build_deals():
+    for d in DEALS:
+        ld, row = _title(d["lead"], d["line1"], d["line2"])
+        srcs = "\n".join(f"      <li>{x}</li>" for x in d["srcs"])
+        tail = ('  <div class="srcs">\n    <h3>Sources</h3>\n    <ol>\n'
+                + srcs + '\n    </ol>\n  </div>')
+        html = (HEAD.format(title=f'{d["lead"]} {d["line1"]} {d["line2"]} | The Trojan Horse'.replace("  "," ").strip(),
+                            desc=f'{d["party"]} &middot; {d["value"]} &middot; {d["dated"]}.')
+                + '\n<link rel="stylesheet" href="story.css">\n'
+                + SHEET.format(back="katabasis.html", backlabel="Katabasis",
+                               lead=ld, line1=d["line1"], row2=row, sub=d["sub"],
+                               lede=d["lede"], sections=_sections(d["sections"]),
+                               takeaway=d["takeaway"], tail=tail,
+                               series="Katabasis", roman=f'No. {d["roman"]}',
+                               last=f'{d["party"]} &middot; {d["value"]}')
+                + "\n</body>\n</html>\n")
+        (ROOT / f'{d["slug"]}.html').write_text(html, encoding="utf-8")
+    print(f"{len(DEALS)} deal notes")
+
+
+GROUND = """
+<section class="ground">
+  <div class="shell">
+    <p class="ground__k">The Ground Floor</p>
+    <p class="ground__n">Five things that make the rest of this readable. Take
+    them first if you want, or pick them up off the spine where they start to
+    matter. No prior knowledge is assumed anywhere in them.</p>
+    <ol class="ground__l">
+{ITEMS}
+    </ol>
+  </div>
+</section>
+"""
+
+def ground():
+    rows = []
+    for pr in PRIMERS:
+        name = f'{pr["lead"]} {pr["line1"]} {pr["line2"]}'.replace("  ", " ").strip()
+        rows.append(f'      <li><a href="{pr["slug"]}.html">'
+                    f'<span class="g__n">No. {pr["roman"]}</span>'
+                    f'<span class="g__t">{name}</span></a></li>')
+    return GROUND.replace("{ITEMS}", "\n".join(rows))
+
+
 # ========================================================== KATABASIS =====
 from kata_data import YEARS
 
@@ -350,6 +493,14 @@ def _clip(a, b):
     ha, hb = a / MAXW * 50, b / MAXW * 50
     return (f"polygon({50-ha:.2f}% 0%, {50+ha:.2f}% 0%, "
             f"{50+hb:.2f}% 100%, {50-hb:.2f}% 100%)")
+
+def _stone(title):
+    """The lift-the-stone offer, placed where a term first needs explaining."""
+    pr = PRIMER_AT.get(title)
+    if not pr: return ""
+    slug, label = pr
+    return (f'\n          <a class="node__stone" href="{slug}.html">'
+            f'Lift the stone: {label}</a>')
 
 def kata_nodes():
     out, side = [], 0
@@ -369,7 +520,7 @@ def kata_nodes():
         <span class="node__mk" aria-hidden="true"></span>
         <div class="node__b">
           <h3 class="node__t">{title}</h3>
-          <p class="node__p">{body}</p>
+          <p class="node__p">{body}</p>{_stone(title)}
         </div>
       </article>
 ''')
@@ -379,13 +530,17 @@ def kata_nodes():
                       '<img src="images/helmet.png" alt=""></span>') if kind == "seal" else (
                      '<span class="node__mk node__mk--col" aria-hidden="true">'
                      '<svg viewBox="0 0 100 124"><use href="#capital"/></svg></span>')
+                slug = DEAL_LINKS.get(title)
+                t_ = (f'<a class="node__t node__t--go" href="{slug}.html">{title}'
+                      f'<span class="node__go">Read the note &rarr;</span></a>'
+                      if slug else f'<h3 class="node__t">{title}</h3>')
                 out.append(f'''      <article class="node node--{kind}{s_}">
         {mk}
         <div class="node__b">
           <p class="node__k">{tag}</p>
-          <h3 class="node__t">{title}</h3>
+          {t_}
           <p class="node__look">{look}</p>
-          <p class="node__horse"><span class="node__hl">In the belly</span>{horse}</p>
+          <p class="node__horse"><span class="node__hl">In the belly</span>{horse}</p>{_stone(title)}
         </div>
       </article>
 ''')
@@ -409,6 +564,7 @@ def build_katabasis():
   </div>
 </header>
 
+{ground()}
 <main class="kata">
   <div class="shell">
 {kata_nodes()}
@@ -428,5 +584,7 @@ def build_katabasis():
 if __name__ == "__main__":
     build_index()
     build_stories_page()
+    build_primers()
+    build_deals()
     build_katabasis()
     build_podcast()

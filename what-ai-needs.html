@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What AI Needs | The Trojan Horse</title>
+<meta name="description" content="Everybody understood that something happened in late 2022. Almost nobody was told the part that mattered commercially, which is that the breakthrough did not create demand for prog">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" type="image/png" href="/favicon.png?v=2">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<link rel="stylesheet" href="story.css">
+<a class="back" href="katabasis.html">&larr; Katabasis</a>
+
+<article class="sheet sheet--long">
+
+  <h1 class="tt">
+    <span class="tt__lead">What</span><span class="tt__big">AI</span>
+    <span class="tt__row"><span class="tt__big">Needs</span></span>
+  </h1>
+
+  <p class="sub">WHY A SOFTWARE BREAKTHROUGH TURNED INTO<br>AN ARGUMENT ABOUT ELECTRICITY</p>
+
+  <p class="byline">Francis Ruan</p>
+
+  <div class="opening"><p class="lede">Everybody understood that something happened in late 2022. Almost nobody was told the part that mattered commercially, which is that the breakthrough did not create demand for programmers. It created demand for power stations.</p></div>
+
+  <div class="body">
+    <h2 class="h2">Training and inference, which are not the same job</h2>
+    <p><strong>Training</strong> is building the model. You show a system an enormous amount of text or images and it adjusts billions of internal numbers until it gets good at predicting what comes next. This takes weeks or months, runs on thousands of chips at once, and costs somewhere between a lot and an astonishing amount.</p>
+    <p><strong>Inference</strong> is using it. You ask a question, the model answers. That is cheap per question and ruinous at scale, because there are a great many questions.</p>
+    <p>Training is a construction project. Inference is a utility bill. The industry spent 2023 and 2024 on the first and is now discovering the second.</p>
+    <h2 class="h2">Why thousands of chips, and not one fast one</h2>
+    <p>A normal processor, the kind in your laptop, is built to do one thing after another very quickly. A GPU is built to do thousands of simple things at the same time. It was invented for video games, where you need to work out the colour of two million pixels simultaneously and nobody cares what order you do it in.</p>
+    <p>Training a model turns out to be the same shape of problem. Which is how a company that made graphics cards for teenagers became the most valuable company in the world, and it is not a joke, it is just what happened.</p>
+    <p>But one GPU is not enough. You need ten thousand of them behaving like a single machine, which means the wiring between them matters as much as the chips. This is the entire reason the Mellanox deal is on the timeline.</p>
+    <h2 class="h2">And then it stops being a technology problem</h2>
+    <p>Ten thousand chips in a room draw an extraordinary amount of electricity and convert nearly all of it into heat. So you need power, and you need to remove the heat, and both of those are civil engineering rather than software.</p>
+    <p>The constraint on artificial intelligence in 2026 is not ideas and it is not chips. It is grid connections. There are places where you can buy the hardware tomorrow and wait four years for the power.</p>
+  </div>
+
+  <p class="takeaway">The most advanced industry on earth spent three years discovering that its hard limit is the same one that constrained a nineteenth century steel mill. Somewhere to put it, and enough power to run it.</p>
+
+  <figure class="mark"><img src="images/horse.png" alt="The Trojan Horse engraving"></figure>
+
+  <div class="words">
+    <h3>Words you now own</h3>
+    <ul><li><span class="w__t">Model</span><span class="w__d">The thing that was trained. Billions of numbers that encode patterns.</span></li><li><span class="w__t">Training</span><span class="w__d">Building it. Thousands of chips, weeks on end, enormous cost.</span></li><li><span class="w__t">Inference</span><span class="w__d">Using it. Cheap each time, expensive by the billion.</span></li><li><span class="w__t">GPU</span><span class="w__d">A chip that does thousands of simple things at once. Invented for games.</span></li><li><span class="w__t">Parameters</span><span class="w__d">The internal numbers a model adjusts. More is usually better and always costlier.</span></li></ul>
+  </div>
+
+  <footer class="colophon">
+    <p class="colophon__loc">At Los Angeles</p>
+    <p>Published by <em>The Trojan Horse</em></p>
+    <p>The Ground Floor &middot; No. III</p>
+    <p class="colophon__last">Katabasis</p>
+  </footer>
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Wiring | The Trojan Horse</title>
+<meta name="description" content="NVIDIA / Mellanox &middot; $6.9bn &middot; March 2019.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" type="image/png" href="/favicon.png?v=2">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<link rel="stylesheet" href="story.css">
+<a class="back" href="katabasis.html">&larr; Katabasis</a>
+
+<article class="sheet sheet--long">
+
+  <h1 class="tt">
+    <span class="tt__lead">The</span><span class="tt__big">Wiring</span>
+    
+  </h1>
+
+  <p class="sub">NVIDIA BUYS A NETWORKING COMPANY<br>THREE YEARS BEFORE ANYBODY NEEDS IT</p>
+
+  <p class="byline">Francis Ruan</p>
+
+  <div class="opening"><p class="lede">Mellanox made networking gear. Cables and switches, the equipment that lets one computer talk to another computer, which sits somewhere below the paper clip on any list of thrilling technologies. NVIDIA paid $6.9 billion for it in March 2019 and the coverage was polite and short.</p></div>
+
+  <div class="body">
+    <h2 class="h2">Why ten thousand chips is a different problem</h2>
+    <p>Training a large model does not run on one chip. It runs on thousands, and the work has to be divided between them.</p>
+    <p>The difficulty is that they cannot work independently. Every so often all of them have to stop, share what they have learned, agree, and continue. This happens constantly. If the sharing is slow, every chip in the building waits for the slowest connection, and you have bought a warehouse of the most expensive processors ever manufactured in order to watch them sit in the dark.</p>
+    <p>The industry phrase for the useful fraction is utilisation. At scale, utilisation is set by the network, not by the chips.</p>
+    <h2 class="h2">What Mellanox had</h2>
+    <p>Mellanox built InfiniBand, a networking standard designed for exactly this. Not for the general internet, where a little delay is fine, but for machines in one building that need to behave as one machine.</p>
+    <p>It was a small market with few customers, mostly scientific computing. Supercomputers for weather and physics and genomics. Serious, unglamorous, and not large.</p>
+    <p>Intel wanted it too. Microsoft reportedly looked. NVIDIA paid up.</p>
+    <h2 class="h2">Here is what was in the horse</h2>
+    <p>Three years later every company on earth wanted to build the thing Mellanox had spent twenty years making possible, and the only alternatives were immature.</p>
+    <p>NVIDIA did not just sell the chips for the AI buildout. It sold the chips, the wiring between them, and increasingly the whole rack as one product. A competitor making a faster chip in 2024 found that the chip was not the thing it needed to beat.</p>
+    <p>Six point nine billion dollars was, by 2024, less than NVIDIA cleared in a good quarter.</p>
+    <h2 class="h2">The habit I am trying to point at</h2>
+    <p>What interests me here is that nothing about this required predicting ChatGPT. It only required noticing that NVIDIA&rsquo;s own customers kept hitting the same wall, and that the wall was not made of silicon.</p>
+    <p>My read is that the best acquisitions in this decade were almost all of this shape. Not a bet on what the future would be, but a purchase of the bottleneck that was already visible to anybody who asked the engineers instead of the analysts.</p>
+  </div>
+
+  <p class="takeaway">The constraint was never how fast a chip thinks. It was how quickly ten thousand of them can agree.</p>
+
+  <figure class="mark"><img src="images/horse.png" alt="The Trojan Horse engraving"></figure>
+
+  <div class="srcs">
+    <h3>Sources</h3>
+    <ol>
+      <li>NVIDIA and Mellanox Technologies, announced 11 March 2019, approximately $6.9bn in cash at $125 per share. Completed April 2020 following regulatory review.</li>
+      <li>InfiniBand's role in high performance computing, and the utilisation argument, from NVIDIA's own subsequent technical disclosures and from contemporaneous reporting on the auction.</li>
+      <li>Competing interest from other bidders was reported at the time and is not confirmed by the parties.</li>
+    </ol>
+  </div>
+
+  <footer class="colophon">
+    <p class="colophon__loc">At Los Angeles</p>
+    <p>Published by <em>The Trojan Horse</em></p>
+    <p>Katabasis &middot; No. IV</p>
+    <p class="colophon__last">NVIDIA / Mellanox &middot; $6.9bn</p>
+  </footer>
+
+</article>
+
+</body>
+</html>

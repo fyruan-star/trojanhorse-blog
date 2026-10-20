@@ -667,3 +667,66 @@ body::before{
 @media (max-width:520px){
   .silos__grid--two{ grid-template-columns:1fr; gap:14px; }
 }
+
+/* ======================================================= GROUND FLOOR ===
+   Offered before the descent, for a reader who would rather have the words
+   first. Deliberately quiet: it is a shelf, not an argument. */
+.ground{ padding:clamp(10px,2vw,22px) 0 clamp(26px,4vw,48px); }
+.ground__k{
+  text-align:center; font-size:12.5px; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--silver-faint);
+}
+.ground__n{
+  max-width:min(560px,90%); margin:clamp(12px,1.8vw,20px) auto 0;
+  text-align:center; font-size:clamp(15px,1.4vw,17px); line-height:1.6;
+  font-style:italic; color:var(--silver-dim);
+}
+/* the grid used a 1px background to draw its rules, which meant the empty
+   cell left by five items in a three-column row rendered as a pale block.
+   Same zero-chrome treatment as the cover's doors instead: nothing at rest,
+   hover is the only state. */
+.ground__l{
+  list-style:none; margin:clamp(22px,3.4vw,38px) auto 0; padding:0;
+  max-width:min(780px,94%);
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(206px,1fr));
+  gap:clamp(5px,.9vw,12px);
+}
+.ground__l a{
+  display:block; height:100%; border-radius:7px;
+  padding:clamp(13px,1.9vw,19px) clamp(12px,1.6vw,18px);
+  border:1px solid transparent; background:transparent;
+  transition:background .3s ease, border-color .3s ease;
+}
+.ground__l a:hover{
+  background:rgba(226,233,243,.06); border-color:rgba(226,233,243,.18);
+}
+.g__n{
+  display:block; font-size:10.5px; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--silver-faint); margin-bottom:.5em;
+}
+.g__t{
+  display:block; font-size:clamp(16px,1.6vw,20px); line-height:1.2;
+  color:var(--silver);
+}
+
+/* a node that opens a note, and the lift-the-stone offer under one */
+a.node__t--go{
+  display:block; color:var(--silver);
+  transition:color .3s ease;
+}
+a.node__t--go:hover{ color:#fff; }
+.node__go{
+  display:block; margin-top:.5em;
+  font-size:10.5px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--silver-faint); transition:color .3s ease;
+}
+a.node__t--go:hover .node__go{ color:var(--silver-dim); }
+
+.node__stone{
+  display:inline-block; margin-top:1em;
+  font-size:12.5px; letter-spacing:.06em; font-style:italic;
+  color:var(--silver-faint);
+  border-bottom:1px solid rgba(226,233,243,.26); padding-bottom:2px;
+  transition:color .3s ease, border-color .3s ease;
+}
+.node__stone:hover{ color:var(--silver); border-bottom-color:var(--silver); }
