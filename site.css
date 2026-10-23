@@ -993,3 +993,6 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
    get a wider measure and a plain left edge */
 .silohead__blurb--long{ max-width:60ch; text-align:left; font-size:clamp(16px,1.5vw,19px); line-height:1.62; }
 .silohead__blurb--two.silohead__blurb--long{ color:var(--silver-dim); }
+
+/* the scene and the argument sit in two blocks, so give the second some air */
+.essay .tale + .tale{ margin-top:1.6em; }
