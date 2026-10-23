@@ -1,140 +1,170 @@
-"""How a bank gets hired, which is the part nobody writes about.
+"""How a bank wins the assignment, which is the part nobody writes about.
 
-Everything attributed here is sourced. Where a finding comes from a paper that
-is now old, the text says so, because the mechanism it describes is structural
-and the figures around it are not current.
+Every company claim here is checked against a primary source. The Evercore
+language is quoted from its own 10-K. The New York Fed finding is from the
+staff report itself. Where a source is dated, the text says so.
 
 Plain register. No em dashes, no semicolons, no punchline endings.
 """
 
-KICKER = "M&amp;A Advisory"
-TITLE = "The Mandate"
-LEDE = ("Almost everything written about investment banking concerns the hours. "
-        "This is about the part that determines whether there are any hours at "
-        "all, which is how a bank ends up being the one in the room.")
+KICKER = "The strategy and incentives behind investment banking"
+TITLE = "How Banks Win the Mandate"
+LEDE = "Why a company chooses one adviser over another."
 
+# a section with an empty heading prints as plain paragraphs
 SECTIONS = [
 
- ("The work is sold before it exists", [
-  "A company deciding whether to sell itself does not run a procurement "
-  "process for advisers. By the time anyone outside knows there is a "
-  "transaction, the bank has usually been chosen.",
-  "This is why banks organise themselves into coverage groups, with a team "
-  "responsible for the companies in one industry. The team reads the filings, "
-  "tracks the executives, and stays in contact for years without a fee "
-  "attached. A managing director typically owns that relationship and is the "
-  "one who receives the call.",
-  "League tables exist partly for this reason. A ranking of who advised on the "
-  "most deals is a crude measure of quality, and research on adviser choice "
-  "has found that it functions as a substitute for reputation when a client "
-  "has no personal history with a firm.",
+ ("", [
+  "Imagine a software company agrees to buy a competitor for $5 billion. The "
+  "announcement explains the price, the strategic rationale, and the expected "
+  "benefits. Near the bottom, it names the investment banks that advised each "
+  "side.",
+  "Those names deserve some attention. Each bank had to persuade a company to "
+  "trust it with a decision that could change the company&rsquo;s future. "
+  "Understanding how it won that trust tells you something about the "
+  "transaction itself.",
+  "That is the idea behind The Trojan Horse. I want to make the strategy "
+  "inside investment banking understandable to people outside the industry. "
+  "There are interesting problems here: how companies negotiate, how advisers "
+  "build an advantage, and how incentives influence decisions involving "
+  "billions of dollars. You should be able to understand those problems "
+  "without having worked at a bank.",
+  "A useful place to begin is the mandate, which is simply the assignment to "
+  "advise a client.",
+  "Before a bank can help a company buy or sell a business, it has to win that "
+  "assignment. That competition explains a surprising amount about how "
+  "investment banking works.",
  ]),
 
- ("Then there is the other way, which is lending", [
-  "The more interesting answer is that a great many acquirers hire the bank "
-  "that already lends to them.",
-  "Four economists, writing for the Federal Reserve Bank of New York in 2002, "
-  "looked at what happens when a bank acts as both lender and adviser. The "
-  "paper is Allen, Jagtiani, Peristiani and Saunders, and the finding is "
-  "blunt. Acquirers tend to choose their own banks, meaning those with prior "
-  "lending relationships, as advisers in mergers. The reason they give is "
-  "that the acquirer wants access to the loans that will pay for the deal.",
-  "A commercial bank that has lent to a company for years holds information "
-  "about it that nobody else has. It has seen the covenants, the drawdowns and "
-  "the quarters that did not go well. The paper describes this as a "
-  "certification function, where the bank vouches for a value an outsider "
-  "cannot verify.",
+ ("The company is buying judgment", [
+  "Return to the software acquisition. The buyer needs to decide what the "
+  "competitor is worth, how much it can afford to pay, and whether owning the "
+  "business would improve its position. It also needs to consider the "
+  "seller&rsquo;s alternatives. A rival bidder could change the negotiation. "
+  "So could the seller&rsquo;s willingness to remain independent.",
+  "Financial analysis helps answer these questions. The difficult part is "
+  "deciding which assumptions deserve confidence and how to act while "
+  "important facts remain uncertain.",
+  "On a $5 billion purchase, a 1 percent difference in price is $50 million. A "
+  "useful adviser might help the buyer avoid paying that extra amount. It "
+  "might also recognize that the business deserves a higher price, or that the "
+  "buyer should stop negotiating altogether.",
+  "This makes choosing an adviser difficult. The client is paying for judgment "
+  "whose quality will become clearer only after decisions have been made. A "
+  "polished presentation can demonstrate preparation. It offers less certainty "
+  "about how someone will behave when a negotiation becomes difficult.",
+  "Relationships help address that problem.",
+  "Banks organize teams around industries so their people can develop "
+  "expertise and stay close to potential clients. A banker covering software "
+  "can study competitors, follow management changes, and bring executives "
+  "ideas before there is a transaction to discuss.",
+  "Consider two bankers approaching the same chief executive. One arrives when "
+  "a sale becomes likely. The other has spent years offering useful "
+  "observations about the business, including reasons to reject previous "
+  "acquisition ideas. The second banker has given the executive more evidence "
+  "on which to judge the advice.",
+  "A formal pitch can still matter. The relationship influences how the client "
+  "evaluates what it hears.",
  ]),
 
- ("Certification works, but only in one direction", [
-  "The same paper tested whether the certification holds, and the answer "
-  "depends on which side of the table the bank is sitting.",
-  "For targets, it holds. A target earns higher abnormal returns when its own "
-  "bank certifies its value to the acquirer. That makes sense, because the "
-  "target is the thing being priced and it is the more opaque of the two.",
-  "For acquirers, it does not. The authors find no certification role, and "
-  "write that conflicts of interest appear to dominate. The mechanism is "
-  "simple enough to state in one sentence. The acquirer&rsquo;s adviser is "
-  "negotiating the terms of the merger and the terms of the future loan at the "
-  "same time.",
-  "The market can see this. The paper reports significantly negative abnormal "
-  "returns for bank advisers when they advise their own loan customers in "
-  "acquiring other firms. The study is now more than twenty years old and the "
-  "figures in it are historical, but the structure it describes is the one "
-  "large banks still run.",
+ ("Financing changes the choice", [
+  "Now suppose our buyer needs to borrow $2 billion to complete the "
+  "acquisition.",
+  "The adviser selection becomes more complicated. The company needs advice "
+  "about the purchase and confidence that it can fund it.",
+  "A large bank can offer several services through different teams, including "
+  "acquisition advice, lending, and help raising money from investors. Bank of "
+  "America describes this combination explicitly in its corporate and "
+  "investment banking business.",
+  "For the buyer, that combination can reduce coordination problems. A "
+  "recommendation becomes more useful when the company understands how it "
+  "could pay for it.",
+  "There is historical evidence that lending relationships influence adviser "
+  "selection. A 2002 New York Fed study by Linda Allen, Julapa Jagtiani, "
+  "Stavros Peristiani, and Anthony Saunders found that acquirers tended to "
+  "hire banks that already lent to them. The authors linked that choice to "
+  "access to acquisition financing. Their findings describe a historical "
+  "sample, but they help explain the commercial logic of combining lending and "
+  "advice.",
+  "My interpretation is straightforward: financing capability gives a bank "
+  "another reason for the client to choose it. The size of that advantage "
+  "depends on what the transaction requires.",
  ]),
 
- ("Which is the whole pitch of the firms that do not lend", [
-  "An entire category of firm exists because of the paragraph above.",
-  "Evercore&rsquo;s own annual report describes the idea it was founded on as "
-  "a firm free of the conflicts that arise in large, multi-product, "
-  "capital-intensive institutions. It makes no use of its own balance sheet. "
-  "Centerview, founded in 2006, runs the same model with no underwriting or "
-  "lending arm at all.",
-  "The pitch is one sentence long. We cannot lend you anything, so nothing in "
-  "this advice is about a loan.",
-  "The counter-pitch is also one sentence. A bulge bracket can advise the "
-  "deal, underwrite the financing and hedge the exposure under one engagement, "
-  "which matters a great deal when a transaction needs twenty billion dollars "
-  "of debt on a schedule. Both pitches are honest. They are selling different "
-  "things and the client is choosing which risk it would rather carry.",
+ ("The same advantage creates a tension", [
+  "Suppose a bank could earn money from advising our software buyer and "
+  "arranging its debt. Completing the acquisition could produce revenue from "
+  "both activities.",
+  "The client wants the adviser to recommend whatever creates the most value, "
+  "including walking away. The bank&rsquo;s potential revenues introduce "
+  "another consideration. The New York Fed researchers identified conflicts "
+  "associated with advising and lending to an acquirer, including the "
+  "bank&rsquo;s existing and prospective credit exposure.",
+  "This helps explain the appeal of independent advisory firms.",
+  "Evercore makes the point in its own annual report, which says the firm was "
+  "founded on the belief that there was an opportunity free of the potential "
+  "conflicts of interest created within large, multi-product capital intensive "
+  "financial institutions. Centerview describes itself more simply as an "
+  "independent investment bank providing objective advice. Neither firm lends, "
+  "so neither has a loan to protect.",
+  "Independence still leaves other incentives to consider. Advisory fees can "
+  "depend heavily on completing a transaction. The same Evercore filing states "
+  "that the firm earns a majority of its revenue from advisory engagements and "
+  "is not paid until the successful consummation of the transactions.",
+  "The useful question for a client is how an adviser gets paid and how that "
+  "could influence its recommendations.",
  ]),
 
- ("What the business looks like right now", [
-  "After the quietest stretch since the financial crisis, the advisory market "
-  "has recovered hard. Goldman Sachs reported record advisory revenues in the "
-  "third quarter of 2026 and has advised on roughly $1.5 trillion of announced "
-  "transactions this year, which is the top of the table by a distance.",
-  "David Solomon, speaking on the firm&rsquo;s January 2026 call, said the "
-  "world is set up at the moment to be incredibly constructive in 2026 for M&amp;A "
-  "and capital markets. Goldman&rsquo;s published outlook expects global volumes "
-  "to pass the 2021 record and reach about $3.8 trillion.",
-  "I would read chief executive commentary on a pipeline with some care. A "
-  "bank forecasting a strong year for dealmaking is forecasting demand for its "
-  "own product. The league table figures are more checkable, and they vary by "
-  "data provider, which is worth knowing before anyone quotes one at you.",
+ ("The client can combine advantages", [
+  "Our software buyer could hire an independent firm for acquisition advice "
+  "and use a large bank for financing. It could also appoint multiple advisers "
+  "with different strengths.",
+  "This is why a simple division between large banks advising buyers and "
+  "independent firms advising sellers misses too much. Buyers need independent "
+  "judgment. Sellers may value a large bank&rsquo;s industry knowledge and "
+  "relationships. A particular banker&rsquo;s experience can matter more than "
+  "the institution&rsquo;s general business model.",
+  "The strategic problem for each bank is to identify where its strengths "
+  "matter enough to win the assignment.",
+  "A lender may have an advantage when financing is difficult. An industry "
+  "specialist may have an advantage when understanding the asset requires "
+  "unusual expertise. A trusted adviser may have an advantage when a board "
+  "faces a decision it has never encountered before.",
+  "The strongest proposition depends on the client&rsquo;s problem.",
  ]),
 
- ("Why this is a strategy question and not an etiquette one", [
-  "Put the pieces together and the shape of the industry follows from them.",
-  "If acquirers hire their lenders, then the bank with the largest balance "
-  "sheet has a structural lead on buy-side work, and the firms without one "
-  "compete for sell-side mandates where independence is the product. That is "
-  "not a cultural difference between institutions. It is an arithmetic one.",
-  "It also explains why banks pay so much for senior hires and why those moves "
-  "are reported the way transfers are. A managing director arriving from a "
-  "competitor brings the relationships that decide who gets called, and those "
-  "take a decade to build and about a week to move.",
-  "The clearest case I have looked at is BofA Securities, whose public record "
-  "across 2025 and 2026 is almost entirely buy-side in technology. I wrote "
-  "that up separately.",
+ ("Reputation changes the incentives", [
+  "There is a game theory problem here that I find especially interesting.",
+  "An adviser may benefit financially from getting a transaction completed "
+  "today. It also wants the client&rsquo;s next assignment and recommendations "
+  "to other executives. Those future opportunities give it a reason to protect "
+  "the quality of its advice.",
+  "A recommendation to abandon a deal can therefore have commercial value. The "
+  "adviser gives up a potential fee while giving the client evidence that its "
+  "judgment can be trusted.",
+  "That outcome depends on the value placed on future business. Reputation "
+  "creates an incentive for good advice, but clients still need to evaluate "
+  "each recommendation.",
+  "It also helps explain why senior bankers matter so much to their firms. "
+  "Their expertise and client relationships influence future revenue. Evercore "
+  "lists the departure of senior professionals as a risk, warning that it "
+  "could jeopardize relationships with clients and result in the loss of "
+  "client engagements and revenues.",
+ ]),
+
+ ("Read the adviser list differently", [
+  "The next time you read an acquisition announcement, look at the advisers "
+  "alongside the purchase price. Consider what the buyer needed to finance, "
+  "what expertise the transaction required, and which relationships might have "
+  "influenced the choice. Merger filings and financing announcements can help "
+  "you investigate those possibilities.",
+  "You will begin to see each bank as a business competing to solve a "
+  "particular problem.",
+  "That is what I want The Trojan Horse to help you understand: how the people "
+  "involved assess their options, respond to incentives, and earn the right to "
+  "influence a consequential decision.",
  ]),
 ]
 
-SOURCES = [
- "Linda Allen, Julapa Jagtiani, Stavros Peristiani and Anthony Saunders, "
- "<em>The Role of Bank Advisors in Mergers and Acquisitions</em>, Federal "
- "Reserve Bank of New York Staff Report, 14 February 2002. The certification "
- "finding for targets, the absence of one for acquirers, the observation that "
- "acquirers choose banks with prior lending relationships, and the negative "
- "abnormal returns for bank advisers to their own loan customers all come from "
- "its abstract and findings.",
-
- "Evercore Inc., Form 10-K for the year ended 31 December 2018, on the firm&rsquo;s "
- "founding premise. The characterisation of its balance sheet use is from the "
- "firm&rsquo;s own presentation materials. Centerview&rsquo;s structure is from "
- "secondary coverage rather than a filing.",
-
- "Goldman Sachs third quarter 2026 results commentary on record advisory "
- "revenues and announced volumes, and the firm&rsquo;s 2026 Global M&amp;A Outlook "
- "for the $3.8 trillion figure. David Solomon&rsquo;s remark is from the firm&rsquo;s "
- "January 2026 earnings call as reported at the time.",
-
- "The role of league-table rankings as a substitute for reputation in adviser "
- "selection is drawn from academic work on M&amp;A advisory mandates and is "
- "described here directionally rather than as a precise effect size.",
-]
-
-TAKEAWAY = ("A client picks the adviser before there is anything to advise on, "
-            "and a great many acquirers pick the institution that is already "
-            "lending to them.")
+TAKEAWAY = ""
+SOURCES = []

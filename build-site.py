@@ -285,7 +285,7 @@ def build_index():
       <a class="silo silo--solo" href="strategemata.html">
         <span class="silo__name">The Mandate</span>
         <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
-        <span class="silo__word">M&amp;A Advisory</span>
+        <span class="silo__word">How Banks Win It</span>
       </a>
       <a class="silo silo--solo" href="ten-years.html">
         <span class="silo__name">Ten Years</span>
@@ -312,9 +312,15 @@ def build_stories_page():
     cover: paper behind, Evercore navy in front."""
     body = []
     for head, paras in M_SECTIONS:
-        body.append(f'      <h2 class="wp__h">{head}</h2>')
+        if head:
+            body.append(f'      <h2 class="wp__h">{head}</h2>')
         body.extend(f'      <p class="wp__p">{x}</p>' for x in paras)
-    srcs = "\n".join(f"        <li>{x}</li>" for x in M_SOURCES)
+    take = (f'\n      <p class="wp__take">{M_TAKEAWAY}</p>\n' if M_TAKEAWAY else "")
+    srcs_block = ""
+    if M_SOURCES:
+        rows = "\n".join(f"        <li>{x}</li>" for x in M_SOURCES)
+        srcs_block = ('\n      <div class="wp__srcs">\n        <h3>Sources</h3>\n'
+                      f'        <ol>\n{rows}\n        </ol>\n      </div>\n')
 
     html = (HEAD.format(title=f"{M_TITLE} | The Trojan Horse",
                         desc="How an investment bank actually gets hired, and why "
@@ -335,16 +341,7 @@ def build_stories_page():
   <div class="shell">
     <article class="wp">
 {chr(10).join(body)}
-
-      <p class="wp__take">{M_TAKEAWAY}</p>
-
-      <div class="wp__srcs">
-        <h3>Sources</h3>
-        <ol>
-{srcs}
-        </ol>
-      </div>
-
+{take}{srcs_block}
       <a class="wp__go" href="the-buyers-bank.html">Read the case study: The Buyer&rsquo;s Bank &rarr;</a>
     </article>
   </div>
