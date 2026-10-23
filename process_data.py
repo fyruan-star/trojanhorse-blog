@@ -1,21 +1,36 @@
-"""How a company actually gets sold, stage by stage.
+"""The whole sell-side business on one page.
 
-The standard sequence is described stage by stage, with the problem each stage
-solves for the seller. The real-world evidence is the Background of the Merger
-section of Splunk's 2023 proxy statement, which records a sale with one bidder
-and no market check. Durations are typical ranges and vary by deal.
+Part One is how the bank gets chosen, carried over from The Mandate, which was
+this same subject arriving a page early. Winning the assignment is stage one of
+selling a company, so the two were always one piece.
+
+Part Two is the standard sequence, stage by stage, with the problem each stage
+solves for the seller. Its real-world evidence is the Background of the Merger
+section of Splunk's 2023 proxy, which records a sale with one bidder and no
+market check.
+
+Part Three is my own argument, about the unit this industry is measured in and
+the unit a nineteen year old is actually choosing between.
 
 No em dashes, no semicolons.
 """
 
 KICKER = "Sell-side M&amp;A"
+PART1_H = "Part One. How the bank gets chosen"
+PART2_H = "Part Two. The eight stages"
+PART3_H = "Part Three. What this means if you are nineteen"
 TITLE = "How a Company Gets Sold"
 LEDE = ("A sale process is a sequence built to control what each buyer knows "
-        "and when, and to make buyers compete. Each stage solves a specific "
-        "problem for the seller, and a real sale shows which of those "
-        "problems were present.")
+        "and when, and to make buyers compete. Before any of it starts, "
+        "somebody has to be chosen to run it, and that choice is made long "
+        "before anything is for sale.")
 
 INTRO = [
+ "A software company agrees to buy a competitor for $5 billion. The "
+ "announcement explains the price and the strategic rationale and, near the "
+ "bottom, names the investment banks that advised each side. Each of those "
+ "banks had to win the assignment, which is called the mandate, by persuading "
+ "a company to trust it with a decision that could change its future.",
  "An owner could sell a business without help, and very few do. Selling "
  "requires knowing what the business is worth, who would want it and what "
  "separates it from the other companies a buyer is looking at that quarter. "
@@ -30,6 +45,99 @@ INTRO = [
  "keeping a price once it has been agreed. The sequence is the standard "
  "version, and it usually runs from three months to several years. Not every "
  "sale follows it, and the last section uses a sale that did not.",
+ "This page runs in three parts. How the bank is chosen, which is settled "
+ "before anything is for sale. What the bank then does, in order, with "
+ "roughly how long each stage takes. And what both of those mean if you are "
+ "nineteen and trying to decide which of these firms to join.",
+]
+
+# ======================================= PART ONE: GETTING HIRED ===
+# Carried over from The Mandate, which was this same subject arriving a
+# page early. Winning the assignment is stage one of selling a company.
+PART1 = [
+ ('Two views of what an adviser is for', [
+  'Independent advisory firms present objectivity as their main reason to be chosen. Evercore says in its annual report that it “was founded on the belief that there is an opportunity within the investment banking industry for a firm free of the potential conflicts of interest created within large, multi-product, capital intensive financial institutions” (<a href="https://www.sec.gov/Archives/edgar/data/1360901/000162828026010273/evr-20251231.htm">Evercore 10-K</a>). Centerview describes its advice as independent and “unencumbered by institutional constraints or conflicts of interest” (<a href="https://centerviewpartners.com/corporateadvisory.aspx">Centerview</a>).',
+  'A study by four economists at the Federal Reserve Bank of New York points the other way. Linda Allen, Julapa Jagtiani, Stavros Peristiani and Anthony Saunders found in 2002 that “acquirers tend to choose their own banks” as merger advisers, meaning banks that already lent to them (<a href="https://www.newyorkfed.org/research/staff_reports/sr143.html">New York Fed, Staff Report 143</a>). The sample is historical, but it shows that a bank\'s lending relationship was commercially valuable to the client when it chose an adviser.',
+  'Both observations are accurate, and they describe different clients with different problems.',
+ ]),
+ ('Why relationships decide', [
+  'On a $5 billion purchase, a one percent difference in price is $50 million. A useful adviser might help the buyer avoid paying that extra amount, might recognize that the business deserves a higher price, or might tell the buyer to stop negotiating altogether. The client is paying for judgment whose quality becomes clear only after the decisions have been made. A polished presentation demonstrates preparation and shows little about how someone will behave when a negotiation turns difficult.',
+  'Relationships address that problem by giving the client evidence before the transaction. Banks organize teams around industries so their people stay close to potential clients. A banker covering software can study competitors, follow management changes and bring executives ideas long before there is a deal to discuss.',
+  'Consider two hypothetical bankers approaching the same chief executive. One arrives when a sale becomes likely. The other has spent years offering useful observations about the business, including reasons to reject earlier acquisition ideas. The second has given the executive more evidence on which to judge the advice. A formal pitch can still matter, but the relationship shapes how the client weighs what it hears.',
+ ]),
+ ('Why financing changes the choice', [
+  'Now suppose the buyer needs to borrow $2 billion to complete the acquisition. The company needs advice about the purchase and confidence that it can fund it. A large bank can offer both through different teams. Bank of America describes this structure on its own site: its Global Banking and Global Markets divisions operate under the Bank of America and BofA Securities names, with advisory work done by BofA Securities and lending by banking affiliates (<a href="https://business.bofa.com/content/boaml.html">business.bofa.com</a>).',
+  "For the buyer, that combination reduces coordination problems, because a recommendation is more useful when the company already understands how it could pay for it. The New York Fed authors linked the choice of a lending bank to access to acquisition financing, which is the same advantage described from the client's side. My interpretation is that financing capability gives a bank another reason to be chosen, and that the size of the advantage depends on what the transaction requires.",
+  'A company\'s own board can state this logic in a filing. When Splunk chose advisers for its 2023 sale to Cisco, its proxy statement said it retained Morgan Stanley partly because the bank had “served as a lead underwriter on various Splunk capital markets transactions, including its initial public offering” (<a href="https://www.sec.gov/Archives/edgar/data/1353283/000114036123050211/ny20011269x2_defm14a.htm">Splunk proxy statement</a>). The board treated the bank\'s earlier work arranging money as a reason to trust its advice.',
+ ]),
+ ("The conflict and the client's response", [
+  "The same advantage creates a tension. If the bank earns fees from advising the software buyer and from arranging its debt, completing the acquisition produces revenue from both. The client wants the adviser to recommend whatever creates the most value, including walking away. The New York Fed authors identified conflicts associated with advising and lending to the same acquirer, including the bank's existing and prospective credit exposure.",
+  'Independence does not remove every incentive. Evercore states that it is “not paid until the successful consummation of the transactions,” and advisory fees that depend on completion give any adviser a reason to favor a deal that closes. The question a client can ask of every adviser is how it gets paid and how that could influence its recommendation.',
+  "A client can combine advantages. Our software buyer could hire an independent firm for acquisition advice and use a large bank for financing, or appoint several advisers with different strengths. A lender has the advantage when financing is difficult. An industry specialist has it when understanding the asset requires unusual expertise. A trusted adviser has it when a board faces a decision it has never encountered. A division of the market into large banks that advise buyers and independent firms that advise sellers misses this, because buyers need independent judgment, sellers may value a large bank's industry knowledge and relationships, and a particular banker's experience can outweigh the institution's model.",
+ ]),
+ ('Reputation as a constraint', [
+  "An adviser may gain from completing a transaction today. It also wants the client's next assignment and recommendations to other executives, and those future opportunities give it a reason to protect the quality of its advice. A recommendation to abandon a deal can therefore have commercial value, because the adviser gives up a fee and gives the client evidence that its judgment can be trusted.",
+  'That outcome depends on how much the adviser values future business, so reputation encourages good advice without guaranteeing it, and clients still need to evaluate each recommendation. It also helps explain why senior bankers matter so much to their firms. Evercore lists the departure of senior professionals as a risk that “could jeopardize our relationships with clients and result in the loss of client engagements and revenues.”',
+ ]),
+ ('The strongest objection', [
+  'The New York Fed study covers a historical sample, and the market has changed since. Boards now run formal competitions among advisers more often and hire several at once, which would reduce the weight of any one relationship. If that is right, lending relationships and coverage should predict mandates less than they once did.',
+  'That is testable. The adviser lists in merger filings show whether the bank that lent to an acquirer in the preceding years is still the one named on its acquisitions, and whether independent firms appear more often alongside the lenders than they did. A pattern of acquirers hiring their own lenders would support the argument here, and a pattern of unconnected advisers would weaken it.',
+ ]),
+]
+
+# =============================== PART THREE: THE UNIT BEING MEASURED ===
+# My own argument. Hard to see from outside, because every source a student
+# can reach is organised by institution.
+PART3 = [
+
+ ("The unit everyone measures is the wrong one", [
+  "Everything above is about an institution. The people recruiting into this "
+  "industry almost never are.",
+  "A student choosing between banks reads league tables, which rank firms by "
+  "the value of the deals they advised on. The tables are real and they "
+  "measure something. They also measure the wrong unit. A bank does not have "
+  "relationships. The people inside it do, and Evercore says so to the SEC, "
+  "listing the departure of senior professionals as a risk that could "
+  "jeopardise its relationships with clients and result in the loss of client "
+  "engagements and revenues. A firm that discloses its dependence on "
+  "individuals in its own annual report is telling you where the asset sits.",
+  "Follow that through the stages above. The mandate in stage one comes from "
+  "a managing director who has spent years in front of an owner with nothing "
+  "to sell. The pitch is built by the team. The reason the pitch is being "
+  "heard at all usually belongs to one person. If that person leaves, the "
+  "pitches keep getting built and fewer of them get heard.",
+  "So the question a student is really asking, without knowing it, is not "
+  "which bank. It is which five or six people.",
+ ]),
+
+ ("Two analysts, same firm, different jobs", [
+  "Two people can join the same firm in the same city in the same month and "
+  "have unrecognisably different two years.",
+  "One lands in a group whose managing director is winning live sell-side "
+  "mandates. That analyst spends the year inside the sequence above, turning "
+  "a company&rsquo;s records into something a stranger can read, sitting on "
+  "the calls where bids come back, watching a board decide whether to run a "
+  "market check. The other lands in a group whose coverage list is quiet and "
+  "builds pitch books for meetings that do not convert. Same logo on the "
+  "building, same training, same pay. Different job, and after two years a "
+  "different set of things that person can credibly say they have done.",
+  "The industry does not hide this. It is invisible from outside because "
+  "every source a student can reach is organised by institution. League "
+  "tables are by institution. Rankings are by institution. Recruiting is by "
+  "institution, and it has to be, since a firm hires for the whole firm and "
+  "does not yet know which group will have the opening.",
+ ]),
+
+ ("What to ask instead", [
+  "Ask who the senior people in the group are and what they have closed in "
+  "the past two years, by name. Ask how long they have been there. Ask who "
+  "left recently and where they went.",
+  "These are polite questions and bankers usually answer them, because a good "
+  "answer is a source of pride. A group that deflects has also answered.",
+  "The last thing worth knowing is that a league table is a lagging indicator "
+  "of where people were. Bankers move, and their mandates follow on a delay "
+  "of a year or two, which is roughly the length of an analyst programme.",
+ ]),
 ]
 
 # (roman, name, duration, [paragraphs])
@@ -45,8 +153,7 @@ STAGES = [
   "years in contact with owners who have nothing to sell, bringing them "
   "observations about competitors and about what similar businesses have "
   "fetched, so by the time a sale is real the owner often has a view "
-  "already. The piece on <a href=\"strategemata.html\">how banks win the "
-  "mandate</a> gives the evidence for that.",
+  "already, for the reasons set out in Part One.",
   "That does not make the meeting ceremonial. A managing director is paid on "
   "the mandates brought in, so the pitch decides a large share of several "
   "people's income for the year, and the presentation is built by analysts "
@@ -207,7 +314,12 @@ CLOSE = [
  "them.",
 ]
 
-NOTE = ("Sources: the Background of the Merger section and the termination fee "
+NOTE = ("Part One cites Evercore&rsquo;s annual report, the New York Fed staff "
+        "report by Allen, Jagtiani, Peristiani and Saunders, whose findings "
+        "describe a historical sample, Bank of America&rsquo;s description of "
+        "its own structure, and Splunk&rsquo;s merger proxy. Part Three is my "
+        "own argument, built on the Evercore disclosure and on how the stages "
+        "above work. Part Two sources: the Background of the Merger section and the termination fee "
         "terms of Splunk's definitive proxy statement of October 2023, "
         "<a href=\"https://www.sec.gov/Archives/edgar/data/1353283/000114036123050211/ny20011269x2_defm14a.htm\">sec.gov</a>. "
         "Stage durations are typical ranges and vary by transaction.")

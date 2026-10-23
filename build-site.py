@@ -282,7 +282,6 @@ def build_index():
     # The doors come after the writing now. A reader who has finished the Troy
     # passage is in a position to choose; a reader who has just arrived is not.
     doors = [
-        ("The Mandate",   "How a bank gets hired",   "strategemata.html"),
         ("The Process",   "How a company gets sold", "how-a-company-gets-sold.html"),
         ("Ten Years",     "2016 to 2026",            "ten-years.html"),
         ("Trojan Horses", "What might change",       "trojan-horses.html"),
@@ -317,47 +316,16 @@ from mandate_data import (KICKER as M_KICKER, TITLE as M_TITLE, LEDE as M_LEDE,
                           TAKEAWAY as M_TAKEAWAY)
 
 def build_stories_page():
-    """The advisory business itself, under a white plate. This page inverts the
-    cover: paper behind, Evercore navy in front."""
-    body = []
-    for head, paras in M_SECTIONS:
-        if head:
-            body.append(f'      <h2 class="wp__h">{head}</h2>')
-        body.extend(f'      <p class="wp__p">{x}</p>' for x in paras)
-    take = (f'\n      <p class="wp__take">{M_TAKEAWAY}</p>\n' if M_TAKEAWAY else "")
-    srcs_block = ""
-    if M_SOURCES:
-        rows = "\n".join(f"        <li>{x}</li>" for x in M_SOURCES)
-        srcs_block = ('\n      <div class="wp__srcs">\n        <h3>Sources</h3>\n'
-                      f'        <ol>\n{rows}\n        </ol>\n      </div>\n')
-
-    html = (HEAD.format(title=f"{M_TITLE} | The Trojan Horse",
-                        desc="How an investment bank gets hired, and why "
-                             "acquirers often pick the institution already lending "
-                             "to them.")
-            + f'''
-<a class="back back--dark" href="index.html">&larr; The Trojan Horse</a>
-
-<header class="plate">
-  <div class="shell plate__in">
-    <p class="plate__k">{M_KICKER}</p>
-    <h1 class="plate__t">{M_TITLE}</h1>
-    <p class="plate__l">{M_LEDE}</p>
-  </div>
-</header>
-
-<main class="white">
-  <div class="shell">
-    <article class="wp">
-{chr(10).join(body)}
-{take}{srcs_block}
-      <a class="wp__go" href="the-buyers-bank.html">Read the case study: The Buyer&rsquo;s Bank &rarr;</a>\n      <a class="wp__go wp__go--2" href="how-a-company-gets-sold.html">Then: how a company gets sold &rarr;</a>
-    </article>
-  </div>
-</main>
-''' + FOOT)
-    (ROOT / "strategemata.html").write_text(html, encoding="utf-8")
-    print(f"strategemata.html  ({len(M_SECTIONS)} sections)")
+    """The Mandate was merged into the sale page, where it is Part One. The old
+    URL still exists so links to it keep working."""
+    (ROOT / "strategemata.html").write_text(
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        '<title>How a Company Gets Sold | The Trojan Horse</title>'
+        '<link rel="canonical" href="https://trojanhorse.blog/how-a-company-gets-sold.html">'
+        '<meta http-equiv="refresh" content="0; url=how-a-company-gets-sold.html">'
+        '</head><body><p><a href="how-a-company-gets-sold.html">How a Company Gets Sold</a></p>'
+        '</body></html>\n', encoding="utf-8")
+    print("strategemata.html  (redirect into the merged page)")
 
 
 # ====================================================== THE GROUND FLOOR ===
@@ -555,7 +523,7 @@ def build_buyers():
     html = (HEAD.format(title="The Buyer&rsquo;s Bank | The Trojan Horse",
                         desc="BofA Securities' technology record across 2025 and 2026 is built on acquirers and not on founders, and why that matters.")
             + '\n<link rel="stylesheet" href="story.css">\n'
-            + SHEET.format(back="strategemata.html", backlabel="The Mandate",
+            + SHEET.format(back="how-a-company-gets-sold.html", backlabel="How a Company Gets Sold",
                            lead=ld, line1="Buyer&rsquo;s", row2=row, sub=B_SUB,
                            lede=B_LEDE, sections=_sections(B_SECTIONS),
                            takeaway_html="", tail=tail,
@@ -692,6 +660,8 @@ def build_katabasis():
 from process_data import (KICKER as P_KICKER, TITLE as P_TITLE, LEDE as P_LEDE,
                           INTRO as P_INTRO, STAGES as P_STAGES,
                           CLOSE_HEAD as P_CLOSE_HEAD, CLOSE as P_CLOSE,
+                          PART1 as P_PART1, PART3 as P_PART3,
+                          PART1_H as P_P1H, PART2_H as P_P2H, PART3_H as P_P3H,
                           NOTE as P_NOTE)
 
 def rail():
@@ -709,6 +679,19 @@ def rail():
     return "".join(out)
 
 
+def _parts(sections):
+    """Headed prose sections, same furniture as the numbered stages minus the
+    numeral and the duration."""
+    out = []
+    for head, paras in sections:
+        body = "\n".join(f'        <p class="wp__p">{x}</p>' for x in paras)
+        out.append(f'''      <section class="ch">
+        <h2 class="ch__h">{head}</h2>
+{body}
+      </section>''')
+    return chr(10).join(out)
+
+
 def build_process():
     chapters = []
     for roman, name, dur, paras in P_STAGES:
@@ -723,11 +706,11 @@ def build_process():
     close = "\n".join(f'        <p class="wp__p">{x}</p>' for x in P_CLOSE)
 
     html = (HEAD.format(title=f"{P_TITLE} | The Trojan Horse",
-                        desc="The sell-side M&A process end to end, from the "
-                             "bake-off to completion, explained for a reader "
-                             "outside the industry.")
+                        desc="How an investment bank gets hired, how a sale "
+                             "then runs stage by stage, and why the managing "
+                             "director matters more than the logo.")
             + f'''
-<a class="back back--dark" href="strategemata.html">&larr; The Mandate</a>
+<a class="back back--dark" href="index.html">&larr; The Trojan Horse</a>
 
 <header class="plate">
   <div class="shell plate__in">
@@ -743,6 +726,12 @@ def build_process():
 {intro}
     </article>
 
+    <article class="wp">
+      <p class="part">{P_P1H}</p>
+{_parts(P_PART1)}
+    </article>
+
+    <p class="part part--rail">{P_P2H}</p>
     {rail()}
 
     <article class="wp">
@@ -752,10 +741,15 @@ def build_process():
         <h2 class="ch__h">{P_CLOSE_HEAD}</h2>
 {close}
       </section>
+    </article>
+
+    <article class="wp">
+      <p class="part">{P_P3H}</p>
+{_parts(P_PART3)}
 
       <p class="wp__note">{P_NOTE}</p>
 
-      <a class="wp__go" href="strategemata.html">Back to how the bank was hired in the first place &rarr;</a>\n      <a class="wp__go wp__go--2" href="trojan-horses.html">Next: two things in this business that I think are mislabelled &rarr;</a>
+      <a class="wp__go" href="trojan-horses.html">Next: two things in this business that I think are mislabelled &rarr;</a>
     </article>
   </div>
 </main>
@@ -822,7 +816,7 @@ def build_horses():
 {close}
       </section>
 
-      <a class="wp__go" href="strategemata.html">Back to how the mandate is won today &rarr;</a>
+      <a class="wp__go" href="how-a-company-gets-sold.html">Back to how a bank gets hired and how a sale runs &rarr;</a>
       <a class="wp__go wp__go--2" href="how-a-company-gets-sold.html">Or how a company gets sold &rarr;</a>
     </article>
   </div>
