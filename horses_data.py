@@ -1,141 +1,208 @@
-"""Two developments I think are filed under the wrong heading.
+"""Trojan Horses in Tech Banking.
 
-This page is argument rather than reporting, and it says so in its first
-paragraph. The factual premises are sourced. The chain of reasoning on top of
-them is mine and breaks in places I have tried to name.
+An argument, and the page says so. A landing page carries the framing and two
+circular horses. Each horse opens its own reading. Francis's text, set as
+written, with the source links gathered into a list at the foot of each reading.
 
-Register: first person, plain, concessive contrast rather than denial,
-uncertainty stated flatly rather than hedged. No em dashes, no semicolons.
+Register: first person, plain, uncertainty stated flatly. No em dashes, no
+semicolons.
 """
 
 KICKER = "What might change"
 TITLE = "Trojan Horses in Tech Banking"
-LEDE = ("Two things in this industry look like ordinary business, and I think "
-        "they are not. Both are being watched closely. Both are filed under "
-        "the wrong heading, which is the most reliable way for something large "
-        "to go unnoticed.")
+LEDE = ("Banks are welcoming private credit partnerships because they expand "
+        "financing options for clients. They are adopting AI because it helps "
+        "employees complete work faster. Both decisions offer immediate "
+        "benefits. I think they also carry risks to two things an investment "
+        "bank needs to survive: access to clients and the ability to develop "
+        "experienced advisers.")
 
 INTRO = [
- "A note on what this is. Most of this site is reporting, with filings behind "
- "the numbers. This page is not. It is an argument built on two facts I "
- "believe are solid and a chain of reasoning on top of them that could break "
- "in several places. I have tried to say where.",
- "The site is named after something that was brought inside because it looked "
- "like something else, and I use the phrase narrowly here. A Trojan horse in "
- "this sense has nothing to do with surprise. It is a development that gets "
- "correctly observed, correctly "
- "measured, and assigned to the wrong department, so that nobody responsible "
- "for the consequence is the one watching it.",
+ "In the Greek story, the Trojans brought a wooden horse inside their walls "
+ "because they believed it was an offering left by the departing Greeks. The "
+ "soldiers concealed inside emerged at night and opened the gates. Troy’s "
+ "defenses failed because the Trojans admitted something they believed was "
+ "safe.",
+ "The banking comparison begins with the reasons these developments are being "
+ "welcomed. Private credit brings capital. AI brings efficiency. The question "
+ "is whether accepting those benefits also creates a way to weaken the "
+ "business from within.",
 ]
 
-# (roman, name, filed under, what it actually is, [paragraphs])
+# slug, ordinal, kicker, title, the sentence that opens the horse, paragraphs,
+# sources, flip (the second horse faces the other way)
 HORSES = [
 
- ("I", "The lender is changing, and the adviser follows",
-  "A credit story", "A distribution story", [
-  "Start with something I did not make up. In 2002, four economists writing "
-  "for the Federal Reserve Bank of New York found that acquirers tend to hire "
-  "the banks that already lend to them, and tied that choice to wanting access "
-  "to the money that pays for the deal. It is the most useful sentence I have "
-  "read about how this industry actually works, and I wrote about it "
-  "<a href=\"strategemata.html\">elsewhere on this site</a>.",
+ dict(slug="horse-credit", n="The first horse", sub="Private credit partnerships",
+  title="Cuckoos Grow Up In Nests They Did Not Build",
+  line=("Private credit could help competing institutions build the "
+        "relationships that lead to advisory mandates."),
+  flip=False,
+  paras=[
+   "In September 2024, Citi and Apollo announced a direct lending program "
+   "expected to finance approximately $25 billion of debt opportunities. "
+   "Citi’s banking head, Viswas Raghavan, said the partnership would give "
+   "clients “a range of options to meet their evolving financing needs.” "
+   "Apollo’s co-president, Jim Zelter, described the opportunity to “tap into "
+   "Citi’s extensive client relationships.” The announcement called it a "
+   "“win-win arrangement.”",
 
-  "Now put it beside something everyone already knows. Over the past decade a "
-  "great deal of corporate lending has moved out of banks and into funds. "
-  "Apollo, Blackstone, Ares and others hold loans that would once have sat on "
-  "a bank balance sheet. This gets reported constantly, and it gets reported "
-  "as a credit story, about yield and about what happens in a downturn.",
+   "Those statements explain the immediate commercial logic. Citi contributes "
+   "client access and banking expertise. Apollo contributes capital. Together, "
+   "they can offer financing that either might find harder to provide alone.",
 
-  "Here is the part I think sits in the wrong category.",
+   "They also identify what could make the arrangement consequential for "
+   "advisory work. Apollo gains access to relationships that Citi has spent "
+   "years developing.",
 
-  "If the advisory mandate follows the lending relationship, and the lending "
-  "relationship is leaving the banks, then the mandate is leaving too, on a "
-  "delay. The funds would not have to become better advisers for this to "
-  "happen. They would only have to become the institution that already has the "
-  "client&rsquo;s number, for the reason that turned out to matter.",
+   "That matters because financing can influence the choice of an adviser. A "
+   "2002 Federal Reserve Bank of New York paper found that “acquirers tend to "
+   "choose their own banks” as merger advisers. The researchers connected that "
+   "choice to access to loans that could finance the acquisition. The study "
+   "concerns a historical sample, but it provides evidence that lending and "
+   "advisory relationships can reinforce one another.",
 
-  "Several of them are building the rest of the capability. The large "
-  "alternative managers have been adding capital markets teams for years. The "
-  "usual description is that they are keeping fees they used to pay away, and "
-  "that is true. I think it is the smaller half. The larger half is that every "
-  "one of those teams is another reason for a chief executive to call a fund "
-  "instead of a bank.",
+   "Consider a software company borrowing to fund acquisitions. Its lender "
+   "reviews financial performance, discusses borrowing capacity, and "
+   "evaluates proposed purchases. Over time, those interactions can give the "
+   "lender knowledge of the business and access to its decision-makers.",
 
-  "What would have to be true for me to be wrong. The relationship that "
-  "produces a mandate might belong to a person rather than to an institution, "
-  "in which case bankers simply move and carry the advantage with them, which "
-  "is what already happens between banks. Or the funds might find that "
-  "advising creates conflicts they do not want, since a firm that lends, owns "
-  "and advises in one sector has a harder conversation than a bank does. I "
-  "think the first objection is strong. I think the second is weaker than it "
-  "sounds, because the industry has lived comfortably with the bank version of "
-  "that conflict for decades.",
- ]),
+   "If that institution develops additional capabilities, it can compete for "
+   "more assignments. KKR’s capital markets business already provides "
+   "financing services to “both our portfolio companies and independent "
+   "clients.” Capital markets execution differs from M&amp;A advisory, but it "
+   "demonstrates that an alternative asset manager can build a financial "
+   "services business extending beyond its own investments.",
 
- ("II", "The apprenticeship is the product",
-  "A question about juniors", "A question about 2045", [
-  "The second one is harder to argue and I believe it is the larger of the "
-  "two.",
+   "My argument is that banks should treat these partnerships as decisions "
+   "about future competition as well as current financing capacity. A partner "
+   "supplying capital today may become qualified to win more of the client’s "
+   "business tomorrow.",
 
-  "Every bank is automating the work juniors do. Document review, first-pass "
-  "diligence, comparable company screens, formatting, the mechanical parts of "
-  "building a model. This gets discussed as a question about junior "
-  "employment, and the question people ask is how many analysts a bank will "
-  "need.",
+   "This challenges the assumption that the bank can contribute its "
+   "relationships while keeping its position as the client’s principal "
+   "financial adviser. Relationships are strengthened through repeated useful "
+   "interactions. A financing partner participating in those interactions has "
+   "an opportunity to establish its own standing with management.",
 
-  "I think that is the wrong question. The interesting one is about 2045.",
+   "That is how private credit could function as a Trojan Horse. The bank "
+   "welcomes an outside institution because its capital improves the bank’s "
+   "offering. The same arrangement gives that institution access to clients it "
+   "might otherwise struggle to reach. The potential threat enters through a "
+   "service the bank has chosen to provide.",
 
-  "A managing director&rsquo;s value is judgment and relationships. Neither "
-  "can be bought in, which is why the hires that move them are reported like "
-  "transfers. Both are grown, and the growing medium is roughly fifteen years "
-  "of doing the work badly, then adequately, then well. An analyst builds "
-  "several hundred comparable company analyses and somewhere in there stops "
-  "producing "
-  "them and starts having a view about which comparison is dishonest. Nobody "
-  "designed that as a training programme. It is a by-product of needing the "
-  "work done.",
+   "There is a strong counterargument. Partnerships can help banks retain "
+   "clients they might otherwise lose, and the bank may remain responsible "
+   "for the relationship. A borrower can also choose separate lenders and "
+   "advisers, particularly when it wants independent advice. Access alone does "
+   "not guarantee that a private credit manager will win an advisory mandate.",
 
-  "Remove the work and the by-product goes with it.",
+   "The outcome depends on who becomes more valuable to the client over time. "
+   "I would therefore watch whether these partnerships produce repeat business "
+   "for the bank, the capital provider, or both, and whether the capital "
+   "provider begins winning assignments independently.",
+  ],
+  srcs=[
+   "Citi and Apollo, press release, September 2024. Announcement of a $25 billion private credit direct lending program, with the statements from Viswas Raghavan and Jim Zelter. "
+   "<a href=\"https://www.citigroup.com/global/news/press-release/2024/citi-and-apollo-announce-25-billion-private-credit-direct-lending-program\">citigroup.com</a>",
+   "Federal Reserve Bank of New York, Staff Report no. 143, 2002, on acquirers and their choice of merger advisers. "
+   "<a href=\"https://www.newyorkfed.org/research/staff_reports/sr143.html\">newyorkfed.org</a>",
+   "KKR, Capital Markets, description of financing services for portfolio companies and independent clients. "
+   "<a href=\"https://www.kkr.com/invest/capital-markets\">kkr.com</a>",
+  ]),
 
-  "Banks are not blind to this, and they do talk about training. But a "
-  "training programme that exists on purpose is a cost, and a training "
-  "programme that falls out of revenue-generating work is free. The free kind "
-  "is the only kind that has ever produced a managing director. Replacing it "
-  "means a bank spending real money every year for a benefit that arrives long "
-  "after the people approving the budget have retired.",
+ dict(slug="horse-apprenticeship", n="The second horse", sub="Automating the apprenticeship",
+  title="Caterpillars Must Cocoon Before Becoming A Butterfly",
+  line=("AI could remove some of the work through which junior bankers "
+        "develop the judgment those mandates require."),
+  flip=True,
+  paras=[
+   "AI offers banks a different benefit. It can reduce the time required to "
+   "retrieve information, summarize documents, and prepare initial analysis. "
+   "Morgan Stanley introduced AskResearchGPT to help investment banking and "
+   "other employees draw information from its research.",
 
-  "The measure I would watch, then, is training budget rather than "
-  "headcount.",
+   "The optimistic argument is straightforward. Automate routine preparation, "
+   "then give bankers more time for analysis, clients, and decisions.",
 
-  "Where this could be wrong. Judgment might be more portable than I think, "
-  "and senior people might keep arriving from somewhere else, the way they "
-  "already arrive from competitors, although that only works while somewhere "
-  "else is still producing them. Or the tools might compress the time it takes "
-  "to develop judgment rather than removing the chance to develop it. That "
-  "would be the good outcome and it is not far-fetched. I put real weight on "
-  "it. I am describing a risk here, not a forecast.",
- ]),
+   "Goldman Sachs’s George Lee described this possibility in a 2025 "
+   "discussion about AI and employment. He suggested that “the quality of the "
+   "apprenticeship rather than the quantity” could help firms “breed even "
+   "better senior leaders.” In the same discussion, he acknowledged the "
+   "challenge of developing future leaders if firms employ fewer juniors.",
+
+   "I think the optimistic outcome requires more organizational change than "
+   "the productivity argument usually establishes. Completing a task faster "
+   "creates available time. It does not determine how that time will be used "
+   "or what an analyst will learn.",
+
+   "Banks themselves describe practical work as central to development. "
+   "Goldman tells prospective interns: “Our interns don’t learn by watching, "
+   "they learn by getting involved in real projects.”",
+
+   "Some of those projects contain tasks that AI can help perform. The "
+   "difficulty is separating repetitive effort from useful practice.",
+
+   "An analyst preparing comparable company analysis for a software business "
+   "must decide which companies belong in the group. Similar revenue growth "
+   "can conceal differences in customer retention, profitability, or "
+   "dependence on a few large contracts. An experienced banker’s corrections "
+   "help the analyst understand which differences matter.",
+
+   "If AI prepares the analysis, the analyst may gain time to investigate "
+   "those issues more deeply. But if the bank uses the savings to assign more "
+   "projects to fewer people, the analyst may spend that time checking and "
+   "forwarding outputs. The work gets completed while the opportunity to "
+   "explain and defend the underlying decisions becomes smaller.",
+
+   "That creates a potential Trojan Horse inside the bank’s operating model. "
+   "AI enters as a tool for improving productivity. If the bank responds by "
+   "removing junior responsibilities without replacing their educational "
+   "value, its adoption can weaken the process that produces experienced "
+   "bankers.",
+
+   "The effect would take time to appear. Today’s senior bankers would "
+   "continue advising clients. Current projects might finish faster. The "
+   "consequences would become clearer as later cohorts reached positions "
+   "requiring independent judgment.",
+
+   "The strongest objection is that AI could make learning substantially "
+   "better. Juniors could test more assumptions, compare alternative "
+   "approaches, and receive faster feedback. I think that is plausible. It "
+   "supports a deliberate redesign of the apprenticeship.",
+
+   "A bank pursuing that outcome would require analysts to defend "
+   "recommendations, explain changes to generated work, participate in client "
+   "discussions, and review decisions with senior colleagues. Those "
+   "activities need protected time and management attention. They cannot "
+   "depend entirely on whatever time remains after the next assignment "
+   "arrives.",
+  ],
+  srcs=[
+   "Morgan Stanley, press release announcing AskResearchGPT. "
+   "<a href=\"https://www.morganstanley.com/press-releases/morgan-stanley-research-announces-askresearchgpt\">morganstanley.com</a>",
+   "Goldman Sachs Exchanges, “AI’s impact on employment,” transcript, 2025, with George Lee. "
+   "<a href=\"https://d3cobg6h0snvt3.cloudfront.net/pdfs/insights/goldman-sachs-exchanges/ai-exchanges-ais-impact-on-employment/transcript.pdf\">goldmansachs.com</a>",
+   "Goldman Sachs, careers for students, on how interns learn. "
+   "<a href=\"https://www.goldmansachs.com/careers/students\">goldmansachs.com</a>",
+  ]),
 ]
 
-CLOSE_HEAD = "What the two have in common"
+CLOSE_HEAD = "What the two horses could change"
 CLOSE = [
- "Both are measured accurately, by people whose job is a different question. "
- "Private credit is tracked by credit teams. Automation is tracked by "
- "operations and by recruiting. Neither sits with the people who think about "
- "where mandates will come from in a decade.",
- "That is the whole mechanism, and it is not special to banking. An "
- "institution notices the thing. It files the thing correctly, for the purpose "
- "of whoever noticed it. Then the consequence lands somewhere nobody was "
- "assigned to look.",
- "I would rather be wrong about both of these than right about either. The "
- "second one in particular describes a cost that falls on people who are "
- "currently in secondary school, and the decisions that determine it are being "
- "made now by people who will not be there to see it.",
+ "Private credit partnerships and AI adoption can improve a bank’s results "
+ "while changing how it competes in the future. One can give another "
+ "institution a stronger relationship with its clients. The other can reduce "
+ "the experience available to its future advisers.",
+ "That is my thesis: banks risk weakening their advisory businesses if they "
+ "judge these developments mainly by the capital they provide and the costs "
+ "they remove.",
+ "In the Greek story, the horse crossed the walls because the Trojans "
+ "accepted the explanation for bringing it inside. Banks have substantial "
+ "reasons to welcome both private credit and AI. They also need to examine "
+ "what those decisions allow to happen afterward.",
 ]
 
-NOTE = ("The Federal Reserve Bank of New York finding is from Allen, Jagtiani, "
-        "Peristiani and Saunders, February 2002, and describes a historical "
-        "sample. The growth of private credit and the build-out of capital "
-        "markets teams at alternative managers are widely reported. Everything "
-        "built on top of those facts is my own reasoning and should be read as "
-        "argument rather than as reporting.")
+NOTE = ("This page is argument and not reporting. The quotations and facts are "
+        "sourced at the foot of each reading. The reasoning built on them is "
+        "mine, and each reading names the objection I think is strongest.")

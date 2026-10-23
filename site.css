@@ -912,43 +912,65 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
 .wp__go--2{ display:block; margin-top:.9rem; }
 
 /* ================================================= TROJAN HORSES ===
-   A two-up index at the head of the speculation page. Each card states the
-   heading the development is filed under and the heading I think it belongs
-   under, which is the whole argument in four words. */
-.twin{
+   Two circular horses at the head of the page. Each is a door to one reading.
+   The engraving is cropped to a disc and printed into the paper with multiply,
+   so its white ground disappears and only the line work remains. The second
+   horse faces the other way. */
+.pair{
   display:grid; grid-template-columns:repeat(2,1fr);
-  gap:clamp(16px,2.4vw,30px);
-  max-width:min(760px,94%); margin:clamp(30px,4.6vw,52px) auto 0;
+  gap:clamp(26px,5vw,64px);
+  max-width:min(880px,94%); margin:clamp(34px,5vw,60px) auto clamp(40px,6vw,72px);
 }
-.twin__c{
-  display:flex; flex-direction:column; padding:clamp(18px,2.2vw,26px) clamp(18px,2.2vw,26px) clamp(16px,2vw,22px);
-  border:1px solid rgba(28,38,117,.2); text-decoration:none; color:inherit;
-  transition:border-color .22s ease, background .22s ease;
+.horse{
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  color:var(--ever); text-decoration:none;
 }
-.twin__c:hover{ border-color:var(--ever); background:rgba(28,38,117,.035); }
-.twin__n{
-  display:block; font-size:11.5px; letter-spacing:.24em;
-  text-transform:uppercase; color:var(--ever); margin-bottom:.7rem;
+.horse__disc{
+  position:relative; display:block; overflow:hidden; border-radius:50%;
+  width:clamp(170px,24vw,260px); aspect-ratio:1;
+  border:1px solid rgba(28,38,117,.3);
+  box-shadow:0 0 0 7px var(--paper), 0 0 0 8px rgba(28,38,117,.14);
+  background:var(--paper);
+  transition:border-color .3s ease, box-shadow .3s ease;
 }
-.twin__t{
-  display:block; font-size:clamp(17px,.9rem + .7vw,21px); line-height:1.24;
-  color:var(--ever); margin-bottom:1rem;
+.horse__disc img{
+  width:100%; height:100%; object-fit:contain;
+  transform:scale(.96);
+  mix-blend-mode:multiply;
+  transition:transform .5s ease;
 }
-/* the two titles wrap to different depths, so the title absorbs the slack
-   and the rows below it land on a shared baseline */
-.twin__t{ flex:1 1 auto; }
-.twin__r{
-  display:flex; justify-content:space-between; gap:12px;
-  font-size:12.5px; line-height:1.4; padding-top:.6rem;
-  border-top:1px solid rgba(28,38,117,.14); color:#5A5F58;
+.horse__disc--flip img{ transform:scale(-.96,.96); }
+.horse:hover .horse__disc{ border-color:var(--ever); box-shadow:0 0 0 7px var(--paper), 0 0 0 9px var(--ever); }
+.horse:hover .horse__disc img{ transform:scale(1.02); }
+.horse:hover .horse__disc--flip img{ transform:scale(-1.02,1.02); }
+.horse__n{
+  display:block; margin-top:clamp(22px,3vw,32px);
+  font-size:11.5px; letter-spacing:.26em; text-transform:uppercase;
+  color:rgba(28,38,117,.58);
 }
-.twin__r + .twin__r{ border-top-color:rgba(28,38,117,.08); }
-.twin__lab{ letter-spacing:.1em; text-transform:uppercase; font-size:10.5px; padding-top:.15em; }
-.twin__val{ text-align:right; color:#262A24; }
-.twin__r--now .twin__val{ color:var(--ever); }
+.horse__t{
+  display:block; margin-top:.7rem; max-width:20ch;
+  font-size:clamp(21px,1.1rem + .9vw,29px); font-weight:500; line-height:1.15;
+  color:var(--ever);
+}
+.horse__s{
+  display:block; margin-top:.9rem; max-width:32ch;
+  font-size:clamp(14.5px,1.35vw,16.5px); line-height:1.5; font-style:italic;
+  color:#4A4F48;
+}
+.horse__go{
+  display:inline-block; margin-top:1.1rem; padding-bottom:3px;
+  font-size:14.5px; color:var(--ever);
+  border-bottom:1px solid rgba(28,38,117,.34);
+  transition:border-color .3s ease;
+}
+.horse:hover .horse__go{ border-bottom-color:var(--ever); }
+
+/* a reading's title is a whole sentence, so it sets smaller than a page name */
+.plate__t--long{ font-size:clamp(34px,1.5rem + 2.8vw,66px); line-height:1.08; letter-spacing:.04em; max-width:20ch; }
 
 @media (max-width:620px){
-  .twin{ grid-template-columns:1fr; }
+  .pair{ grid-template-columns:1fr; gap:48px; }
 }
 
 /* inline links in body copy were inheriting the global no-underline anchor

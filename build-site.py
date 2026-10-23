@@ -749,44 +749,38 @@ def build_process():
 
 
 # =================================================== TROJAN HORSES ===
-# Argument rather than reporting, and the page opens by saying so.
+# Argument rather than reporting, and the page says so. A landing page with two
+# circular horses, each opening its own reading.
 from horses_data import (KICKER as H_KICKER, TITLE as H_TITLE, LEDE as H_LEDE,
                          INTRO as H_INTRO, HORSES as H_HORSES,
                          CLOSE_HEAD as H_CLOSE_HEAD, CLOSE as H_CLOSE,
                          NOTE as H_NOTE)
 
-def twin():
-    """Two cards, each naming the department a development currently sits in
-    and the department I think it belongs in."""
-    out = ['<div class="twin">']
-    for roman, name, filed, actual, _ in H_HORSES:
-        out.append(f'''<a class="twin__c" href="#h{roman}">
-      <span class="twin__n">Horse {roman}</span>
-      <span class="twin__t">{name}</span>
-      <span class="twin__r"><span class="twin__lab">Filed under</span><span class="twin__val">{filed}</span></span>
-      <span class="twin__r twin__r--now"><span class="twin__lab">I think it is</span><span class="twin__val">{actual}</span></span>
+def pair():
+    """Two circular horses. Each is a door to one reading, and carries the one
+    sentence that says what that horse is."""
+    out = ['<div class="pair">']
+    for h in H_HORSES:
+        flip = " horse__disc--flip" if h["flip"] else ""
+        out.append(f'''<a class="horse" href="{h["slug"]}.html">
+      <span class="horse__disc{flip}"><img src="images/horse.png" alt="" width="425" height="505"></span>
+      <span class="horse__n">{h["n"]}</span>
+      <span class="horse__t">{h["title"]}</span>
+      <span class="horse__s">{h["line"]}</span>
+      <span class="horse__go">Read it &rarr;</span>
     </a>''')
     out.append("</div>")
     return "".join(out)
 
 
 def build_horses():
-    chapters = []
-    for roman, name, filed, actual, paras in H_HORSES:
-        body = "\n".join(f'        <p class="wp__p">{x}</p>' for x in paras)
-        chapters.append(f'''      <section class="ch" id="h{roman}">
-        <p class="ch__k"><span class="ch__n">{roman}</span>Filed as {filed.lower()}</p>
-        <h2 class="ch__h">{name}</h2>
-{body}
-      </section>''')
-
     intro = "\n".join(f'      <p class="wp__p wp__p--lead">{x}</p>' for x in H_INTRO)
     close = "\n".join(f'        <p class="wp__p">{x}</p>' for x in H_CLOSE)
 
     html = (HEAD.format(title=f"{H_TITLE} | The Trojan Horse",
                         desc="Two developments in technology investment banking "
-                             "that look like ordinary business and that I think "
-                             "are being watched by the wrong people.")
+                             "that banks are welcoming, and that I think carry "
+                             "risks to client access and to developing advisers.")
             + f'''
 <a class="back back--dark" href="index.html">&larr; The Trojan Horse</a>
 
@@ -800,15 +794,13 @@ def build_horses():
 
 <main class="white">
   <div class="shell">
-    {twin()}
+    {pair()}
 
     <article class="wp wp--wide">
 {intro}
     </article>
 
     <article class="wp">
-{chr(10).join(chapters)}
-
       <section class="ch ch--close">
         <h2 class="ch__h">{H_CLOSE_HEAD}</h2>
 {close}
@@ -823,7 +815,51 @@ def build_horses():
 </main>
 ''' + FOOT)
     (ROOT / "trojan-horses.html").write_text(html, encoding="utf-8")
-    print(f"trojan-horses.html  ({len(H_HORSES)} horses)")
+    print("trojan-horses.html  (landing, two horses)")
+
+
+def build_horse_readings():
+    """One page per horse. The second opens with a way back to the first, and
+    the first with a way on to the second."""
+    for i, h in enumerate(H_HORSES):
+        other = H_HORSES[1 - i]
+        sub = h["sub"][0].lower() + h["sub"][1:]
+        body = "\n".join(f'      <p class="wp__p">{x}</p>' for x in h["paras"])
+        srcs = "\n".join(f"        <li>{x}</li>" for x in h["srcs"])
+        nxt = ("Next: " if i == 0 else "Back to ") + f'{other["n"].lower()}, {other["title"]} &rarr;'
+        html = (HEAD.format(title=f'{h["title"]} | The Trojan Horse',
+                            desc=h["line"])
+                + f'''
+<a class="back back--dark" href="trojan-horses.html">&larr; Trojan Horses</a>
+
+<header class="plate">
+  <div class="shell plate__in">
+    <p class="plate__k">{h["n"]}: {sub}</p>
+    <h1 class="plate__t plate__t--long">{h["title"]}</h1>
+    <p class="plate__l">{h["line"]}</p>
+  </div>
+</header>
+
+<main class="white">
+  <div class="shell">
+    <article class="wp">
+{body}
+
+      <div class="wp__srcs">
+        <h3>Sources</h3>
+        <ol>
+{srcs}
+        </ol>
+      </div>
+
+      <a class="wp__go" href="{other["slug"]}.html">{nxt}</a>
+      <a class="wp__go wp__go--2" href="trojan-horses.html">Back to the two horses &rarr;</a>
+    </article>
+  </div>
+</main>
+''' + FOOT)
+        (ROOT / f'{h["slug"]}.html').write_text(html, encoding="utf-8")
+    print(f"{len(H_HORSES)} horse readings")
 
 
 if __name__ == "__main__":
@@ -831,6 +867,7 @@ if __name__ == "__main__":
     build_stories_page()
     build_process()
     build_horses()
+    build_horse_readings()
     build_primers()
     build_deals()
     build_desk()
