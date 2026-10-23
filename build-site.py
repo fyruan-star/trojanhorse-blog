@@ -292,6 +292,11 @@ def build_index():
         <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
         <span class="silo__word">Bake-Off to Close</span>
       </a>
+      <a class="silo silo--solo" href="trojan-horses.html">
+        <span class="silo__name">Trojan Horses</span>
+        <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
+        <span class="silo__word">What Might Change</span>
+      </a>
       <a class="silo silo--solo" href="ten-years.html">
         <span class="silo__name">Ten Years</span>
         <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
@@ -667,7 +672,7 @@ def build_process():
 
       <p class="wp__note">{P_NOTE}</p>
 
-      <a class="wp__go" href="strategemata.html">Back to how the bank was hired in the first place &rarr;</a>
+      <a class="wp__go" href="strategemata.html">Back to how the bank was hired in the first place &rarr;</a>\n      <a class="wp__go wp__go--2" href="trojan-horses.html">Next: two things in this business that I think are mislabelled &rarr;</a>
     </article>
   </div>
 </main>
@@ -676,10 +681,89 @@ def build_process():
     print(f"how-a-company-gets-sold.html  ({len(P_STAGES)} stages)")
 
 
+# =================================================== TROJAN HORSES ===
+# Argument rather than reporting, and the page opens by saying so.
+from horses_data import (KICKER as H_KICKER, TITLE as H_TITLE, LEDE as H_LEDE,
+                         INTRO as H_INTRO, HORSES as H_HORSES,
+                         CLOSE_HEAD as H_CLOSE_HEAD, CLOSE as H_CLOSE,
+                         NOTE as H_NOTE)
+
+def twin():
+    """Two cards, each naming the department a development currently sits in
+    and the department I think it belongs in."""
+    out = ['<div class="twin">']
+    for roman, name, filed, actual, _ in H_HORSES:
+        out.append(f'''<a class="twin__c" href="#h{roman}">
+      <span class="twin__n">Horse {roman}</span>
+      <span class="twin__t">{name}</span>
+      <span class="twin__r"><span class="twin__lab">Filed under</span><span class="twin__val">{filed}</span></span>
+      <span class="twin__r twin__r--now"><span class="twin__lab">I think it is</span><span class="twin__val">{actual}</span></span>
+    </a>''')
+    out.append("</div>")
+    return "".join(out)
+
+
+def build_horses():
+    chapters = []
+    for roman, name, filed, actual, paras in H_HORSES:
+        body = "\n".join(f'        <p class="wp__p">{x}</p>' for x in paras)
+        chapters.append(f'''      <section class="ch" id="h{roman}">
+        <p class="ch__k"><span class="ch__n">{roman}</span>Filed as {filed.lower()}</p>
+        <h2 class="ch__h">{name}</h2>
+{body}
+      </section>''')
+
+    intro = "\n".join(f'      <p class="wp__p wp__p--lead">{x}</p>' for x in H_INTRO)
+    close = "\n".join(f'        <p class="wp__p">{x}</p>' for x in H_CLOSE)
+
+    html = (HEAD.format(title=f"{H_TITLE} | The Trojan Horse",
+                        desc="Two developments in technology investment banking "
+                             "that look like ordinary business and that I think "
+                             "are being watched by the wrong people.")
+            + f'''
+<a class="back back--dark" href="index.html">&larr; The Trojan Horse</a>
+
+<header class="plate">
+  <div class="shell plate__in">
+    <p class="plate__k">{H_KICKER}</p>
+    <h1 class="plate__t">{H_TITLE}</h1>
+    <p class="plate__l">{H_LEDE}</p>
+  </div>
+</header>
+
+<main class="white">
+  <div class="shell">
+    {twin()}
+
+    <article class="wp wp--wide">
+{intro}
+    </article>
+
+    <article class="wp">
+{chr(10).join(chapters)}
+
+      <section class="ch ch--close">
+        <h2 class="ch__h">{H_CLOSE_HEAD}</h2>
+{close}
+      </section>
+
+      <p class="wp__note">{H_NOTE}</p>
+
+      <a class="wp__go" href="strategemata.html">Back to how the mandate is won today &rarr;</a>
+      <a class="wp__go wp__go--2" href="how-a-company-gets-sold.html">Or how a company actually gets sold &rarr;</a>
+    </article>
+  </div>
+</main>
+''' + FOOT)
+    (ROOT / "trojan-horses.html").write_text(html, encoding="utf-8")
+    print(f"trojan-horses.html  ({len(H_HORSES)} horses)")
+
+
 if __name__ == "__main__":
     build_index()
     build_stories_page()
     build_process()
+    build_horses()
     build_primers()
     build_deals()
     build_katabasis()

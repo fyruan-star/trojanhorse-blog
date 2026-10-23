@@ -910,3 +910,51 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
   font-size:13.5px; line-height:1.6; color:#5A5F58;
 }
 .wp__go--2{ display:block; margin-top:.9rem; }
+
+/* ================================================= TROJAN HORSES ===
+   A two-up index at the head of the speculation page. Each card states the
+   heading the development is filed under and the heading I think it belongs
+   under, which is the whole argument in four words. */
+.twin{
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:clamp(16px,2.4vw,30px);
+  max-width:min(760px,94%); margin:clamp(30px,4.6vw,52px) auto 0;
+}
+.twin__c{
+  display:flex; flex-direction:column; padding:clamp(18px,2.2vw,26px) clamp(18px,2.2vw,26px) clamp(16px,2vw,22px);
+  border:1px solid rgba(28,38,117,.2); text-decoration:none; color:inherit;
+  transition:border-color .22s ease, background .22s ease;
+}
+.twin__c:hover{ border-color:var(--ever); background:rgba(28,38,117,.035); }
+.twin__n{
+  display:block; font-size:11.5px; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--ever); margin-bottom:.7rem;
+}
+.twin__t{
+  display:block; font-size:clamp(17px,.9rem + .7vw,21px); line-height:1.24;
+  color:var(--ever); margin-bottom:1rem;
+}
+/* the two titles wrap to different depths, so the title absorbs the slack
+   and the rows below it land on a shared baseline */
+.twin__t{ flex:1 1 auto; }
+.twin__r{
+  display:flex; justify-content:space-between; gap:12px;
+  font-size:12.5px; line-height:1.4; padding-top:.6rem;
+  border-top:1px solid rgba(28,38,117,.14); color:#5A5F58;
+}
+.twin__r + .twin__r{ border-top-color:rgba(28,38,117,.08); }
+.twin__lab{ letter-spacing:.1em; text-transform:uppercase; font-size:10.5px; padding-top:.15em; }
+.twin__val{ text-align:right; color:#262A24; }
+.twin__r--now .twin__val{ color:var(--ever); }
+
+@media (max-width:620px){
+  .twin{ grid-template-columns:1fr; }
+}
+
+/* inline links in body copy were inheriting the global no-underline anchor
+   and reading as plain text */
+.wp__p a{
+  color:var(--ever); border-bottom:1px solid rgba(28,38,117,.34);
+  transition:border-color .2s ease;
+}
+.wp__p a:hover{ border-bottom-color:var(--ever); }
