@@ -983,3 +983,13 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
 
 /* the sub-journal door on the Ten Years page */
 .ground__n a{ color:var(--silver); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.18em; }
+
+.silohead__blurb a{ color:inherit; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.18em; }
+
+.wp__note a{ color:var(--ever); border-bottom:1px solid rgba(28,38,117,.34); }
+.wp__srcs a{ color:var(--ever); border-bottom:1px solid rgba(28,38,117,.34); }
+
+/* the thesis paragraphs on Ten Years run longer than a standfirst, so they
+   get a wider measure and a plain left edge */
+.silohead__blurb--long{ max-width:60ch; text-align:left; font-size:clamp(16px,1.5vw,19px); line-height:1.62; }
+.silohead__blurb--two.silohead__blurb--long{ color:var(--silver-dim); }

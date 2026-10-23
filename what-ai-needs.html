@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>What Training Requires | The Trojan Horse</title>
-<meta name="description" content="Something clearly changed in late 2022. The part that mattered commercially to the companies in this timeline was less the software itself than the computing it required, and the c">
+<meta name="description" content="The part of the AI boom that mattered commercially to the companies in Ten Years was less the software than the computing it required. Training a large model is a physical activity">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
@@ -25,27 +25,27 @@
     <span class="tt__row"><span class="tt__big">Requires</span></span>
   </h1>
 
-  <p class="sub">HOW A SOFTWARE ADVANCE BECAME<br>A QUESTION ABOUT ELECTRICAL CAPACITY</p>
+  <p class="sub">A software advance became a question about electricity</p>
 
   <p class="byline">Francis Ruan</p>
 
-  <div class="opening"><p class="lede">Something clearly changed in late 2022. The part that mattered commercially to the companies in this timeline was less the software itself than the computing it required, and the consequences of that requirement ran a long way into the physical world.</p></div>
+  <div class="opening"><p class="lede">The part of the AI boom that mattered commercially to the companies in Ten Years was less the software than the computing it required. Training a large model is a physical activity that uses thousands of processors, buildings and large amounts of electricity, and the scarcest input moved step by step from processors to buildings to power. That sequence explains why storage, networking and construction attracted capital.</p></div>
 
   <div class="body">
-    <h2 class="h2">Training and inference, which are different jobs</h2>
-    <p><strong>Training</strong> is building the model. A system is shown a very large quantity of text or images and adjusts billions of internal values until it predicts well. This runs on thousands of processors for weeks or months and is expensive.</p>
-    <p><strong>Inference</strong> is using the result. A question goes in and an answer comes out. Each instance is cheap and the total is not, because there are a great many questions.</p>
-    <p>Training resembles a construction project. Inference resembles a utility bill. Most of the spending described in the timeline between 2023 and 2025 is the first kind.</p>
-    <h2 class="h2">Why thousands of chips rather than one fast one</h2>
-    <p>A conventional processor is built to perform operations one after another very quickly. A graphics processor is built to perform thousands of simple operations at the same time. It was developed for video games, where the colour of two million pixels has to be worked out simultaneously and the order does not matter.</p>
-    <p>Training a model has a similar shape. That is how a company whose products were originally sold for video games came to supply much of the hardware used for AI training.</p>
-    <p>One processor is not sufficient. A large training run uses thousands working together, which means the connections between them affect how much of that hardware is actually in use. It is why the Mellanox purchase appears in the timeline.</p>
+    <h2 class="h2">Training and inference</h2>
+    <p>Training is building the model. A system is shown a very large quantity of text or images and adjusts billions of internal values until it predicts well. This runs on thousands of processors for weeks or months and is expensive. Inference is using the result. A question goes in and an answer comes out. Each instance is cheap and the total is not, because there are a great many questions.</p>
+    <p>Training resembles a construction project, and inference resembles a utility bill. Most of the spending described in the timeline between 2023 and 2025 is the first kind.</p>
+    <h2 class="h2">Why thousands of chips and not one fast one</h2>
+    <p>A conventional processor performs operations one after another very quickly. A graphics processor performs thousands of simple operations at the same time. Nvidia began as a maker of graphics chips for games, where the color of millions of pixels has to be worked out at once and the order does not matter. Training a model has a similar shape, which is how a company whose products were first sold for video games came to supply much of the hardware used for AI.</p>
+    <p>One processor is not enough. A large training run uses thousands working together, so the connections between them determine how much of that hardware is in use at any moment. That is the reasoning behind Nvidia's purchase of Mellanox, which sold those connections, and behind the storage company DDN's valuation, since data has to reach the processors fast enough to keep them working.</p>
     <h2 class="h2">Where the constraint ends up</h2>
-    <p>Thousands of processors in one building draw a great deal of electricity and convert nearly all of it into heat, so the building needs power delivered and heat removed. Both are matters of civil and electrical engineering rather than software.</p>
-    <p>By 2026 the constraint most often described by operators was electrical capacity and the time needed to obtain a grid connection. In several markets hardware can be purchased considerably faster than power can be connected.</p>
+    <p>Thousands of processors in one building draw a great deal of electricity and turn nearly all of it into heat, so the building needs power delivered and heat removed. Both are problems of civil and electrical engineering and not of software. The International Energy Agency projects global data center electricity use to reach about 945 terawatt-hours by 2030, roughly the current consumption of Japan, and expects data centers to account for nearly half of US electricity demand growth through 2030 (<a href="https://www.iea.org/reports/energy-and-ai/executive-summary">IEA, Energy and AI</a>).</p>
+    <p>By 2026 the constraint most often described by operators was electrical capacity and the time needed to obtain a grid connection. In several markets hardware can be bought considerably faster than power can be connected.</p>
+    <h2 class="h2">The qualification</h2>
+    <p>Projections of this kind depend on assumptions about how efficient models and chips become. If training needs substantially less computing for the same result, the constraint would ease and some of the spending in the timeline would look excessive in hindsight. Published IEA scenarios vary widely after 2030 for that reason.</p>
+    <h2 class="h2">What a reader should take from it</h2>
+    <p>When a company on this subject announces a purchase or an investment, find which part of the chain it addresses, processors, connections, storage, buildings or power, and whether that part is the current constraint. The evidence that would change the picture is a sustained fall in the computing needed per model, which would weaken the case for paying a premium for any part of the chain.</p>
   </div>
-
-  <p class="takeaway">Training large models turned a software advance into a demand for buildings, electrical capacity and cooling, on timescales set by utilities rather than by engineers.</p>
 
   <figure class="mark"><img src="images/horse.png" alt="The Trojan Horse engraving"></figure>
 

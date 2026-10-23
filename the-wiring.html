@@ -25,35 +25,35 @@
     
   </h1>
 
-  <p class="sub">WHY THE CONNECTIONS BETWEEN MACHINES<br>DETERMINE THE VALUE OF THE MACHINES</p>
+  <p class="sub">A network sets how much a data center's processors can do</p>
 
   <p class="byline">Francis Ruan</p>
 
-  <div class="opening"><p class="lede">Nvidia agreed to acquire Mellanox Technologies in March 2019 at $125 a share in cash, about $6.9 billion. It was Nvidia's largest acquisition to that point and completed in April 2020 after regulatory review.</p></div>
+  <div class="opening"><p class="lede">Nvidia agreed in March 2019 to buy Mellanox Technologies at $125 a share in cash, about $6.9 billion. It later looked prescient, because demand for AI training arrived and the networking Mellanox sold became essential. I think the purchase is better explained by a constraint Nvidia's customers already faced in 2019 than by a forecast of generative AI. That makes it a more repeatable kind of judgment.</p></div>
 
   <div class="body">
+    <h2 class="h2">The inference from hindsight</h2>
+    <p>The common inference from what happened next is that Nvidia foresaw the AI boom. The announcement supports a narrower claim. Jensen Huang, Nvidia's chief executive, said that “addressing this demand will require holistic architectures that connect vast numbers of fast computing nodes.” The demand he referred to was the one created by AI and data science, which were already growing in 2019. The release describes the deal as one that “will unite two of the world's leading companies in high performance computing” (<a href="https://www.sec.gov/Archives/edgar/data/1045810/000104581019000031/ex991jointpr.htm">joint press release</a>). Nothing in it predicts a particular application or a particular scale.</p>
     <h2 class="h2">What Mellanox sold</h2>
-    <p>Mellanox made high speed networking hardware, principally for a technology called InfiniBand. This is not internet networking. It is designed for connecting machines inside a single facility, where delay is measured in microseconds and consistency matters more than distance.</p>
-    <p>Its customers were largely scientific computing centres. National laboratories, weather services, genomics institutes. The market was specialised and not large.</p>
-    <h2 class="h2">Why that equipment determines the value of other equipment</h2>
-    <p>A computing job too large for one machine is divided across many. Those machines cannot work entirely independently, because each periodically needs results the others have produced. So they stop, exchange, and continue.</p>
-    <p>If the connection between them is slow or inconsistent, every machine waits for the slowest exchange. The practical effect is that an operator who has bought a facility full of expensive processors gets less work out of them. The industry measures this as utilisation, and at large scale the network often sets it.</p>
-    <p>This is why a networking supplier can charge well for what looks like commodity hardware. The customer is not comparing it against other cables. It is comparing the cost against idle time on equipment it has already bought.</p>
-    <h2 class="h2">Separating the purchase from what followed</h2>
-    <p>Nvidia's stated rationale at announcement concerned data centre computing, already a growing part of its business. Intel was reported to have bid for the same asset.</p>
-    <p>Demand for training large AI models arrived several years later and made this capability far more valuable than it was in 2019. I would keep those two facts apart. The acquisition is adequately explained by what Nvidia's existing customers were already doing, and nothing in the announcement claims anticipation of what came after. Describing it as foresight makes it sound less repeatable than it was.</p>
+    <p>Mellanox made high speed networking hardware, mainly for a technology called InfiniBand. It is not internet networking. It connects machines inside one facility, where delay is measured in microseconds and consistency matters more than distance. Its customers were largely scientific computing centers, such as national laboratories, weather services and genomics institutes.</p>
+    <h2 class="h2">Why that equipment sets the value of other equipment</h2>
+    <p>A computing job too large for one machine is divided across many. Those machines cannot work entirely alone, because each periodically needs results the others have produced, so they stop, exchange data and continue. If the connection is slow or inconsistent, every machine waits for the slowest exchange.</p>
+    <p>A hypothetical example shows the size of the effect. Suppose a facility has a thousand processors and the network keeps each of them waiting for ten percent of the time. The operator is paying for a thousand processors and getting the output of nine hundred. A faster network that removes the waiting adds the equivalent of a hundred processors without buying one. The customer therefore compares the network's price with the cost of idle processors, not with the price of other cables, and that comparison is why a supplier of what looks like commodity hardware can charge well.</p>
+    <h2 class="h2">Why buy and not partner</h2>
+    <p>The strongest objection is that the two companies already worked together. Mellanox's chief executive, Eyal Waldman, referred in the announcement to “our longstanding partnership.” If the partnership worked, a purchase paid a premium for something Nvidia already had.</p>
+    <p>Ownership gave Nvidia something a partnership did not, which was control of the roadmap for a component that determined how its own products performed in the largest installations, and protection against a competitor owning that component. The evidence that would decide the matter is how Nvidia sold the combination afterward. Selling networking and accelerators together as one system, which Nvidia later did, is consistent with the ownership argument. It does not prove the premium was necessary.</p>
+    <h2 class="h2">What a reader should take from it</h2>
+    <p>Separate what an acquirer said it was buying from what happened after. The announcement is adequately explained by what Nvidia's customers were doing in 2019, and attributing the result to foresight makes the decision look less repeatable than it was. The repeatable version is to ask what determines how much use a customer gets from equipment it has already bought, and to look for suppliers of that component.</p>
   </div>
-
-  <p class="takeaway">The supplier whose product determines how much use a customer gets from equipment it has already bought is in a stronger position than the category description suggests.</p>
 
   <figure class="mark"><img src="images/horse.png" alt="The Trojan Horse engraving"></figure>
 
   <div class="srcs">
     <h3>Sources</h3>
     <ol>
-      <li>NVIDIA Corporation and Mellanox Technologies, announced 11 March 2019, $125.00 per share in cash, approximately $6.9bn. Completed April 2020.</li>
-      <li>InfiniBand's role in high performance computing from Nvidia's and Mellanox's own technical documentation.</li>
-      <li>Competing interest from other bidders was reported at the time and has not been confirmed by the parties.</li>
+      <li>NVIDIA Corporation and Mellanox Technologies, joint press release, 11 March 2019. $125.00 per share in cash, approximately $6.9bn enterprise value, with the statements by Jensen Huang and Eyal Waldman. <a href="https://www.sec.gov/Archives/edgar/data/1045810/000104581019000031/ex991jointpr.htm">sec.gov</a>. Completed April 2020.</li>
+      <li>InfiniBand's role in high performance computing is from Nvidia's and Mellanox's technical documentation.</li>
+      <li>The thousand-processor example is hypothetical and uses round numbers.</li>
     </ol>
   </div>
 

@@ -1,0 +1,244 @@
+"""The Buyer's Bank: BofA Securities' technology record, 2025 to 2026.
+
+Restructured from the hand-built page into an argument with a thesis, the
+interpretation it challenges, the evidence, the strongest objection and the
+developments that would test it. Every fact is from the author's own research
+into SEC filings and the sources listed at the foot. Office-level attribution is
+not public, and the page says so.
+
+No em dashes, no semicolons.
+"""
+
+SUB = "BofA's technology record is built on acquirers and not on founders"
+
+LEDE = ("BofA Securities' technology record across 2025 and 2026 consists "
+        "almost entirely of work for companies that were buying, defending "
+        "themselves or restructuring, and almost none of it for founders "
+        "deciding to sell. I think that is a strategy that suits a universal "
+        "bank's balance sheet, and that it leaves a gap, because the "
+        "founder relationships that produce later mandates attach to "
+        "sell-side work. The bank's senior hires in March 2026 fit that "
+        "reading.")
+
+SECTIONS = [
+
+ ("The ranking and what it leaves out", [
+  "League tables put BofA among the top five advisers in the Americas by "
+  "value in the first half of 2026, and the bank advised the target on the "
+  "$84.4 billion Union Pacific and Norfolk Southern merger. On that "
+  "evidence its franchise looks strong across the board. A league table "
+  "measures the value of deals advised, which says little about who the "
+  "bank advises. The filings that name BofA in technology answer that "
+  "question.",
+  "The clearest example is Wiz. In July 2024 the four-year-old Israeli "
+  "security company walked away from $23 billion. Its annual recurring "
+  "revenue had passed $500 million, up from $350 million a year earlier and "
+  "$100 million in the summer of 2022. Chief executive Assaf Rappaport wrote "
+  "to staff that “saying no to such humbling offers is tough” and that “we "
+  "have chosen to continue on our path to building Wiz” "
+  "(<a href=\"https://en.globes.co.il/en/article-wiz-turns-down-googles-23b-acquisition-offer-1001484935\">Globes</a>). "
+  "Eight months later Wiz agreed to sell to Google for $32 billion, 39 "
+  "percent more, with the same buyer and the same antitrust concern. BofA "
+  "Securities advised Google exclusively and Goldman Sachs advised Wiz. It "
+  "was the best technology mandate any bank won in the period, and it was "
+  "for the buyer.",
+ ]),
+
+ ("What the record is", [
+  "There is no public ledger of what a coverage desk did in a year, and no "
+  "filing names an office. A proxy statement shows that BofA delivered an "
+  "opinion and roughly what it was paid, and does not say whether Palo Alto, "
+  "New York or London did the work. The closest available record is every SEC "
+  "filing from January 2025 through September 2026 that names BofA "
+  "Securities as financial adviser or carries its fairness opinion. It "
+  "covers fifty-seven companies.",
+  "Twelve are real estate and REITs, nine are transport and business "
+  "services, eight are healthcare and four are utilities. Eighteen are "
+  "industrial, consumer, energy and financial companies, and six carry "
+  "technology industry codes. The largest single item is a railroad. The "
+  "record describes a real assets and utilities franchise with a strong "
+  "research desk, and the six technology names show what its technology work "
+  "consists of.",
+ ]),
+
+ ("Six technology mandates", [
+  "The six technology names in the record fall into four verticals, and in each the bank sat on the same side of the table. Each vertical is taken in turn.",
+ ]),
+
+ ("Security, and what Google was solving for", [
+  "Google Cloud has been third behind AWS and "
+  "Azure for years, and third place in infrastructure is hard to improve on "
+  "price or on features. A customer reconsiders a choice it made eight years "
+  "earlier when something forces it to, and security is the usual reason. "
+  "Wiz works across clouds, and Google committed publicly to keeping it "
+  "working on AWS, Azure and Oracle. I read that as strategy. Google bought "
+  "the security layer that sits above every cloud, so it earns revenue on "
+  "the Amazon estate it was unlikely to win and holds the relationship with "
+  "the security team that is consulted when workloads move. The additional "
+  "$9 billion I read as the cost of removing Wiz's alternative, which was an "
+  "IPO that its revenue growth made credible, together with whatever deal "
+  "protections made an antitrust wait tolerable for a seller that had "
+  "already refused once.",
+ ]),
+
+ ("Outsourcing, and two ways to leave public markets", [
+  "Both of the other technology "
+  "names in 2025 were business process outsourcing companies. A "
+  "seat-based outsourcing company charges per agent per hour, its customers "
+  "read the same research it does, and language models are getting cheaper "
+  "every quarter. Even if the disruption takes a decade, the market prices "
+  "the narrative before it prices the cash flow, so the multiple can "
+  "compress first. I have no evidence that either company's revenue was "
+  "impaired. My reading is that the repricing risk was visible to "
+  "everyone involved, and that a company expecting a hard rebuild would "
+  "prefer not to do it under quarterly scrutiny. TaskUs went private in May "
+  "2025 at $16.50 a share, roughly $1.62 billion, with Blackstone "
+  "alongside the two co-founders. BofA advised the buyer group, and Evercore "
+  "advised the special committee, whose job is to protect other shareholders "
+  "from a founder on the opposite side of the table. In July, TELUS made an "
+  "offer for the part of TELUS Digital it did not own, the special committee "
+  "retained BofA as independent adviser with BMO as valuator, and the parent "
+  "completed it at $4.50 a share, about $539 million. One company bought its "
+  "freedom with sponsor money and the other was pulled back inside its "
+  "parent. BofA was on the buying end of the larger deal and the independent "
+  "end of the smaller.",
+ ]),
+
+ ("Data, and who owns the join", [
+  "Advertising has lost much of its ability to "
+  "follow an individual, and what replaced it is matching, in which an "
+  "advertiser and a publisher decide that two records describe the same "
+  "person without either handing over a name. That capability is called "
+  "identity resolution, and LiveRamp is the largest independent provider. In "
+  "May 2026 Publicis agreed to buy it at $38.50 a share, $2.167 billion of "
+  "enterprise value, and described the purpose as data co-creation for smarter "
+  "agents. My reading is simpler. An agency that rents the matching layer "
+  "pays a competitor on its own cost line indefinitely and is squeezed "
+  "hardest when the layer becomes essential, so Publicis bought out the "
+  "supplier. BofA advised Publicis. Three months later CoStar completed an "
+  "$800 million purchase of Zonda, which consolidates new-home data into a "
+  "database it already leads for commercial and residential property. In "
+  "a data business the second-best data set is worth little, which "
+  "explains the incentive to own the whole thing. BofA advised CoStar.",
+ ]),
+
+ ("Travel, and a rights plan that lasted four days", [
+  "Between April and November 2025, "
+  "Constellation Software built a 9.7 percent economic position in Sabre, "
+  "4.7 percent in common stock and another 5 percent through derivatives, "
+  "which allow an investor to accumulate quietly past the point at which "
+  "common stock alone would require disclosure. By February 2026 "
+  "Constellation held 50,157,523 shares outright, 12.7 percent of the "
+  "company. Constellation is known for buying vertical market software and "
+  "holding it. Sabre was carrying real debt and trading at a price that "
+  "reflected it. After weeks of governance discussions Constellation ended "
+  "them on 26 February. On 1 March Sabre's board adopted a limited-duration "
+  "rights plan with a 15 percent trigger and a term to February 2027, with "
+  "BofA Securities as financial adviser and Kirkland &amp; Ellis as counsel. "
+  "On 5 March Sabre gave Constellation a board seat, Constellation agreed "
+  "to stand still at 15 percent, and the plan's expiry was accelerated. The "
+  "plan lasted four days. A rights plan is a clock that starts when the "
+  "other side stops returning calls, and this one converted an accumulation "
+  "into a negotiation and put a ceiling on the stake. In September BofA "
+  "returned as dealer manager on Sabre's secured debt tenders, which "
+  "addressed the same vulnerability from the financing side, since the "
+  "leverage that lowered the price had attracted Constellation.",
+ ]),
+
+ ("What the six have in common", [
+  "In each case the client was buying, defending itself or acting for a "
+  "special committee. None was a founder deciding to sell. The value "
+  "proposition the record shows is a desk that represents people deploying "
+  "capital, with a universal bank's balance sheet behind the advice. "
+  "Acquirers need bridge loans, revolving credit, leveraged finance and a "
+  "dealer manager, and independent advisers such as Qatalyst and Centerview "
+  "do not lend. The Wiz mandate shows that BofA can sell that proposition at "
+  "the highest level and at maximum difficulty.",
+  "What the record does not show is BofA sitting next to a founder in the "
+  "week the founder decides to sell.",
+ ]),
+
+ ("Why the gap matters", [
+  "The case for the strategy is strong. Covering founders is expensive and "
+  "does not repay until they sell, which may be never. Acquirer "
+  "relationships renew on a schedule, attach to an institution and survive "
+  "banker turnover. For a balance sheet the size of BofA's, the buy side is "
+  "the rational business. A forty-person boutique can live on sell-side "
+  "mandates and a universal bank cannot.",
+  "The argument leaves out an asymmetry specific to this industry. A buy-side "
+  "mandate is a procurement decision made by a corporate development team, "
+  "and it ends at closing. A sell-side mandate attaches to a person at the "
+  "most consequential moment of their working life, and that person then "
+  "founds another company, joins boards and writes angel and later fund "
+  "checks. Selling a railroad leads to a retirement. Selling a company at "
+  "thirty-two makes someone a repeat client for forty years, and a banker is "
+  "attached to each of those years. The buy-side relationship closes with "
+  "the deal, and the sell-side relationship follows the founder around "
+  "Northern California for decades.",
+ ]),
+
+ ("The strongest objection", [
+  "The instrument is imperfect. EDGAR only sees transactions involving a "
+  "US public filer, and most of Silicon Valley's deals have private targets "
+  "that generate no filing. Fairness opinions are mostly given on the target "
+  "side, so buy-side work is undercounted. Wiz is an example of both "
+  "failures, which is why it is in this piece.",
+  "Two points survive that objection. The undercount runs toward missing "
+  "public sell-side deals, and BofA's public sell-side work is not missing "
+  "but abundant, and it is concentrated in REITs. And the large technology "
+  "sales that did surface mostly went elsewhere. Palo Alto Networks used "
+  "JPMorgan on its roughly $25 billion purchase of CyberArk while CyberArk "
+  "used Qatalyst, and Confluent used Morgan Stanley in selling to IBM at $31 "
+  "a share. The claim is narrow. A franchise can rank in the top five by "
+  "value and still not be in the room where the founder's decision is made.",
+ ]),
+
+ ("What the March 2026 hires show", [
+  "In March 2026 Reuters reported four senior technology hires at BofA, "
+  "sourced to two internal memos. Gary Kirkham joined from Centerview as "
+  "executive vice chair, having spent more than twenty years at BofA as "
+  "global co-head of technology, media and telecom. Jason Rowe joined from "
+  "Goldman Sachs as global co-head of technology investment banking, one of "
+  "three software co-heads there across two decades. Mahir Zaimoglu and "
+  "Patrik Czornik joined from JPMorgan in London. The hires followed Kevin "
+  "Brunner's move to JPMorgan as global chairman of investment banking and "
+  "M&amp;A and Ric Spencer's move to Citigroup.",
+  "Execution is what BofA has demonstrably got, so a banker is not "
+  "typically hired from Goldman's software group for his execution. He is "
+  "hired for his relationships, and specifically for twenty years of "
+  "founders who will take his call in the week they decide. I infer that the "
+  "bank agrees with the diagnosis above, since the hires address the gap "
+  "the record shows.",
+ ]),
+
+ ("What would test the thesis", [
+  "Four developments would show whether the hires worked and whether the "
+  "gap closes. The first is a venture-backed sell-side mandate in the "
+  "next four quarters, which is the direct evidence. The second is whether "
+  "the balance sheet keeps winning sponsor take-privates, the part of the "
+  "franchise that already works. The third is whether Rowe's first mandates "
+  "resemble Google's, with acquirers, or founders'. The fourth is whether "
+  "senior seats land in Northern California, since three of the four "
+  "announced hires sit in London or New York. A bank that intends to win "
+  "founder mandates in the Bay Area has to put senior people in the Bay "
+  "Area, and the announced geography so far points elsewhere.",
+  "For a reader, the practical implication is to treat a league-table rank as "
+  "a statement about the size of the deals and to look at the filings for "
+  "the side of the table. A bank's position with acquirers and its "
+  "position with founders are different franchises, and the second "
+  "predicts who is called first when a company decides to sell.",
+ ]),
+]
+
+SRCS = [
+ "The fifty-seven companies come from EDGAR full-text search, 1 January 2025 to 28 September 2026, on “Opinion of BofA Securities” and the “is acting as,” “is serving as” and “acted as financial advisor” constructions, deduplicated by filer, with sector counts from each filer's SIC code. This is a floor and not a census, since it can only see filings that use those phrases. The league-table context is from Mergermarket and ION Analytics for the first half of 2026.",
+ "Wiz ended the $23bn talks in July 2024, citing antitrust and investor concerns, with annual recurring revenue reported above $500m against $350m a year earlier and $100m in August 2022. Rappaport's memo is reported by "
+ "<a href=\"https://en.globes.co.il/en/article-wiz-turns-down-googles-23b-acquisition-offer-1001484935\">Globes</a>. "
+ "Google announced the $32bn acquisition on 18 March 2025 and completed it in March 2026, with BofA Securities as exclusive financial adviser to Google and Goldman Sachs to Wiz, from transaction records and trade coverage. Wiz was private, so there is no proxy behind the adviser roles and the page relies on secondary reporting. Fenwick, lead counsel to Wiz, describes it as the largest acquisition of a private technology company ever.",
+ "TaskUs, announced 9 May 2025: $16.50 per share, roughly $1.62bn, BofA Securities to the buyer group (Blackstone with co-founders Bryce Maddock and Jaspar Weir), Evercore to the special committee.",
+ "TELUS Digital: the special committee engaged BofA Securities as independent financial adviser on 6 July 2025 with BMO as independent valuator. US$4.50 per share, aggregate consideration around US$539m, approved by shareholders on 27 October 2025.",
+ "Publicis Groupe and LiveRamp, announced 17 May 2026: $38.50 per share, $2.167bn enterprise value, BofA Securities to Publicis, whose own release describes data co-creation for smarter agents. CoStar Group and Zonda: $800m, completed 21 August 2026, BofA Securities to CoStar.",
+ "Sabre: Constellation Software accumulated a 9.7% economic position (4.7% common, 5% derivatives) between April and November 2025 and held 50,157,523 shares, 12.7%, as of 10 February 2026. Governance talks ended 26 February. The rights plan was adopted 1 March 2026 with a 15% trigger (20% for certain passive holders) and a term to 28 February 2027, BofA Securities as financial adviser and Kirkland &amp; Ellis as counsel. A governance agreement on 5 March gave Constellation a board seat and a standstill and accelerated the plan's expiry. BofA was dealer manager on the September 2026 secured-debt tenders.",
+ "The four hires and two departures: Reuters, 10 March 2026, sourced to two internal memos. Palo Alto Networks and CyberArk advisers and Confluent and IBM advisers are from the transaction announcements.",
+ "Office-level attribution is not public. No filing, release or league table says which desk staffed which deal, so nothing here is a claim about who worked on what. Statements about what a party was solving for are inferences from the structure of the transaction and the state of the industry.",
+]

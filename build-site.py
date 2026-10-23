@@ -108,7 +108,7 @@ COVER = """
   <div class="shell cover__stage">
     <img class="cover__horse" src="images/horse-light.png"
          alt="A rearing horse drawn in silver line work, its hindquarters breaking apart into fragments">
-    <p class="cover__tag">Mergers &amp; Acquisitions<span class="cover__tag__sub">A Journal of Strategy &amp; Conquest</span></p>
+    <p class="cover__tag">Mergers &amp; Acquisitions<span class="cover__tag__sub">Technology Deals and the Incentives Behind Them</span></p>
   </div>
 
   <div class="cover__mist" aria-hidden="true"></div>
@@ -128,18 +128,13 @@ ESSAY = """
   <div class="shell">
 
     <div class="tale">
-      <p class="tale__open"><span class="tale__cap">F</span>or ten years the Greeks hurled themselves against the walls of Troy and never breached them. Then they built a wooden horse, left it on the shore as a gift, and sailed away as though the war were over. The Trojans wheeled it through their own gates. That night, soldiers slipped from its belly and opened the city from within.</p>
+      <p class="tale__open"><span class="tale__cap">T</span>his journal argues that the facts which decide whether a technology deal works are rarely the ones its announcement leads with. Announcements describe growth and strategy. The outcomes in the deals examined here follow more closely from three other things: what it costs a customer to leave the product, whether the asset&rsquo;s value depends on staying independent of its buyer, and who controls scarce inputs such as manufacturing, electricity and capital.</p>
     </div>
 
-    <figure class="creed">
-      <p class="creed__l">The strongest walls are rarely broken.</p>
-      <p class="creed__l creed__l--turn">They are opened by the people they were built to protect.</p>
-    </figure>
-
     <div class="tale">
-      <p>Mergers and acquisitions are wars fought in boardrooms rather than on battlefields. Companies lay siege to one another, build defenses, forge alliances, and, when force fails, reach for the oldest weapon of all: an offer too attractive to refuse. Every deal is a horse left at the gates, and the question is always what it holds.</p>
-      <p>Here, I tell those deals as stories. I trace the strategy behind every move, the deception, real and imagined, that shapes what each side believes, and the leverage that passes from hand to hand. No finance degree required. Only the curiosity to stand before the horse and wonder what&rsquo;s inside.</p>
-      <p class="tale__sign">My name is Francis Ruan.<br>Welcome to The Trojan Horse.</p>
+      <p>The name comes from the Greek story. The Trojans brought a wooden horse inside their walls because they believed it was an offering from the departing Greeks, and the soldiers hidden inside opened the gates at night. The analogy has fixed parts. Something is welcomed by someone who sees a benefit in it, and a risk enters with it that does its harm after admission. I use it only where a development fits those parts. The Trojan Horses page applies it to two cases in banking, in which banks welcome private credit partners and AI tools for real benefits that may weaken their access to clients and their ability to train advisers.</p>
+      <p>Ten Years tests the argument against technology transactions from 2016 to 2026. The Mandate and The Process explain how banks win and run those transactions. Each piece states its thesis first, names the view it disagrees with, and links its sources.</p>
+      <p class="tale__sign">Francis Ruan</p>
     </div>
 
   </div>
@@ -150,28 +145,28 @@ ESSAY = """
 # mechanism underneath, not the transaction on top.
 EPISODES = [
  ("Why Models Fail",
-  "A discounted cash flow is right up until it meets a business. Where it breaks first, why the failure is almost never arithmetic, and what a forecast is actually claiming when it says growth costs nothing.",
+  "A discounted cash flow depends on forecast growth and a discount rate, and both are assumptions. This episode examines where valuation models break when applied to a real business, and what a forecast claims when it assumes that growth costs nothing.",
   "Recording October"),
  ("Sleep As Capital",
-  "The analyst at three in the morning is a depreciating asset nobody books. What the sleep research says about judgement under deprivation, and whether a desk that runs on it is buying output or borrowing against it.",
+  "Junior bankers regularly work through the night. This episode examines what research on sleep deprivation shows about judgment, and whether a team that relies on long hours is gaining output or borrowing against later performance.",
   "In production"),
  ("The Adjusted Truth",
-  "Adjusted EBITDA excludes whatever management has decided is unusual. Who audits the definition of unusual, and what happens to a multiple when the denominator is a choice.",
+  "Adjusted EBITDA excludes items that management classifies as unusual. This episode examines who sets that definition, how it varies between companies and how it changes the multiple a buyer pays.",
   "In production"),
  ("Managing The Number",
-  "Companies rarely fake earnings. They shape them. The entirely legal machinery for landing on consensus, and why the quarter you cannot see is the interesting one.",
+  "Companies shape reported earnings through legal choices about timing and classification. This episode examines how those choices are used to meet consensus estimates and what they imply about the quarters that are not reported.",
   "In production"),
  ("Who Picks Comparables",
-  "Every comp set is an argument about what a company is. Change the peers and you change the answer, and almost nobody shows their working.",
+  "A valuation based on comparable companies depends on which companies are chosen. This episode examines how different peer sets change the answer, and why the selection is rarely shown.",
   "In production"),
  ("Writers Make Bankers",
-  "Underneath the models the job is persuasive narrative. What separates good writing from great, and why nobody tells you that on the way in.",
+  "Much of an analyst's work is persuasive writing about a business. This episode examines what separates strong writing from weak writing in banking and how analysts learn it.",
   "Recording October"),
  ("The Confidence Trap",
-  "Two methods agreeing feels like proof. Often it is one assumption counted twice, wearing a second coat.",
+  "Two valuation methods that agree can seem to confirm each other. This episode examines how one assumption can enter both, which makes the agreement weaker evidence than it appears.",
   "In production"),
  ("Disconnected",
-  "Build something genuinely complicated with the internet switched off. A running experiment in what recall costs when retrieval is free.",
+  "An experiment in building a complex model with the internet switched off, to test how much a person can recall without searching.",
   "In production"),
 ]
 ROMAN_EP = ["I","II","III","IV","V","VI","VII","VIII"]
@@ -203,7 +198,7 @@ def build_podcast():
   <div class="shell">
     <p class="silohead__kicker">The Podcast</p>
     <h1 class="silohead__name">In The Belly</h1>
-    <p class="silohead__blurb">Conversations on the mechanisms underneath M&amp;A. Guests are being booked now; episodes appear here as they are cut.</p>
+    <p class="silohead__blurb">Conversations on the mechanisms underneath M&amp;A. Guests are being booked now, and episodes appear here as they are cut.</p>
     <div class="silohead__line" aria-hidden="true"></div>
   </div>
 </header>
@@ -333,8 +328,8 @@ def build_stories_page():
                       f'        <ol>\n{rows}\n        </ol>\n      </div>\n')
 
     html = (HEAD.format(title=f"{M_TITLE} | The Trojan Horse",
-                        desc="How an investment bank actually gets hired, and why "
-                             "so many acquirers pick the institution already lending "
+                        desc="How an investment bank gets hired, and why "
+                             "acquirers often pick the institution already lending "
                              "to them.")
             + f'''
 <a class="back back--dark" href="index.html">&larr; The Trojan Horse</a>
@@ -352,7 +347,7 @@ def build_stories_page():
     <article class="wp">
 {chr(10).join(body)}
 {take}{srcs_block}
-      <a class="wp__go" href="the-buyers-bank.html">Read the case study: The Buyer&rsquo;s Bank &rarr;</a>\n      <a class="wp__go wp__go--2" href="how-a-company-gets-sold.html">Then: how a company actually gets sold &rarr;</a>
+      <a class="wp__go" href="the-buyers-bank.html">Read the case study: The Buyer&rsquo;s Bank &rarr;</a>\n      <a class="wp__go wp__go--2" href="how-a-company-gets-sold.html">Then: how a company gets sold &rarr;</a>
     </article>
   </div>
 </main>
@@ -407,9 +402,7 @@ SHEET = """<a class="back" href="{back}">&larr; {backlabel}</a>
 {sections}
   </div>
 
-  <p class="takeaway">{takeaway}</p>
-
-  <figure class="mark"><img src="images/horse.png" alt="The Trojan Horse engraving"></figure>
+  {takeaway_html}<figure class="mark"><img src="images/horse.png" alt="The Trojan Horse engraving"></figure>
 
 {tail}
 
@@ -451,7 +444,7 @@ def build_primers():
                 + SHEET.format(back="ten-years.html", backlabel="Ten Years",
                                lead=ld, line1=pr["line1"], row2=row, sub=pr["sub"],
                                lede=pr["lede"], sections=_sections(pr["sections"]),
-                               takeaway=pr["takeaway"], tail=tail,
+                               takeaway_html=(f'<p class="takeaway">{pr["takeaway"]}</p>\n\n  ' if pr.get("takeaway") else ''), tail=tail,
                                series="Background", roman=f'No. {pr["roman"]}',
                                last="Ten Years in Technology")
                 + "\n</body>\n</html>\n")
@@ -471,7 +464,7 @@ def build_deals():
                 + SHEET.format(back="ten-years.html", backlabel="Ten Years",
                                lead=ld, line1=d["line1"], row2=row, sub=d["sub"],
                                lede=d["lede"], sections=_sections(d["sections"]),
-                               takeaway=d["takeaway"], tail=tail,
+                               takeaway_html=(f'<p class="takeaway">{d["takeaway"]}</p>\n\n  ' if d.get("takeaway") else ''), tail=tail,
                                series="Ten Years", roman=f'No. {d["roman"]}',
                                last=f'{d["party"]} &middot; {d["value"]}')
                 + "\n</body>\n</html>\n")
@@ -494,7 +487,7 @@ def build_desk():
                 + SHEET.format(back="palo-alto.html", backlabel="Deals From Palo Alto",
                                lead=ld, line1=d["line1"], row2=row, sub=d["sub"],
                                lede=d["lede"], sections=_sections(d["sections"]),
-                               takeaway=d["takeaway"], tail=tail,
+                               takeaway_html=(f'<p class="takeaway">{d["takeaway"]}</p>\n\n  ' if d.get("takeaway") else ''), tail=tail,
                                series="Deals From Palo Alto", roman=f'No. {d["roman"]}',
                                last=f'{d["party"]} &middot; {d["value"]}')
                 + "\n</body>\n</html>\n")
@@ -539,20 +532,41 @@ DESK_DOOR = """
 <section class="ground">
   <div class="shell">
     <p class="ground__k">Sub journal</p>
-    <p class="ground__n">Transactions from the BofA Securities Palo Alto software
-    team, told as stories rather than notes. <a href="palo-alto.html">Deals From
-    Palo Alto &rarr;</a></p>
+    <p class="ground__n">Three transactions from the BofA Securities Palo Alto
+    software team's list, each examined as a case. <a href="palo-alto.html">Deals
+    From Palo Alto &rarr;</a></p>
   </div>
 </section>
 """
+
+
+from buyers_data import SUB as B_SUB, LEDE as B_LEDE, SECTIONS as B_SECTIONS, SRCS as B_SRCS
+
+def build_buyers():
+    """The Buyer's Bank, generated from buyers_data like every other piece."""
+    ld, row = _title("The", "Buyer&rsquo;s", "Bank")
+    srcs = "\n".join(f"      <li>{x}</li>" for x in B_SRCS)
+    tail = ('  <div class="srcs">\n    <h3>Sources and method</h3>\n    <ol>\n'
+            + srcs + '\n    </ol>\n  </div>')
+    html = (HEAD.format(title="The Buyer&rsquo;s Bank | The Trojan Horse",
+                        desc="BofA Securities' technology record across 2025 and 2026 is built on acquirers and not on founders, and why that matters.")
+            + '\n<link rel="stylesheet" href="story.css">\n'
+            + SHEET.format(back="strategemata.html", backlabel="The Mandate",
+                           lead=ld, line1="Buyer&rsquo;s", row2=row, sub=B_SUB,
+                           lede=B_LEDE, sections=_sections(B_SECTIONS),
+                           takeaway_html="", tail=tail,
+                           series="The Mandate", roman="September 2026",
+                           last="On coverage &middot; BofA Securities, 2025 to 2026")
+            + "\n</body>\n</html>\n")
+    (ROOT / "the-buyers-bank.html").write_text(html, encoding="utf-8")
+    print("the-buyers-bank.html")
 
 GROUND = """
 <section class="ground">
   <div class="shell">
     <p class="ground__k">Background</p>
-    <p class="ground__n">Five short explanations of the subjects these deals
-    keep returning to. Read them first if you would rather, or pick one up from
-    the timeline where it comes up. They assume no technical knowledge.</p>
+    <p class="ground__n">Five explanations of the technology and banking
+    concepts the entries rely on.</p>
     <ol class="ground__l">
 {ITEMS}
     </ol>
@@ -609,7 +623,7 @@ def kata_nodes():
             k_ = f'<p class="node__k">{tag}</p>\n          ' if tag else ""
             body = "\n          ".join(f'<p class="node__p">{x}</p>' for x in paras)
             n_ = (f'\n          <div class="node__why">'
-                  f'<span class="node__hl">Why it mattered</span>'
+                  f'<span class="node__hl">What it shows</span>'
                   f'<p class="node__p">{note}</p></div>') if note else ""
             out.append(f'''      <article class="node node--{kind}{s_}">
         {mk}
@@ -635,8 +649,8 @@ def build_katabasis():
   <div class="shell">
     <p class="silohead__kicker">2016 to 2026</p>
     <h1 class="silohead__name">Ten Years</h1>
-    <p class="silohead__blurb">{INTRO}</p>
-    <p class="silohead__blurb silohead__blurb--two">{INTRO_2}</p>
+    <p class="silohead__blurb silohead__blurb--long">{INTRO}</p>
+    <p class="silohead__blurb silohead__blurb--two silohead__blurb--long">{INTRO_2}</p>
     <div class="silohead__line" aria-hidden="true"></div>
   </div>
 </header>
@@ -651,11 +665,9 @@ def build_katabasis():
 {close}
   </section>
 
-  <p class="kata__note">The band running down this page traces the broad shape
-  of the transaction cycle. It is drawn by hand rather than plotted from a
-  dataset, because a precise series would imply an accuracy this does not have.
-  Values are identified as announced or final. Where a deal closed at a
-  different figure, the entry says so.</p>
+  <p class="kata__note">The band down the page is a hand-drawn outline of deal
+  activity and not a data series. Values are announced values unless an entry
+  says final.</p>
 </main>
 ''' + FOOT)
     (ROOT / "ten-years.html").write_text(html, encoding="utf-8")
@@ -806,10 +818,8 @@ def build_horses():
 {close}
       </section>
 
-      <p class="wp__note">{H_NOTE}</p>
-
       <a class="wp__go" href="strategemata.html">Back to how the mandate is won today &rarr;</a>
-      <a class="wp__go wp__go--2" href="how-a-company-gets-sold.html">Or how a company actually gets sold &rarr;</a>
+      <a class="wp__go wp__go--2" href="how-a-company-gets-sold.html">Or how a company gets sold &rarr;</a>
     </article>
   </div>
 </main>
@@ -872,5 +882,6 @@ if __name__ == "__main__":
     build_deals()
     build_desk()
     build_desk_index()
+    build_buyers()
     build_katabasis()
     build_podcast()

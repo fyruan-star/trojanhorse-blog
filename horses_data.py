@@ -203,6 +203,4 @@ CLOSE = [
  "what those decisions allow to happen afterward.",
 ]
 
-NOTE = ("This page is argument and not reporting. The quotations and facts are "
-        "sourced at the foot of each reading. The reasoning built on them is "
-        "mine, and each reading names the objection I think is strongest.")
+NOTE = ""

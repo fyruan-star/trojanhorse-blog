@@ -1,11 +1,11 @@
-"""Background. Five explanations the timeline keeps relying on.
+"""Background. Five explanations the Ten Years entries rely on.
 
-Written for a reader with no technical knowledge. Each one explains the
-mechanism before drawing any conclusion from it, and stops when the
-explanation is complete. No em dashes, no semicolons, no closing flourishes.
+Each one states what it claims first, explains the mechanism that supports the
+claim, names the qualification that limits it, and says what a reader should
+check when the subject comes up in a deal. Sources are linked beside the
+claims they support. The word list at the foot of each piece is a glossary.
 
-Each ends with the words it has handed over, because being able to read the
-sentence afterward is the point.
+No em dashes, no semicolons.
 """
 
 PRIMERS = [
@@ -13,57 +13,71 @@ PRIMERS = [
  dict(
   slug="what-a-chip-is", roman="I",
   lead="What", line1="A Chip", line2="Is",
-  sub=("THE DIFFERENCE BETWEEN DESIGNING ONE<br>"
-       "AND MANUFACTURING ONE, AND WHY IT MATTERS"),
-  lede=("A semiconductor is a piece of silicon with a very small circuit "
-        "printed on it. Billions of switches, each either on or off, arranged "
-        "so that setting them in the right order performs arithmetic. "
-        "Everything that follows is a consequence of how difficult that is to "
-        "manufacture."),
+  sub="Design, licensing and manufacturing are three separate businesses",
+  lede=("A chip is designed, licensed and manufactured by different "
+        "companies, and the manufacturing step is concentrated in so few "
+        "places that governments treat it as a matter of national capability. "
+        "That concentration is why regulators appear in several of the "
+        "semiconductor entries in Ten Years, and it is the background a reader "
+        "needs to see what each of those buyers was acquiring."),
   sections=[
-   ("Three businesses, one chip", [
-    "Designing a chip and making a chip are separate businesses, run by "
-    "different companies in different countries. That separation explains a "
-    "good deal of what appears in the timeline.",
-    "<strong>The architecture</strong> is the instruction set, the basic "
+   ("Three businesses", [
+    "A semiconductor is a piece of silicon with a very small circuit printed "
+    "on it. Billions of switches, each on or off, are arranged so that "
+    "setting them in the right order performs arithmetic. Three kinds of "
+    "company are involved in making one.",
+    "The first owns the architecture, which is the instruction set, the basic "
     "vocabulary a processor understands. Arm licenses this and manufactures "
-    "nothing. It receives a royalty on each chip built using its design, which "
-    "across the industry runs to tens of billions of units a year.",
-    "<strong>The design</strong> is the specific layout. Nvidia, Apple and "
-    "Qualcomm do this work and own no factories. The industry calls such a "
-    "company fabless, which sounds like a criticism and is a business model.",
-    "<strong>The manufacture</strong> happens in a fabrication plant, known as "
-    "a fab. A plant capable of the smallest feature sizes costs upward of "
-    "twenty billion dollars and takes years to build. Very few companies "
-    "operate one at the leading edge, and the largest by a considerable margin "
-    "is TSMC, in Taiwan.",
+    "nothing, and it receives a royalty on each chip built with its design. "
+    "The second does the design, which is the specific layout of the chip. "
+    "Nvidia, Apple and Qualcomm do this work and own no factories. The "
+    "industry calls such a company fabless, and it is a business model and "
+    "not a criticism. The third does the manufacturing, in a fabrication "
+    "plant called a fab. A plant able to make the smallest features costs "
+    "upward of twenty billion dollars and takes years to build.",
    ]),
-   ("Why governments became involved", [
-    "The consequence is worth sitting with. A large share of the most advanced "
-    "chips in the world are manufactured in one place, and that place is the "
-    "subject of an unresolved territorial dispute.",
-    "This is the background to several entries in the timeline. It is why a "
-    "committee reviewing foreign investment was able to stop a takeover in "
-    "2018, why export controls now cover equipment most people could not "
+   ("Why manufacturing concentrates", [
+    "Each generation of equipment costs more than the last, until only a "
+    "handful of firms can afford to remain at the leading edge. The machines "
+    "that print the smallest circuits use extreme ultraviolet light, and one "
+    "company, ASML in the Netherlands, makes them. Each machine costs on the "
+    "order of hundreds of millions of dollars, and the figure depends on the "
+    "generation "
+    "(<a href=\"https://www.cnbc.com/2022/03/23/inside-asml-the-company-advanced-chipmakers-use-for-euv-lithography.html\">CNBC</a>).",
+    "The largest manufacturer by a considerable margin is TSMC, in Taiwan. "
+    "Estimates of its share of the most advanced logic chips cluster around "
+    "90 percent, although sources define “most advanced” differently and the "
+    "figure moves with the definition "
+    "(<a href=\"https://eetasia.com/inside-taiwans-semiconductor-supremacy\">EE Times Asia</a>). "
+    "A large share of the world's most advanced chips is therefore made in "
+    "one place, and that place is the subject of an unresolved territorial "
+    "dispute.",
+   ]),
+   ("Why governments became parties to deals", [
+    "The policy question is not whether chips are useful. It is whether a "
+    "country can obtain them if relations deteriorate. That question explains "
+    "why a committee reviewing foreign investment was able to stop a takeover "
+    "in 2018, why export controls now cover equipment most people could not "
     "identify, and why several governments have committed large sums to "
-    "building manufacturing capacity domestically. The policy question is not "
-    "whether chips are useful. It is whether a country can obtain them if "
-    "relations deteriorate.",
+    "building manufacturing capacity at home. The United States, for example, "
+    "passed the CHIPS and Science Act in 2022 to fund domestic fabs.",
+    "The qualification is that concentration at manufacturing does not apply "
+    "equally to every chip. Many chips used in cars and appliances are made "
+    "on older equipment by many producers. The national capability argument "
+    "is strongest for the leading edge, and weaker for the rest.",
    ]),
-   ("A single supplier for one critical machine", [
-    "The machines that print the smallest circuits use extreme ultraviolet "
-    "light, and one company makes them. ASML, in the Netherlands. Each machine "
-    "costs a few hundred million dollars and is delivered in several aircraft.",
-    "The result is a supply chain with very few alternatives at several steps. "
-    "That concentration was not planned. It is what happens when each "
-    "generation of equipment costs more than the last, until only a handful of "
-    "firms can afford to remain at the leading edge.",
+   ("What a reader should take from it", [
+    "When a semiconductor deal is announced, identify which of the three "
+    "businesses is being bought, then check where the manufacturing happens "
+    "and who owns the equipment. A design company, an architecture licensor "
+    "and a manufacturer face different regulators, different customers and "
+    "different risks. The development that would change this picture is a "
+    "second or third source of leading-edge manufacturing in a different "
+    "country, which would reduce the concentration the rest of this "
+    "reasoning depends on.",
    ]),
   ],
-  takeaway=("Designing a chip, licensing the instruction set it is built on, "
-            "and manufacturing it are three separate businesses with different "
-            "economics. Several disputes in this timeline are about which of "
-            "them was worth owning."),
+  takeaway="",
   words=[
    ("Semiconductor", "A chip. Silicon with a circuit printed on it."),
    ("Architecture", "The instruction set a processor is built around. Arm licenses this."),
@@ -76,52 +90,71 @@ PRIMERS = [
  dict(
   slug="what-the-cloud-is", roman="II",
   lead="What", line1="The Cloud", line2="Is",
-  sub="A BUILDING WITH AN ADDRESS, OWNED BY SOMEBODY ELSE,<br>RENTED BY THE HOUR",
-  lede=("The cloud is somebody else's computer, in a building you will not "
-        "visit, rented by the hour. That is not a simplification. Holding on "
-        "to it will carry you through a good deal of what follows."),
+  sub="Renting computing created lock-in, and lock-in is the asset",
+  lede=("The cloud is computing that a company rents by the hour from a "
+        "provider that owns the machines. I think the most valuable result of "
+        "that arrangement for the providers is lock-in, the cost a customer "
+        "would face to leave, and that it explains why buyers pay large "
+        "premiums for software that works across all of the providers. IBM's "
+        "purchase of Red Hat and Google's purchase of Wiz are two examples."),
   sections=[
-   ("What changed around 2010", [
-    "Before then, a company that needed computing bought computers. It put "
-    "them in a room, employed people to maintain them, and paid up front for "
-    "capacity it would mostly not use.",
-    "Amazon, which had built a great deal of computing capacity for its retail "
-    "business, began renting the spare capacity to others. Microsoft and "
-    "Google followed.",
+   ("What changed in 2006", [
+    "Before the cloud, a company that needed computing bought computers, "
+    "housed them, employed people to maintain them and paid up front for "
+    "capacity it would mostly not use. Amazon, which had built a large amount "
+    "of capacity for its retail business, began renting storage in March 2006 "
+    "and computing capacity a few months later "
+    "(<a href=\"https://aws.amazon.com/blogs/aws/eight-years-and-counting-of-cloud-computing/\">AWS</a>). "
+    "Microsoft and Google followed.",
     "In accounting terms a large one-off purchase became a monthly expense. "
-    "That sounds like a technicality and it changed who could start a software "
-    "company. Two people now had access to the same computing capacity as a "
-    "bank, and paid only for what they used. A great many software companies "
-    "founded after 2010 exist in a form that would not have been affordable "
-    "before it.",
+    "That changed who could start a software company. Two founders could "
+    "rent the same capacity as a bank and pay only for what they used, and a "
+    "great many software companies founded afterward exist in a form that "
+    "would not have been affordable before.",
    ]),
-   ("Why there are three", [
-    "Amazon arrived first and remains the largest. Microsoft was second and "
-    "had an advantage, in that it was already selling software to most large "
-    "organisations. Google has been third for most of the period covered here.",
-    "Once a company's systems and data are established with one provider, "
-    "moving them is a project rather than a decision. It takes a long time, it "
-    "costs a great deal, and little visibly improves when it is finished. So "
-    "customers tend to stay. The term for this is lock-in, and it is usually "
-    "the most valuable thing a provider has.",
+   ("Why customers stay", [
+    "Amazon arrived first and remains the largest. Microsoft came second and "
+    "already sold software to most large organizations. Google has been third "
+    "for most of the period the timeline covers. Once a company's systems and "
+    "data are established with one provider, moving them is a project and not "
+    "a decision. It takes a long time, costs a great deal and visibly "
+    "improves little when it is finished.",
+    "The term for this is lock-in. A hypothetical customer with five hundred "
+    "applications built for one provider's services would have to rewrite or "
+    "retest each one to move. The provider's most valuable asset is the size "
+    "of that bill.",
    ]),
-   ("Multicloud, and why customers want it", [
-    "Larger customers recognised the position they were in and began keeping "
-    "systems with more than one provider deliberately, so that no single "
-    "supplier could raise prices without a credible response. That practice is "
-    "called multicloud.",
-    "It also creates a position worth having. A supplier whose software works "
-    "across all three providers earns revenue regardless of which one a "
-    "customer chooses, and has no stake in the outcome.",
+   ("Multicloud and the neutral supplier", [
+    "Larger customers recognized their position and began keeping systems with "
+    "more than one provider deliberately, so that no single supplier could "
+    "raise prices without a credible response. The practice is called "
+    "multicloud. It creates a position worth having for a software supplier "
+    "whose product works across all three providers, because that supplier "
+    "earns revenue regardless of which one a customer chooses.",
     "IBM paid about $34 billion for a company in that position in 2018, and "
-    "Google agreed to pay about $32 billion for another in 2025. The "
-    "resemblance between those two purchases is worth noticing when you reach "
-    "them.",
+    "Google agreed to pay about $32 billion for another in 2025. Both "
+    "purchases are about owning a neutral layer, and both carry the same risk, "
+    "which is that the buyer is also a cloud provider and may weaken the "
+    "neutrality it paid for.",
+   ]),
+   ("The qualification", [
+    "Lock-in is eroding at the edges. Google announced in January 2024 that "
+    "it would waive data transfer fees for customers leaving its cloud, and "
+    "Amazon and Microsoft followed within about two months. Reporting links "
+    "the moves to new European Union rules, and the waivers carry conditions, "
+    "so the change is partial "
+    "(<a href=\"https://www.theregister.com/2024/01/11/google_cloud_egress_fees/\">The Register</a>, "
+    "<a href=\"https://www.lightreading.com/cloud/aws-follows-google-cloud-in-ending-cloud-switching-costs\">Light Reading</a>).",
+   ]),
+   ("What a reader should take from it", [
+    "When a software company is sold, check whether its product works across "
+    "the providers and whether the buyer owns one. If both are true, the "
+    "price depends on the buyer preserving neutrality, and the useful evidence "
+    "is how the product's support on competing clouds changes over the next "
+    "several years.",
    ]),
   ],
-  takeaway=("Renting computing changed who could afford to start a software "
-            "company. It also created a durable position for suppliers whose "
-            "products work across all three major providers."),
+  takeaway="",
   words=[
    ("Hyperscaler", "One of the very large cloud providers. Amazon, Microsoft, Google."),
    ("Capex", "Money spent acquiring an asset the company keeps."),
@@ -133,52 +166,73 @@ PRIMERS = [
  dict(
   slug="what-ai-needs", roman="III",
   lead="What", line1="Training", conn="", line2="Requires",
-  sub="HOW A SOFTWARE ADVANCE BECAME<br>A QUESTION ABOUT ELECTRICAL CAPACITY",
-  lede=("Something clearly changed in late 2022. The part that mattered "
-        "commercially to the companies in this timeline was less the software "
-        "itself than the computing it required, and the consequences of that "
-        "requirement ran a long way into the physical world."),
+  sub="A software advance became a question about electricity",
+  lede=("The part of the AI boom that mattered commercially to the companies "
+        "in Ten Years was less the software than the computing it required. "
+        "Training a large model is a physical activity that uses thousands of "
+        "processors, buildings and large amounts of electricity, and the "
+        "scarcest input moved step by step from processors to buildings to "
+        "power. That sequence explains why storage, networking and "
+        "construction attracted capital."),
   sections=[
-   ("Training and inference, which are different jobs", [
-    "<strong>Training</strong> is building the model. A system is shown a very "
-    "large quantity of text or images and adjusts billions of internal values "
-    "until it predicts well. This runs on thousands of processors for weeks or "
-    "months and is expensive.",
-    "<strong>Inference</strong> is using the result. A question goes in and an "
-    "answer comes out. Each instance is cheap and the total is not, because "
-    "there are a great many questions.",
-    "Training resembles a construction project. Inference resembles a utility "
-    "bill. Most of the spending described in the timeline between 2023 and "
-    "2025 is the first kind.",
+   ("Training and inference", [
+    "Training is building the model. A system is shown a very large "
+    "quantity of text or images and adjusts billions of internal values "
+    "until it predicts well. This runs on thousands of processors for weeks "
+    "or months and is expensive. Inference is using the result. A question "
+    "goes in and an answer comes out. Each instance is cheap and the total is "
+    "not, because there are a great many questions.",
+    "Training resembles a construction project, and inference resembles a "
+    "utility bill. Most of the spending described in the timeline between "
+    "2023 and 2025 is the first kind.",
    ]),
-   ("Why thousands of chips rather than one fast one", [
-    "A conventional processor is built to perform operations one after another "
-    "very quickly. A graphics processor is built to perform thousands of "
-    "simple operations at the same time. It was developed for video games, "
-    "where the colour of two million pixels has to be worked out "
-    "simultaneously and the order does not matter.",
-    "Training a model has a similar shape. That is how a company whose "
-    "products were originally sold for video games came to supply much of the "
-    "hardware used for AI training.",
-    "One processor is not sufficient. A large training run uses thousands "
-    "working together, which means the connections between them affect how "
-    "much of that hardware is actually in use. It is why the Mellanox purchase "
-    "appears in the timeline.",
+   ("Why thousands of chips and not one fast one", [
+    "A conventional processor performs operations one after another very "
+    "quickly. A graphics processor performs thousands of simple operations at "
+    "the same time. Nvidia began as a maker of graphics chips for games, "
+    "where the color of millions of pixels has to be worked out at once and "
+    "the order does not matter. Training a model has a similar shape, which "
+    "is how a company whose products were first sold for video games came to "
+    "supply much of the hardware used for AI.",
+    "One processor is not enough. A large training run uses thousands working "
+    "together, so the connections between them determine how much of that "
+    "hardware is in use at any moment. That is the reasoning behind Nvidia's "
+    "purchase of Mellanox, which sold those connections, and behind the "
+    "storage company DDN's valuation, since data has to reach the processors "
+    "fast enough to keep them working.",
    ]),
    ("Where the constraint ends up", [
-    "Thousands of processors in one building draw a great deal of electricity "
-    "and convert nearly all of it into heat, so the building needs power "
-    "delivered and heat removed. Both are matters of civil and electrical "
-    "engineering rather than software.",
+    "Thousands of processors in one building draw a great deal of "
+    "electricity and turn nearly all of it into heat, so the building needs "
+    "power delivered and heat removed. Both are problems of civil and "
+    "electrical engineering and not of software. The International Energy "
+    "Agency projects global data center electricity use to reach about 945 "
+    "terawatt-hours by 2030, roughly the current consumption of Japan, and "
+    "expects data centers to account for nearly half of US electricity "
+    "demand growth through 2030 "
+    "(<a href=\"https://www.iea.org/reports/energy-and-ai/executive-summary\">IEA, Energy and AI</a>).",
     "By 2026 the constraint most often described by operators was electrical "
     "capacity and the time needed to obtain a grid connection. In several "
-    "markets hardware can be purchased considerably faster than power can be "
+    "markets hardware can be bought considerably faster than power can be "
     "connected.",
    ]),
+   ("The qualification", [
+    "Projections of this kind depend on assumptions about how efficient "
+    "models and chips become. If training needs substantially less computing "
+    "for the same result, the constraint would ease and some of the spending "
+    "in the timeline would look excessive in hindsight. Published IEA "
+    "scenarios vary widely after 2030 for that reason.",
+   ]),
+   ("What a reader should take from it", [
+    "When a company on this subject announces a purchase or an investment, "
+    "find which part of the chain it addresses, processors, connections, "
+    "storage, buildings or power, and whether that part is the current "
+    "constraint. The evidence that would change the picture is a sustained "
+    "fall in the computing needed per model, which would weaken the case for "
+    "paying a premium for any part of the chain.",
+   ]),
   ],
-  takeaway=("Training large models turned a software advance into a demand for "
-            "buildings, electrical capacity and cooling, on timescales set by "
-            "utilities rather than by engineers."),
+  takeaway="",
   words=[
    ("Model", "The result of training. Billions of values encoding patterns in data."),
    ("Training", "Building the model. Thousands of processors, running for weeks."),
@@ -190,48 +244,62 @@ PRIMERS = [
  dict(
   slug="the-building", roman="IV",
   lead="Inside", line1="A Data", line2="Centre",
-  sub="A PROPERTY WITH AN ELECTRICITY CONTRACT,<br>MEASURED IN MEGAWATTS",
-  lede=("A data centre is a building full of computers. Describing it that way "
-        "understates how unusual the business has become, because the scarce "
+  sub="A property with an electricity contract, measured in megawatts",
+  lede=("A data center is a building full of computers, and describing it "
+        "that way understates how unusual the business has become. The scarce "
         "input is not the computers. It is the power and the land to put them "
-        "on."),
+        "on, so I think the operators that secured power early hold an "
+        "advantage that is difficult to copy."),
   sections=[
    ("What is in the building", [
-    "Rows of metal racks. Each rack holds servers, each server holds "
-    "processors. Above them, electrical distribution. Alongside, cooling, "
-    "because nearly every watt delivered emerges as heat and processors fail "
-    "when they get too hot.",
-    "Most of the engineering difficulty is in moving electricity in and heat "
-    "out. That is why the people building these facilities increasingly come "
-    "from industrial construction rather than from software.",
+    "Rows of metal racks hold servers, and each server holds processors. "
+    "Above them runs electrical distribution, and alongside them runs cooling, "
+    "because nearly every watt delivered comes out as heat and processors fail "
+    "when they get too hot. Most of the engineering difficulty is in moving "
+    "electricity in and heat out, which is why the people building these "
+    "facilities increasingly come from industrial construction and not from "
+    "software.",
    ]),
    ("Why these are measured in megawatts", [
-    "Data centres are not usually described in square feet or in numbers of "
-    "servers. They are described in megawatts, a measure of electrical power.",
-    "A megawatt is roughly the draw of eight hundred homes. A large facility "
-    "built for AI training may want several hundred. That is comparable to the "
-    "demand of a small town, concentrated in one place and running close to "
-    "full load through the night.",
-    "Water is a consideration as well, because a good deal of cooling works by "
-    "evaporation. That has made siting a local political matter in regions "
+    "Data centers are not usually described in square feet or in numbers of "
+    "servers. They are described in megawatts. A megawatt is roughly the "
+    "draw of eight hundred homes, and a large facility built for AI training "
+    "may want several hundred of them. That is comparable to the demand of a "
+    "small town, concentrated in one place and running close to full load "
+    "through the night.",
+    "Water is a consideration as well, because a good deal of cooling works "
+    "by evaporation. That has made siting a local political matter in regions "
     "where water is limited.",
    ]),
    ("Why spending moved this way", [
-    "The sequence is straightforward. A model needs many processors. Many "
-    "processors need a building. The building needs power. Power requires a "
-    "grid connection, and grid connections are granted by utilities on "
-    "timescales measured in years.",
-    "The constraint moved step by step toward the physical end of that chain, "
-    "and spending followed it. A growing share of capital that would once have "
-    "gone to software development went instead to construction, electrical "
-    "equipment and cooling. It is among the more consequential developments of "
-    "the period and it is reported considerably less than the models are.",
+    "The sequence is straightforward. A model needs many processors, many "
+    "processors need a building, and the building needs power. Power requires "
+    "a grid connection, and utilities grant connections on timescales "
+    "measured in years. The constraint moved step by step toward the "
+    "physical end of that chain and spending followed it. A growing share of "
+    "capital that would once have gone to software development went to "
+    "construction, electrical equipment and cooling.",
+   ]),
+   ("Who benefits, and the qualification", [
+    "An operator with a grid connection already in place can add computing "
+    "faster than one that has to wait for a utility, and the position can be "
+    "worth more than the buildings. A hypothetical buyer comparing two "
+    "identical sites would pay more for the one with the connection already "
+    "granted.",
+    "The qualification is that the advantage lasts only while connections "
+    "are scarce. If utilities, regulators and equipment makers expand "
+    "capacity faster than demand grows, the position loses value. The "
+    "evidence to watch is the typical wait for a connection in the largest "
+    "data center markets.",
+   ]),
+   ("What a reader should take from it", [
+    "Value a data center as a property with an electricity contract and not "
+    "as a technology asset. The questions that matter are how many megawatts "
+    "are contracted, on what terms and by when, and these are more "
+    "informative than the number of servers.",
    ]),
   ],
-  takeaway=("A data centre is better understood as a property with an "
-            "electricity contract than as a technology asset, and operators "
-            "who secured power early held an advantage that was difficult to "
-            "copy."),
+  takeaway="",
   words=[
    ("Data centre", "A building of computers. Measured in megawatts of power draw."),
    ("Rack", "The frame servers are mounted in."),
@@ -242,71 +310,68 @@ PRIMERS = [
  dict(
   slug="what-a-bank-does", roman="V",
   lead="What", line1="A Bank", conn="Actually", line2="Does",
-  sub="ADVICE, MONEY, AND THE DIFFERENCE<br>BETWEEN THE TWO SIDES OF A TRANSACTION",
-  lede=("An investment bank does two things that are often described as one. "
-        "It advises on transactions, and it arranges money. Most writing about "
-        "the industry concerns the hours rather than the work, so this is the "
-        "work."),
+  sub="Advice and money are two businesses with different incentives",
+  lede=("An investment bank does two things that are often described as "
+        "one. It advises on transactions, and it arranges money. The "
+        "incentives differ between them, and I think a reader who keeps the "
+        "two apart can read an announcement's list of advisers as evidence "
+        "about how a deal was framed and financed."),
   sections=[
-   ("Advice, which means running a process", [
-    "When a company is sold, somebody has to run the sale. Decide which buyers "
-    "to approach and in what order, prepare the information they receive, set "
-    "a timetable, and build the analysis that supports a view on what the "
-    "business is worth. There is also a room of people to manage, each wanting "
-    "a somewhat different outcome.",
-    "That is the sell-side. The adviser is paid a percentage on completion and "
-    "very little if the sale does not happen, which is worth knowing when "
-    "reading any adviser's view on whether a sale should proceed.",
-    "The buy-side is the other position. The adviser represents the acquirer: "
-    "what to offer, how to structure it, and how to avoid paying more than "
+   ("Advice means running a process", [
+    "When a company is sold, somebody has to run the sale. That means "
+    "deciding which buyers to approach and in what order, preparing the "
+    "information they receive, setting a timetable and building the analysis "
+    "that supports a view on what the business is worth. There is also a "
+    "room of people to manage, each wanting a somewhat different outcome.",
+    "This is the sell-side. The adviser is paid a percentage on completion "
+    "and very little if the sale does not happen, which is relevant when "
+    "reading any adviser's view on whether a sale should proceed. The "
+    "buy-side is the other position. The adviser represents the acquirer, on "
+    "what to offer, how to structure it and how to avoid paying more than "
     "necessary in a process designed to encourage exactly that.",
    ]),
-   ("Arranging the money", [
-    "The other business is arranging money, and in a decade with this much "
-    "construction in it that half has mattered a great deal.",
+   ("Arranging money", [
     "A company that needs capital can sell shares, which means giving up a "
     "portion of its ownership permanently, or borrow, which means committing "
-    "to repay. Banks arrange both, and the choice between them says something "
-    "about how a company views its own prospects.",
-    "<strong>Equity</strong> is ownership. An initial public offering is the "
-    "first sale of it to the public. <strong>Debt</strong> is a loan, repaid "
-    "before shareholders receive anything. A <strong>convertible note</strong> "
-    "is a loan the holder may exchange for shares on agreed terms, which lets "
-    "the borrower pay a lower interest rate in return for possible dilution. "
-    "A <strong>term loan B</strong> is a large floating-rate loan sold to "
-    "investment funds rather than held by banks. The B describes where it "
-    "ranks if the borrower gets into trouble. There is also a term loan A, "
-    "usually held by banks, which attracts less attention.",
+    "to repay. Banks arrange both, and the choice between them says "
+    "something about how a company views its own prospects.",
+    "Equity is ownership, and an initial public offering is the first sale "
+    "of it to the public. Debt is a loan, repaid before shareholders receive "
+    "anything. A convertible note is a loan the holder may exchange for "
+    "shares on agreed terms, which lets the borrower pay a lower interest "
+    "rate in return for possible dilution. A term loan B is a large "
+    "floating-rate loan sold to investment funds and not held by banks, and "
+    "the B describes where it ranks if the borrower gets into trouble.",
    ]),
-   ("Coverage, and why the word exists", [
-    "Banks organise themselves by industry. A coverage group is the team "
-    "responsible for the relationship with companies in one of them. A "
-    "technology coverage team follows the companies, reads the filings, and is "
-    "in contact well before there is a transaction to discuss.",
-    "A good deal of the job is being known before there is anything to "
-    "discuss. A company deciding whether to sell does not usually run a search "
-    "for an adviser, and the relationships that determine who receives the "
-    "call are built over years.",
-    "This is why senior moves between banks are followed closely, and why the "
-    "value of such a hire is usually described in terms of the relationships "
-    "it brings rather than the work the person does.",
+   ("Coverage", [
+    "Banks organize themselves by industry. A coverage group is the team "
+    "responsible for the relationship with companies in one industry. A "
+    "technology coverage team follows the companies, reads the filings and is "
+    "in contact well before there is a transaction to discuss. A company "
+    "deciding whether to sell does not usually run a search for an adviser, "
+    "and the relationships that determine who receives the call are built "
+    "over years. This is why senior moves between banks are followed closely "
+    "and why the value of such a hire is usually described in terms of the "
+    "relationships it brings.",
    ]),
    ("What the fee is for", [
     "The fee is a percentage, and the percentage falls as transactions get "
     "larger. On a very large deal it may be a fraction of one percent, which "
     "still amounts to tens of millions of dollars. Whether that is "
-    "proportionate is a fair question and it is negotiated on every "
-    "transaction.",
-    "What can be said is that the errors are expensive in ways that are hard "
-    "to see from outside. A company sold at the wrong time, to the wrong "
-    "buyer, or on terms that fail during a regulatory review, costs its owners "
-    "far more than any fee. Several of the abandoned transactions in this "
-    "timeline are that kind of error, in public.",
+    "proportionate is negotiated on every transaction. What can be said is "
+    "that errors are expensive in ways that are hard to see from outside. A "
+    "company sold at the wrong time, to the wrong buyer, or on terms that "
+    "fail in a regulatory review costs its owners far more than any fee.",
+   ]),
+   ("What a reader should take from it", [
+    "The work comes down to two questions: what the business is worth to a "
+    "particular buyer, and where the money will come from. When reading an "
+    "announcement, look at which banks advised each side and which arranged "
+    "the financing, and ask whether the same institution did both. The "
+    "separate piece on how banks win the mandate takes that question up.",
    ]),
   ],
-  takeaway=("The work comes down to two questions. What is this business worth "
-            "to a particular buyer, and where will the money come from. The "
-            "rest of the apparatus exists to answer those two reliably."),
+  takeaway="",
   words=[
    ("Sell-side", "Representing the company being sold. Paid on completion."),
    ("Buy-side", "Representing the acquirer."),
