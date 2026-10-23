@@ -18,7 +18,7 @@ ENT = {
 }
 
 SECTOR = dict(
- id="fintech", name="Fintech and payments", band="industries",
+ id="fintech", name="Fintech and payments", band="end",
  blurb="Who moves the money, who is replacing the bank account and who issues the digital dollar.",
  positions=[
 

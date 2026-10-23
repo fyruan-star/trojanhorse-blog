@@ -1,48 +1,39 @@
 /* Tech Atlas. Everything on the page works without this file. The script adds
-   one sector at a time, lines between companies, search and edge filters. */
+   one sector at a time, and when a card is opened it marks that company's
+   allies, rivals and owners or backers on the cards around it. */
 (function () {
   var data;
   try { data = JSON.parse(document.getElementById("atlas-data").textContent); } catch (e) { return; }
   document.body.classList.add("js");
 
   var STYLE = {
-    alliance:   { stroke: "#E2E9F3", dash: "",     w: 1.6, arrow: false },
-    supply:     { stroke: "#E2E9F3", dash: "",     w: 1.6, arrow: false },
-    license:    { stroke: "#E2E9F3", dash: "2 3",  w: 1.6, arrow: false },
-    rivalry:    { stroke: "#E2A58F", dash: "6 5",  w: 1.6, arrow: false },
-    ownership:  { stroke: "#E0CB8E", dash: "",     w: 2.2, arrow: true },
-    investment: { stroke: "#E0CB8E", dash: "",     w: 2.2, arrow: true },
-    dependency: { stroke: "#93B6DB", dash: "1 4",  w: 1.4, arrow: true }
+    allies:  { stroke: "#8FD0B0", dash: "",    w: 2.2, tag: "ally" },
+    rivals:  { stroke: "#E2A58F", dash: "7 5", w: 2.2, tag: "rival" },
+    backers: { stroke: "#E0CB8E", dash: "",    w: 2.2, tag: "backer" }
   };
+  var PRIORITY = ["rivals", "backers", "allies"];
   var NS = "http://www.w3.org/2000/svg";
   var sectors = [].slice.call(document.querySelectorAll(".sector"));
   var chips = [].slice.call(document.querySelectorAll(".chip[data-sector]"));
   var enabled = {};
-  [].forEach.call(document.querySelectorAll(".toggles input[data-edge]"), function (i) { enabled[i.dataset.edge] = i.checked; });
+  [].forEach.call(document.querySelectorAll(".toggles input[data-group]"), function (i) { enabled[i.dataset.group] = i.checked; });
 
   function el(name, attrs) {
     var n = document.createElementNS(NS, name);
     for (var k in attrs) n.setAttribute(k, attrs[k]);
     return n;
   }
-  function ensureDefs(svg) {
-    if (svg.querySelector("defs")) return;
-    var d = el("defs", {});
-    ["E0CB8E", "93B6DB"].forEach(function (c) {
-      var m = el("marker", { id: "ah-" + c, viewBox: "0 0 10 10", refX: "9", refY: "5", markerWidth: "7", markerHeight: "7", orient: "auto-start-reverse" });
-      m.appendChild(el("path", { d: "M0 0 L10 5 L0 10 z", fill: "#" + c }));
-      d.appendChild(m);
-    });
-    svg.appendChild(d);
-  }
-
   function activeSector() { return sectors.filter(function (s) { return s.classList.contains("is-on"); })[0]; }
+  function cardsFor(sector, ent) {
+    return [].slice.call(sector.querySelectorAll('.card[data-e="' + ent + '"]'));
+  }
 
   function showSector(id, quiet) {
     sectors.forEach(function (s) { s.classList.toggle("is-on", s.dataset.sector === id); });
     chips.forEach(function (c) { c.setAttribute("aria-pressed", c.dataset.sector === id ? "true" : "false"); });
     [].forEach.call(document.querySelectorAll(".tile"), function (t) { t.classList.toggle("is-on", t.dataset.sector === id); });
-    clearLines();
+    [].forEach.call(document.querySelectorAll(".card[open]"), function (o) { o.open = false; });
+    clearMarks();
     if (!quiet) {
       var s = document.getElementById("sector-" + id);
       if (s) s.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -50,72 +41,62 @@
     }
   }
 
-  function cardsFor(sector, ent) {
-    return [].slice.call(sector.querySelectorAll('.card[data-e="' + ent + '"]'));
-  }
-
-  function clearLines() {
+  function clearMarks() {
     [].forEach.call(document.querySelectorAll(".board svg.lines"), function (s) { s.innerHTML = ""; });
-    [].forEach.call(document.querySelectorAll(".card"), function (c) { c.classList.remove("is-dim", "is-hit"); });
+    [].forEach.call(document.querySelectorAll(".card"), function (c) {
+      c.classList.remove("is-dim");
+      c.removeAttribute("data-rel");
+      c.removeAttribute("data-tag");
+    });
   }
 
-  function drawFor(ent) {
+  // Mark the open company's relationships. Lines run behind the opaque cards, so
+  // they only show in the gaps between them and never cross any text.
+  function mark(ent) {
     var sector = activeSector();
     if (!sector) return;
+    clearMarks();
     var board = sector.querySelector(".board");
     var svg = board.querySelector("svg.lines");
-    svg.innerHTML = "";
-    ensureDefs(svg);
     var br = board.getBoundingClientRect();
     var me = cardsFor(sector, ent)[0];
     if (!me) return;
-    var hits = {};
-    hits[ent] = true;
+    var rel = {};
     data.edges.forEach(function (e) {
-      if (!enabled[e.type]) return;
+      if (!enabled[e.g]) return;
       var other = e.a === ent ? e.b : (e.b === ent ? e.a : null);
-      if (!other) return;
-      var oc = cardsFor(sector, other)[0];
-      if (!oc) return;
-      hits[other] = true;
-      var s = STYLE[e.type] || STYLE.supply;
-      var a = me.getBoundingClientRect(), b = oc.getBoundingClientRect();
-      var ax = a.left + a.width / 2 - br.left, ay = a.top + a.height / 2 - br.top;
-      var bx = b.left + b.width / 2 - br.left, by = b.top + b.height / 2 - br.top;
-      var mx = (ax + bx) / 2, my = (ay + by) / 2;
-      var dx = bx - ax, dy = by - ay, len = Math.sqrt(dx * dx + dy * dy) || 1;
-      var cx = mx - dy / len * Math.min(60, len / 5), cy = my + dx / len * Math.min(60, len / 5);
-      var from = e.a === ent ? [ax, ay] : [bx, by], to = e.a === ent ? [bx, by] : [ax, ay];
+      if (!other || other === ent) return;
+      var cur = rel[other];
+      if (!cur || PRIORITY.indexOf(e.g) < PRIORITY.indexOf(cur)) rel[other] = e.g;
+    });
+    var a = me.getBoundingClientRect();
+    var ax = a.left + a.width / 2 - br.left, ay = a.top + 24 - br.top;
+    [].forEach.call(sector.querySelectorAll(".card"), function (c) {
+      var g = rel[c.dataset.e];
+      if (c === me) return;
+      if (!g) { c.classList.add("is-dim"); return; }
+      c.setAttribute("data-rel", g);
+      c.setAttribute("data-tag", STYLE[g].tag);
+      var b = c.getBoundingClientRect();
+      var bx = b.left + b.width / 2 - br.left, by = b.top + 24 - br.top;
+      var s = STYLE[g];
       var p = el("path", {
-        d: "M" + from[0] + " " + from[1] + " Q" + cx + " " + cy + " " + to[0] + " " + to[1],
-        fill: "none", stroke: s.stroke, "stroke-width": s.w, opacity: ".9"
+        d: "M" + ax + " " + ay + " L" + bx + " " + by,
+        fill: "none", stroke: s.stroke, "stroke-width": s.w, "stroke-linecap": "round"
       });
       if (s.dash) p.setAttribute("stroke-dasharray", s.dash);
-      if (s.arrow) p.setAttribute("marker-end", "url(#ah-" + s.stroke.slice(1) + ")");
       svg.appendChild(p);
-    });
-    [].forEach.call(sector.querySelectorAll(".card"), function (c) {
-      var on = hits[c.dataset.e];
-      c.classList.toggle("is-dim", !on);
-      c.classList.toggle("is-hit", !!on && c.dataset.e !== ent);
     });
   }
 
-  // lines appear on hover and when a card is opened
-  document.addEventListener("mouseover", function (ev) {
-    var c = ev.target.closest && ev.target.closest(".card");
-    if (c) drawFor(c.dataset.e);
-  });
-  document.addEventListener("mouseout", function (ev) {
-    var c = ev.target.closest && ev.target.closest(".card");
-    if (c && !document.querySelector(".card[open]")) clearLines();
-    else if (c) { var o = document.querySelector(".card[open]"); if (o) drawFor(o.dataset.e); }
-  });
+  // a card is selected by opening it
   document.addEventListener("toggle", function (ev) {
     var c = ev.target;
     if (!c.classList || !c.classList.contains("card")) return;
-    if (c.open) { [].forEach.call(document.querySelectorAll(".card[open]"), function (o) { if (o !== c) o.open = false; }); drawFor(c.dataset.e); }
-    else clearLines();
+    if (c.open) {
+      [].forEach.call(document.querySelectorAll(".card[open]"), function (o) { if (o !== c) o.open = false; });
+      mark(c.dataset.e);
+    } else if (!document.querySelector(".card[open]")) clearMarks();
   }, true);
 
   // tabs, chips and tiles
@@ -124,13 +105,13 @@
     t.addEventListener("click", function (e) { e.preventDefault(); showSector(t.dataset.sector); });
   });
 
-  // edge type toggles
-  [].forEach.call(document.querySelectorAll(".toggles input[data-edge]"), function (i) {
+  // relationship toggles
+  [].forEach.call(document.querySelectorAll(".toggles input[data-group]"), function (i) {
     i.addEventListener("change", function () {
-      enabled[i.dataset.edge] = i.checked;
-      document.body.classList.toggle("hide-" + i.dataset.edge, !i.checked);
+      enabled[i.dataset.group] = i.checked;
+      document.body.classList.toggle("hide-" + i.dataset.group, !i.checked);
       var o = document.querySelector(".card[open]");
-      if (o) drawFor(o.dataset.e); else drawOverview();
+      if (o) mark(o.dataset.e);
     });
   });
 
@@ -157,50 +138,18 @@
   if (search) {
     var byName = {};
     Object.keys(data.names).forEach(function (k) { byName[data.names[k].toLowerCase()] = k; });
-    function run() {
+    var run = function () {
       var q = search.value.trim().toLowerCase();
       if (!q) return;
       var k = byName[q];
       if (!k) {
-        var m = Object.keys(byName).filter(function (n) { return n.indexOf(q) === 0 || n.indexOf(q) > -1; });
+        var m = Object.keys(byName).filter(function (n) { return n.indexOf(q) > -1; });
         if (m.length) k = byName[m[0]];
       }
       if (k) goTo(k);
-    }
+    };
     search.addEventListener("change", run);
     search.addEventListener("keydown", function (e) { if (e.key === "Enter") run(); });
-  }
-
-  // overview: one line per pair of sectors that share relationships
-  function drawOverview() {
-    var ov = document.getElementById("overview");
-    var svg = ov.querySelector("svg.links");
-    if (!svg) return;
-    svg.innerHTML = "";
-    if (window.innerWidth <= 900) return;
-    var r = ov.getBoundingClientRect();
-    var pts = {};
-    [].forEach.call(ov.querySelectorAll(".tile"), function (t) {
-      var b = t.getBoundingClientRect();
-      pts[t.dataset.sector] = [b.left + b.width / 2 - r.left, b.top + b.height / 2 - r.top, b];
-    });
-    data.pairs.forEach(function (p) {
-      var kinds = p.types.filter(function (t) { return enabled[t]; });
-      if (!kinds.length) return;
-      var a = pts[p.a], b = pts[p.b];
-      if (!a || !b) return;
-      var kind = kinds.indexOf("ownership") > -1 || kinds.indexOf("investment") > -1 ? "investment" : (kinds.indexOf("rivalry") > -1 ? "rivalry" : kinds[0]);
-      var s = STYLE[kind];
-      var mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2;
-      var dx = b[0] - a[0], dy = b[1] - a[1], len = Math.sqrt(dx * dx + dy * dy) || 1;
-      var off = Math.min(70, len / 4);
-      var path = el("path", {
-        d: "M" + a[0] + " " + a[1] + " Q" + (mx - dy / len * off) + " " + (my + dx / len * off) + " " + b[0] + " " + b[1],
-        fill: "none", stroke: s.stroke, "stroke-width": Math.min(1 + p.n * 0.35, 4), opacity: ".38"
-      });
-      if (s.dash) path.setAttribute("stroke-dasharray", s.dash);
-      svg.appendChild(path);
-    });
   }
 
   // start on the sector in the address, a company, or silicon
@@ -210,10 +159,11 @@
     if (h.indexOf("sector-") === 0) id = h.slice(7);
     else if (h.indexOf("c-") === 0) { var c = document.getElementById(h); if (c) id = c.closest(".sector").dataset.sector; }
     showSector(id, true);
-    drawOverview();
-    if (h.indexOf("c-") === 0) { var cc = document.getElementById(h); if (cc) { cc.open = true; } }
+    if (h.indexOf("c-") === 0) { var cc = document.getElementById(h); if (cc) cc.open = true; }
   }
-  window.addEventListener("resize", function () { drawOverview(); clearLines(); });
-  window.addEventListener("load", drawOverview);
+  window.addEventListener("resize", function () {
+    var o = document.querySelector(".card[open]");
+    if (o) mark(o.dataset.e); else clearMarks();
+  });
   start();
 })();

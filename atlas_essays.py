@@ -7,27 +7,8 @@ no semicolons, no rhetorical questions.
 """
 
 INTRO = [
- "This is a depth chart for the whole technology industry. The idea comes from "
- "football, where a coach lists each position and ranks the players who could "
- "fill it. Here every row is a position in the stack, such as AI accelerators, "
- "foundries or customer service software. Each row has three tiers. The "
- "starters are the companies winning today, measured by a number with a date "
- "and a source. The second string holds credible challengers, with shipping "
- "product or named customers behind them. The practice squad holds startups "
- "that have raised real money.",
- "The lines are the part I enjoy most. A solid line joins companies that "
- "supply or ally with each other, a dashed line joins rivals, and an arrow "
- "runs from an owner or an investor to the company it holds. Click a card to "
- "see its lines, including the ones that cross into other sectors, because "
- "those usually explain the most. A chip supplier who invests in its own "
- "customer is telling you something, and so is a cloud that rents capacity to "
- "a rival.",
- "Every number carries its source, and a small tag says how far to trust it. "
- "Sourced means a company filing or release, or a named research firm. Reported "
- "means credible press coverage without the document in hand. Inferred means "
- "the line is my reading of the structure and no source states it. The figures "
- "are as of 23 October 2026, and markets in this industry move faster than "
- "that date suggests.",
+ "A depth chart for the technology industry, ranked the way a football coach ranks a roster. Each row is a position in the stack. The starters are winning today, the second string is closing the gap, and the practice squad is startups that have raised real money. It covers the sectors a Bay Area technology coverage banker or a tech M&amp;A banker works in.",
+ "Click a company to see three things: who it works with, who it competes with, and who owns or funds it. Related companies in the same sector light up and are joined by a line. Partners in other sectors are listed by name. Every figure links to its source, with a tag for how far to trust it: sourced, reported, or inferred, which is my reading.",
 ]
 
 SECTOR_PIECES = {

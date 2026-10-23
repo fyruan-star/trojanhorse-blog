@@ -107,9 +107,10 @@ GAPS.update({
  ],
 })
 
-NOT_YET = ("Not covered. The atlas has 17 sectors, and some industries are not in it, "
-           "including the software that runs logistics and retail supply chains, "
-           "education, media production outside streaming, and real-estate "
-           "technology. The companies in the atlas are mostly American and "
-           "Chinese, and Europe, India, Japan and Korea are thin outside the "
-           "sectors where they lead.")
+NOT_YET = ("Not covered. The atlas holds nine sectors, chosen for what a Bay Area "
+           "technology coverage banker or a tech M&A banker works on. Telecom, "
+           "robotics, mobility, health technology, defense and space, quantum, "
+           "energy technology and the materials foundation were researched and "
+           "then removed. The companies are mostly American and Chinese, and "
+           "Europe, India, Japan and Korea are thin outside the sectors where "
+           "they lead.")

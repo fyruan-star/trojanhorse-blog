@@ -1,6 +1,6 @@
 """Tech Atlas: the whole landscape, assembled from one module per sector.
 
-Seventeen sectors in two phases. Entities are shared across sectors, so a company
+Nine sectors. Entities are shared across sectors, so a company
 has one record and appears wherever it plays. Sector order follows the stack,
 from the physical foundation at the bottom to the end markets at the top.
 """
@@ -8,10 +8,11 @@ import importlib
 
 ASOF = "23 October 2026"
 
+# Scoped to what a Bay Area technology coverage banker or a tech M&A banker
+# works on. The telecom, foundation, mobility, robotics, health, defense,
+# quantum and energy modules stay on disk but are not loaded.
 _MODULES = ["silicon", "infra", "cloud", "models", "software", "security",
-            "internet", "devices", "telecom",
-            "foundation", "fintech", "mobility", "robotics", "health",
-            "defense", "quantum", "energy"]
+            "internet", "devices", "fintech"]
 
 ENT, SECTORS, EDGES = {}, [], []
 for m in _MODULES:
@@ -20,6 +21,29 @@ for m in _MODULES:
         ENT.setdefault(k, v)
     SECTORS.append(mod.SECTOR)
     EDGES.extend(mod.EDGES)
+
+# Lines that are drawn must be ones a source states. Dropped: every relationship
+# marked inferred except plain ownership, and the ones below that a review found
+# wrong or too loose to draw (an investor shown as a rival, a duplicate
+# ownership line that was really a revenue fact, two firms that are not rivals).
+_DROP = {("thoma_bravo", "salesforce"), ("sk_hynix", "samsung"), ("apple", "lenovo"),
+         ("byd", "tesla"), ("china_robots", "amazon"),
+         ("google", "wasabi"), ("silver_lake", "workday"), ("stripe", "paypal"),
+         ("advent", "paypal"), ("block", "paypal"), ("spacex", "cursor")}
+def _keep(e):
+    if (e["a"], e["b"]) in _DROP:
+        return False
+    if "largest business by revenue" in e["text"]:
+        return False
+    if e["conf"] == "inferred" and e["type"] != "ownership":
+        return False
+    return True
+EDGES[:] = [e for e in EDGES if _keep(e)]
+
+# Three kinds of line are drawn. The seven source types fold into them.
+GROUP = {"alliance": "allies", "supply": "allies", "license": "allies", "dependency": "allies",
+         "rivalry": "rivals", "ownership": "backers", "investment": "backers"}
+GROUP_LABEL = {"allies": "Allies and partners", "rivals": "Rivals", "backers": "Owners and backers"}
 
 # which sector is each company's home, by first appearance as a player
 HOME = {}
@@ -39,7 +63,7 @@ EDGE_LABEL = {
     "rivalry": "Rivalry", "ownership": "Ownership", "investment": "Investment",
     "dependency": "Dependency",
 }
-BAND_LABEL = {"end": "End markets", "industries": "Industries rebuilt by software", "platform": "Platforms and software", "stack": "The compute stack", "foundation": "Foundation and frontier"}
+BAND_LABEL = {"end": "End markets", "platform": "Platforms and software", "stack": "The compute stack"}
 
 # Overview map. Edges worth drawing between sectors, chosen by hand from EDGES.
 def check():

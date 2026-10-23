@@ -512,8 +512,8 @@ DESK_DOOR = """
     <p class="ground__n">Three transactions from the BofA Securities Palo Alto
     software team's list, each examined as a case. <a href="palo-alto.html">Deals
     From Palo Alto &rarr;</a></p>
-    <p class="ground__n">A depth chart of seventeen technology sectors, with the lines
-    between their companies. <a href="tech-atlas.html">The Tech Atlas &rarr;</a></p>
+    <p class="ground__n">A depth chart of nine technology sectors, with who is allied,
+    competing and backed by whom. <a href="tech-atlas.html">The Tech Atlas &rarr;</a></p>
   </div>
 </section>
 """
@@ -570,21 +570,34 @@ def build_atlas():
         by_ent.setdefault(ed["a"], []).append(ed)
         by_ent.setdefault(ed["b"], []).append(ed)
 
-    ARROW = {"ownership": True, "investment": True, "supply": True, "license": True, "dependency": True}
+    VERB = {"ownership": ("owns", "owned by"), "investment": ("funds", "funded by")}
 
     def conn_html(ent):
-        out = []
+        """Relationships in three groups: allies, rivals, owners and backers."""
+        groups = {"allies": [], "rivals": [], "backers": []}
         for ed in by_ent.get(ent, []):
             other = ed["b"] if ed["a"] == ent else ed["a"]
-            mark = ("&rarr; " if ed["a"] == ent else "&larr; ") if ed["type"] in ARROW else "&harr; "
+            g = AD.GROUP[ed["type"]]
             if other in card_id:
                 who = f'<a href="#{card_id[other]}" data-go="{other}">{_esc(names[other])}</a>'
             else:
                 who = _esc(names.get(other, other))
-            out.append(
-                f'<li data-type="{ed["type"]}"><span class="conn__t">{AD.EDGE_LABEL[ed["type"]]} &middot; {ed["conf"]}</span><br>'
-                f'{mark}{who}. {_esc(ed["text"])} <a href="{ed["src"]}">{_host(ed["src"])}</a></li>')
-        return "\n".join(out)
+            verb = ""
+            if g == "backers":
+                v = VERB[ed["type"]]
+                verb = f'<span class="conn__v">{v[0] if ed["a"] == ent else v[1]}</span> '
+            where = ""
+            oh = AD.HOME.get(other)
+            if oh and oh not in {x[0] for x in AD.APPEARS.get(ent, [])}:
+                where = f' <span class="conn__s">in {_esc(sec_name[oh])}</span>'
+            groups[g].append(
+                f'<li data-g="{g}">{verb}{who}{where}<br><span class="conn__x">{_esc(ed["text"])} '
+                f'<a href="{ed["src"]}">{_host(ed["src"])}</a></span></li>')
+        out = []
+        for g in ("allies", "rivals", "backers"):
+            if groups[g]:
+                out.append(f'<div class="rel rel--{g}" data-g="{g}"><p class="rel__h">{AD.GROUP_LABEL[g]}</p><ul>{"".join(groups[g])}</ul></div>')
+        return "".join(out)
 
     def card_html(s, p, pl):
         e = pl["e"]
@@ -594,22 +607,21 @@ def build_atlas():
         badge = pl.get("badge") or {"starter": "leading", "second": "rising", "rookie": "rookie"}[t]
         bcls = {"leading": "badge--leading", "rising": "badge--rising", "changes the premise": "badge--premise"}.get(badge, "")
         also = sorted({sec_name[x[0]] for x in AD.APPEARS.get(e, []) if x[0] != s["id"]})
-        also_html = f'<span class="also">also in {_esc(", ".join(also))}</span>' if also else ""
+        also_html = f'<p class="also">Also in {_esc(", ".join(also))}</p>' if also else ""
         label = {"starter": "Why it leads", "second": "Why it may rise", "rookie": "Why it matters"}[t]
         conns = conn_html(e)
-        conn_block = f'<p><b>Connections</b></p><ul class="conn">{conns}</ul>' if conns else ""
         return f"""<details class="card card--{t}" id="{cid}" data-e="{e}" data-conf="{conf}">
   <summary>
     <div class="card__top"><span class="card__name">{_esc(names[e])}</span><span class="badge {bcls}">{_esc(badge)}</span></div>
     <div class="card__stat">{_esc(pl["stat"])}</div>
-    <div class="card__tags"><span class="conf conf--{conf}">{conf}</span>{also_html}</div>
   </summary>
   <div class="card__more">
     <p>{_esc(AD.ENT[e][1])}</p>
-    <p><b>{label} &middot; my reading</b>{_esc(pl["why"])}</p>
-    <p><b>What could change the order &middot; my reading</b>{_esc(pl["cond"])}</p>
-    <p><a href="{pl["src"]}">Source: {_host(pl["src"])}</a></p>
-    {conn_block}
+    <p><b>{label}</b>{_esc(pl["why"])}</p>
+    <p><b>What could change it</b>{_esc(pl["cond"])}</p>
+    <p class="card__src"><span class="conf conf--{conf}">{conf}</span> <a href="{pl["src"]}">{_host(pl["src"])}</a></p>
+    {also_html}
+    {conns}
   </div>
 </details>"""
 
@@ -619,10 +631,10 @@ def build_atlas():
             cols[pl["t"]].append(card_html(s, p, pl))
         tiers = []
         for t in ("starter", "second", "rookie"):
-            inner = "\n".join(cols[t]) if cols[t] else '<div class="tier__empty">None verified.</div>'
+            inner = "\n".join(cols[t]) if cols[t] else ""
             tiers.append(f'<div class="tier{"" if cols[t] else " tier--empty"}" data-tier="{AD.TIER_LABEL[t]}">{inner}</div>')
         return f"""<div class="pos">
-  <div class="pos__h"><h3 class="pos__n">{_esc(p["name"])}</h3><p class="pos__m">{_esc(p["metric"])} <a href="{p["metric_src"]}">{_host(p["metric_src"])}</a></p></div>
+  <div class="pos__h"><h3 class="pos__n">{_esc(p["name"])}</h3></div>
   {"".join(tiers)}
 </div>"""
 
@@ -631,7 +643,6 @@ def build_atlas():
         pos = "\n".join(position_html(s, p) for p in s["positions"])
         note = "\n".join(f"<p>{x}</p>" for x in AT_PIECES[s["id"]])
         sectors_html.append(f"""<section class="sector" id="sector-{s["id"]}" data-sector="{s["id"]}">
-  <p class="sector__k">{AD.BAND_LABEL[s["band"]]}</p>
   <h2 class="sector__h">{_esc(s["name"])}</h2>
   <p class="sector__b">{_esc(s["blurb"])}</p>
   <div class="board">
@@ -639,67 +650,35 @@ def build_atlas():
     <div class="cols"><span></span><span>Starters</span><span>Second string</span><span>Practice squad</span></div>
     {pos}
   </div>
-  <div class="note"><h3>The play in this sector</h3>{note}</div>
+  <details class="note"><summary>The story of this sector</summary>{note}</details>
 </section>""")
 
     # overview tiles, grouped by band
-    order = {"end": ["internet", "devices", "telecom"],
-             "industries": ["fintech", "mobility", "robotics", "health", "defense"],
+    order = {"end": ["internet", "devices", "fintech"],
              "platform": ["models", "software", "security"],
-             "stack": ["silicon", "infra", "cloud"],
-             "foundation": ["foundation", "energy", "quantum"]}
+             "stack": ["silicon", "infra", "cloud"]}
     sec = {s["id"]: s for s in AD.SECTORS}
     def tile(sid):
         s = sec[sid]
-        leads = []
-        for p in s["positions"][:4]:
-            for pl in p["players"]:
-                if pl["t"] == "starter":
-                    n = names[pl["e"]]
-                    if n not in leads: leads.append(n)
-                    break
-        prem = ""
-        for p in s["positions"]:
-            for pl in p["players"]:
-                if pl.get("badge") == "changes the premise" and not prem:
-                    prem = names[pl["e"]]
-        prem_html = f'<div class="tile__r"><b>Watch</b><span class="tile__prem">{_esc(prem)}</span></div>' if prem else ""
         return f"""<a class="tile" id="t-{sid}" href="#sector-{sid}" data-sector="{sid}">
   <span class="tile__n">{_esc(s["name"])}</span><span class="tile__b">{_esc(s["blurb"])}</span>
-  <div class="tile__r"><b>Leads</b><span>{_esc(", ".join(leads[:3]))}</span></div>{prem_html}
 </a>"""
     bands = []
-    for band in ("end", "industries", "platform", "stack", "foundation"):
+    for band in ("end", "platform", "stack"):
         bands.append(f'<div class="band"><p class="band__label">{AD.BAND_LABEL[band]}</p><div class="band__row">' +
                      "".join(tile(x) for x in order[band]) + "</div></div>")
 
-    # cross-sector relationships, aggregated by pair for the map and listed in full
-    pairs, cross = {}, []
-    for ed in AD.EDGES:
-        ha, hb = AD.HOME.get(ed["a"]), AD.HOME.get(ed["b"])
-        if ha and hb and ha != hb:
-            key = tuple(sorted((ha, hb)))
-            d = pairs.setdefault(key, {"a": key[0], "b": key[1], "n": 0, "types": set()})
-            d["n"] += 1; d["types"].add(ed["type"])
-            cross.append(ed)
-    cross.sort(key=lambda e: (AD.HOME[e["a"]], AD.HOME[e["b"]]))
-    xl = "\n".join(
-        f'<li><b>{_esc(names[e["a"]])}</b> {"&rarr;" if e["type"] in ARROW else "&harr;"} <b>{_esc(names[e["b"]])}</b> '
-        f'({AD.EDGE_LABEL[e["type"]].lower()}, {_esc(sec_name[AD.HOME[e["a"]]])} to {_esc(sec_name[AD.HOME[e["b"]]])}). {_esc(e["text"])} '
-        f'<a href="{e["src"]}">{_host(e["src"])}</a></li>' for e in cross)
-
     chips = "".join(f'<button class="chip" type="button" data-sector="{s["id"]}" aria-pressed="false">{_esc(s["name"])}</button>' for s in AD.SECTORS)
     toggles = "".join(
-        f'<label><input type="checkbox" data-edge="{k}" checked><span class="key key--{k}"></span>{v}</label>'
-        for k, v in AD.EDGE_LABEL.items())
+        f'<label><input type="checkbox" data-group="{k}" checked><span class="key key--{k}"></span>{v}</label>'
+        for k, v in AD.GROUP_LABEL.items())
     datalist = "".join(f'<option value="{_esc(names[e])}">' for e in sorted(card_id, key=lambda k: names[k]))
 
     js_data = {
         "asof": AD.ASOF,
         "names": {e: names[e] for e in card_id},
         "home": AD.HOME,
-        "edges": [{"a": e["a"], "b": e["b"], "type": e["type"]} for e in AD.EDGES],
-        "pairs": [{"a": v["a"], "b": v["b"], "n": v["n"], "types": sorted(v["types"])} for v in pairs.values()],
+        "edges": [{"a": e["a"], "b": e["b"], "g": AD.GROUP[e["type"]]} for e in AD.EDGES],
     }
     full = {
         "asof": AD.ASOF,
@@ -717,7 +696,7 @@ def build_atlas():
     n_cards = sum(len(p["players"]) for s in AD.SECTORS for p in s["positions"])
 
     html = (HEAD.format(title="The Tech Atlas | The Trojan Horse",
-                        desc="A depth chart of the technology industry: who leads, who is catching up, which startups to watch, and how they connect.")
+                        desc="A depth chart of the technology industry: who leads, who is catching up, and who is allied with, competing with or backed by whom.")
             + '<link rel="stylesheet" href="atlas.css">\n'
             + f"""
 <a class="back" href="index.html">&larr; The Trojan Horse</a>
@@ -726,7 +705,7 @@ def build_atlas():
   <header class="atlas-head">
     <p class="atlas-head__k">As of {AD.ASOF}</p>
     <h1 class="atlas-head__t">The Tech Atlas</h1>
-    <p class="atlas-head__l">{len(AD.SECTORS)} sectors, {len(AD.EDGES)} sourced relationships and {n_cards} player cards, ranked as a depth chart.</p>
+    <p class="atlas-head__l">{len(AD.SECTORS)} sectors, {n_cards} companies, ranked like a depth chart.</p>
   </header>
   <div class="atlas-intro">{intro}</div>
 </div>
@@ -735,36 +714,35 @@ def build_atlas():
   <div class="atlas-wide"><div class="atlas-bar__in">
     <input id="atlas-search" class="atlas-search" list="atlas-names" placeholder="Find a company" aria-label="Find a company">
     <datalist id="atlas-names">{datalist}</datalist>
+    <div class="toggles" aria-label="Relationships to show">{toggles}</div>
     <div class="chips">{chips}</div>
-    <div class="toggles" aria-label="Line types">{toggles}</div>
   </div></div>
 </nav>
 
 <div class="atlas-wide">
   <section class="overview" id="overview">
-    <p class="overview__h">The map. Lines join sectors that share relationships, and thicker lines mean more of them.</p>
-    <svg class="links" aria-hidden="true"></svg>
     {"".join(bands)}
-    <details class="xlinks"><summary>All {len(cross)} relationships that cross sectors</summary><ul>{xl}</ul></details>
   </section>
 
   {"".join(sectors_html)}
 
   <section class="atlas-foot">
-    <h2>Method, and what this does not cover</h2>
-    {method}
-    <p>{_esc(AT_NOT_YET)}</p>
-    <p>The full data is in <a href="tech-atlas.json">tech-atlas.json</a>, with the entities, the cards and every relationship, each with its source and date.</p>
-    <h2 style="margin-top:34px">Research log</h2>
-    <p>What each sector's evidence leaves open.</p>
-    {gaps_html}
+    <details>
+      <summary>Method, and what this does not cover</summary>
+      {method}
+      <p>{_esc(AT_NOT_YET)}</p>
+      <p>The full data is in <a href="tech-atlas.json">tech-atlas.json</a>, with every card and relationship and its source.</p>
+      <p><b>Research log.</b> What each sector's evidence leaves open.</p>
+      {gaps_html}
+    </details>
   </section>
 </div>
 <script type="application/json" id="atlas-data">{_json.dumps(js_data, ensure_ascii=False)}</script>
 <script src="atlas.js" defer></script>
 """ + FOOT)
     (ROOT / "tech-atlas.html").write_text(html, encoding="utf-8")
-    print(f"tech-atlas.html  ({len(AD.SECTORS)} sectors, {n_cards} cards, {len(AD.EDGES)} edges, {len(cross)} cross-sector)")
+    print(f"tech-atlas.html  ({len(AD.SECTORS)} sectors, {n_cards} cards, {len(AD.EDGES)} edges)")
+
 
 GROUND = """
 <section class="ground">
