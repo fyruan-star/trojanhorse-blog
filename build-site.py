@@ -283,9 +283,9 @@ def build_index():
     picker = ('''  <div class="shell cover__picker">
     <div class="silos__grid silos__grid--two">
       <a class="silo silo--solo" href="strategemata.html">
-        <span class="silo__name">Strategemata</span>
+        <span class="silo__name">The Mandate</span>
         <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
-        <span class="silo__word">Read Stories</span>
+        <span class="silo__word">M&amp;A Advisory</span>
       </a>
       <a class="silo silo--solo" href="ten-years.html">
         <span class="silo__name">Ten Years</span>
@@ -303,38 +303,55 @@ def build_index():
     print("index.html")
 
 
-STRAT_BLURB = ("Frontinus wrote down the stratagems of Roman commanders so the "
-               "next one would recognise the move on sight. Mine are here for "
-               "the same reason.")
+from mandate_data import (KICKER as M_KICKER, TITLE as M_TITLE, LEDE as M_LEDE,
+                          SECTIONS as M_SECTIONS, SOURCES as M_SOURCES,
+                          TAKEAWAY as M_TAKEAWAY)
 
 def build_stories_page():
-    """Every deal note on one vine, in silo order so neighbours rhyme."""
-    order = list(STORY)
-    html = (HEAD.format(title="Strategemata | The Trojan Horse",
-                        desc="Every deal note in The Trojan Horse. " + STRAT_BLURB)
-            + VINE_DEF + f'''
-<a class="back" href="index.html">&larr; The Trojan Horse</a>
+    """The advisory business itself, under a white plate. This page inverts the
+    cover: paper behind, Evercore navy in front."""
+    body = []
+    for head, paras in M_SECTIONS:
+        body.append(f'      <h2 class="wp__h">{head}</h2>')
+        body.extend(f'      <p class="wp__p">{x}</p>' for x in paras)
+    srcs = "\n".join(f"        <li>{x}</li>" for x in M_SOURCES)
 
-<header class="silohead">
-  <div class="shell">
-    <p class="silohead__kicker">The Stories</p>
-    <h1 class="silohead__name">Strategemata</h1>
-    <p class="silohead__blurb">{STRAT_BLURB}</p>
-    <div class="silohead__line" aria-hidden="true"></div>
+    html = (HEAD.format(title=f"{M_TITLE} | The Trojan Horse",
+                        desc="How an investment bank actually gets hired, and why "
+                             "so many acquirers pick the institution already lending "
+                             "to them.")
+            + f'''
+<a class="back back--dark" href="index.html">&larr; The Trojan Horse</a>
+
+<header class="plate">
+  <div class="shell plate__in">
+    <p class="plate__k">{M_KICKER}</p>
+    <h1 class="plate__t">{M_TITLE}</h1>
+    <p class="plate__l">{M_LEDE}</p>
   </div>
 </header>
 
-<main class="belt" id="stories">
+<main class="white">
   <div class="shell">
-{belt(order)}
+    <article class="wp">
+{chr(10).join(body)}
+
+      <p class="wp__take">{M_TAKEAWAY}</p>
+
+      <div class="wp__srcs">
+        <h3>Sources</h3>
+        <ol>
+{srcs}
+        </ol>
+      </div>
+
+      <a class="wp__go" href="the-buyers-bank.html">Read the case study: The Buyer&rsquo;s Bank &rarr;</a>
+    </article>
   </div>
 </main>
 ''' + FOOT)
     (ROOT / "strategemata.html").write_text(html, encoding="utf-8")
-    print(f"strategemata.html  ({len(order)} stories)")
-
-
-
+    print(f"strategemata.html  ({len(M_SECTIONS)} sections)")
 
 
 # ====================================================== THE GROUND FLOOR ===
