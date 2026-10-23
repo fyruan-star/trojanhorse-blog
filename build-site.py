@@ -288,6 +288,7 @@ def build_index():
         ("The Process",   "How a company gets sold", "how-a-company-gets-sold.html"),
         ("Ten Years",     "2016 to 2026",            "ten-years.html"),
         ("Trojan Horses", "What might change",       "trojan-horses.html"),
+        ("The Tech Atlas", "A depth chart of technology", "tech-atlas.html"),
     ]
     cards = "".join(
         f'''<a class="idx__c" href="{href}">
@@ -511,6 +512,8 @@ DESK_DOOR = """
     <p class="ground__n">Three transactions from the BofA Securities Palo Alto
     software team's list, each examined as a case. <a href="palo-alto.html">Deals
     From Palo Alto &rarr;</a></p>
+    <p class="ground__n">A depth chart of nine technology sectors, with the lines
+    between their companies. <a href="tech-atlas.html">The Tech Atlas &rarr;</a></p>
   </div>
 </section>
 """
@@ -536,6 +539,228 @@ def build_buyers():
             + "\n</body>\n</html>\n")
     (ROOT / "the-buyers-bank.html").write_text(html, encoding="utf-8")
     print("the-buyers-bank.html")
+
+
+# ================================================================ TECH ATLAS ===
+import json as _json
+from urllib.parse import urlparse as _urlparse
+import atlas_data as AD
+from atlas_essays import INTRO as AT_INTRO, SECTOR_PIECES as AT_PIECES
+from atlas_log import METHOD as AT_METHOD, GAPS as AT_GAPS, NOT_YET as AT_NOT_YET
+
+def _host(u):
+    h = _urlparse(u).netloc.replace("www.", "")
+    return h or "source"
+
+def _esc(s):
+    return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
+
+def build_atlas():
+    names = {k: v[0] for k, v in AD.ENT.items()}
+    sec_name = {s["id"]: s["name"] for s in AD.SECTORS}
+    # first card id for each company, so connections can link to it
+    card_id = {}
+    for s in AD.SECTORS:
+        for p in s["positions"]:
+            for pl in p["players"]:
+                card_id.setdefault(pl["e"], f'c-{s["id"]}-{p["id"]}-{pl["e"]}')
+
+    by_ent = {}
+    for ed in AD.EDGES:
+        by_ent.setdefault(ed["a"], []).append(ed)
+        by_ent.setdefault(ed["b"], []).append(ed)
+
+    ARROW = {"ownership": True, "investment": True, "supply": True, "license": True, "dependency": True}
+
+    def conn_html(ent):
+        out = []
+        for ed in by_ent.get(ent, []):
+            other = ed["b"] if ed["a"] == ent else ed["a"]
+            mark = ("&rarr; " if ed["a"] == ent else "&larr; ") if ed["type"] in ARROW else "&harr; "
+            if other in card_id:
+                who = f'<a href="#{card_id[other]}" data-go="{other}">{_esc(names[other])}</a>'
+            else:
+                who = _esc(names.get(other, other))
+            out.append(
+                f'<li data-type="{ed["type"]}"><span class="conn__t">{AD.EDGE_LABEL[ed["type"]]} &middot; {ed["conf"]}</span><br>'
+                f'{mark}{who}. {_esc(ed["text"])} <a href="{ed["src"]}">{_host(ed["src"])}</a></li>')
+        return "\n".join(out)
+
+    def card_html(s, p, pl):
+        e = pl["e"]
+        cid = f'c-{s["id"]}-{p["id"]}-{e}'
+        t = pl["t"]
+        conf = pl.get("conf", "sourced")
+        badge = pl.get("badge") or {"starter": "leading", "second": "rising", "rookie": "rookie"}[t]
+        bcls = {"leading": "badge--leading", "rising": "badge--rising", "changes the premise": "badge--premise"}.get(badge, "")
+        also = sorted({sec_name[x[0]] for x in AD.APPEARS.get(e, []) if x[0] != s["id"]})
+        also_html = f'<span class="also">also in {_esc(", ".join(also))}</span>' if also else ""
+        label = {"starter": "Why it leads", "second": "Why it may rise", "rookie": "Why it matters"}[t]
+        conns = conn_html(e)
+        conn_block = f'<p><b>Connections</b></p><ul class="conn">{conns}</ul>' if conns else ""
+        return f"""<details class="card card--{t}" id="{cid}" data-e="{e}" data-conf="{conf}">
+  <summary>
+    <div class="card__top"><span class="card__name">{_esc(names[e])}</span><span class="badge {bcls}">{_esc(badge)}</span></div>
+    <div class="card__stat">{_esc(pl["stat"])}</div>
+    <div class="card__tags"><span class="conf conf--{conf}">{conf}</span>{also_html}</div>
+  </summary>
+  <div class="card__more">
+    <p>{_esc(AD.ENT[e][1])}</p>
+    <p><b>{label} &middot; my reading</b>{_esc(pl["why"])}</p>
+    <p><b>What could change the order &middot; my reading</b>{_esc(pl["cond"])}</p>
+    <p><a href="{pl["src"]}">Source: {_host(pl["src"])}</a></p>
+    {conn_block}
+  </div>
+</details>"""
+
+    def position_html(s, p):
+        cols = {"starter": [], "second": [], "rookie": []}
+        for pl in p["players"]:
+            cols[pl["t"]].append(card_html(s, p, pl))
+        tiers = []
+        for t in ("starter", "second", "rookie"):
+            inner = "\n".join(cols[t]) if cols[t] else '<div class="tier__empty">None verified.</div>'
+            tiers.append(f'<div class="tier{"" if cols[t] else " tier--empty"}" data-tier="{AD.TIER_LABEL[t]}">{inner}</div>')
+        return f"""<div class="pos">
+  <div class="pos__h"><h3 class="pos__n">{_esc(p["name"])}</h3><p class="pos__m">{_esc(p["metric"])} <a href="{p["metric_src"]}">{_host(p["metric_src"])}</a></p></div>
+  {"".join(tiers)}
+</div>"""
+
+    sectors_html = []
+    for s in AD.SECTORS:
+        pos = "\n".join(position_html(s, p) for p in s["positions"])
+        note = "\n".join(f"<p>{x}</p>" for x in AT_PIECES[s["id"]])
+        sectors_html.append(f"""<section class="sector" id="sector-{s["id"]}" data-sector="{s["id"]}">
+  <p class="sector__k">{AD.BAND_LABEL[s["band"]]}</p>
+  <h2 class="sector__h">{_esc(s["name"])}</h2>
+  <p class="sector__b">{_esc(s["blurb"])}</p>
+  <div class="board">
+    <svg class="lines" aria-hidden="true"></svg>
+    <div class="cols"><span></span><span>Starters</span><span>Second string</span><span>Practice squad</span></div>
+    {pos}
+  </div>
+  <div class="note"><h3>The play in this sector</h3>{note}</div>
+</section>""")
+
+    # overview tiles, grouped by band
+    order = {"end": ["internet", "devices", "telecom"], "platform": ["models", "software", "security"], "stack": ["silicon", "infra", "cloud"]}
+    sec = {s["id"]: s for s in AD.SECTORS}
+    def tile(sid):
+        s = sec[sid]
+        leads = []
+        for p in s["positions"][:4]:
+            for pl in p["players"]:
+                if pl["t"] == "starter":
+                    n = names[pl["e"]]
+                    if n not in leads: leads.append(n)
+                    break
+        prem = ""
+        for p in s["positions"]:
+            for pl in p["players"]:
+                if pl.get("badge") == "changes the premise" and not prem:
+                    prem = names[pl["e"]]
+        prem_html = f'<div class="tile__r"><b>Watch</b><span class="tile__prem">{_esc(prem)}</span></div>' if prem else ""
+        return f"""<a class="tile" id="t-{sid}" href="#sector-{sid}" data-sector="{sid}">
+  <span class="tile__n">{_esc(s["name"])}</span><span class="tile__b">{_esc(s["blurb"])}</span>
+  <div class="tile__r"><b>Leads</b><span>{_esc(", ".join(leads[:3]))}</span></div>{prem_html}
+</a>"""
+    bands = []
+    for band in ("end", "platform", "stack"):
+        bands.append(f'<div class="band"><p class="band__label">{AD.BAND_LABEL[band]}</p><div class="band__row">' +
+                     "".join(tile(x) for x in order[band]) + "</div></div>")
+
+    # cross-sector relationships, aggregated by pair for the map and listed in full
+    pairs, cross = {}, []
+    for ed in AD.EDGES:
+        ha, hb = AD.HOME.get(ed["a"]), AD.HOME.get(ed["b"])
+        if ha and hb and ha != hb:
+            key = tuple(sorted((ha, hb)))
+            d = pairs.setdefault(key, {"a": key[0], "b": key[1], "n": 0, "types": set()})
+            d["n"] += 1; d["types"].add(ed["type"])
+            cross.append(ed)
+    cross.sort(key=lambda e: (AD.HOME[e["a"]], AD.HOME[e["b"]]))
+    xl = "\n".join(
+        f'<li><b>{_esc(names[e["a"]])}</b> {"&rarr;" if e["type"] in ARROW else "&harr;"} <b>{_esc(names[e["b"]])}</b> '
+        f'({AD.EDGE_LABEL[e["type"]].lower()}, {_esc(sec_name[AD.HOME[e["a"]]])} to {_esc(sec_name[AD.HOME[e["b"]]])}). {_esc(e["text"])} '
+        f'<a href="{e["src"]}">{_host(e["src"])}</a></li>' for e in cross)
+
+    chips = "".join(f'<button class="chip" type="button" data-sector="{s["id"]}" aria-pressed="false">{_esc(s["name"])}</button>' for s in AD.SECTORS)
+    toggles = "".join(
+        f'<label><input type="checkbox" data-edge="{k}" checked><span class="key key--{k}"></span>{v}</label>'
+        for k, v in AD.EDGE_LABEL.items())
+    datalist = "".join(f'<option value="{_esc(names[e])}">' for e in sorted(card_id, key=lambda k: names[k]))
+
+    js_data = {
+        "asof": AD.ASOF,
+        "names": {e: names[e] for e in card_id},
+        "home": AD.HOME,
+        "edges": [{"a": e["a"], "b": e["b"], "type": e["type"]} for e in AD.EDGES],
+        "pairs": [{"a": v["a"], "b": v["b"], "n": v["n"], "types": sorted(v["types"])} for v in pairs.values()],
+    }
+    full = {
+        "asof": AD.ASOF,
+        "sectors": AD.SECTORS,
+        "entities": {k: {"name": v[0], "description": v[1], "home": AD.HOME.get(k)} for k, v in AD.ENT.items()},
+        "edges": AD.EDGES,
+    }
+    (ROOT / "tech-atlas.json").write_text(_json.dumps(full, ensure_ascii=False, indent=1), encoding="utf-8")
+
+    gaps_html = "".join(
+        f'<details><summary>{_esc(sec[sid]["name"])}</summary><ul>' + "".join(f"<li>{_esc(x)}</li>" for x in AT_GAPS[sid]) + "</ul></details>"
+        for sid in [s["id"] for s in AD.SECTORS])
+    method = "".join(f"<p>{_esc(x)}</p>" for x in AT_METHOD)
+    intro = "".join(f"<p>{x}</p>" for x in AT_INTRO)
+    n_cards = sum(len(p["players"]) for s in AD.SECTORS for p in s["positions"])
+
+    html = (HEAD.format(title="The Tech Atlas | The Trojan Horse",
+                        desc="A depth chart of the technology industry: who leads, who is catching up, which startups to watch, and how they connect.")
+            + '<link rel="stylesheet" href="atlas.css">\n'
+            + f"""
+<a class="back" href="index.html">&larr; The Trojan Horse</a>
+
+<div class="atlas-wide">
+  <header class="atlas-head">
+    <p class="atlas-head__k">As of {AD.ASOF} &middot; Phase 1 of the atlas</p>
+    <h1 class="atlas-head__t">The Tech Atlas</h1>
+    <p class="atlas-head__l">{len(AD.SECTORS)} sectors, {len(AD.EDGES)} sourced relationships and {n_cards} player cards, ranked as a depth chart.</p>
+  </header>
+  <div class="atlas-intro">{intro}</div>
+</div>
+
+<nav class="atlas-bar" aria-label="Atlas controls">
+  <div class="atlas-wide"><div class="atlas-bar__in">
+    <input id="atlas-search" class="atlas-search" list="atlas-names" placeholder="Find a company" aria-label="Find a company">
+    <datalist id="atlas-names">{datalist}</datalist>
+    <div class="chips">{chips}</div>
+    <div class="toggles" aria-label="Line types">{toggles}</div>
+  </div></div>
+</nav>
+
+<div class="atlas-wide">
+  <section class="overview" id="overview">
+    <p class="overview__h">The map. Lines join sectors that share relationships, and thicker lines mean more of them.</p>
+    <svg class="links" aria-hidden="true"></svg>
+    {"".join(bands)}
+    <details class="xlinks"><summary>All {len(cross)} relationships that cross sectors</summary><ul>{xl}</ul></details>
+  </section>
+
+  {"".join(sectors_html)}
+
+  <section class="atlas-foot">
+    <h2>Method, and what this does not cover</h2>
+    {method}
+    <p>{_esc(AT_NOT_YET)}</p>
+    <p>The full data is in <a href="tech-atlas.json">tech-atlas.json</a>, with the entities, the cards and every relationship, each with its source and date.</p>
+    <h2 style="margin-top:34px">Research log</h2>
+    <p>What each sector's evidence leaves open.</p>
+    {gaps_html}
+  </section>
+</div>
+<script type="application/json" id="atlas-data">{_json.dumps(js_data, ensure_ascii=False)}</script>
+<script src="atlas.js" defer></script>
+""" + FOOT)
+    (ROOT / "tech-atlas.html").write_text(html, encoding="utf-8")
+    print(f"tech-atlas.html  ({len(AD.SECTORS)} sectors, {n_cards} cards, {len(AD.EDGES)} edges, {len(cross)} cross-sector)")
 
 GROUND = """
 <section class="ground">
@@ -889,5 +1114,6 @@ if __name__ == "__main__":
     build_desk()
     build_desk_index()
     build_buyers()
+    build_atlas()
     build_katabasis()
     build_podcast()
