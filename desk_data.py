@@ -41,6 +41,22 @@ DESK = [
     "billion valuation is at most about six percent of the company. The "
     "founders sold a small slice and kept control.",
    ]),
+   ("A different measure of storage", [
+    "For decades the storage industry competed on how many bytes it could "
+    "hold at what cost. Elon Musk's habit of discarding an industry's "
+    "premise and starting from what the machine is for is a useful "
+    "comparison. Cars did not displace horses by being better horses, and "
+    "planes did not displace cars by being better cars. They changed what "
+    "was being optimized. AI infrastructure did the same to storage. The "
+    "measure that matters is the processor time sitting idle while it waits "
+    "for data, so a storage company sells utilization of the most expensive "
+    "chips ever built and not capacity.",
+    "By DDN's own account, xAI's Colossus cluster, which Musk's company "
+    "built, runs on its systems. That is a company claim and not a measured "
+    "market share, but it places a company known for that approach among the "
+    "customers of one built around the new premise. The same reframing is why "
+    "the price is not a storage multiple.",
+   ]),
    ("What the bank was reported to do", [
     "BofA Securities was named in the announcement as DDN's exclusive "
     "financial adviser, and the release names no adviser for Blackstone. The "
@@ -142,6 +158,23 @@ DESK = [
     "and Renesas described it as support for Wolfspeed's capacity expansion "
     "(<a href=\"https://www.wolfspeed.com/company/news-events/news/renesas-wolfspeed-10-year-wafer-supply-agreement\">Wolfspeed</a>). "
     "On that reading the deposit was a purchase order paid early.",
+   ]),
+   ("A change of material", [
+    "For sixty years power electronics improved silicon, with smaller "
+    "transistors, cleaner processes and better packaging. Silicon carbide "
+    "changed the material instead of refining the old one. Its physics "
+    "supports higher voltages and temperatures in the same space, which "
+    "opened a different product, an electric car that goes further on the "
+    "same battery. Musk's approach to the car is the comparison. Do not ask how "
+    "to make the combustion engine better. Ask what the vehicle looks like "
+    "if the engine is not the starting point.",
+    "The reframing has a cost that shows up in this case. A new material does "
+    "not only replace a part, it changes who has to spend first. Silicon "
+    "carbide needed new factories before the cars that used it were selling "
+    "in volume, so the customers who depended on it ended up pre-funding "
+    "the capacity. Renesas's deposit was a customer paying for the new "
+    "supply to exist, and when the timing slipped the customer took the "
+    "loss.",
    ]),
    ("Why it was closer to a loan", [
     "A deposit of $2 billion, against a supplier that was spending heavily and "
@@ -269,6 +302,20 @@ DESK = [
     "the customer is buying, because the fee was also a way of keeping "
     "customers in place. A vendor built without it gives up that source of "
     "lock-in and sells the customer's freedom to leave.",
+   ]),
+   ("Changing the premise of the bill", [
+    "Amazon, Microsoft and Google each tried to win storage by lowering the "
+    "price per gigabyte and adding tiers and discounts, and every improvement "
+    "worked inside the same model, in which storing is cheap and moving is "
+    "costly. Cars did not win by being better horses, and Wasabi did not try "
+    "to be a cheaper version of Amazon's storage. It asked what storage looks "
+    "like if the meter on leaving does not exist.",
+    "That is the Trojan Horse in this deal. It arrives as a cheaper storage "
+    "vendor, which customers welcome for the lower bill. What it attacks is "
+    "how the incumbents make money, because the egress fee is a lock-in tool "
+    "as much as a revenue line, and the incumbents' own business models make "
+    "it hard to match. The product changes from storage to a place where "
+    "data can live without a toll.",
    ]),
    ("The adviser", [
     "A BofA Securities banker lists a $70 million Series D1 for Wasabi among "
