@@ -2428,8 +2428,8 @@
    "a": "nvidia",
    "b": "openai",
    "type": "investment",
-   "text": "A 10 GW and up to $100bn letter of intent never became definitive. Later reporting says Nvidia took about $30bn of equity (single source).",
-   "src": "https://fortune.com/2026/02/02/jensen-huang-nvidia-ceo-on-openai-investment-never-a-commitment/",
+   "text": "A 10 GW and up to $100bn letter of intent never became definitive. Reuters reported in February 2026 that Nvidia was close to investing about $30bn in OpenAI's round instead, a figure not yet final.",
+   "src": "https://www.bnnbloomberg.ca/business/artificial-intelligence/2026/02/20/nvidia-close-to-investing-us30-billion-in-openais-mega-funding-round-reuters-source-says/",
    "date": "2026-02",
    "conf": "reported"
   },
@@ -2500,8 +2500,8 @@
    "a": "broadcom",
    "b": "google",
    "type": "supply",
-   "text": "Builds the custom TPU silicon. A third-party summary says Ironwood TPUs ship in volume to Google and Anthropic.",
-   "src": "https://www.kucoin.com/news/flash/broadcom-ai-chip-revenue-surges-221-in-q3-2026",
+   "text": "Builds Google's custom TPUs. Broadcom's CEO said Ironwood TPUs shipped in high volume to Google and Anthropic, and a long-term agreement covers future generations.",
+   "src": "https://finance.yahoo.com/sectors/technology/articles/broadcom-inks-major-ai-chip-165033115.html",
    "date": "2026-Q3",
    "conf": "reported"
   },
@@ -2573,7 +2573,7 @@
    "b": "rapidus",
    "type": "investment",
    "text": "About 100bn yen in Feb 2026 and a further 150bn yen in June 2026 through the IPA.",
-   "src": "https://www.theregister.com/2026/02/27/rapidus_funding/",
+   "src": "https://www.design-reuse.com/news/202530620-rapidus-completes-150-billion-yen-funding-round-from-japan-government/",
    "date": "2026-06",
    "conf": "reported"
   },
@@ -2611,15 +2611,6 @@
    "text": "DRAM leadership flipped to Samsung in Q2 2026 on Counterpoint's data. IDC still shows SK hynix first for 2025.",
    "src": "https://counterpointresearch.com/en/insights/ai-demand-reshapes-dram-rankings-in-q2-2026",
    "date": "2026-Q2",
-   "conf": "reported"
-  },
-  {
-   "a": "qualcomm",
-   "b": "intel",
-   "type": "rivalry",
-   "text": "Qualcomm is entering data center CPUs through its Alphawave purchase.",
-   "src": "https://rcrwireless.com/20250610/chips/qualcomm-buys-alphawave",
-   "date": "2025-06",
    "conf": "reported"
   },
   {
@@ -2725,16 +2716,16 @@
    "a": "meta",
    "b": "oklo",
    "type": "investment",
-   "text": "Binding prepayment and development funding for reactors, first phase targeted for 2030.",
+   "text": "Part of Meta's January 2026 nuclear deals. Meta backs Oklo's Ohio campus, targeted as early as 2030, with no financial terms disclosed.",
    "src": "https://techcrunch.com/2026/01/09/meta-signs-deals-with-three-nuclear-companies-for-6-plus-gw-of-power/",
    "date": "2026-01",
-   "conf": "primary"
+   "conf": "reported"
   },
   {
    "a": "meta",
    "b": "terrapower",
    "type": "supply",
-   "text": "Two Natrium units of up to 690 MW, part of up to 6.6 GW of nuclear deals.",
+   "text": "The first two TerraPower reactors for Meta would provide 690 MW, with rights to six more units. Part of Meta's 6-plus GW of nuclear deals, with no financial terms disclosed.",
    "src": "https://techcrunch.com/2026/01/09/meta-signs-deals-with-three-nuclear-companies-for-6-plus-gw-of-power/",
    "date": "2026-01",
    "conf": "primary"
@@ -2770,7 +2761,7 @@
    "a": "blackstone",
    "b": "williams",
    "type": "investment",
-   "text": "Invested $5.34bn in Williams' behind-the-meter gas power projects for data centers.",
+   "text": "Committed $5.34bn with Apollo and KKR for a 49% stake in five Williams power projects serving data centers.",
    "src": "https://www.datacenterdynamics.com/en/news/blackstone-invests-534bn-in-williams-behind-the-meter-natural-gas-power-projects-for-the-data-center-sector/",
    "date": "2026",
    "conf": "reported"
@@ -2834,7 +2825,7 @@
    "b": "microsoft",
    "type": "dependency",
    "text": "Microsoft was about 67% of CoreWeave's 2025 revenue.",
-   "src": "https://www.nextplatform.com/cloud/2026/08/14/the-neoclouds-build-cash-hoards-faster-than-revenues/5288040",
+   "src": "https://sacra.com/c/coreweave/",
    "date": "2026",
    "conf": "reported"
   },
@@ -2842,17 +2833,17 @@
    "a": "nebius",
    "b": "microsoft",
    "type": "supply",
-   "text": "Up to $17.4bn through 2031, subject to delivery of the promised GPU capacity.",
-   "src": "https://www.nextplatform.com/cloud/2026/08/14/the-neoclouds-build-cash-hoards-faster-than-revenues/5288040",
+   "text": "About $17.4bn through 2031 for dedicated GPU capacity, rising to about $19.4bn if Microsoft buys more, subject to delivery of the promised capacity.",
+   "src": "https://www.sec.gov/Archives/edgar/data/1513845/000110465925110025/tm2530771-1_424b5.htm",
    "date": "2025-09",
-   "conf": "reported"
+   "conf": "primary"
   },
   {
    "a": "nebius",
    "b": "meta",
    "type": "supply",
    "text": "$12bn of dedicated compute over five years from early 2027, with up to $15bn more.",
-   "src": "https://www.nextplatform.com/cloud/2026/08/14/the-neoclouds-build-cash-hoards-faster-than-revenues/5288040",
+   "src": "https://www.nasdaq.com/articles/nebius-has-40-billion-customer-commitments-most-it-comes-2-customers",
    "date": "2026",
    "conf": "reported"
   },
@@ -2878,8 +2869,8 @@
    "a": "nvidia",
    "b": "coreweave",
    "type": "supply",
-   "text": "CoreWeave rents Nvidia systems, and Vera Rubin racks are running there.",
-   "src": "https://www.iphoneincanada.ca/2026/08/27/nvidia-blows-past-expectations-with-96-2-billion-revenue-in-q2-2027/",
+   "text": "CoreWeave rents Nvidia systems and is among the first to run Vera Rubin NVL72 racks in production.",
+   "src": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Delivers-NVIDIA-Vera-Rubin-NVL72-Performance-at-Production-Scale-Starting-With-Cognition/default.aspx",
    "date": "2026-08",
    "conf": "reported"
   },
@@ -2924,7 +2915,7 @@
    "b": "mistral",
    "type": "investment",
    "text": "Invested €1.3bn in 2025 for about 11% and became its largest shareholder.",
-   "src": "https://techcrunch.com/2026/07/04/what-is-mistral-ai-everything-to-know-about-the-openai-competitor/",
+   "src": "https://www.dutchnews.nl/2025/09/asml-confirms-e1-3-billion-investment-in-french-ai-firm",
    "date": "2025-09",
    "conf": "reported"
   },
@@ -3004,7 +2995,7 @@
    "a": "google",
    "b": "wiz",
    "type": "ownership",
-   "text": "Completed 11 March 2026 at about $29.5bn after adjustments. Wiz stays available on AWS, Azure and Oracle Cloud.",
+   "text": "Completed 11 March 2026. The headline price was $32bn, about $29.5bn after adjustments per Alphabet's filing. Wiz stays available on AWS, Azure and Oracle Cloud.",
    "src": "https://www.sec.gov/Archives/edgar/data/0001652044/000165204426000071/goog-20260630.htm",
    "date": "2026-03",
    "conf": "primary"
@@ -3013,7 +3004,7 @@
    "a": "palo_alto",
    "b": "cyberark",
    "type": "ownership",
-   "text": "Completed 11 February 2026. About $25bn in cash and stock.",
+   "text": "Completed 11 February 2026. CyberArk holders received $45 in cash plus 2.2005 Palo Alto shares each, about $25bn in all.",
    "src": "https://www.paloaltonetworks.com/company/press/2026/palo-alto-networks-completes-acquisition-of-cyberark-to-secure-the-ai-era",
    "date": "2026-02",
    "conf": "primary"
@@ -3022,26 +3013,26 @@
    "a": "servicenow",
    "b": "armis",
    "type": "ownership",
-   "text": "$7.75bn purchase, reported.",
-   "src": "https://news.crunchbase.com/cybersecurity/q3-2026-large-venture-investments-ai-defense-startups/",
+   "text": "Agreed in December 2025 to buy Armis for about $7.75bn in cash. Closing was expected in the second half of 2026.",
+   "src": "https://www.sec.gov/Archives/edgar/data/1373715/000137371526000007/now-20251231.htm",
    "date": "2026",
-   "conf": "reported"
+   "conf": "primary"
   },
   {
    "a": "servicenow",
    "b": "veza",
    "type": "ownership",
-   "text": "Reported at roughly $1bn.",
-   "src": "https://news.crunchbase.com/cybersecurity/q3-2026-large-venture-investments-ai-defense-startups/",
+   "text": "Agreed in December 2025 to buy Veza for about $1.25bn in cash per its 10-K. Press reports had put the price near $1bn.",
+   "src": "https://www.sec.gov/Archives/edgar/data/1373715/000137371526000007/now-20251231.htm",
    "date": "2026",
-   "conf": "reported"
+   "conf": "primary"
   },
   {
    "a": "crowdstrike",
    "b": "sgnl",
    "type": "ownership",
-   "text": "Reported $740m purchase of an identity startup.",
-   "src": "https://news.crunchbase.com/cybersecurity/q3-2026-large-venture-investments-ai-defense-startups/",
+   "text": "Agreed in January 2026 to buy SGNL for nearly $740m, per CrowdStrike's CEO. The announcement gave no terms.",
+   "src": "https://cyberscoop.com/crowdstrike-sngl-deal-740-million/",
    "date": "2026",
    "conf": "reported"
   },
@@ -3095,7 +3086,7 @@
    "b": "tiktok",
    "type": "ownership",
    "text": "Retains 19.9%.",
-   "src": "https://www.forrester.com/blogs/tiktok-seals-the-deal-with-new-us-joint-venture/",
+   "src": "https://www2.yicaiglobal.com/news/tiktok-sets-up-us-jv-with-chinas-bytedance-owning-largest-single-stake",
    "date": "2026-01",
    "conf": "reported"
   },
@@ -3121,7 +3112,7 @@
    "a": "google",
    "b": "netflix",
    "type": "rivalry",
-   "text": "YouTube was 14.2% of US TV time in July 2026 against Netflix's 7.9% in June.",
+   "text": "YouTube was the top streaming service in US TV time in July 2026 at 14.2%, ahead of Netflix.",
    "src": "https://ppc.land/nielsen-gauge/",
    "date": "2026-07",
    "conf": "reported"
@@ -3166,8 +3157,8 @@
    "a": "samsung",
    "b": "apple",
    "type": "rivalry",
-   "text": "First and second in Q2 2026 phone shipments, 62.7m against 55.7m.",
-   "src": "https://www.biztechreports.com/news-archive/2026/8/6/global-smartphone-shipments-fall-67-in-q2-2026-as-the-memory-crisis-splits-the-market-in-two-idc-august-11-2026",
+   "text": "First and second in Q2 2026 phone shipments, about 62.7m against 55.7m to 55.8m depending on the IDC release.",
+   "src": "https://www.idc.com/resource-center/press-releases/2q26-mpt-top5/",
    "date": "2026-Q2",
    "conf": "reported"
   },
@@ -3181,20 +3172,11 @@
    "conf": "reported"
   },
   {
-   "a": "micron",
-   "b": "apple",
-   "type": "dependency",
-   "text": "Memory cost increases hit Apple, Xiaomi and PC makers alike. IDC expects the shortage to last into early 2028.",
-   "src": "https://www.mactrast.com/2026/07/idc-apple-the-only-major-computer-maker-to-increase-shipments-in-q2-2026/",
-   "date": "2026",
-   "conf": "reported"
-  },
-  {
    "a": "visa",
    "b": "mastercard",
    "type": "rivalry",
-   "text": "Fiscal Q3 and Q2 2026 net revenue of $11.6bn and $9.3bn, both up 14%.",
-   "src": "https://finance.yahoo.com/markets/stocks/articles/visa-vs-mastercard-payment-stock-161200467.html",
+   "text": "Visa's net revenue was $11.6bn in fiscal Q3 2026, up 14%. Mastercard's rose 14% in its June quarter.",
+   "src": "https://s1.q4cdn.com/050606653/files/doc_financials/2026/q3/Q3-2026-Earnings-Release_vF.pdf",
    "date": "2026",
    "conf": "reported"
   },
@@ -3204,15 +3186,6 @@
    "type": "rivalry",
    "text": "Tether holds about 58% of supply and USDC about a quarter.",
    "src": "https://transak.com/blog/stablecoin-market-cap-2026",
-   "date": "2026",
-   "conf": "reported"
-  },
-  {
-   "a": "stripe",
-   "b": "adyen",
-   "type": "rivalry",
-   "text": "Both sell payments infrastructure to online merchants, Stripe at $1.9tn in 2025 and Adyen at EUR 382bn in Q1 2026.",
-   "src": "https://finance.yahoo.com/markets/stocks/articles/paypals-total-payment-volume-whats-144600397.html",
    "date": "2026",
    "conf": "reported"
   }

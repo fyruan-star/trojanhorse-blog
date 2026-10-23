@@ -16,6 +16,11 @@ METHOD = [
  "confirmed was left off. Search summaries can paraphrase, so the figures "
  "above come from the cited pages and not from memory, and some pages could "
  "not be opened directly. Those are marked reported.",
+ "Every relationship line was checked against its source on 23 October 2026. "
+ "Lines whose source did not state the claim were reworded or removed, and "
+ "relationships that were only my reading are not drawn. Some sources block "
+ "automated reading, so for those the figures were confirmed through other "
+ "coverage of the same event.",
 ]
 
 # per sector: what was single-sourced or conflicting, and what was not found
