@@ -113,7 +113,6 @@ COVER = """
 
   <div class="cover__mist" aria-hidden="true"></div>
 
-{PICKER}
   <div class="shell cover__foot">
     <div class="cover__rule"></div>
     <a class="cover__scroll" href="#opening">Scroll</a>
@@ -280,37 +279,35 @@ def belt(slugs):
 
 
 def build_index():
-    # One door, not three. The verticals still organise the writing; they are
-    # no longer the first decision a reader is asked to make.
-    picker = ('''  <div class="shell cover__picker">
-    <div class="silos__grid silos__grid--two">
-      <a class="silo silo--solo" href="strategemata.html">
-        <span class="silo__name">The Mandate</span>
-        <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
-        <span class="silo__word">How Banks Win It</span>
-      </a>
-      <a class="silo silo--solo" href="how-a-company-gets-sold.html">
-        <span class="silo__name">The Process</span>
-        <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
-        <span class="silo__word">Bake-Off to Close</span>
-      </a>
-      <a class="silo silo--solo" href="trojan-horses.html">
-        <span class="silo__name">Trojan Horses</span>
-        <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
-        <span class="silo__word">What Might Change</span>
-      </a>
-      <a class="silo silo--solo" href="ten-years.html">
-        <span class="silo__name">Ten Years</span>
-        <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
-        <span class="silo__word">2016 to 2026</span>
-      </a>
-    </div>
+    # The doors come after the writing now. A reader who has finished the Troy
+    # passage is in a position to choose; a reader who has just arrived is not.
+    doors = [
+        ("The Mandate",   "How a bank gets hired",   "strategemata.html"),
+        ("The Process",   "How a company gets sold", "how-a-company-gets-sold.html"),
+        ("Ten Years",     "2016 to 2026",            "ten-years.html"),
+        ("Trojan Horses", "What might change",       "trojan-horses.html"),
+    ]
+    cards = "".join(
+        f'''<a class="idx__c" href="{href}">
+        <span class="idx__n">{i:02d}</span>
+        <span class="idx__t">{name}</span>
+        <span class="idx__d">{desc}</span>
+      </a>'''
+        for i, (name, desc, href) in enumerate(doors, 1))
+
+    index = f'''
+<!-- ============================================================= INDEX === -->
+<nav class="idx" aria-label="The journal">
+  <div class="shell">
+    <p class="idx__k">The Journal</p>
+    <div class="idx__row">{cards}</div>
   </div>
-''')
+</nav>
+'''
 
     html = (HEAD.format(title="The Trojan Horse",
                         desc="A mergers and acquisitions journal and podcast by Francis Ruan.")
-            + CAPITAL_DEF + COVER.replace("{PICKER}", picker) + ESSAY + ROOMS + FOOT)
+            + CAPITAL_DEF + COVER + ESSAY + index + ROOMS + FOOT)
     (ROOT / "index.html").write_text(html, encoding="utf-8")
     print("index.html")
 
