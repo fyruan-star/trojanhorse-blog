@@ -6,6 +6,7 @@ which is git-ignored, so it stays on disk and never reaches the web. To bring
 a piece back: move its html out of archive/, add it to STORY below, rebuild.
 """
 import pathlib, sys
+import sketch
 
 ROOT = pathlib.Path(__file__).parent
 
@@ -129,6 +130,8 @@ ESSAY = """
     <div class="tale">
       <p class="tale__open"><span class="tale__cap">P</span>icture the morning the Trojans woke up to an empty beach. Ten years of tents and smoke and shouting had vanished overnight. The black ships were gone, and where the Greek camp had stood there was trampled sand and one enormous horse of fresh-cut pine. I love this part of the story. The whole city poured out through the gates to look at it.</p>
     </div>
+
+    <figure class="sk sk--dark">{COAST}</figure>
 
     <div class="tale">
       <p>Children ran up and slapped the wood. Somebody&rsquo;s grandmother, who had spent a decade sleeping in her clothes, stood in the sun and cried because the war looked finished. A priest named Laocoön had his doubts. He said he feared the Greeks even when they came bearing gifts, and he hurled a spear into the horse&rsquo;s side. It stuck there, quivering, and from deep inside the wood came a low hollow groan. Then a Greek named Sinon, who had let himself be captured on purpose, wept and swore the horse was an offering to Athena that would protect the city if it stood inside. The Trojans believed him. The horse was too big for the gate, so they tore down a stretch of their own wall to bring it in, and that night the soldiers climbed out of its belly and opened the city from within.</p>
@@ -306,7 +309,8 @@ def build_index():
 
     html = (HEAD.format(title="The Trojan Horse",
                         desc="A mergers and acquisitions journal and podcast by Francis Ruan.")
-            + CAPITAL_DEF + COVER + ESSAY + index + ROOMS + FOOT)
+            + CAPITAL_DEF + COVER + ESSAY.replace("{COAST}", sketch.coast())
+            + index + ROOMS + FOOT)
     (ROOT / "index.html").write_text(html, encoding="utf-8")
     print("index.html")
 
@@ -726,11 +730,14 @@ def build_process():
 {intro}
     </article>
 
+    <figure class="sk">{sketch.coast()}</figure>
+
     <article class="wp">
       <p class="part">{P_P1H}</p>
 {_parts(P_PART1)}
     </article>
 
+    <div class="wv">{sketch.wave()}</div>
     <p class="part part--rail">{P_P2H}</p>
     {rail()}
 
@@ -744,6 +751,7 @@ def build_process():
     </article>
 
     <article class="wp">
+      <div class="wv">{sketch.wave()}</div>
       <p class="part">{P_P3H}</p>
 {_parts(P_PART3)}
 
