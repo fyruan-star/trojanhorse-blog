@@ -958,3 +958,6 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
   transition:border-color .2s ease;
 }
 .wp__p a:hover{ border-bottom-color:var(--ever); }
+
+/* the sub-journal door on the Ten Years page */
+.ground__n a{ color:var(--silver); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.18em; }

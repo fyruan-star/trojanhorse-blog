@@ -205,3 +205,6 @@ body::before{
   .words li{ grid-template-columns:1fr; gap:.18rem; }
   .w__t{ text-align:left; }
 }
+
+/* inline links inside a story, and in its source list */
+.body p a, .srcs li a{ color:inherit; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.18em; }

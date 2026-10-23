@@ -479,6 +479,73 @@ def build_deals():
     print(f"{len(DEALS)} deal notes")
 
 
+from desk_data import DESK, DESK_INTRO
+
+def build_desk():
+    """Three stories from the Palo Alto software team's list, one page each."""
+    for d in DESK:
+        ld, row = _title(d["lead"], d["line1"], d["line2"])
+        srcs = "\n".join(f"      <li>{x}</li>" for x in d["srcs"])
+        tail = ('  <div class="srcs">\n    <h3>Sources</h3>\n    <ol>\n'
+                + srcs + '\n    </ol>\n  </div>')
+        html = (HEAD.format(title=f'{d["lead"]} {d["line1"]} {d["line2"]} | The Trojan Horse'.replace("  "," ").strip(),
+                            desc=f'{d["party"]} &middot; {d["value"]} &middot; {d["dated"]}.')
+                + '\n<link rel="stylesheet" href="story.css">\n'
+                + SHEET.format(back="palo-alto.html", backlabel="Deals From Palo Alto",
+                               lead=ld, line1=d["line1"], row2=row, sub=d["sub"],
+                               lede=d["lede"], sections=_sections(d["sections"]),
+                               takeaway=d["takeaway"], tail=tail,
+                               series="Deals From Palo Alto", roman=f'No. {d["roman"]}',
+                               last=f'{d["party"]} &middot; {d["value"]}')
+                + "\n</body>\n</html>\n")
+        (ROOT / f'{d["slug"]}.html').write_text(html, encoding="utf-8")
+    print(f"{len(DESK)} Palo Alto stories")
+
+
+def build_desk_index():
+    rows = []
+    for d in DESK:
+        name = f'{d["lead"]} {d["line1"]} {d["line2"]}'.replace("  ", " ").strip()
+        rows.append(f'      <li><a href="{d["slug"]}.html">'
+                    f'<span class="g__n">No. {d["roman"]}</span>'
+                    f'<span class="g__t">{name}</span></a></li>')
+    html = (HEAD.format(title="Deals From Palo Alto | The Trojan Horse",
+                        desc="Technology transactions from the BofA Securities Palo Alto software team, told as stories.")
+            + '''
+<a class="back" href="ten-years.html">&larr; Ten Years</a>
+
+<header class="silohead">
+  <div class="shell">
+    <p class="silohead__kicker">A sub journal to Ten Years</p>
+    <h1 class="silohead__name">Deals From Palo Alto</h1>
+    <p class="silohead__blurb">''' + DESK_INTRO + '''</p>
+    <div class="silohead__line" aria-hidden="true"></div>
+  </div>
+</header>
+
+<section class="ground">
+  <div class="shell">
+    <ol class="ground__l">
+''' + "\n".join(rows) + '''
+    </ol>
+  </div>
+</section>
+''' + FOOT)
+    (ROOT / "palo-alto.html").write_text(html, encoding="utf-8")
+    print("palo-alto.html")
+
+
+DESK_DOOR = """
+<section class="ground">
+  <div class="shell">
+    <p class="ground__k">Sub journal</p>
+    <p class="ground__n">Transactions from the BofA Securities Palo Alto software
+    team, told as stories rather than notes. <a href="palo-alto.html">Deals From
+    Palo Alto &rarr;</a></p>
+  </div>
+</section>
+"""
+
 GROUND = """
 <section class="ground">
   <div class="shell">
@@ -573,7 +640,7 @@ def build_katabasis():
     <div class="silohead__line" aria-hidden="true"></div>
   </div>
 </header>
-{ground()}
+{ground()}{DESK_DOOR}
 <main class="kata">
   <div class="shell">
 {kata_nodes()}
@@ -766,5 +833,7 @@ if __name__ == "__main__":
     build_horses()
     build_primers()
     build_deals()
+    build_desk()
+    build_desk_index()
     build_katabasis()
     build_podcast()
