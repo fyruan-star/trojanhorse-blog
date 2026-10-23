@@ -287,6 +287,11 @@ def build_index():
         <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
         <span class="silo__word">How Banks Win It</span>
       </a>
+      <a class="silo silo--solo" href="how-a-company-gets-sold.html">
+        <span class="silo__name">The Process</span>
+        <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
+        <span class="silo__word">Bake-Off to Close</span>
+      </a>
       <a class="silo silo--solo" href="ten-years.html">
         <span class="silo__name">Ten Years</span>
         <svg class="silo__cap" viewBox="0 0 100 124" aria-hidden="true"><use href="#capital"/></svg>
@@ -342,7 +347,7 @@ def build_stories_page():
     <article class="wp">
 {chr(10).join(body)}
 {take}{srcs_block}
-      <a class="wp__go" href="the-buyers-bank.html">Read the case study: The Buyer&rsquo;s Bank &rarr;</a>
+      <a class="wp__go" href="the-buyers-bank.html">Read the case study: The Buyer&rsquo;s Bank &rarr;</a>\n      <a class="wp__go wp__go--2" href="how-a-company-gets-sold.html">Then: how a company actually gets sold &rarr;</a>
     </article>
   </div>
 </main>
@@ -594,9 +599,87 @@ def build_katabasis():
     print(f"ten-years.html  ({len(YEARS)} years, {n} entries)")
 
 
+
+# ================================================== THE PROCESS, A CHAPTER ===
+from process_data import (KICKER as P_KICKER, TITLE as P_TITLE, LEDE as P_LEDE,
+                          INTRO as P_INTRO, STAGES as P_STAGES,
+                          CLOSE_HEAD as P_CLOSE_HEAD, CLOSE as P_CLOSE,
+                          NOTE as P_NOTE)
+
+def rail():
+    """The horizontal route map. One stop per stage, a line running through
+    the markers, each stop jumping to its chapter."""
+    out = ['<div class="rail"><div class="rail__track">']
+    for roman, name, dur, _ in P_STAGES:
+        out.append(f'''<a class="stop" href="#s{roman}">
+          <span class="stop__n">{roman}</span>
+          <span class="stop__dot" aria-hidden="true"></span>
+          <span class="stop__t">{name}</span>
+          <span class="stop__d">{dur}</span>
+        </a>''')
+    out.append("</div></div>")
+    return "".join(out)
+
+
+def build_process():
+    chapters = []
+    for roman, name, dur, paras in P_STAGES:
+        body = "\n".join(f'        <p class="wp__p">{x}</p>' for x in paras)
+        chapters.append(f'''      <section class="ch" id="s{roman}">
+        <p class="ch__k"><span class="ch__n">{roman}</span>{dur}</p>
+        <h2 class="ch__h">{name}</h2>
+{body}
+      </section>''')
+
+    intro = "\n".join(f'      <p class="wp__p wp__p--lead">{x}</p>' for x in P_INTRO)
+    close = "\n".join(f'        <p class="wp__p">{x}</p>' for x in P_CLOSE)
+
+    html = (HEAD.format(title=f"{P_TITLE} | The Trojan Horse",
+                        desc="The sell-side M&A process end to end, from the "
+                             "bake-off to completion, explained for a reader "
+                             "outside the industry.")
+            + f'''
+<a class="back back--dark" href="strategemata.html">&larr; The Mandate</a>
+
+<header class="plate">
+  <div class="shell plate__in">
+    <p class="plate__k">{P_KICKER}</p>
+    <h1 class="plate__t">{P_TITLE}</h1>
+    <p class="plate__l">{P_LEDE}</p>
+  </div>
+</header>
+
+<main class="white">
+  <div class="shell">
+    <article class="wp wp--wide">
+{intro}
+    </article>
+
+    {rail()}
+
+    <article class="wp">
+{chr(10).join(chapters)}
+
+      <section class="ch ch--close">
+        <h2 class="ch__h">{P_CLOSE_HEAD}</h2>
+{close}
+      </section>
+
+      <p class="wp__note">{P_NOTE}</p>
+
+      <a class="wp__go" href="strategemata.html">Back to how the bank was hired in the first place &rarr;</a>
+    </article>
+  </div>
+</main>
+''' + FOOT)
+    (ROOT / "how-a-company-gets-sold.html").write_text(html, encoding="utf-8")
+    print(f"how-a-company-gets-sold.html  ({len(P_STAGES)} stages)")
+
+
 if __name__ == "__main__":
     build_index()
     build_stories_page()
+    build_process()
     build_primers()
     build_deals()
     build_katabasis()
