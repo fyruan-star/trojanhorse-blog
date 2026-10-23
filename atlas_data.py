@@ -1,6 +1,6 @@
 """Tech Atlas: the whole landscape, assembled from one module per sector.
 
-Phase 1 covers nine sectors. Entities are shared across sectors, so a company
+Seventeen sectors in two phases. Entities are shared across sectors, so a company
 has one record and appears wherever it plays. Sector order follows the stack,
 from the physical foundation at the bottom to the end markets at the top.
 """
@@ -9,7 +9,9 @@ import importlib
 ASOF = "23 October 2026"
 
 _MODULES = ["silicon", "infra", "cloud", "models", "software", "security",
-            "internet", "devices", "telecom"]
+            "internet", "devices", "telecom",
+            "foundation", "fintech", "mobility", "robotics", "health",
+            "defense", "quantum", "energy"]
 
 ENT, SECTORS, EDGES = {}, [], []
 for m in _MODULES:
@@ -37,7 +39,7 @@ EDGE_LABEL = {
     "rivalry": "Rivalry", "ownership": "Ownership", "investment": "Investment",
     "dependency": "Dependency",
 }
-BAND_LABEL = {"end": "End markets", "platform": "Platforms and software", "stack": "The compute stack"}
+BAND_LABEL = {"end": "End markets", "industries": "Industries rebuilt by software", "platform": "Platforms and software", "stack": "The compute stack", "foundation": "Foundation and frontier"}
 
 # Overview map. Edges worth drawing between sectors, chosen by hand from EDGES.
 def check():

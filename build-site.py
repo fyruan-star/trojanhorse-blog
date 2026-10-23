@@ -512,7 +512,7 @@ DESK_DOOR = """
     <p class="ground__n">Three transactions from the BofA Securities Palo Alto
     software team's list, each examined as a case. <a href="palo-alto.html">Deals
     From Palo Alto &rarr;</a></p>
-    <p class="ground__n">A depth chart of nine technology sectors, with the lines
+    <p class="ground__n">A depth chart of seventeen technology sectors, with the lines
     between their companies. <a href="tech-atlas.html">The Tech Atlas &rarr;</a></p>
   </div>
 </section>
@@ -643,7 +643,11 @@ def build_atlas():
 </section>""")
 
     # overview tiles, grouped by band
-    order = {"end": ["internet", "devices", "telecom"], "platform": ["models", "software", "security"], "stack": ["silicon", "infra", "cloud"]}
+    order = {"end": ["internet", "devices", "telecom"],
+             "industries": ["fintech", "mobility", "robotics", "health", "defense"],
+             "platform": ["models", "software", "security"],
+             "stack": ["silicon", "infra", "cloud"],
+             "foundation": ["foundation", "energy", "quantum"]}
     sec = {s["id"]: s for s in AD.SECTORS}
     def tile(sid):
         s = sec[sid]
@@ -665,7 +669,7 @@ def build_atlas():
   <div class="tile__r"><b>Leads</b><span>{_esc(", ".join(leads[:3]))}</span></div>{prem_html}
 </a>"""
     bands = []
-    for band in ("end", "platform", "stack"):
+    for band in ("end", "industries", "platform", "stack", "foundation"):
         bands.append(f'<div class="band"><p class="band__label">{AD.BAND_LABEL[band]}</p><div class="band__row">' +
                      "".join(tile(x) for x in order[band]) + "</div></div>")
 
@@ -720,7 +724,7 @@ def build_atlas():
 
 <div class="atlas-wide">
   <header class="atlas-head">
-    <p class="atlas-head__k">As of {AD.ASOF} &middot; Phase 1 of the atlas</p>
+    <p class="atlas-head__k">As of {AD.ASOF}</p>
     <h1 class="atlas-head__t">The Tech Atlas</h1>
     <p class="atlas-head__l">{len(AD.SECTORS)} sectors, {len(AD.EDGES)} sourced relationships and {n_cards} player cards, ranked as a depth chart.</p>
   </header>

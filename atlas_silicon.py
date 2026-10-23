@@ -44,7 +44,7 @@ ENT = {
  "meti": ("Japan's METI", "Japan's industry ministry, funding Rapidus through its IPA."),
  "anthropic": ("Anthropic", "Frontier model lab that buys chips from Google, Amazon, Nvidia and AMD."),
  "meta": ("Meta", "Social platforms and a large AI chip buyer."),
- "tesla": ("Tesla", "Carmaker that buys foundry capacity for its own AI chips."),
+ "tesla": ("Tesla", "Electric vehicles, energy storage, robotaxis and its own AI chips."),
  "apple": ("Apple", "Designs its own chips and is TSMC's second-largest customer."),
 }
 

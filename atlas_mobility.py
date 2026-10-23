@@ -1,0 +1,80 @@
+"""Tech Atlas, Phase 2, sector 12: Mobility and autonomy."""
+
+ENT = {
+ "waymo": ("Waymo", "Alphabet's driverless ride-hailing company."),
+ "baidu": ("Baidu Apollo Go", "China's largest robotaxi service."),
+ "zoox": ("Zoox", "Amazon's purpose-built robotaxi company."),
+ "pony": ("Pony.ai", "Robotaxi company listed in the US and China."),
+ "weride": ("WeRide", "Robotaxi and autonomous driving company."),
+ "aurora": ("Aurora Innovation", "Driverless trucks."),
+ "byd": ("BYD", "The largest maker of battery electric vehicles."),
+ "uber": ("Uber", "Ride-hailing platform contracting for robotaxi fleets."),
+}
+
+SECTOR = dict(
+ id="mobility", name="Mobility and autonomy", band="industries",
+ blurb="Who is putting cars on the road without drivers, and who is selling the electric ones.",
+ positions=[
+
+  dict(id="robotaxi", name="Robotaxis",
+   metric=("Baidu's Apollo Go reported more than 23 million cumulative public rides across 28 cities, with about 1 million fully driverless rides in Q2 2026 (company call, reported). Waymo is reported at about 500,000 paid rides a week after a $16bn round at a $126bn valuation in February 2026. Sources disagree on fleet and city counts."),
+   metric_src="https://sqmagazine.co.uk/robotaxi-statistics/",
+   players=[
+    dict(e="waymo", t="starter", conf="reported",
+     stat="About 500,000 paid rides a week, targeting 1 million by the end of 2026, across roughly 10 to 15 US metros. $16bn raised at $126bn post-money in February 2026.",
+     why="The largest driverless service in the US with the safety record to expand.",
+     cond="Figures come from secondary trackers. A Waymo figure from Alphabet's own report was not found.",
+     src="https://robofutur.com/en/articles/robotaxi-reality-check-2026/"),
+    dict(e="baidu", t="starter", conf="reported",
+     stat="More than 23 million cumulative rides in 28 cities. Peak weekly rides above 350,000 in March (reported).",
+     why="Leads on volume, with Chinese cities and regulators supporting it.",
+     cond="Export of the service outside China.",
+     src="https://www.notateslaapp.com/news/3775/the-great-robotaxi-race-a-look-at-teslas-competition"),
+    dict(e="tesla", t="second", conf="reported",
+     stat="Robotaxi in seven metros in the first half of 2026 with 44 active vehicles (one source). Cybercab rides began in Austin on 3 September. Unsupervised miles rose about eightfold in the quarter, and Dallas is next (call summary). Revenue is not expected until Q2 2027.",
+     why="Already builds millions of cars with the sensors and software to carry the service.",
+     cond="Timelines slipped in its Q3 call, and the fleet figures are older and secondary.",
+     src="https://finance.yahoo.com/markets/stocks/articles/tesla-inc-tsla-q3-2026-110148986.html"),
+    dict(e="zoox", t="second", conf="reported",
+     stat="About 10,000 rides a week across four US cities with roughly 100 vehicles (one source). Reported to hold the first federal exemption for a purpose-built robotaxi, for up to 2,500 vehicles a year.",
+     why="Designed the vehicle with no driver's seat.", cond="Small fleet.",
+     src="https://sqmagazine.co.uk/robotaxi-statistics/"),
+    dict(e="pony", t="second",
+     stat="Q2 2026 revenue $36.2m, up about 69%, with robotaxi revenue $12.1m. Fleet 1,975 on 30 June, targeting over 3,500 by year end. Uber is contracted for more than 2,000 robotaxis in Europe.",
+     why="Public company with a growing fleet and a global distribution deal.", cond="Revenue is small against its fleet.",
+     src="https://www.sec.gov/Archives/edgar/data/0001969302/000110465926098113/tm2623382d1_ex99-1.htm"),
+    dict(e="weride", t="second", conf="reported",
+     stat="About 3,400 level-4 vehicles in the first half of 2026, more than 1,800 of them robotaxis.",
+     why="Runs robotaxis across several countries.", cond="Single source.",
+     src="https://sqmagazine.co.uk/robotaxi-statistics/"),
+    dict(e="aurora", t="rookie", conf="reported",
+     stat="Record commercial driverless miles in Q1 2026 with FedEx, Hirschbach, Werner and Uber Freight. FY26 revenue guidance $14m to $16m reaffirmed.",
+     why="Applies driverless technology to long-haul freight.", cond="No Q2 2026 figures were found.",
+     src="https://247wallst.com/investing/2026/05/22/blackberry-soars-18-mobileye-climbs-4-aurora-innovation-rises-2-while-nvidia-drifts-automotive-ai-trade-picks-a-new-leader/"),
+   ]),
+
+  dict(id="evs", name="Electric vehicles",
+   metric=("Q3 2026: BYD sold 762,478 passenger battery electric vehicles, up 30.9%, against Tesla's 486,532 deliveries, down 2%. Global EV sales were 15.5 million in the first nine months of 2026. China's domestic EV sales fell 18% in September while Europe rose 39%."),
+   metric_src="https://cnevpost.com/2026/10/02/tesla-q3-delivery-byd-bev-sales/",
+   players=[
+    dict(e="byd", t="starter", conf="reported",
+     stat="762,478 passenger battery electric vehicles in Q3 2026, up 30.9% (third-party sales charts, not a filing). 87.7 GWh of EV batteries installed in H1 2026.",
+     why="Makes its own batteries and sells in China, Europe and emerging markets.", cond="China's domestic market fell 18% in September.",
+     src="https://cnevpost.com/2026/10/02/tesla-q3-delivery-byd-bev-sales/"),
+    dict(e="tesla", t="starter",
+     stat="Q3 2026 deliveries 486,532, down 2% from 497,099 a year earlier, beating a consensus of about 462,000.",
+     why="Sells vehicles, software and energy storage from one company.", cond="BYD's battery electric lead was 275,946 vehicles.",
+     src="https://electrek.co/2026/10/02/tesla-q3-2026-deliveries-486532/"),
+   ]),
+ ])
+
+EDGES = [
+ dict(a="uber", b="pony", type="supply", text="Contracted for more than 2,000 Pony.ai robotaxis in Europe.", src="https://www.sec.gov/Archives/edgar/data/0001969302/000110465926098113/tm2623382d1_ex99-1.htm", date="2026-08", conf="primary"),
+ dict(a="uber", b="aurora", type="alliance", text="Uber Freight is one of Aurora's commercial customers.", src="https://247wallst.com/investing/2026/05/22/blackberry-soars-18-mobileye-climbs-4-aurora-innovation-rises-2-while-nvidia-drifts-automotive-ai-trade-picks-a-new-leader/", date="2026-Q1", conf="reported"),
+ dict(a="amazon", b="zoox", type="ownership", text="Zoox is an Amazon company.", src="https://sqmagazine.co.uk/robotaxi-statistics/", date="2026", conf="reported"),
+ dict(a="google", b="waymo", type="ownership", text="Waymo is an Alphabet company.", src="https://robofutur.com/en/articles/robotaxi-reality-check-2026/", date="2026", conf="inferred"),
+ dict(a="waymo", b="tesla", type="rivalry", text="Waymo's driverless service is far larger than Tesla's, on secondary figures.", src="https://finance.yahoo.com/markets/stocks/articles/tesla-inc-tsla-q3-2026-110148986.html", date="2026", conf="reported"),
+ dict(a="baidu", b="waymo", type="rivalry", text="The two largest robotaxi services by rides, one in China and one in the US.", src="https://www.notateslaapp.com/news/3775/the-great-robotaxi-race-a-look-at-teslas-competition", date="2026", conf="reported"),
+ dict(a="byd", b="tesla", type="rivalry", text="BYD's battery electric sales exceeded Tesla's deliveries by 275,946 in Q3 2026.", src="https://cnevpost.com/2026/10/02/tesla-q3-delivery-byd-bev-sales/", date="2026-Q3", conf="reported"),
+ dict(a="pony", b="weride", type="rivalry", text="Both are listed robotaxi companies expanding abroad.", src="https://sqmagazine.co.uk/robotaxi-statistics/", date="2026", conf="inferred"),
+]

@@ -318,3 +318,267 @@ SECTOR_PIECES = {
   "least verified 2026 data, and the chart says so on the cards.",
  ],
 }
+
+
+# ------------------------------------------------------------- Phase 2 pieces
+SECTOR_PIECES.update({
+
+ "foundation": [
+  "A chip is not finished when the wafer leaves the fab. It still has to be "
+  "packaged, and for AI chips that step has become a queue of its own. TSMC "
+  "does not disclose how much CoWoS packaging capacity it has, and estimates "
+  "for the end of 2026 run from 115,000 to 140,000 wafers a month. Nvidia is "
+  "estimated to hold about 60% of it, and Nvidia, Broadcom and AMD together "
+  "85% or more "
+  "(<a href=\"https://www.trendforce.com/news/2026/06/15/news-tsmc-cowos-supply-demand-gap-reportedly-seen-narrowing-from-20-to-10-by-end-2026-as-capacity-expands/\">TrendForce</a>, "
+  "<a href=\"https://eu.36kr.com/en/p/3892020701149697\">36Kr</a>). "
+  "A customer that is third in line for packaging has a reason to sign a "
+  "ten-year agreement, which is what Amkor is reported to have done with TSMC "
+  "in June.",
+  "Underneath the packaging sits the substrate, the board the chip is "
+  "mounted on. Three companies make about 75% of the advanced kind, and "
+  "adding a production line takes eighteen to twenty-four months. The "
+  "pattern repeats at every layer of this sector. When an input is made by a "
+  "few specialists and is slow to expand, the buyer who reserves capacity "
+  "first wins, and everyone else waits. TrendForce expects the packaging "
+  "squeeze to ease from 2027, which would shift the leverage back toward the "
+  "chip designers.",
+  "Rare earths show the same pattern with a government attached. China's "
+  "licensing regime for seven medium and heavy rare earths has been in force "
+  "since April 2025, and the harsher second wave is suspended only until 10 "
+  "November 2026 "
+  "(<a href=\"https://www.techtimes.com/articles/328392/20261002/rare-earth-magnets-chinas-november-10-deadline-us-gap-money-cant-close.htm\">Tech Times</a>). "
+  "China's exports of rare earths and magnets in January and February were "
+  "under a third of what they were in the same months of 2024 and 2025. MP "
+  "Materials produced 840 tonnes of NdPr in the second quarter, up 41%, and "
+  "is spending most of its capital on magnets. The US defense procurement ban "
+  "on Chinese magnets starts on 1 January 2027, and one source says US "
+  "magnet capacity will not be meaningful until 2028.",
+  "The thing to watch is the gap between those two dates. A buyer facing a "
+  "ban in January with domestic supply arriving in 2028 has a bridge to find, "
+  "and whoever owns the bridge sets the price. The wafers row is thin in this "
+  "atlas because the research found little current data, and it is marked "
+  "that way on the cards.",
+ ],
+
+ "fintech": [
+  "Visa announced that its payments volume passed $4 trillion in a single "
+  "quarter for the first time, up 10% at constant dollars, with net revenue "
+  "of $11.6 billion "
+  "(<a href=\"https://www.investing.com/news/company-news/visa-q3-fy2026-slides-payments-volume-tops-4t-guidance-raised-93CH-4818318\">Investing.com</a>). "
+  "Mastercard's gross dollar volume was $2.9 trillion. Both sell the same "
+  "thing, a fee on each transaction on a network that banks and merchants "
+  "have no practical way to leave, and both are growing their value-added "
+  "services faster than their core, 34% and 20%. The cards are the "
+  "foundation, and the services are where the networks are looking for new "
+  "revenue.",
+  "The pressure on them comes from outside the card. Stablecoin supply is "
+  "about $316 to $322 billion, with Tether near 58% and Circle's USDC "
+  "at $73.3 billion at the end of the second quarter "
+  "(<a href=\"https://investor.circle.com/files/doc_news/2026/Aug/05/CIRCLE_Q2-2026.pdf\">Circle</a>). "
+  "Circle earns the interest on the reserves behind its coins, and the "
+  "return rate fell 66 basis points to 3.48% in the quarter, so its revenue "
+  "grew 7% while average circulation grew 25%. An issuer's income moves with "
+  "interest rates in a way a card network's does not.",
+  "The most dramatic move was a proposal. In mid-July Stripe and Advent were "
+  "reported to have offered $60.50 a share for PayPal, about $53.4 billion "
+  "and a 28% premium, financed with $17 billion of equity that includes "
+  "Block and about $50 billion of bank debt "
+  "(<a href=\"https://www.cnbc.com/2026/07/15/stripe-advent-offer-to-buy-paypal-for-more-than-53-billion-reuters.html\">CNBC</a>). "
+  "Stripe processed $1.9 trillion in 2025, so the younger company would own "
+  "the older one jointly with a buyout firm. I found no later reporting on "
+  "PayPal's response, and the cards say so.",
+  "Among the banks, Revolut's reported $115 billion valuation from an "
+  "employee share sale sits next to public markets valuing listed neobanks "
+  "at roughly four to five times revenue. Chime's public figures, with "
+  "revenue of $670 million, up 27%, are the cleanest data point in the row, "
+  "and it counts active members, which makes it hard to compare with "
+  "Nubank's registered customers.",
+ ],
+
+ "mobility": [
+  "Baidu told investors in August that Apollo Go had delivered more than 23 "
+  "million public rides across 28 cities, with about a million fully "
+  "driverless rides in the second quarter alone. Waymo is the better-known "
+  "name in the United States, reported at about 500,000 paid rides a week "
+  "after a $16 billion round at a $126 billion valuation, and those figures "
+  "come from trackers and not from Alphabet's own report. The first thing the "
+  "chart shows is that the biggest robotaxi service by rides is in China.",
+  "Tesla's approach is the one with the largest gap between plan and "
+  "evidence. It began paid Cybercab rides in Austin on 3 September, said "
+  "unsupervised miles rose about eightfold in the quarter and named Dallas as "
+  "the next city, but its own summary of the call put revenue from the "
+  "service no earlier than the second quarter of 2027 "
+  "(<a href=\"https://finance.yahoo.com/markets/stocks/articles/tesla-inc-tsla-q3-2026-110148986.html\">call summary</a>). "
+  "The company that builds millions of cars a year has the most to gain from "
+  "a robotaxi and the least public proof that it works at scale.",
+  "A robotaxi is a utilization business. Every hour a vehicle spends waiting "
+  "is lost, so the winners are the operators who can keep a fleet busy and "
+  "cheap to maintain. Pony.ai's second quarter shows the early version of "
+  "that arithmetic. Its fleet was 1,975 vehicles and its robotaxi revenue was "
+  "$12.1 million, and Uber has contracted for more than 2,000 of its robotaxis "
+  "in Europe "
+  "(<a href=\"https://www.sec.gov/Archives/edgar/data/0001969302/000110465926098113/tm2623382d1_ex99-1.htm\">Pony.ai</a>).",
+  "On the car side, BYD sold 762,478 battery electric passenger vehicles in "
+  "the third quarter, 275,946 more than Tesla delivered. China's domestic EV "
+  "sales fell 18% in September while Europe's rose 39%, and Chinese "
+  "manufacturers' exports set records. Where a company sells has begun to "
+  "matter as much as what it sells.",
+ ],
+
+ "robotics": [
+  "The robots that already work are in factories, and the number is large and "
+  "growing. The International Federation of Robotics counted 603,000 "
+  "installed in 2025, up 11%, and a total stock of 5 million. China installed "
+  "354,000 of them, 59% of the world, and its own suppliers hold roughly "
+  "55% of that home market "
+  "(<a href=\"https://thenextweb.com/news/industrial-robots-world-robotics-2026-china-59-eu-falls\">TNW</a>). "
+  "Amazon, meanwhile, announced its millionth warehouse robot in July 2025 and "
+  "has not updated the figure, which makes it a floor.",
+  "Humanoids are the part that gets the attention. One report counted about "
+  "19,100 shipped worldwide in the first half of 2026, with Chinese makers "
+  "accounting for more than 97%. Tesla's Optimus is the high-profile case. "
+  "Reports conflict between more than a thousand units in its own factories "
+  "and a few hundred against a target of 5,000, and one account has deliveries "
+  "not starting before late 2027. The gap between what is demonstrated and "
+  "what is shipped is widest in this row.",
+  "The strategic question is where the value sits, in the body or the brain. "
+  "Skild AI raised close to $1.4 billion led by SoftBank, with Nvidia's "
+  "venture arm taking part, at a valuation above $14 billion "
+  "(<a href=\"https://www.businesswire.com/news/home/20260114335623/en/Skild-AI-Raises-$1.4B-Now-Valued-Over-$14B\">Business Wire</a>). "
+  "It sells a model that can run robots from different makers. If it works, "
+  "the hardware becomes interchangeable and the software becomes the product, "
+  "the same shift that happened to phones and PCs. That is a bet on a premise "
+  "and not on a better arm.",
+  "This row has no verified starter in the robot-model position, and the "
+  "thin evidence for most humanoid startups is marked on their cards. The "
+  "figures to watch next are deployments with named customers and prices per "
+  "hour of work, which Figure's reported $25 an hour at BMW is a first "
+  "example of, from a single source.",
+ ],
+
+ "health": [
+  "The most advanced piece of health technology is also the least glamorous. "
+  "Intuitive Surgical had about 11,710 da Vinci robots in hospitals at the "
+  "end of June, up 12%, and placed 468 in the quarter, 246 of them the new "
+  "da Vinci 5. Procedures grew about 15%, and US growth slowed to 12%, "
+  "which management tied to the expiry of enhanced ACA subsidies and patients "
+  "deferring elective surgery "
+  "(<a href=\"https://www.sec.gov/Archives/edgar/data/0001035267/000103526726000058/isrg-20260630.htm\">Intuitive</a>). "
+  "The shares fell about 12% on guidance. A robot that sits in an operating "
+  "room for ten years earns its money from procedures, and a policy change "
+  "in insurance reaches it directly.",
+  "In software the money is flowing into AI that listens. Abridge, which "
+  "writes doctors' notes, reports over $100 million of annual recurring "
+  "revenue across more than 300 health systems and is valued at $5.3 "
+  "billion. OpenEvidence, a reference tool, is reported at $15 billion after "
+  "a $250 million round in September. These are aggregator figures, and no "
+  "usage share exists for the category. Epic and Microsoft's Dragon Copilot, "
+  "which sell similar tools into the same hospitals, were not researched, so "
+  "the row understates the incumbents.",
+  "AI drug discovery is the row where the claims run furthest ahead of the "
+  "evidence. One source reports that no drug discovered mainly by AI has been "
+  "approved and that AI-designed drugs fail in Phase 2 about as often as "
+  "others. Insilico's rentosertib is the furthest along, in a 320-patient "
+  "Phase 3 trial with the start reported as July or September. Isomorphic "
+  "Labs announced a $2.1 billion Series B in May and expects first trials "
+  "by the end of 2026.",
+  "What to watch is the first approval. It would test whether AI shortens "
+  "the long middle of drug development or only the early search. Until then "
+  "the funding in this row is a bet on a premise, and the cards describe the "
+  "bet and not the result.",
+ ],
+
+ "defense": [
+  "By early March 2026 the United States was down to one rocket for several "
+  "national security missions. ULA's Vulcan last flew on 12 February with an anomaly in "
+  "one of its solid rocket motors and has been paused since. Blue Origin's "
+  "New Glenn left a satellite in the wrong orbit in April and exploded during "
+  "a static-fire test on 28 May. Since early March the only vehicle able to "
+  "fly several national security missions has been SpaceX's Falcon 9 "
+  "(<a href=\"https://thespaceatlas.org/read/new-glenn-vulcan/\">Space Atlas</a>). "
+  "A customer with three suppliers now has one, and the one is SpaceX, which "
+  "also owns an AI company and a satellite network.",
+  "The new defense companies are being valued as if the old ones will cede "
+  "ground. Anduril raised $5 billion at a $61 billion valuation in May, more "
+  "than double its mark a year earlier, led by Thrive Capital and Andreessen "
+  "Horowitz, on 2025 revenue of $2.2 billion "
+  "(<a href=\"https://techcrunch.com/2026/05/13/anduril-raises-5b-doubles-valuation-to-61b/\">TechCrunch</a>). "
+  "A round near $100 billion was reported in talks in July. Its strategy is "
+  "to build products first and sell them to the Pentagon afterward, "
+  "where the primes are paid to build to a specification.",
+  "The primes are not shrinking. RTX's backlog was $289 billion at the end "
+  "of the second quarter, up 22%, and Lockheed's was $230.4 billion, up from "
+  "$193.6 billion at the end of 2025 "
+  "(<a href=\"https://www.nasdaq.com/articles/rtx-and-lockheed-earnings-can-strong-guidance-reset-defense-trade\">Nasdaq</a>). "
+  "The House advanced a $1.15 trillion FY2027 defense bill, according to one "
+  "report. When the source was written the annual authorization act had "
+  "not been enacted, and without it multiyear procurement contracts "
+  "could not go out.",
+  "The thing to watch is whether the launch gap closes. Rocket Lab's "
+  "Neutron reportedly slipped into 2027. If New Glenn and Vulcan return to "
+  "flight this year the dependence on one rocket eases, and if they do not "
+  "the leverage in this sector stays with one company.",
+ ],
+
+ "quantum": [
+  "The quantum sector is financed by public markets in a way no other sector "
+  "in this atlas is. Infleqtion listed in February through a SPAC and raised "
+  "more than $550 million. Quantinuum priced its Nasdaq IPO at $60 a share on "
+  "4 June and raised about $1.68 billion "
+  "(<a href=\"https://www.cnbc.com/2026/06/04/honeywells-quantinuum-raises-1point68-billion-in-us-ipo-as-quantum-computing-heats-up-reuters-reports.html\">CNBC</a>). "
+  "IQM listed in July. Money is the one input every company in the row "
+  "needs, and the listings are a race to hold it.",
+  "Revenue tells a different story. IonQ's second-quarter revenue was "
+  "$80.05 million, up 286.8%, and part of that came from buying SkyWater. "
+  "It followed with a $2 billion equity offering. Rigetti's revenue was $5.1 "
+  "million and D-Wave's $3.1 million, flat on the year. The listed companies "
+  "are selling machines and access to customers while the fault-tolerant "
+  "machine they are all raising money for does not exist yet.",
+  "IBM is the company that has written the schedule down. Its roadmap lists "
+  "circuits of 7,500 gates across up to three 120-qubit Nighthawk modules for "
+  "2026, and a fault-tolerant machine, Starling, with 200 logical qubits "
+  "running 100 million gates in 2029 "
+  "(<a href=\"https://www.ibm.com/roadmaps/quantum/2026/\">IBM</a>). "
+  "A dated roadmap is a strategy as well as a plan, because it turns "
+  "every missed step into public evidence. Google's Willow showed errors "
+  "falling as the machine grew, which does not yet amount to fault tolerance "
+  "at a useful size.",
+  "The thing to watch is whether a claimed advantage survives scrutiny. One "
+  "third-party tracker says an advantage claimed in July was reproduced "
+  "classically, which I could not verify with IBM's own materials. PsiQuantum, "
+  "the practice-squad name, has no 2026 valuation in this research.",
+ ],
+
+ "energy": [
+  "Everything above this sector in the atlas is waiting on it. Siemens "
+  "Energy reported record orders of EUR 17.9 billion in its third quarter and "
+  "a record backlog of EUR 162 billion, with grid transformers the largest "
+  "contributor and data centers the stated reason "
+  "(<a href=\"https://assets.siemens-energy.com/dam/d0147174-31a9-4a78-b062-b49d00428fc4/earnings-release-q3-fy2026-en-pdf_Original%20file.pdf\">Siemens Energy</a>). "
+  "GE Vernova's backlog was $176 billion. The companies that make heavy "
+  "electrical equipment are booked years ahead, which gives them pricing "
+  "power they have not had in a generation.",
+  "Batteries and solar are the opposite case, a surplus. CATL holds 39.9% of "
+  "EV battery installations and BYD's share fell from 17.0% to 14.4% even as "
+  "its vehicle sales grew. Solar factories are running at about 49% of "
+  "capacity, and China's competition regulator halted a $7 billion effort to "
+  "cut polysilicon capacity in January. First Solar, which makes its panels "
+  "in the United States, has a 45.1 gigawatt backlog worth about $13.6 "
+  "billion and net sales near $1.06 billion in the quarter. A surplus abroad "
+  "and a tariff wall at home are what make that backlog possible.",
+  "Tesla's storage business deployed 13.7 gigawatt-hours in the third "
+  "quarter, up 9.6% and under what analysts expected, and its energy gross "
+  "margin rose from 20.4% to 33.1%, helped by tariff refunds and warranty "
+  "reimbursements that the company named. A margin that rises for one-off "
+  "reasons is worth reading carefully.",
+  "The practice squad is the new power. Fervo, a geothermal developer, "
+  "priced its IPO at $27 on 13 May and raised about $1.89 billion, with one "
+  "analysis putting its 2025 revenue near $138,000. Helion reportedly raised "
+  "$465 million at a $15.5 billion valuation and has a Microsoft deal for 50 "
+  "megawatts around 2028. Commonwealth Fusion has between $2.9 and $3.9 "
+  "billion and expects its SPARC machine to switch on around the turn of "
+  "the year. The valuations price a premise, and the first plant that "
+  "delivers power will show which of them was right.",
+ ],
+})

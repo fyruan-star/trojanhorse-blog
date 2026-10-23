@@ -68,9 +68,48 @@ GAPS = {
  ],
 }
 
-NOT_YET = ("Not charted yet. The Phase 2 sectors are the foundation (materials and "
-           "other inputs), fintech and payments, mobility and autonomy, robotics, "
-           "health technology, defense and space, quantum computing, and energy "
-           "technology. Some of their companies appear here because they connect "
-           "to Phase 1 sectors, such as the nuclear developers, SpaceX and "
-           "Rapidus.")
+GAPS.update({
+ "foundation": [
+  "CoWoS capacity is estimated, since TSMC does not disclose it. The Amkor agreements with TSMC and Nvidia come from one commentary source.",
+  "Wafer data is thin. There is no SEMI 2026 shipment data and no GlobalWafers share. Lynas was not found, and gallium and germanium licensing was not verified.",
+  "The claim that US magnet capacity will not be meaningful until 2028 is single-sourced, and the customer in MP's gadolinium offtake is not named.",
+ ],
+ "fintech": [
+  "The Stripe and Advent proposal for PayPal is reported and no board response was found. Block's 2026 volume was not found.",
+  "Nubank's and Revolut's customer counts and Revolut's valuation come from aggregators. Robinhood and Klarna were not found. GENIUS Act final rules were not confirmed.",
+  "Stablecoin supply figures vary by source and date.",
+ ],
+ "mobility": [
+  "Waymo's rides and fleet come from trackers, and Alphabet's own figure was not retrieved. Tesla's fleet figures are older and secondary. Mobileye and Nvidia automotive data were not found.",
+  "BYD's lead over Tesla rests on third-party sales charts and not company filings. Fleet and city counts conflict across sources.",
+ ],
+ "robotics": [
+  "Humanoid shipment counts, Tesla Optimus output and Figure's deployment are single-source or conflicting. Unitree's IPO was not confirmed. No funding figure was verified for Agility, Apptronik or 1X.",
+  "Fanuc, Yaskawa, ABB and KUKA were not found for 2026. Amazon's robot count is a year old.",
+  "No starter was verified for robot foundation models. Nvidia's and Google's robot models were not found.",
+ ],
+ "health": [
+  "AI scribe and OpenEvidence valuations come from aggregators and conflict on dates. No usage share exists.",
+  "Epic, Microsoft's Dragon Copilot, Hims and Hers, and Oracle Health were not researched.",
+  "Insilico's Phase 3 start date is reported as July and as September. Recursion's trial stage conflicts.",
+ ],
+ "defense": [
+  "SpaceX's 2026 launch count was not found and Starship's flight history conflicts across sources. Amazon Leo deployment totals were not found.",
+  "Northrop Grumman, Shield AI's valuation, Golden Dome awards and European defense spending were not found. The authorization act's status is as of the source's date.",
+ ],
+ "quantum": [
+  "Quantinuum's IPO valuation ranges from about $13bn to $15bn across sources, and IQM's and Infleqtion's listings come from aggregators.",
+  "PsiQuantum's 2026 funding and Microsoft's Majorana update were not found. A reported reproduction of an IBM advantage claim is from a third-party tracker.",
+ ],
+ "energy": [
+  "Sodium-ion and solid-state battery timelines were not found. Hitachi Energy was not found. Fluence's June deployment total was not retrieved.",
+  "Fusion funding totals differ between trackers, and Commonwealth Fusion's raised total ranges from $2.9bn to $3.9bn. TAE's merger terms are single-sourced.",
+ ],
+})
+
+NOT_YET = ("Not covered. The atlas has 17 sectors, and some industries are not in it, "
+           "including the software that runs logistics and retail supply chains, "
+           "education, media production outside streaming, and real-estate "
+           "technology. The companies in the atlas are mostly American and "
+           "Chinese, and Europe, India, Japan and Korea are thin outside the "
+           "sectors where they lead.")
