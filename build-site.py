@@ -287,6 +287,7 @@ def build_index():
     doors = [
         ("The Process",   "How a company gets sold", "how-a-company-gets-sold.html"),
         ("Ten Years",     "2016 to 2026",            "ten-years.html"),
+        ("Palo Alto",     "Three deals as cases",    "palo-alto.html"),
         ("Trojan Horses", "What might change",       "trojan-horses.html"),
         ("The Tech Atlas", "A depth chart of technology", "tech-atlas.html"),
     ]
@@ -777,11 +778,10 @@ def _clip(a, b):
             f"{50+hb:.2f}% 100%, {50-hb:.2f}% 100%)")
 
 def _reading(title):
-    pr = PRIMER_AT.get(title)
-    if not pr: return ""
-    slug, label = pr
-    return (f'\n          <a class="node__read" href="{slug}.html">'
-            f'Background: {label}</a>')
+    """The entries used to carry a link out to a primer explaining what a chip
+    or a data centre is. The map is the page now, so an entry no longer sends
+    the reader away from it."""
+    return ""
 
 def kata_nodes():
     out, side = [], 0
@@ -821,32 +821,27 @@ def kata_nodes():
 
 
 def build_katabasis():
-    close = "\n".join(f'    <p>{x}</p>' for x in CLOSE)
+    """Just the map. The page used to open with two paragraphs of argument,
+    carry a Ground Floor of primers explaining what a chip and a data centre
+    are, and close with an essay on what the entries support. All of it was
+    standing between the reader and the ten years."""
     html = (HEAD.format(title="Ten Years in Technology | The Trojan Horse",
-                        desc="Technology transactions from 2016 to 2026, explained "
-                             "for a reader with no background in finance or engineering.")
+                        desc="A map of technology transactions from 2016 to 2026.")
             + CAPITAL_DEF + f'''
 <a class="back" href="index.html">&larr; The Trojan Horse</a>
 
-<header class="silohead">
+<header class="silohead silohead--bare">
   <div class="shell">
     <p class="silohead__kicker">2016 to 2026</p>
     <h1 class="silohead__name">Ten Years</h1>
-    <p class="silohead__blurb silohead__blurb--long">{INTRO}</p>
-    <p class="silohead__blurb silohead__blurb--two silohead__blurb--long">{INTRO_2}</p>
     <div class="silohead__line" aria-hidden="true"></div>
   </div>
 </header>
-{ground()}{DESK_DOOR}
+
 <main class="kata">
   <div class="shell">
 {kata_nodes()}
   </div>
-
-  <section class="close">
-    <h2 class="close__h">{CLOSE_HEAD}</h2>
-{close}
-  </section>
 
   <p class="kata__note">The band down the page is a hand-drawn outline of deal
   activity and not a data series. Values are announced values unless an entry
