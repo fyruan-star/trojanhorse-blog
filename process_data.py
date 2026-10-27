@@ -34,7 +34,7 @@ INTRO = [
  "An owner could sell a business without help, and very few do. Selling "
  "requires knowing what the business is worth, who would want it and what "
  "separates it from the other companies a buyer is looking at that quarter. "
- "Those are full-time questions, and the owner already has a full-time job. "
+ "Each of those is a full-time question and the owner is already occupied. "
  "So a bank is hired to run the process.",
  "My argument is that the standard sequence below is best understood as a "
  "set of solutions. The bake-off solves the problem of choosing an adviser "
@@ -75,6 +75,42 @@ PART1 = [
   'Independence does not remove every incentive. Evercore states that it is “not paid until the successful consummation of the transactions,” and advisory fees that depend on completion give any adviser a reason to favor a deal that closes. The question a client can ask of every adviser is how it gets paid and how that could influence its recommendation.',
   "A client can combine advantages. Our software buyer could hire an independent firm for acquisition advice and use a large bank for financing, or appoint several advisers with different strengths. A lender has the advantage when financing is difficult. An industry specialist has it when understanding the asset requires unusual expertise. A trusted adviser has it when a board faces a decision it has never encountered. A division of the market into large banks that advise buyers and independent firms that advise sellers misses this, because buyers need independent judgment, sellers may value a large bank's industry knowledge and relationships, and a particular banker's experience can outweigh the institution's model.",
  ]),
+ ('Why a firm might advise only sellers', [
+  "Part of the conflict just described has nothing to do with lending. It "
+  "follows from advising both sides of the same market in different "
+  "transactions.",
+  "A bank that advises acquirers holds relationships with acquirers. On a "
+  "sell-side mandate its duty runs the other way, because the seller is "
+  "paying it to take as much money out of the buyer as the buyer will part "
+  "with. Performing that duty to the limit is unwelcome to the party across "
+  "the table, and that party is a firm the same bank would like to be hired "
+  "by next year. So the incentive to press for the last increment of price "
+  "is weaker at a bank that wants the buyer as a future client than at one "
+  "that does not.",
+  "I cannot measure the size of that effect and I would not claim it decides "
+  "many outcomes. The claim is narrower. It is a reason a seller might "
+  "prefer an adviser with no buy-side business to protect, and unlike the "
+  "conflict in the previous section it has nothing to do with a balance "
+  "sheet. It would apply to an independent firm that advised both sides just "
+  "as it applies to a bank.",
+  "Some firms are built so that the question does not arise. Qatalyst "
+  "Partners, founded in 2008 by Frank Quattrone, publishes a "
+  "<a href=\"https://qatalyst.com/deals/\">deal list</a> of 278 "
+  "transactions, and roughly three quarters of them carry a label written "
+  "from the target&rsquo;s side, either acquired by or agreement to be "
+  "acquired by. Labels written from a buyer&rsquo;s side number in the low "
+  "single digits.",
+  "That firm does not make the argument I have just made. By "
+  "<a href=\"https://www.qatalyst.com/\">its own description</a> it is a "
+  "global, independent investment bank providing strategic and "
+  "financial advice to senior management and boards, and it says nothing "
+  "about conflicts of interest, which is a difference worth noting from "
+  "Evercore, quoted earlier, which does make the claim in a filing. The "
+  "inference from the composition of a deal list is mine, and a reader "
+  "should weigh it as an inference rather than as a position the firm has "
+  "taken.",
+ ]),
+
  ('Reputation as a constraint', [
   "An adviser may gain from completing a transaction today. It also wants the client's next assignment and recommendations to other executives, and those future opportunities give it a reason to protect the quality of its advice. A recommendation to abandon a deal can therefore have commercial value, because the adviser gives up a fee and gives the client evidence that its judgment can be trusted.",
   'That outcome depends on how much the adviser values future business, so reputation encourages good advice without guaranteeing it, and clients still need to evaluate each recommendation. It also helps explain why senior bankers matter so much to their firms. Evercore lists the departure of senior professionals as a risk that “could jeopardize our relationships with clients and result in the loss of client engagements and revenues.”',
@@ -128,6 +164,26 @@ PART3 = [
   "does not yet know which group will have the opening.",
  ]),
 
+ ("The work is set by the client, not by the title", [
+  "The same argument explains something about the job that recruiting "
+  "materials describe poorly. An analyst&rsquo;s week is determined by what "
+  "a particular client is asking for at that moment, which is why the work "
+  "varies so much between people with identical titles.",
+  "Two examples make the range clear. A buyer considering a target wants to "
+  "know what it has historically cost to acquire companies of that kind, so "
+  "the work is valuation: trading comparables, precedent transactions, how "
+  "the multiple paid for similar businesses has moved over recent years, and "
+  "what that implies about whether the current price is high or low. Another "
+  "client is not asking about price at all. It has a specific counterparty "
+  "in mind and wants the case for why the two businesses belong together, so "
+  "the work is research and argument, and weeks can pass without a valuation "
+  "being built.",
+  "Both are the job. Neither is more senior than the other. Which one a "
+  "person spends a year doing is a function of the clients their group "
+  "happens to be serving, which is settled by the relationships described in "
+  "Part One and not by anything the person controls.",
+ ]),
+
  ("What to ask instead", [
   "Ask who the senior people in the group are and what they have closed in "
   "the past two years, by name. Ask how long they have been there. Ask who "
@@ -157,11 +213,18 @@ STAGES = [
   "That does not make the meeting ceremonial. A managing director is paid on "
   "the mandates brought in, so the pitch decides a large share of several "
   "people's income for the year, and the presentation is built by analysts "
-  "and associates in a week or two. Small errors matter for a reason "
-  "of inference and not of vanity. An owner reading a hypothetical deck with "
-  "misaligned logos may conclude the firm would be equally careless with the "
-  "sale. Banks lose these competitions, and two weeks of work ends with no "
-  "fee at all.",
+  "and associates in a week or two. It can be built that quickly because "
+  "much of it already exists. A firm that covers a sector holds its previous "
+  "market analyses and precedent transaction work, and a new pitch is "
+  "assembled from that stock as much as it is written.",
+  "The years of contact that settle the outcome are unpaid. A bank bills for "
+  "transactions and not for meetings, so the coverage work that produces a "
+  "mandate is carried as a cost against a fee that may never arrive. That is "
+  "the commercial reason banks organise by sector rather than by deal. A "
+  "team that appears only once a sale is live has no way to accumulate the "
+  "evidence the owner is looking for, and it is bidding against people who "
+  "have been accumulating it for years. Banks lose these competitions, and "
+  "two weeks of work ends with no fee at all.",
  ]),
 
  ("II", "Preparation", "Two to four months", [
@@ -170,9 +233,8 @@ STAGES = [
   "independent accounting firm is therefore brought in to examine the "
   "company's earnings, in what is called a quality of earnings review, which "
   "checks that the profit is real, repeatable and not the result of one "
-  "unusual year. It plays the role of a structural survey commissioned "
-  "before listing a house, so that the buyer's own surveyor finds nothing "
-  "the seller has not already seen.",
+  "unusual year. The seller commissions it so that the buyer's own "
+  "examination finds nothing the seller has not already found.",
   "While that runs, the bank assembles answers to the questions every buyer "
   "asks, which run to several hundred. They cover financial statements and "
   "projections, customer contracts, legal standing, litigation and how "
@@ -180,13 +242,12 @@ STAGES = [
   "their absence becomes the finding, because a buyer who asks for revenue by "
   "customer and does not receive it concludes either that the company does "
   "not know or that it would prefer not to say.",
-  "A hypothetical example shows the kind of work involved. A buyer wants to "
-  "know customer concentration, repeat purchase rates and geographic spread. "
-  "The company has never produced that analysis. What it can produce is a "
-  "file of every transaction it has recorded, and someone spends two days "
-  "turning it into three charts. The financial model is the visible "
-  "deliverable, and much of the effort goes into converting the company's "
-  "records into something a stranger can read.",
+  "The financial model is the visible deliverable and not the largest part "
+  "of the work. A company records what it needs in order to run itself, "
+  "which is not what a stranger needs in order to value it, and the gap "
+  "between those two things is what this stage closes. Most of the hours go "
+  "into converting records that were never kept for this purpose into "
+  "analysis a buyer can read without having to trust the seller.",
  ]),
 
  ("III", "The documents", "Runs alongside preparation", [
@@ -223,10 +284,10 @@ STAGES = [
 
  ("V", "Management meetings", "Two to four weeks", [
   "Buyers who are still interested meet the management team, and the bank "
-  "rehearses the team first. A chief executive is usually excellent at "
-  "running the company and has never had to describe it to a skeptical "
-  "stranger holding a checkbook. The questions that land badly are "
-  "predictable, so they are practiced. Management's credibility is part of "
+  "rehearses the team first. Running a company and explaining it to a "
+  "skeptical buyer are different skills, and the second is rarely practised "
+  "because the occasion to use it is rare. The questions that land badly are "
+  "predictable, so they are rehearsed. Management's credibility is part of "
   "what a buyer is pricing, which is why the meeting receives that "
   "preparation.",
  ]),
@@ -264,9 +325,9 @@ STAGES = [
  ]),
 
  ("VIII", "Diligence and completion", "Two to four months", [
-  "The winning buyer now does something the seller rarely enjoys. Having "
-  "agreed a price, it looks for reasons the price should be lower. That is "
-  "not bad faith. It is what confirmatory diligence is for, and if the "
+  "Having agreed a price, the winning buyer now looks for reasons the price "
+  "should be lower. That is the function of confirmatory diligence rather "
+  "than a breach of the bargain, and if the "
   "preparation in the second stage was done properly there is little left to "
   "find. Where something is found, it is negotiated into the purchase "
   "agreement, a long document that specifies what adjusts the price, how much "
@@ -314,7 +375,7 @@ CLOSE = [
  "them.",
 ]
 
-NOTE = ("Part One cites Evercore&rsquo;s annual report, the New York Fed staff "
+NOTE = ("The argument about advising only sellers is mine. Its factual basis is Qatalyst&rsquo;s published deal list and its own description of itself, both read in October 2026, and the firm makes no claim about conflicts. The account of what analyst work consists of comes from practitioner accounts rather than from filings. Part One otherwise cites Evercore&rsquo;s annual report, the New York Fed staff "
         "report by Allen, Jagtiani, Peristiani and Saunders, whose findings "
         "describe a historical sample, Bank of America&rsquo;s description of "
         "its own structure, and Splunk&rsquo;s merger proxy. Part Three is my "
