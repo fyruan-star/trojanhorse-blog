@@ -1087,3 +1087,44 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
    standing room a header with two paragraphs under it did. */
 .silohead--bare{ padding-top:clamp(64px,9vw,124px); }
 .silohead--bare .silohead__line{ margin-top:clamp(26px,3.4vw,44px); }
+
+/* ================================================ TROJAN HORSE OF THE WEEK ===
+   One piece, above the numbered list, set in the same column. The weekly page
+   puts the week beside the kicker on the white plate. */
+.wk{
+  padding:clamp(56px,8vw,104px) 0 0;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+.wk__in{
+  display:block; max-width:min(640px,94%); margin-inline:auto;
+  padding-bottom:clamp(30px,4vw,48px);
+  border-bottom:1px solid rgba(255,255,255,.18);
+}
+.wk__k{
+  font-size:11.5px; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--silver); margin:0 0 clamp(14px,1.8vw,22px);
+}
+.wk__k span{
+  display:block; margin-top:.55em; letter-spacing:.2em; color:var(--silver-dim);
+}
+.wk__t{
+  display:block; font-size:clamp(28px,1.3rem + 2vw,46px); font-weight:500;
+  line-height:1.08; color:var(--silver); transition:color .25s ease;
+}
+.wk__s{
+  display:block; margin-top:clamp(12px,1.5vw,18px);
+  font-size:clamp(16px,1.35vw,19px); line-height:1.5; font-style:italic;
+  color:var(--silver-dim); max-width:36ch;
+}
+.wk__go{
+  display:inline-block; margin-top:clamp(18px,2.2vw,26px);
+  font-size:11.5px; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--silver); border-bottom:1px solid rgba(255,255,255,.3);
+  padding-bottom:.25em; transition:border-color .25s ease;
+}
+.wk__in:hover .wk__go{ border-bottom-color:var(--silver); }
+.wk + .idx{ border-top:0; padding-top:clamp(40px,6vw,76px); }
+
+.plate__wk{
+  display:block; margin-top:.55em; letter-spacing:.2em; opacity:.75;
+}

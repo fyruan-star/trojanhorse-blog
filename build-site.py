@@ -7,6 +7,9 @@ a piece back: move its html out of archive/, add it to STORY below, rebuild.
 """
 import pathlib, sys
 import sketch
+from weekly_data import (WEEK as W_WEEK, SLUG as W_SLUG, KICKER as W_KICKER,
+                         TITLE as W_TITLE, DEK as W_DEK, LEDE as W_LEDE,
+                         SECTIONS as W_SECTIONS, NOTE as W_NOTE)
 
 ROOT = pathlib.Path(__file__).parent
 
@@ -297,7 +300,19 @@ def build_index():
       </a>'''
         for i, (name, desc, href) in enumerate(doors, 1))
 
-    index = f'''
+    weekly = f'''
+<!-- ============================================================ HORSE OF THE WEEK === -->
+<section class="wk">
+  <a class="wk__in" href="{W_SLUG}.html">
+    <p class="wk__k">{W_KICKER}<span>{W_WEEK}</span></p>
+    <span class="wk__t">{W_TITLE}</span>
+    <span class="wk__s">{W_DEK}</span>
+    <span class="wk__go">Read it &rarr;</span>
+  </a>
+</section>
+'''
+
+    index = weekly + f'''
 <!-- ============================================================= INDEX === -->
 <nav class="idx" aria-label="The journal">
   <div class="shell">
@@ -313,6 +328,45 @@ def build_index():
             + index + ROOMS + FOOT)
     (ROOT / "index.html").write_text(html, encoding="utf-8")
     print("index.html")
+
+
+def build_weekly():
+    body = []
+    for head, paras in W_SECTIONS:
+        inner = "\n".join(f'        <p class="wp__p">{x}</p>' for x in paras)
+        body.append(f'''      <section class="ch">
+        <h2 class="ch__h">{head}</h2>
+{inner}
+      </section>''')
+    html = (HEAD.format(title=f"{W_TITLE} | The Trojan Horse",
+                        desc="P&G is paying $3.8 billion for Thorne, a brand "
+                             "whose value is customer trust, and the customers "
+                             "were not part of the deal.")
+            + f'''
+<a class="back back--dark" href="index.html">&larr; The Trojan Horse</a>
+
+<header class="plate">
+  <div class="shell plate__in">
+    <p class="plate__k">{W_KICKER}<span class="plate__wk">{W_WEEK}</span></p>
+    <h1 class="plate__t">{W_TITLE}</h1>
+    <p class="plate__l">{W_LEDE}</p>
+  </div>
+</header>
+
+<main class="white">
+  <div class="shell">
+    <article class="wp">
+{chr(10).join(body)}
+
+      <p class="wp__note">{W_NOTE}</p>
+
+      <a class="wp__go" href="trojan-horses.html">The prices and dates behind this deal &rarr;</a>
+    </article>
+  </div>
+</main>
+''' + FOOT)
+    (ROOT / f"{W_SLUG}.html").write_text(html, encoding="utf-8")
+    print(f"{W_SLUG}.html  ({len(W_SECTIONS)} sections)")
 
 
 from mandate_data import (KICKER as M_KICKER, TITLE as M_TITLE, LEDE as M_LEDE,
@@ -1031,6 +1085,7 @@ if __name__ == "__main__":
     build_stories_page()
     build_process()
     build_horses()
+    build_weekly()
     build_primers()
     build_deals()
     build_desk()

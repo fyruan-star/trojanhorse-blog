@@ -1,0 +1,168 @@
+"""Trojan Horse of the Week.
+
+One piece at a time, linked from the top of the homepage. To change the feature,
+replace this module (or swap the values) and rebuild.
+
+This week's piece rests on sources that could be read: Thorne's announcement,
+Jones Day's deal record, trade reporting on P&G's earlier supplement purchase,
+and the FDA's recall notice. Forum posts could not be read directly, so the page
+says what the discussion is on the strength of published reporting of it and
+does not claim a count.
+
+No em dashes, no semicolons.
+"""
+
+WEEK = "Week of 26 October 2026"
+SLUG = "thorne-loyalty"
+KICKER = "Trojan Horse of the Week"
+TITLE = "Can P&amp;G Keep Thorne&rsquo;s Customers Loyal?"
+DEK = ("The price assumes a loyalty that was never part of the deal, held by "
+       "customers who do not follow it.")
+LEDE = ("P&amp;G is paying $3.8 billion for a brand whose value is that people "
+        "trust it. That trust was not part of the negotiation, the people who "
+        "hold it mostly do not follow mergers and acquisitions, and the record "
+        "supports both outcomes.")
+
+SECTIONS = [
+
+ ("The asset that does not transfer", [
+  "The price in this deal assumes that Thorne&rsquo;s customers keep buying "
+  "after the ownership changes. P&amp;G agreed on 4 August 2026 to pay $3.8 "
+  "billion, about five and a half times the roughly $680 million L Catterton "
+  "paid in 2023, for a company that <a href=\"https://www.marketingdive.com/news/"
+  "how-thornes-brand-platform-led-to-a-38b-pg-deal-and-whats-next/831494/\">"
+  "Marketing Dive</a> reports passed $500 million in annual revenue. The prices "
+  "and dates are set out in <a href=\"trojan-horses.html\">the earlier piece on "
+  "this deal</a>.",
+
+  "A factory, a patent or a lease changes hands when the contract is signed. "
+  "Customer loyalty does not. It belongs to the customers, none of whom signed "
+  "anything, and it can leave without an announcement. That is the Trojan horse "
+  "in this transaction. Loyalty is the reason the price is what it is, so it is "
+  "the part of the purchase most welcomed, and it is also the part the buyer "
+  "cannot take delivery of.",
+ ]),
+
+ ("Who will decide", [
+  "Almost nobody who decides this follows mergers and acquisitions. The deal is "
+  "discussed among bankers, investors and the trade press. A person who buys "
+  "Thorne magnesium or fish oil learns about a change of ownership, if at all, "
+  "from the product, so the signals that reach them are the price, the label, "
+  "how the product works for them and whether the certification printed on the "
+  "bottle is still there.",
+
+  "Thorne&rsquo;s own research, as Marketing Dive reports it, suggests that many "
+  "buyers rely on simple cues. The company found consumers overwhelmed and "
+  "confused by the market, and found that its messages about scientific rigor "
+  "mattered less to them than it had assumed. If most customers read the brand "
+  "through a few visible cues, a change they cannot see, such as a cheaper "
+  "input, would also pass most of them by. The customers positioned to notice "
+  "are the minority who can verify, meaning practitioners, athletes and heavy "
+  "users. A brand with a practitioner heritage relies on that minority for a "
+  "credibility the wider audience then borrows. That is my reasoning and not a "
+  "finding, since the sources do not give the split between the two groups.",
+ ]),
+
+ ("What people are saying", [
+  "The worry is specific. A <a href=\"https://www.theflowspace.com/physical-"
+  "health/prevention-longevity/procter-gamble-buys-thorne-supplements-3039451/\">"
+  "Flow Space roundup of online reaction</a> to the deal reports commenters "
+  "split. Some hope the deal makes Thorne cheaper and easier to find, and "
+  "others fear reformulation and lower quality, with some pointing to P&amp;G&rsquo;s "
+  "past recalls.",
+
+  "It is the worry that was recorded when P&amp;G bought New Chapter in 2012. "
+  "About a year afterward <a href=\"https://nutritionaloutlook.com/view/pgs-new-"
+  "chapter-acquisition-year-later-what-difference-can-year-make\">Nutritional "
+  "Outlook</a> quoted John Barrymore, who helped broker that sale, saying "
+  "consumers worry that an acquirer might change product ingredients to make "
+  "them cheaper. It is a worry about incentive and not about an announced "
+  "change, and no change has been announced here. The one statement from Thorne "
+  "that I could verify is general. Its chief executive, Colin Watts, said the "
+  "company wants to expand with P&amp;G while keeping to its values and "
+  "standards (<a href=\"https://www.nutraingredients.com/Article/2026/08/04/pg-"
+  "to-acquire-thorne-in-premium-wellness-play/\">NutraIngredients</a>), and I "
+  "found no specific commitment on formulation or certification.",
+ ]),
+
+ ("What P&amp;G has done before", [
+  "P&amp;G bought New Chapter in 2012, when its sales were widely reported at "
+  "about $100 million a year. After a year, Nutritional Outlook reported, P&amp;G "
+  "had added staff for quality control and innovation, the article noted no "
+  "change in price, and the brand had not been expanded into other channels "
+  "despite requests from mass-market retailers. The founder, Paul Schulick, said "
+  "P&amp;G was keeping its promise to leave the brand standalone. <a "
+  "href=\"https://www.newhope.com/industry-news/industry-experts-analyze-proctor-"
+  "gamble-acquisition-thorne\">Marc Brush</a>, a consultant and former editor of "
+  "Nutrition Business Journal, says P&amp;G has done a better job than most "
+  "buyers of maintaining brand equity in supplement acquisitions.",
+
+  "In 2018 Paul and Barbi Schulick left. They cited &ldquo;financial pressures "
+  "to accelerate profits,&rdquo; and Paul Schulick said that pressure could lead "
+  "to products losing their distinctiveness (<a href=\"https://www.nutraingredients."
+  "com/Article/2018/07/12/New-Chapter-founders-leave-brand-saying-Procter-Gamble-"
+  "s-profit-pressure-threatens-to-undermine-mission\">NutraIngredients</a>). That "
+  "report describes no specific change to New Chapter&rsquo;s formulation, "
+  "quality, price or distribution. The feared reformulation therefore does not "
+  "appear in the record. What appears is the people who gave the brand its "
+  "credibility leaving six years in, with profit pressure as the stated reason.",
+
+  "The other precedent critics cite is the December 2021 recall of aerosol dry "
+  "shampoo and dry conditioner sprays sold under six names, among them Pantene, "
+  "Aussie and Herbal Essences, after benzene was found in some of them. P&amp;G "
+  "stated that the benzene came from the propellant and not from an ingredient, "
+  "that the levels detected were not expected to cause adverse health "
+  "consequences, and that it had received no reports of adverse events (<a "
+  "href=\"https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/pg-"
+  "issues-voluntary-recall-aerosol-dry-conditioner-spray-products-and-aerosol-dry-"
+  "shampoo-spray\">FDA notice</a>). That is a different failure from a "
+  "cost-driven reformulation. It is a supplied input failing at scale, and it "
+  "bears on a brand whose reputation rests on testing.",
+ ]),
+
+ ("Why it is close to even", [
+  "The record supports both outcomes. For P&amp;G keeping the customers, it left "
+  "New Chapter standalone, added quality staff in the first year, and an "
+  "experienced observer rates it above most buyers. Against, Brush says that at "
+  "this price Thorne has to keep growing quickly, that most marquee deals "
+  "decline over time, and that the daily decisions which protect quality and "
+  "trust are difficult to defend as years pass.",
+
+  "A price that requires fast growth rewards the two things customers fear, "
+  "which are cutting cost and a faster pace of profit. It also gives P&amp;G a "
+  "reason to protect the loyalty, since a premium wellness brand does not grow "
+  "by losing the people who trust it. I cannot tell from the record which "
+  "incentive will be stronger, which is why I put the outcome close to even.",
+ ]),
+
+ ("How a loss would show up", [
+  "A loss of loyalty would not arrive as a headline. Thorne stopped filing "
+  "public reports when the 2023 tender closed, and after the sale it will sit "
+  "inside P&amp;G&rsquo;s health care business, which P&amp;G reports in "
+  "aggregate. A fall in repeat purchase would be visible to P&amp;G first, and "
+  "to outsiders only through third-party sales data or the segment results.",
+ ]),
+
+ ("What would settle it", [
+  "Three things can be checked after the deal closes without access to internal "
+  "figures. The first is whether Thorne keeps its NSF Certified for Sport "
+  "certification, which Thorne says covers more than 20 of its products and not "
+  "its whole range (<a href=\"https://www.thorne.com/nsf-certified-for-sport\">"
+  "Thorne</a>). The second is whether prices or pack sizes change on the "
+  "products existing customers buy most. The third is whether the practitioner "
+  "relationships that gave the brand its credibility survive, since those "
+  "customers are the ones able to tell the difference. Jones Day expects the "
+  "deal to close in the fourth quarter of 2026 (<a href=\"https://www.jonesday."
+  "com/en/practices/experience/2026/08/the-procter-amp-gamble-company-acquires-"
+  "thorne-from-l-catterton-for-38-billion\">Jones Day</a>).",
+ ]),
+]
+
+NOTE = ("Prices and dates come from Thorne&rsquo;s announcement and from the deal "
+        "record published by P&amp;G&rsquo;s counsel. The account of consumer "
+        "reaction rests on a published roundup that I could read only as a "
+        "search summary, because the original is closed to automated readers, "
+        "and on trade reporting of the reaction to the earlier New Chapter "
+        "purchase. I could not read Reddit or other forums directly, so this is "
+        "not a count of posts. The reasoning about who decides the outcome is "
+        "mine.")
