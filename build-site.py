@@ -112,7 +112,7 @@ COVER = """
   <div class="shell cover__stage">
     <img class="cover__horse" src="images/horse-light.png"
          alt="A rearing horse drawn in silver line work, its hindquarters breaking apart into fragments">
-    <p class="cover__tag">Mergers &amp; Acquisitions<span class="cover__tag__sub">Technology Deals and the Incentives Behind Them</span></p>
+    <p class="cover__tag">Mergers &amp; Acquisitions<span class="cover__tag__sub">Hidden Risks Behind Promising Deals</span></p>
   </div>
 
   <div class="cover__mist" aria-hidden="true"></div>
@@ -134,16 +134,12 @@ ESSAY = """
       <p class="tale__open"><span class="tale__cap">P</span>icture the morning the Trojans woke up to an empty beach. Ten years of tents and smoke and shouting had vanished overnight. The black ships were gone, and where the Greek camp had stood there was trampled sand and one enormous horse of fresh-cut pine. I love this part of the story. The whole city poured out through the gates to look at it.</p>
     </div>
 
-    <figure class="sk sk--dark">{COAST}</figure>
-
     <div class="tale">
       <p>Children ran up and slapped the wood. Somebody&rsquo;s grandmother, who had spent a decade sleeping in her clothes, stood in the sun and cried because the war looked finished. A priest named Laocoön had his doubts. He said he feared the Greeks even when they came bearing gifts, and he hurled a spear into the horse&rsquo;s side. It stuck there, quivering, and from deep inside the wood came a low hollow groan. Then a Greek named Sinon, who had let himself be captured on purpose, wept and swore the horse was an offering to Athena that would protect the city if it stood inside. The Trojans believed him. The horse was too big for the gate, so they tore down a stretch of their own wall to bring it in, and that night the soldiers climbed out of its belly and opened the city from within.</p>
 
       <p>What delights me is how well that plan understood its audience. The Greeks had given up on the walls and started studying the people behind them. Ten years of siege taught them what Troy wanted most, which was for the war to be over, and they built that wish out of timber and left it where it would be found. The Trojans felt rewarded, and a person who feels rewarded stops inspecting the gift.</p>
 
       <p>Mergers and acquisitions run on the same instincts. At the end of the day a company acquires something in order to win, whether that is a customer base, a technology or a position its rival cannot reach, and the people across the table are studying what you want just as closely. So every deal is a horse standing at somebody&rsquo;s gate, and the useful thing to do is walk up to it and ask what it is carrying. A bank welcomes a private credit partner because the partner brings capital to its clients, and the partner gets to know those clients. A bank hands its junior analysts an AI assistant that finishes in minutes the hands-on work they used to do late at night, and that work is where they learned to judge a business. A chipmaker prepays a supplier two billion dollars to guarantee its wafers, the supplier runs into trouble, and the chipmaker ends up holding a large share of the supplier&rsquo;s stock. Each of those was welcomed for a good reason by sensible people.</p>
-
-      <p>The thinking behind those moves is what I want to write about. I want to know why a seller turns down $23 billion and accepts $32 billion eight months later, and why a buyer pays cash when cash is expensive. I want to know what each side believes about the other, what it is afraid of, and who holds the leverage at the moment an offer crosses the table. An announcement is the last line of a long conversation, and I like to go back and hear the whole thing.</p>
 
       <p>Any curious person can follow these stories. All it takes is the willingness to walk up to a very large gift and find out who built it. I will tell the deals one at a time, with the strategy as it unfolded and the sources beside every claim. Welcome to The Trojan Horse.</p>
       <p class="tale__sign">Francis Ruan</p>
@@ -324,7 +320,7 @@ def build_index():
 
     html = (HEAD.format(title="The Trojan Horse",
                         desc="A mergers and acquisitions journal and podcast by Francis Ruan.")
-            + CAPITAL_DEF + COVER + ESSAY.replace("{COAST}", sketch.coast())
+            + CAPITAL_DEF + COVER + ESSAY
             + index + ROOMS + FOOT)
     (ROOT / "index.html").write_text(html, encoding="utf-8")
     print("index.html")
