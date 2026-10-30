@@ -8,7 +8,7 @@ a piece back: move its html out of archive/, add it to STORY below, rebuild.
 import pathlib, sys
 import sketch
 from weekly_data import (WEEK as W_WEEK, SLUG as W_SLUG, KICKER as W_KICKER,
-                         TITLE as W_TITLE, DEK as W_DEK, LEDE as W_LEDE,
+                         TITLE as W_TITLE,
                          SECTIONS as W_SECTIONS, NOTE as W_NOTE)
 
 ROOT = pathlib.Path(__file__).parent
@@ -302,7 +302,6 @@ def build_index():
   <a class="wk__in" href="{W_SLUG}.html">
     <p class="wk__k">{W_KICKER}<span>{W_WEEK}</span></p>
     <span class="wk__t">{W_TITLE}</span>
-    <span class="wk__s">{W_DEK}</span>
     <span class="wk__go">Read it &rarr;</span>
   </a>
 </section>
@@ -345,7 +344,6 @@ def build_weekly():
   <div class="shell plate__in">
     <p class="plate__k">{W_KICKER}<span class="plate__wk">{W_WEEK}</span></p>
     <h1 class="plate__t">{W_TITLE}</h1>
-    <p class="plate__l">{W_LEDE}</p>
   </div>
 </header>
 
