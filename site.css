@@ -1009,16 +1009,20 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
   color:var(--silver-faint); text-align:center;
   margin:0 0 clamp(32px,4.4vw,56px);
 }
+/* Three pieces read in order, so the index is a numbered list down the page
+   rather than a row of equal doors across it. */
 .idx__row{
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:clamp(14px,2.2vw,34px); align-items:stretch;
+  display:flex; flex-direction:column;
+  max-width:min(640px,94%); margin-inline:auto;
 }
 .idx__c{
-  display:flex; flex-direction:column; gap:.45rem;
-  padding:clamp(16px,1.8vw,22px) 0 0;
-  border-top:1px solid rgba(255,255,255,.22);
+  display:grid; grid-template-columns:auto 1fr auto;
+  align-items:baseline; column-gap:clamp(16px,2.4vw,32px);
+  padding:clamp(18px,2.2vw,26px) 0;
+  border-top:1px solid rgba(255,255,255,.18);
   transition:border-color .25s ease;
 }
+.idx__c:last-child{ border-bottom:1px solid rgba(255,255,255,.18); }
 .idx__c:hover{ border-top-color:var(--silver); }
 .idx__n{
   font-size:10.5px; letter-spacing:.22em; color:var(--silver-faint);
@@ -1026,20 +1030,18 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
 }
 .idx__c:hover .idx__n{ color:var(--silver-dim); }
 .idx__t{
-  font-size:clamp(16px,.85rem + .6vw,22px); font-weight:500; line-height:1.14;
-  color:var(--silver); margin-top:.1rem;
+  font-size:clamp(18px,.9rem + .8vw,26px); font-weight:500; line-height:1.14;
+  color:var(--silver);
 }
 .idx__d{
-  font-size:11.5px; letter-spacing:.14em; text-transform:uppercase;
-  line-height:1.45; color:var(--silver-dim); margin-top:auto; padding-top:.5rem;
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  line-height:1.45; color:var(--silver-dim); text-align:right;
 }
 
-@media (max-width:820px){
-  .idx__row{ grid-template-columns:repeat(2,1fr); gap:clamp(14px,3vw,26px) 22px; }
-}
-@media (max-width:460px){
-  .idx__row{ grid-template-columns:1fr; }
-  .idx__d{ margin-top:0; }
+@media (max-width:560px){
+  /* the descriptor drops under the title and lines up with it */
+  .idx__c{ grid-template-columns:auto 1fr; row-gap:.4rem; }
+  .idx__d{ grid-column:2; text-align:left; }
 }
 
 /* the merged page runs in three parts, announced in the margin */

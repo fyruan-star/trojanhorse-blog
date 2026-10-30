@@ -285,11 +285,9 @@ def build_index():
     # The doors come after the writing now. A reader who has finished the Troy
     # passage is in a position to choose; a reader who has just arrived is not.
     doors = [
-        ("The Process",   "How a company gets sold", "how-a-company-gets-sold.html"),
-        ("Ten Years",     "2016 to 2026",            "ten-years.html"),
-        ("Palo Alto",     "Three deals as cases",    "palo-alto.html"),
-        ("Trojan Horses", "What might change",       "trojan-horses.html"),
-        ("The Tech Atlas", "A depth chart of technology", "tech-atlas.html"),
+        ("Ten Years",     "2016 to 2026",              "ten-years.html"),
+        ("Atlas",         "A depth chart of technology", "tech-atlas.html"),
+        ("Trojan Horses", "P&amp;G and Thorne",          "trojan-horses.html"),
     ]
     cards = "".join(
         f'''<a class="idx__c" href="{href}">
@@ -972,35 +970,25 @@ def build_process():
 # Argument rather than reporting, and the page says so. A landing page with two
 # circular horses, each opening its own reading.
 from horses_data import (KICKER as H_KICKER, TITLE as H_TITLE, LEDE as H_LEDE,
-                         INTRO as H_INTRO, HORSES as H_HORSES,
-                         CLOSE_HEAD as H_CLOSE_HEAD, CLOSE as H_CLOSE,
-                         NOTE as H_NOTE)
-
-def pair():
-    """Two circular horses. Each is a door to one reading, and carries the one
-    sentence that says what that horse is."""
-    out = ['<div class="pair">']
-    for h in H_HORSES:
-        flip = " horse__disc--flip" if h["flip"] else ""
-        out.append(f'''<a class="horse" href="{h["slug"]}.html">
-      <span class="horse__disc{flip}"><img src="images/horse.png" alt="" width="425" height="505"></span>
-      <span class="horse__n">{h["n"]}</span>
-      <span class="horse__t">{h["title"]}</span>
-      <span class="horse__s">{h["line"]}</span>
-      <span class="horse__go">Read it &rarr;</span>
-    </a>''')
-    out.append("</div>")
-    return "".join(out)
-
+                         SECTIONS as H_SECTIONS, NOTE as H_NOTE)
 
 def build_horses():
-    intro = "\n".join(f'      <p class="wp__p wp__p--lead">{x}</p>' for x in H_INTRO)
-    close = "\n".join(f'        <p class="wp__p">{x}</p>' for x in H_CLOSE)
+    """One transaction, on the white plate. The section used to be a landing
+    with two circular horses opening two speculative readings. It carries a
+    single piece now, so the landing and the sub-pages are gone."""
+    body = []
+    for head, paras in H_SECTIONS:
+        inner = "\n".join(f'        <p class="wp__p">{x}</p>' for x in paras)
+        body.append(f'''      <section class="ch">
+        <h2 class="ch__h">{head}</h2>
+{inner}
+      </section>''')
 
     html = (HEAD.format(title=f"{H_TITLE} | The Trojan Horse",
-                        desc="Two developments in technology investment banking "
-                             "that banks are welcoming, and that I think carry "
-                             "risks to client access and to developing advisers.")
+                        desc="P&G agreed to buy Thorne for $3.8 billion, three "
+                             "years after L Catterton took it private for about "
+                             "$680 million. The record shows both prices and not "
+                             "the reason.")
             + f'''
 <a class="back back--dark" href="index.html">&larr; The Trojan Horse</a>
 
@@ -1014,70 +1002,28 @@ def build_horses():
 
 <main class="white">
   <div class="shell">
-    {pair()}
-
-    <article class="wp wp--wide">
-{intro}
-    </article>
-
     <article class="wp">
-      <section class="ch ch--close">
-        <h2 class="ch__h">{H_CLOSE_HEAD}</h2>
-{close}
-      </section>
+{chr(10).join(body)}
 
-      <a class="wp__go" href="how-a-company-gets-sold.html">Back to how a bank gets hired and how a sale runs &rarr;</a>
-      <a class="wp__go wp__go--2" href="how-a-company-gets-sold.html">Or how a company gets sold &rarr;</a>
+      <p class="wp__note">{H_NOTE}</p>
+
+      <a class="wp__go" href="how-a-company-gets-sold.html">How a bank gets hired, and how a sale runs &rarr;</a>
     </article>
   </div>
 </main>
 ''' + FOOT)
     (ROOT / "trojan-horses.html").write_text(html, encoding="utf-8")
-    print("trojan-horses.html  (landing, two horses)")
-
-
-def build_horse_readings():
-    """One page per horse. The second opens with a way back to the first, and
-    the first with a way on to the second."""
-    for i, h in enumerate(H_HORSES):
-        other = H_HORSES[1 - i]
-        sub = h["sub"][0].lower() + h["sub"][1:]
-        body = "\n".join(f'      <p class="wp__p">{x}</p>' for x in h["paras"])
-        srcs = "\n".join(f"        <li>{x}</li>" for x in h["srcs"])
-        nxt = ("Next: " if i == 0 else "Back to ") + f'{other["n"].lower()}, {other["title"]} &rarr;'
-        html = (HEAD.format(title=f'{h["title"]} | The Trojan Horse',
-                            desc=h["line"])
-                + f'''
-<a class="back back--dark" href="trojan-horses.html">&larr; Trojan Horses</a>
-
-<header class="plate">
-  <div class="shell plate__in">
-    <p class="plate__k">{h["n"]}: {sub}</p>
-    <h1 class="plate__t plate__t--long">{h["title"]}</h1>
-    <p class="plate__l">{h["line"]}</p>
-  </div>
-</header>
-
-<main class="white">
-  <div class="shell">
-    <article class="wp">
-{body}
-
-      <div class="wp__srcs">
-        <h3>Sources</h3>
-        <ol>
-{srcs}
-        </ol>
-      </div>
-
-      <a class="wp__go" href="{other["slug"]}.html">{nxt}</a>
-      <a class="wp__go wp__go--2" href="trojan-horses.html">Back to the two horses &rarr;</a>
-    </article>
-  </div>
-</main>
-''' + FOOT)
-        (ROOT / f'{h["slug"]}.html').write_text(html, encoding="utf-8")
-    print(f"{len(H_HORSES)} horse readings")
+    # the two readings were published under their own names
+    for slug, label in (("horse-credit", "Trojan Horses"),
+                        ("horse-apprenticeship", "Trojan Horses")):
+        (ROOT / f"{slug}.html").write_text(
+            '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+            f'<title>{label} | The Trojan Horse</title>'
+            '<link rel="canonical" href="https://trojanhorse.blog/trojan-horses.html">'
+            '<meta http-equiv="refresh" content="0; url=trojan-horses.html">'
+            '</head><body><p><a href="trojan-horses.html">Trojan Horses</a></p>'
+            '</body></html>\n', encoding="utf-8")
+    print(f"trojan-horses.html  ({len(H_SECTIONS)} sections, 2 redirects)")
 
 
 if __name__ == "__main__":
@@ -1085,7 +1031,6 @@ if __name__ == "__main__":
     build_stories_page()
     build_process()
     build_horses()
-    build_horse_readings()
     build_primers()
     build_deals()
     build_desk()
