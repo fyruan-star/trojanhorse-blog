@@ -7,9 +7,11 @@ a piece back: move its html out of archive/, add it to STORY below, rebuild.
 """
 import pathlib, sys
 import sketch
+import weekly_data, weekly_thorne
 from weekly_data import (WEEK as W_WEEK, SLUG as W_SLUG, KICKER as W_KICKER,
-                         TITLE as W_TITLE,
-                         SECTIONS as W_SECTIONS, NOTE as W_NOTE)
+                         TITLE as W_TITLE)
+# the first is featured on the homepage, the rest keep their pages
+WEEKLIES = [weekly_data, weekly_thorne]
 
 ROOT = pathlib.Path(__file__).parent
 
@@ -325,25 +327,33 @@ def build_index():
     print("index.html")
 
 
-def build_weekly():
+def build_weekly(m):
+    """One Trojan Horse of the Week page. A section with no heading is a story
+    and renders as running paragraphs, the first set larger."""
     body = []
-    for head, paras in W_SECTIONS:
-        inner = "\n".join(f'        <p class="wp__p">{x}</p>' for x in paras)
-        body.append(f'''      <section class="ch">
+    for head, paras in m.SECTIONS:
+        if head:
+            inner = "\n".join(f'        <p class="wp__p">{x}</p>' for x in paras)
+            body.append(f'''      <section class="ch">
         <h2 class="ch__h">{head}</h2>
 {inner}
       </section>''')
-    html = (HEAD.format(title=f"{W_TITLE} | The Trojan Horse",
-                        desc="P&G is paying $3.8 billion for Thorne, a brand "
-                             "whose value is customer trust, and the customers "
-                             "were not part of the deal.")
+        else:
+            inner = "\n".join(
+                f'      <p class="wp__p{" wp__p--lead" if i == 0 else ""}">{x}</p>'
+                for i, x in enumerate(paras))
+            body.append(f'      <section class="story">\n{inner}\n      </section>')
+    go_href, go_label = m.GO
+    html = (HEAD.format(title=f"{m.TITLE} | The Trojan Horse",
+                        desc="A weekly story about the risk that arrives inside "
+                             "a promising deal.")
             + f'''
 <a class="back back--dark" href="index.html">&larr; The Trojan Horse</a>
 
 <header class="plate">
   <div class="shell plate__in">
-    <p class="plate__k">{W_KICKER}<span class="plate__wk">{W_WEEK}</span></p>
-    <h1 class="plate__t">{W_TITLE}</h1>
+    <p class="plate__k">{m.KICKER}<span class="plate__wk">{m.WEEK}</span></p>
+    <h1 class="plate__t">{m.TITLE}</h1>
   </div>
 </header>
 
@@ -352,15 +362,15 @@ def build_weekly():
     <article class="wp">
 {chr(10).join(body)}
 
-      <p class="wp__note">{W_NOTE}</p>
+      <p class="wp__note">{m.NOTE}</p>
 
-      <a class="wp__go" href="trojan-horses.html">The prices and dates behind this deal &rarr;</a>
+      <a class="wp__go" href="{go_href}">{go_label}</a>
     </article>
   </div>
 </main>
 ''' + FOOT)
-    (ROOT / f"{W_SLUG}.html").write_text(html, encoding="utf-8")
-    print(f"{W_SLUG}.html  ({len(W_SECTIONS)} sections)")
+    (ROOT / f"{m.SLUG}.html").write_text(html, encoding="utf-8")
+    print(f"{m.SLUG}.html  ({sum(len(p) for _, p in m.SECTIONS)} paragraphs)")
 
 
 from mandate_data import (KICKER as M_KICKER, TITLE as M_TITLE, LEDE as M_LEDE,
@@ -1056,6 +1066,7 @@ def build_horses():
       <p class="wp__note">{H_NOTE}</p>
 
       <a class="wp__go" href="how-a-company-gets-sold.html">How a bank gets hired, and how a sale runs &rarr;</a>
+      <a class="wp__go wp__go--2" href="thorne-loyalty.html">The follow-up question: can P&amp;G keep Thorne&rsquo;s customers loyal? &rarr;</a>
     </article>
   </div>
 </main>
@@ -1079,7 +1090,8 @@ if __name__ == "__main__":
     build_stories_page()
     build_process()
     build_horses()
-    build_weekly()
+    for _w in WEEKLIES:
+        build_weekly(_w)
     build_primers()
     build_deals()
     build_desk()

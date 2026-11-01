@@ -1,185 +1,126 @@
-"""Trojan Horse of the Week.
+"""Trojan Horse of the Week: the current feature, linked from the top of the
+homepage. To change the feature, replace this module's values (or point
+build-site.py at a different module) and rebuild. Earlier weeks live in
+weekly_*.py and keep their pages.
 
-One piece at a time, linked from the top of the homepage. To change the feature,
-replace the values in this module and rebuild.
+This week: Oura postpones its IPO. Written in the register of the homepage Troy
+anecdote: a scene first, warm and a little funny, the analogy doing the
+explaining, the hard facts underneath it. There is no standfirst under the
+title. The single direct quote is the CEO's.
 
-Register for this slot, set by Francis on 2026-10-30: philosophical and dry,
-professional, with a labelled analogy doing the work an abstraction would
-otherwise do. It never disparages the acquirer. There is no standfirst or
-sub-description under the title, on the homepage or on the page itself.
-
-This week's piece rests on sources that could be read: Thorne's announcement,
-Jones Day's deal record, trade reporting on P&G's earlier supplement purchase
-and the FDA's recall notice. Forum posts could not be read directly, so the page
-says what the discussion is on the strength of published reporting of it and
-does not claim a count.
+Every figure comes from the company's Form S-1 or from reporting of the
+29 September 2026 postponement that could be read: CNBC, Renaissance Capital and
+IPOScoop. The woman in Austin is labelled as invented. Outlets disagree about
+the valuation the offering implied and about the loss figure, so the story uses
+neither.
 
 No em dashes, no semicolons.
 """
 
-WEEK = "Week of 26 October 2026"
-SLUG = "thorne-loyalty"
+WEEK = "31 October 2026"
+SLUG = "oura-ipo"
 KICKER = "Trojan Horse of the Week"
-TITLE = "Can P&amp;G Keep Thorne&rsquo;s Customers Loyal?"
+TITLE = "Oura Sleeps On Its IPO"
+GO = ("thorne-loyalty.html",
+      "The previous Trojan horse: can P&amp;G keep Thorne&rsquo;s customers loyal? &rarr;")
 
+# a story, so the one section has no heading
 SECTIONS = [
+ ("", [
+  "Picture the morning of Tuesday 29 September 2026. For eight days a ring "
+  "company that began in Finland and now lives in San Francisco had been "
+  "walking investors through <a href=\"https://www.cnbc.com/2026/09/29/smart-"
+  "ring-maker-oura-postpones-ipo-due-to-market-uncertainty.html\">its Nasdaq "
+  "debut</a>. Fifty million shares at $40 to $44 each. <a href=\"https://www."
+  "renaissancecapital.com/IPO-Center/News/121945/smart-ring-maker-oura-"
+  "postpones-2.1-billion-ipo\">Seventeen banks</a> standing behind them. A "
+  "ticker symbol, OURA, waiting at the exchange, and a pricing due within the "
+  "week. Then, in place of a price, came a press release. The company would "
+  "wait. Demand was strong, it said, and the business had grown stronger since "
+  "the process began, and the market was uncertain, and its chief executive, "
+  "Tom Hale, observed that the company had &ldquo;the luxury of choosing our "
+  "moment.&rdquo; I love this part of the story. Oura makes a ring whose whole "
+  "job is to tell five million paying members how well they slept, and on the "
+  "morning it counted, the company decided to sleep on it.",
 
- ("A loyalty that never signed", [
-  "A company can be bought on a Tuesday, and its customers cannot. P&amp;G "
-  "agreed on 4 August 2026 to pay $3.8 billion for Thorne, about five and a "
-  "half times the roughly $680 million L Catterton paid in 2023, for a company "
-  "that <a href=\"https://www.marketingdive.com/news/how-thornes-brand-platform-"
-  "led-to-a-38b-pg-deal-and-whats-next/831494/\">Marketing Dive</a> reports "
-  "passed $500 million in annual revenue (the prices and dates are set out in "
-  "<a href=\"trojan-horses.html\">the earlier piece on this deal</a>). Buying a "
-  "restaurant buys the lease, the ovens and the chairs. It does not buy the "
-  "regulars, who remain free to inspect the chairs and leave.",
+  "Nobody had to be talked into liking the ring. Suppose a woman in Austin, who "
+  "exists only in this story, has worn one for two years. She takes it off to "
+  "wash the dishes and puts it back on before she forgets. Every morning it "
+  "grades her on an exam she does not remember sitting, and she has come to "
+  "trust it the way people trust a friend who has seen them at their worst. "
+  "Multiply her by five million. The filing says Oura served 5.0 million paid "
+  "members on 30 June 2026, up from 2.9 million at the end of fiscal 2025. "
+  "Revenue for the nine months to June was $1.21 billion against $698 million "
+  "a year earlier, and net income was $60.8 million against $1.6 million. The "
+  "company told the market it expects revenue to grow 90 percent this fiscal "
+  "year. A company people love, growing fast and making money, walks up to the "
+  "gate of the public market and knocks, and of course the city comes out to "
+  "look.",
 
-  "That is the Trojan horse in this transaction. Loyalty is the reason the "
-  "price is what it is, which makes it the part of the purchase most warmly "
-  "welcomed, and also the part the buyer cannot take delivery of. It belongs to "
-  "people who signed nothing, who were never consulted, and who can withdraw it "
-  "without telling anyone.",
- ]),
+  "Every city has a priest who has read the fine print, and here the fine print "
+  "is <a href=\"https://www.sec.gov/Archives/edgar/data/0002133022/"
+  "000119312526381855/d119865ds1.htm\">the S-1</a>, the registration statement "
+  "the company filed publicly in early September. It spends page after page "
+  "telling the reader where the wood is soft. A class action was filed against "
+  "the company in August 2026 alleging that it falsely advertises the accuracy "
+  "of its sleep tracking. The company has no manufacturing of its own and relies "
+  "on a limited number of contract manufacturers, some of them sole suppliers "
+  "of certain parts. Hardware made about 83 percent of revenue in fiscal 2025 "
+  "and about 80 percent in the nine months to June, which sits beside the "
+  "company&rsquo;s description of itself as a health intelligence platform. "
+  "Members may cancel at any time without penalty. Its AI uses select models "
+  "from OpenAI, Anthropic and Google, under non-exclusive agreements. The law "
+  "requires a company to disclose all of this before it asks for money, and it "
+  "is to Oura&rsquo;s credit that every item can be found by anyone who looks.",
 
- ("The Michelin test", [
-  "Suppose a friend of yours, known mainly for his Kraft macaroni and cheese, "
-  "announces that he has bought a Michelin-starred restaurant. You will go, "
-  "probably within the month, and before you sit down you will look at the menu "
-  "for the blue box. This is no insult to him. He may be a fine cook with access "
-  "to the best supply chain in the world, and making something that millions of "
-  "people trust every day is a real form of excellence and not a lesser one. "
-  "The inspection is what happens when a person holds an opinion about a place "
-  "that was formed under different management.",
+  "What delights me about an IPO is how much of it is a story told well. The "
+  "Greeks built Troy a gift in the shape of what Troy wanted most. A listing "
+  "offers the public the shape of what the public wants most as well, which is "
+  "a share of a company it already loves, and this one has an unusual "
+  "advantage, because the product is on your finger and you can feel it "
+  "working. A person who loves a ring and a person who values a company are "
+  "doing two different jobs, and the S-1 is the document for the second one.",
 
-  "P&amp;G is in the friend&rsquo;s position and Thorne&rsquo;s customers are "
-  "in yours. The owner&rsquo;s competence is not in doubt. What customers want "
-  "to see is that the thing they came for is still on the plate.",
- ]),
+  "Then there is the question of who was selling. Of the 50 million shares on "
+  "offer, Oura was selling 13.5 million and its existing stockholders were "
+  "selling the other 36.5 million, which is 73 percent of the offering (<a "
+  "href=\"https://www.iposcoop.com/?p=39366\">IPOScoop</a> has the split, and "
+  "Renaissance Capital gives the same share). At the $42 midpoint that comes to "
+  "roughly $567 million for the company and $1.5 billion for the holders, "
+  "before fees, and the filing states that the company receives no proceeds "
+  "from the selling stockholders&rsquo; shares. Existing holders selling into "
+  "an IPO is ordinary, and it changes one thing, which is whose pocket the "
+  "money lands in. Oura said it would use its own proceeds for general "
+  "corporate purposes. None of this implies that the price was wrong, and all "
+  "of it is a reason for a buyer to read before buying.",
 
- ("Who will decide", [
-  "The people who decide this are not the people reading about it. Mergers and "
-  "acquisitions are followed by bankers, investors and trade journalists, a "
-  "crowd that fits in one conference hotel. A person who buys Thorne magnesium "
-  "learns of the sale, if at all, from the bottle, so the information that "
-  "reaches them is the price, the label, how the capsule agrees with them and "
-  "whether the certification is still printed on the side.",
+  "An IPO is a sale, which is why it belongs in a journal about deals. A "
+  "company decides the moment is right to hand pieces of itself to strangers, "
+  "and the strangers decide how much of the story to believe, and each side "
+  "studies the other as closely as the Greeks and the Trojans did. The reason "
+  "Oura gave for stopping concerns the market and says nothing against the "
+  "business, which it described as stronger than when the process began. The "
+  "lawsuit, the contract manufacturers, the revenue mix and the members who "
+  "can leave on any day were in the filing before the market turned, and they "
+  "are all still in it.",
 
-  "Thorne&rsquo;s own research, as Marketing Dive reports it, found consumers "
-  "overwhelmed and confused by the market, and found that its messages about "
-  "scientific rigor mattered less to them than the company had assumed. That "
-  "suggests most buyers steer by a few visible cues, and a change nobody can "
-  "see, a cheaper input for example, would pass most of them by. The customers "
-  "placed to notice are the minority who can verify, meaning practitioners, "
-  "athletes and heavy users. A brand with a practitioner heritage relies on "
-  "them for a credibility that everyone else borrows, rather as a table borrows "
-  "the one friend who can read the wine list. The sources do not give the split "
-  "between the two groups, so this part is inference.",
- ]),
-
- ("What people are saying", [
-  "A <a href=\"https://www.theflowspace.com/physical-health/prevention-longevity/"
-  "procter-gamble-buys-thorne-supplements-3039451/\">Flow Space roundup of "
-  "online reaction</a> to the deal reports commenters split. Some hope it makes "
-  "Thorne cheaper and easier to find, others fear reformulation and lower "
-  "quality, and some point to P&amp;G&rsquo;s past recalls.",
-
-  "It is the worry recorded when P&amp;G bought New Chapter in 2012. About a "
-  "year afterward <a href=\"https://nutritionaloutlook.com/view/pgs-new-chapter-"
-  "acquisition-year-later-what-difference-can-year-make\">Nutritional "
-  "Outlook</a> quoted John Barrymore, who helped broker that sale, saying "
-  "consumers worry that an acquirer might change product ingredients to make "
-  "them cheaper. A worry about incentives is the hardest kind to answer, "
-  "because nothing has happened for the owner to point to and the only rebuttal "
-  "is time. No change has been announced here. The one statement from Thorne "
-  "that I could verify is general. Its chief executive, Colin Watts, said the "
-  "company wants to expand with P&amp;G while keeping to its values and "
-  "standards (<a href=\"https://www.nutraingredients.com/Article/2026/08/04/pg-"
-  "to-acquire-thorne-in-premium-wellness-play/\">NutraIngredients</a>), and I "
-  "found no specific commitment on formulation or certification.",
- ]),
-
- ("What P&amp;G has done before", [
-  "New Chapter is the nearest thing to a controlled experiment. P&amp;G bought "
-  "it in 2012, when its sales were widely reported at about $100 million a year. "
-  "After a year, Nutritional Outlook reported, P&amp;G had added staff for "
-  "quality control and innovation, the article noted no change in price, and the "
-  "brand had not been pushed into other channels despite requests from "
-  "mass-market retailers. The founder, Paul Schulick, said P&amp;G was keeping "
-  "its promise to leave the brand standalone.",
-
-  "Philosophers have an old puzzle about a ship whose planks are replaced one "
-  "at a time until none of the originals remain, and whether it is still the "
-  "same ship. Customers use a shorter test, which is whether anyone noticed. In "
-  "2018 Paul and Barbi Schulick left, citing &ldquo;financial pressures to "
-  "accelerate profits,&rdquo; and Paul said that pressure could lead to "
-  "products losing their distinctiveness (<a href=\"https://www.nutraingredients"
-  ".com/Article/2018/07/12/New-Chapter-founders-leave-brand-saying-Procter-"
-  "Gamble-s-profit-pressure-threatens-to-undermine-mission\">NutraIngredients"
-  "</a>). The report describes no specific change to formulation, quality, "
-  "price or distribution, so as far as the record shows the planks stayed where "
-  "they were. What changed was the shipwrights, who left six years in with "
-  "profit pressure as their stated reason.",
-
-  "The other precedent critics cite is the December 2021 recall of aerosol dry "
-  "shampoo and dry conditioner sprays sold under six names, among them Pantene, "
-  "Aussie and Herbal Essences, after benzene was found in some of them. P&amp;G "
-  "recalled them as a precaution and stated that the benzene came from the "
-  "propellant and not from an ingredient, that the levels detected were not "
-  "expected to cause adverse health consequences, and that it had received no "
-  "reports of adverse events (<a href=\"https://www.fda.gov/safety/recalls-"
-  "market-withdrawals-safety-alerts/pg-issues-voluntary-recall-aerosol-dry-"
-  "conditioner-spray-products-and-aerosol-dry-shampoo-spray\">FDA notice</a>). "
-  "That is a different failure from a cost-driven reformulation. It is a "
-  "supplied input failing at scale, and it bears on a brand whose reputation "
-  "rests on testing.",
- ]),
-
- ("Why it is close to even", [
-  "The record supports both outcomes. In P&amp;G&rsquo;s favor, it left New "
-  "Chapter standalone and added quality staff in the first year, and <a "
-  "href=\"https://www.newhope.com/industry-news/industry-experts-analyze-"
-  "proctor-gamble-acquisition-thorne\">Marc Brush</a>, a consultant and former "
-  "editor of Nutrition Business Journal, says P&amp;G has done a better job "
-  "than most buyers of maintaining brand equity in supplement acquisitions. "
-  "Against, Brush says that at this price Thorne has to keep growing quickly, "
-  "that most marquee deals decline over time, and that the daily decisions "
-  "which protect quality and trust are difficult to defend as years pass.",
-
-  "A price that requires fast growth tempts cost cutting and a faster pace of "
-  "profit, which are the two things customers fear. It also makes loyalty the "
-  "only asset worth guarding, since a premium wellness brand does not grow by "
-  "losing the people who trust it. Both pressures sit on the same desk, and the "
-  "record does not show which will win.",
- ]),
-
- ("What would settle it", [
-  "Nobody holds a press conference to announce that they have switched "
-  "magnesium, so a loss of loyalty would arrive as a slow dip in repeat "
-  "purchases that P&amp;G sees first. Thorne stopped filing public reports when "
-  "the 2023 tender closed, and after the sale it will sit inside P&amp;G&rsquo;s "
-  "health care business, which P&amp;G reports in aggregate. Outsiders would see "
-  "it only through third-party sales data or the segment results.",
-
-  "Three things can be checked after the deal closes without access to internal "
-  "figures. The first is whether Thorne keeps its NSF Certified for Sport "
-  "certification, which Thorne says covers more than 20 of its products and not "
-  "its whole range (<a href=\"https://www.thorne.com/nsf-certified-for-sport\">"
-  "Thorne</a>). The second is whether prices or pack sizes change on the "
-  "products existing customers buy most. The third is whether the practitioner "
-  "relationships that gave the brand its credibility survive, since those "
-  "customers are the ones able to tell the difference. Jones Day expects the "
-  "deal to close in the fourth quarter of 2026 (<a href=\"https://www.jonesday."
-  "com/en/practices/experience/2026/08/the-procter-amp-gamble-company-acquires-"
-  "thorne-from-l-catterton-for-38-billion\">Jones Day</a>).",
+  "Some outlets have called the move a withdrawal, and the company and most of "
+  "the financial press that covered it call it a postponement. It has given no "
+  "new date, and the filing remains on the SEC&rsquo;s site for anyone to "
+  "read. A reader who loves the ring has been handed some time, and the useful "
+  "way to spend it is to read the lawsuit, the revenue mix and the selling "
+  "stockholders&rsquo; share now, and to see whether the account of those "
+  "three things changes when the company next opens its gate.",
  ]),
 ]
 
-NOTE = ("Prices and dates come from Thorne&rsquo;s announcement and from the deal "
-        "record published by P&amp;G&rsquo;s counsel. The account of consumer "
-        "reaction rests on a published roundup that I could read only as a "
-        "search summary, because the original is closed to automated readers, "
-        "and on trade reporting of the reaction to the earlier New Chapter "
-        "purchase. I could not read Reddit or other forums directly, so this is "
-        "not a count of posts. The reasoning about who decides the outcome is "
-        "mine.")
+NOTE = ("Figures come from Oura&rsquo;s Form S-1 (fiscal 2025 and the nine months "
+        "to 30 June 2026), from CNBC and Renaissance Capital on the 29 September "
+        "2026 postponement, and from IPOScoop on the offering terms. Outlets "
+        "differ on the valuation the offering implied and on the size of the "
+        "loss attributable to common stockholders, which the filing attributes "
+        "to a deemed dividend to preferred holders, so the story uses neither. "
+        "The company&rsquo;s forecast of 90 percent revenue growth is its own. "
+        "The woman in Austin is invented, and the split between company and "
+        "selling shares is described as a fact about the offering and not as a "
+        "judgment on the price.")

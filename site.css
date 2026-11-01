@@ -1128,3 +1128,6 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
 .plate__wk{
   display:block; margin-top:.55em; letter-spacing:.2em; opacity:.75;
 }
+
+/* a story page: running paragraphs with room to breathe */
+.story .wp__p + .wp__p{ margin-top:1.15em; }
