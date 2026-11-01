@@ -88,7 +88,7 @@ DESK = [
     "its systems support more than 500,000 NVIDIA GPUs, including xAI's "
     "Colossus cluster. That is a company claim and not a measured market "
     "share. The economics behind the price are in the "
-    "<a href=\"fetching.html\">note on this deal in Ten Years</a>. In short, a "
+    "<a href=\"fetching.html\">note on this deal in the Prologue</a>. In short, a "
     "storage supplier whose product keeps very expensive processors working "
     "can be priced against the cost of those processors.",
    ]),

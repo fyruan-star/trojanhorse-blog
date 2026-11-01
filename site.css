@@ -1088,42 +1088,78 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
 .silohead--bare{ padding-top:clamp(64px,9vw,124px); }
 .silohead--bare .silohead__line{ margin-top:clamp(26px,3.4vw,44px); }
 
-/* ================================================ TROJAN HORSE OF THE WEEK ===
-   One piece, above the numbered list, set in the same column. The weekly page
-   puts the week beside the kicker on the white plate. */
-.wk{
-  padding:clamp(56px,8vw,104px) 0 0;
-  border-top:1px solid rgba(255,255,255,.1);
+/* ====================================================== TROJAN HORSES ===
+   The stories sit on the homepage in full view, set the way a newspaper sets
+   its leads: a date, a headline, the opening of the piece and a way to read
+   on. Two columns divided by a hairline, newest first, a double rule above. */
+.th{
+  padding:clamp(48px,7vw,92px) 0 clamp(20px,3vw,40px);
 }
-.wk__in{
-  display:block; max-width:min(640px,94%); margin-inline:auto;
-  padding-bottom:clamp(30px,4vw,48px);
-  border-bottom:1px solid rgba(255,255,255,.18);
-}
-.wk__k{
+.th .shell{ max-width:min(1040px,94%); }
+.th__k{
   font-size:11.5px; letter-spacing:.3em; text-transform:uppercase;
-  color:var(--silver); margin:0 0 clamp(14px,1.8vw,22px);
+  color:var(--silver); margin:0 0 clamp(18px,2.4vw,28px);
+  padding-top:clamp(14px,1.8vw,20px);
+  border-top:3px double rgba(255,255,255,.3);
 }
-.wk__k span{
-  display:block; margin-top:.55em; letter-spacing:.2em; color:var(--silver-dim);
+.th__grid{
+  display:grid; grid-template-columns:repeat(2,1fr);
+  column-gap:clamp(28px,4vw,56px);
 }
-.wk__t{
-  display:block; font-size:clamp(28px,1.3rem + 2vw,46px); font-weight:500;
-  line-height:1.08; color:var(--silver); transition:color .25s ease;
+.th__c{ display:flex; flex-direction:column; }
+.th__c + .th__c{
+  padding-left:clamp(28px,4vw,56px); margin-left:calc(-1 * clamp(28px,4vw,56px) / 2);
+  border-left:1px solid rgba(255,255,255,.16);
 }
-.wk__s{
-  display:block; margin-top:clamp(12px,1.5vw,18px);
-  font-size:clamp(16px,1.35vw,19px); line-height:1.5; font-style:italic;
-  color:var(--silver-dim); max-width:36ch;
+.th__d{
+  font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--silver-faint); margin:0 0 .85rem;
 }
-.wk__go{
-  display:inline-block; margin-top:clamp(18px,2.2vw,26px);
+.th__t{
+  font-size:clamp(26px,1.15rem + 1.6vw,40px); font-weight:500; line-height:1.1;
+  color:var(--silver); margin:0 0 clamp(14px,1.8vw,20px);
+}
+/* two lines reserved on desktop, so the two openings start on the same line
+   whichever headline wraps */
+@media (min-width:761px){ .th__t{ min-height:2.2em; } }
+.th__t a{ transition:color .25s ease; }
+.th__t a:hover{ color:#fff; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.14em; }
+.th__p{
+  font-size:clamp(16px,1.25vw,18.5px); line-height:1.62; color:var(--silver-dim);
+  margin:0 0 clamp(16px,2vw,24px);
+}
+.th__go{
+  margin-top:auto; align-self:flex-start;
   font-size:11.5px; letter-spacing:.24em; text-transform:uppercase;
   color:var(--silver); border-bottom:1px solid rgba(255,255,255,.3);
   padding-bottom:.25em; transition:border-color .25s ease;
 }
-.wk__in:hover .wk__go{ border-bottom-color:var(--silver); }
-.wk + .idx{ border-top:0; padding-top:clamp(40px,6vw,76px); }
+.th__go:hover{ border-bottom-color:var(--silver); }
+
+@media (max-width:760px){
+  .th__grid{ grid-template-columns:1fr; row-gap:clamp(30px,6vw,44px); }
+  .th__c + .th__c{
+    padding-left:0; margin-left:0; border-left:0;
+    padding-top:clamp(30px,6vw,44px); border-top:1px solid rgba(255,255,255,.16);
+  }
+}
+
+/* the Prologue is a single row, so it needs neither a label nor a number */
+.idx--one{ padding:clamp(48px,7vw,88px) 0 0; border-top:1px solid rgba(255,255,255,.1); }
+/* same container as the stories below it, so the two share their edges */
+.idx--one .shell{ max-width:min(1040px,94%); }
+.idx--one .idx__row{ max-width:none; }
+.idx--one .idx__c{ grid-template-columns:1fr auto; }
+.idx--one .idx__t{ font-size:clamp(20px,.95rem + 1vw,30px); }
+
+/* Atlas, small, under the Spotify mark */
+.spot__atlas{
+  display:block; width:max-content; margin:clamp(20px,2.6vw,30px) auto 0;
+  font-size:11px; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--silver-faint); border-bottom:1px solid transparent;
+  padding-bottom:.2em; transition:color .25s ease, border-color .25s ease;
+}
+.spot__atlas:hover{ color:var(--silver); border-bottom-color:rgba(255,255,255,.3); }
 
 .plate__wk{
   display:block; margin-top:.55em; letter-spacing:.2em; opacity:.75;

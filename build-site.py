@@ -5,7 +5,7 @@ The site shows one story. Everything previously published lives in archive/,
 which is git-ignored, so it stays on disk and never reaches the web. To bring
 a piece back: move its html out of archive/, add it to STORY below, rebuild.
 """
-import pathlib, sys
+import pathlib, re, sys
 import sketch
 import weekly_data, weekly_thorne
 from weekly_data import (WEEK as W_WEEK, SLUG as W_SLUG, KICKER as W_KICKER,
@@ -235,6 +235,7 @@ ROOMS = """
       <path fill="currentColor" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
     </svg>
   </a>
+  <a class="spot__atlas" href="tech-atlas.html">Atlas</a>
 </section>
 """
 
@@ -282,47 +283,56 @@ def belt(slugs):
     return "".join(out)
 
 
+def _teaser(m):
+    """The first paragraph of a weekly story, as plain text. A parenthetical
+    that only points at a link is dropped, because in a teaser it would point
+    at nothing."""
+    x = m.SECTIONS[0][1][0]
+    x = re.sub(r"\s*\([^()]*<a [^>]*>[^()]*</a>[^()]*\)", "", x)
+    return re.sub(r"<[^>]+>", "", x)
+
+
 def build_index():
-    # The doors come after the writing now. A reader who has finished the Troy
-    # passage is in a position to choose; a reader who has just arrived is not.
-    doors = [
-        ("Ten Years",     "2016 to 2026",              "ten-years.html"),
-        ("Atlas",         "A depth chart of technology", "tech-atlas.html"),
-        ("Trojan Horses", "P&amp;G and Thorne",          "trojan-horses.html"),
-    ]
-    cards = "".join(
-        f'''<a class="idx__c" href="{href}">
-        <span class="idx__n">{i:02d}</span>
-        <span class="idx__t">{name}</span>
-        <span class="idx__d">{desc}</span>
-      </a>'''
-        for i, (name, desc, href) in enumerate(doors, 1))
-
-    weekly = f'''
-<!-- ============================================================ HORSE OF THE WEEK === -->
-<section class="wk">
-  <a class="wk__in" href="{W_SLUG}.html">
-    <p class="wk__k">{W_KICKER}<span>{W_WEEK}</span></p>
-    <span class="wk__t">{W_TITLE}</span>
-    <span class="wk__go">Read it &rarr;</span>
-  </a>
-</section>
-'''
-
-    index = weekly + f'''
-<!-- ============================================================= INDEX === -->
-<nav class="idx" aria-label="The journal">
+    # The Prologue is a single door. The stories sit below it in full view, set
+    # out the way a newspaper front page sets out its leads: a date, a headline,
+    # the opening of the piece, and a way to read on. The newest is first.
+    prologue = '''
+<!-- =========================================================== PROLOGUE === -->
+<nav class="idx idx--one" aria-label="Prologue">
   <div class="shell">
-    <p class="idx__k">The Journal</p>
-    <div class="idx__row">{cards}</div>
+    <div class="idx__row">
+      <a class="idx__c" href="ten-years.html">
+        <span class="idx__t">Prologue</span>
+        <span class="idx__d">2016 to 2026</span>
+      </a>
+    </div>
   </div>
 </nav>
+'''
+
+    cards = "".join(f'''
+      <article class="th__c">
+        <p class="th__d">{m.WEEK}</p>
+        <h2 class="th__t"><a href="{m.SLUG}.html">{m.TITLE}</a></h2>
+        <p class="th__p">{_teaser(m)}</p>
+        <a class="th__go" href="{m.SLUG}.html">Continue reading &rarr;</a>
+      </article>''' for m in WEEKLIES)
+
+    horses = f'''
+<!-- ============================================================ TROJAN HORSES === -->
+<section class="th" aria-label="Trojan Horses">
+  <div class="shell">
+    <p class="th__k">Trojan Horses</p>
+    <div class="th__grid">{cards}
+    </div>
+  </div>
+</section>
 '''
 
     html = (HEAD.format(title="The Trojan Horse",
                         desc="A mergers and acquisitions journal and podcast by Francis Ruan.")
             + CAPITAL_DEF + COVER + ESSAY
-            + index + ROOMS + FOOT)
+            + prologue + horses + ROOMS + FOOT)
     (ROOT / "index.html").write_text(html, encoding="utf-8")
     print("index.html")
 
@@ -475,12 +485,12 @@ def build_primers():
         html = (HEAD.format(title=f'{pr["lead"]} {pr["line1"]} {pr["line2"]} | The Trojan Horse'.replace("  "," ").strip(),
                             desc=pr["lede"][:180])
                 + '\n<link rel="stylesheet" href="story.css">\n'
-                + SHEET.format(back="ten-years.html", backlabel="Ten Years",
+                + SHEET.format(back="ten-years.html", backlabel="Prologue",
                                lead=ld, line1=pr["line1"], row2=row, sub=pr["sub"],
                                lede=pr["lede"], sections=_sections(pr["sections"]),
                                takeaway_html=(f'<p class="takeaway">{pr["takeaway"]}</p>\n\n  ' if pr.get("takeaway") else ''), tail=tail,
                                series="Background", roman=f'No. {pr["roman"]}',
-                               last="Ten Years in Technology")
+                               last="Prologue")
                 + "\n</body>\n</html>\n")
         (ROOT / f'{pr["slug"]}.html').write_text(html, encoding="utf-8")
     print(f"{len(PRIMERS)} background pages")
@@ -495,11 +505,11 @@ def build_deals():
         html = (HEAD.format(title=f'{d["lead"]} {d["line1"]} {d["line2"]} | The Trojan Horse'.replace("  "," ").strip(),
                             desc=f'{d["party"]} &middot; {d["value"]} &middot; {d["dated"]}.')
                 + '\n<link rel="stylesheet" href="story.css">\n'
-                + SHEET.format(back="ten-years.html", backlabel="Ten Years",
+                + SHEET.format(back="ten-years.html", backlabel="Prologue",
                                lead=ld, line1=d["line1"], row2=row, sub=d["sub"],
                                lede=d["lede"], sections=_sections(d["sections"]),
                                takeaway_html=(f'<p class="takeaway">{d["takeaway"]}</p>\n\n  ' if d.get("takeaway") else ''), tail=tail,
-                               series="Ten Years", roman=f'No. {d["roman"]}',
+                               series="Prologue", roman=f'No. {d["roman"]}',
                                last=f'{d["party"]} &middot; {d["value"]}')
                 + "\n</body>\n</html>\n")
         (ROOT / f'{d["slug"]}.html').write_text(html, encoding="utf-8")
@@ -539,11 +549,11 @@ def build_desk_index():
     html = (HEAD.format(title="Deals From Palo Alto | The Trojan Horse",
                         desc="Technology transactions from the BofA Securities Palo Alto software team, told as stories.")
             + '''
-<a class="back" href="ten-years.html">&larr; Ten Years</a>
+<a class="back" href="ten-years.html">&larr; Prologue</a>
 
 <header class="silohead">
   <div class="shell">
-    <p class="silohead__kicker">A sub journal to Ten Years</p>
+    <p class="silohead__kicker">A sub journal to the Prologue</p>
     <h1 class="silohead__name">Deals From Palo Alto</h1>
     <p class="silohead__blurb">''' + DESK_INTRO + '''</p>
     <div class="silohead__line" aria-hidden="true"></div>
@@ -881,7 +891,7 @@ def build_katabasis():
     carry a Ground Floor of primers explaining what a chip and a data centre
     are, and close with an essay on what the entries support. All of it was
     standing between the reader and the ten years."""
-    html = (HEAD.format(title="Ten Years in Technology | The Trojan Horse",
+    html = (HEAD.format(title="Prologue | The Trojan Horse",
                         desc="A map of technology transactions from 2016 to 2026.")
             + CAPITAL_DEF + f'''
 <a class="back" href="index.html">&larr; The Trojan Horse</a>
@@ -889,7 +899,7 @@ def build_katabasis():
 <header class="silohead silohead--bare">
   <div class="shell">
     <p class="silohead__kicker">2016 to 2026</p>
-    <h1 class="silohead__name">Ten Years</h1>
+    <h1 class="silohead__name">Prologue</h1>
     <div class="silohead__line" aria-hidden="true"></div>
   </div>
 </header>
@@ -908,10 +918,10 @@ def build_katabasis():
     # the page was published once under its old name
     (ROOT / "katabasis.html").write_text(
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
-        '<title>Ten Years | The Trojan Horse</title>'
+        '<title>Prologue | The Trojan Horse</title>'
         '<link rel="canonical" href="https://trojanhorse.blog/ten-years.html">'
         '<meta http-equiv="refresh" content="0; url=ten-years.html">'
-        '</head><body><p><a href="ten-years.html">Ten Years in Technology</a></p>'
+        '</head><body><p><a href="ten-years.html">Prologue</a></p>'
         '</body></html>\n', encoding="utf-8")
     n = sum(len(y[2]) for y in YEARS)
     print(f"ten-years.html  ({len(YEARS)} years, {n} entries)")

@@ -18,7 +18,7 @@ PRIMERS = [
         "companies, and the manufacturing step is concentrated in so few "
         "places that governments treat it as a matter of national capability. "
         "That concentration is why regulators appear in several of the "
-        "semiconductor entries in Ten Years, and it is the background a reader "
+        "semiconductor entries in the Prologue, and it is the background a reader "
         "needs to see what each of those buyers was acquiring."),
   sections=[
    ("Three businesses", [
@@ -168,7 +168,7 @@ PRIMERS = [
   lead="What", line1="Training", conn="", line2="Requires",
   sub="A software advance became a question about electricity",
   lede=("The part of the AI boom that mattered commercially to the companies "
-        "in Ten Years was less the software than the computing it required. "
+        "in the Prologue was less the software than the computing it required. "
         "Training a large model is a physical activity that uses thousands of "
         "processors, buildings and large amounts of electricity, and the "
         "scarcest input moved step by step from processors to buildings to "
