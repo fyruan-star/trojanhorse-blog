@@ -23,6 +23,9 @@ WEEK = "31 October 2026"
 SLUG = "oura-ipo"
 KICKER = "Trojan Horse of the Week"
 TITLE = "Oura Sleeps On Its IPO"
+HOOK = ("Orders reached four to five times the shares on offer, and 73% of those "
+        "shares belonged to the people selling them.")
+LOGO = {"file": "oura.svg", "w": 993, "h": 311, "name": "Oura", "height": 34}
 GO = ("thorne-loyalty.html",
       "The previous Trojan horse: can P&amp;G keep Thorne&rsquo;s customers loyal? &rarr;")
 

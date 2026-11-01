@@ -21,6 +21,9 @@ WEEK = "Week of 26 October 2026"
 SLUG = "thorne-loyalty"
 KICKER = "Trojan Horse of the Week"
 TITLE = "Can P&amp;G Keep Thorne&rsquo;s Customers Loyal?"
+HOOK = ("P&amp;G agreed to pay $3.8 billion for a supplement brand, and the "
+        "customers who justify that price never signed anything.")
+LOGO = {"file": "thorne.svg", "w": 146, "h": 22, "name": "Thorne", "height": 20}
 GO = ("trojan-horses.html", "The prices and dates behind this deal &rarr;")
 
 SECTIONS = [

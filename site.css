@@ -1090,58 +1090,84 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
 
 /* ====================================================== TROJAN HORSES ===
    The stories sit on the homepage in full view, set the way a newspaper sets
-   its leads: a date, a headline, the opening of the piece and a way to read
-   on. Two columns divided by a hairline, newest first, a double rule above. */
+   its leads: the company mark and a date, a headline, one sentence to pull you
+   in, and a way to read on. Columns divided by a hairline under a double rule.
+   Air is the point. Every element has room, so nothing reads as stuck together. */
 .th{
-  padding:clamp(48px,7vw,92px) 0 clamp(20px,3vw,40px);
+  --g:clamp(36px,4.4vw,68px);
+  padding:clamp(56px,8vw,104px) 0 clamp(28px,4vw,52px);
 }
-.th .shell{ max-width:min(1040px,94%); }
+.th .shell{ max-width:min(1120px,94%); }
 .th__k{
   font-size:11.5px; letter-spacing:.3em; text-transform:uppercase;
-  color:var(--silver); margin:0 0 clamp(18px,2.4vw,28px);
-  padding-top:clamp(14px,1.8vw,20px);
+  color:var(--silver); margin:0 0 clamp(30px,4vw,48px);
+  padding-top:clamp(16px,2vw,24px);
   border-top:3px double rgba(255,255,255,.3);
 }
 .th__grid{
-  display:grid; grid-template-columns:repeat(2,1fr);
-  column-gap:clamp(28px,4vw,56px);
+  display:grid; grid-template-columns:repeat(3,1fr);
+  column-gap:var(--g);
 }
-.th__c{ display:flex; flex-direction:column; }
-.th__c + .th__c{
-  padding-left:clamp(28px,4vw,56px); margin-left:calc(-1 * clamp(28px,4vw,56px) / 2);
+.th__c{ display:flex; flex-direction:column; position:relative; padding-bottom:clamp(4px,1vw,12px); }
+/* the divider is drawn in the middle of the gap, so the columns stay equal */
+.th__c + .th__c::before{
+  content:""; position:absolute; top:0; bottom:0; left:calc(-1 * var(--g) / 2);
   border-left:1px solid rgba(255,255,255,.16);
 }
+
+/* mark on the left, date on the right, on one baseline */
+.th__top{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  box-sizing:border-box; height:68px; margin-bottom:clamp(26px,3.2vw,40px);
+  padding-bottom:clamp(16px,2vw,22px);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.th__logo{
+  display:block; flex:none; height:var(--lh,30px); aspect-ratio:var(--ar);
+  background-color:var(--silver); opacity:.92;
+  -webkit-mask:var(--logo) left center/contain no-repeat;
+          mask:var(--logo) left center/contain no-repeat;
+}
 .th__d{
-  font-size:11px; letter-spacing:.22em; text-transform:uppercase;
-  color:var(--silver-faint); margin:0 0 .85rem;
+  font-size:10.5px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--silver-dim); margin:0; text-align:right; line-height:1.5;
 }
 .th__t{
-  font-size:clamp(26px,1.15rem + 1.6vw,40px); font-weight:500; line-height:1.1;
-  color:var(--silver); margin:0 0 clamp(14px,1.8vw,20px);
+  font-size:clamp(25px,1rem + 1.25vw,35px); font-weight:500; line-height:1.14;
+  color:var(--silver); margin:0 0 clamp(20px,2.6vw,30px);
 }
-/* two lines reserved on desktop, so the two openings start on the same line
-   whichever headline wraps */
-@media (min-width:761px){ .th__t{ min-height:2.2em; } }
+@media (min-width:901px){ .th__t{ min-height:3.45em; } }
 .th__t a{ transition:color .25s ease; }
 .th__t a:hover{ color:#fff; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.14em; }
 .th__p{
-  font-size:clamp(16px,1.25vw,18.5px); line-height:1.62; color:var(--silver-dim);
-  margin:0 0 clamp(16px,2vw,24px);
+  font-size:clamp(16.5px,1.15vw,18.5px); line-height:1.66; color:var(--silver-dim);
+  margin:0 0 clamp(28px,3.4vw,42px);
 }
 .th__go{
   margin-top:auto; align-self:flex-start;
   font-size:11.5px; letter-spacing:.24em; text-transform:uppercase;
   color:var(--silver); border-bottom:1px solid rgba(255,255,255,.3);
-  padding-bottom:.25em; transition:border-color .25s ease;
+  padding-bottom:.3em; transition:border-color .25s ease;
 }
 .th__go:hover{ border-bottom-color:var(--silver); }
 
-@media (max-width:760px){
-  .th__grid{ grid-template-columns:1fr; row-gap:clamp(30px,6vw,44px); }
+/* below three columns the stories stack, each with room above and below */
+@media (max-width:900px){
+  .th__grid{ grid-template-columns:1fr; row-gap:clamp(44px,8vw,64px); }
   .th__c + .th__c{
-    padding-left:0; margin-left:0; border-left:0;
-    padding-top:clamp(30px,6vw,44px); border-top:1px solid rgba(255,255,255,.16);
+    padding-top:clamp(44px,8vw,64px); border-top:1px solid rgba(255,255,255,.16);
   }
+  .th__c + .th__c::before{ display:none; }
+  .th__top{ height:auto; min-height:44px; }
+}
+
+/* the company mark above a story's header, in the plate's own ink */
+.plate__logo{
+  display:block; height:var(--lh,30px); aspect-ratio:var(--ar);
+  margin:0 0 clamp(22px,3vw,34px);
+  background-color:var(--ever);
+  -webkit-mask:var(--logo) left center/contain no-repeat;
+          mask:var(--logo) left center/contain no-repeat;
 }
 
 /* the Prologue is a single row, so it needs neither a label nor a number */

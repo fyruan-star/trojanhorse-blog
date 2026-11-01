@@ -7,11 +7,11 @@ a piece back: move its html out of archive/, add it to STORY below, rebuild.
 """
 import pathlib, re, sys
 import sketch
-import weekly_data, weekly_thorne
+import weekly_data, weekly_thorne, weekly_uber
 from weekly_data import (WEEK as W_WEEK, SLUG as W_SLUG, KICKER as W_KICKER,
                          TITLE as W_TITLE)
-# the first is featured on the homepage, the rest keep their pages
-WEEKLIES = [weekly_data, weekly_thorne]
+# the order here is the order on the homepage, and every entry keeps its own page
+WEEKLIES = [weekly_data, weekly_thorne, weekly_uber]
 
 ROOT = pathlib.Path(__file__).parent
 
@@ -283,13 +283,15 @@ def belt(slugs):
     return "".join(out)
 
 
-def _teaser(m):
-    """The first paragraph of a weekly story, as plain text. A parenthetical
-    that only points at a link is dropped, because in a teaser it would point
-    at nothing."""
-    x = m.SECTIONS[0][1][0]
-    x = re.sub(r"\s*\([^()]*<a [^>]*>[^()]*</a>[^()]*\)", "", x)
-    return re.sub(r"<[^>]+>", "", x)
+def _logo(m, cls="th__logo", scale=1.0):
+    """The company a story is about, drawn from its own logo file as a mask so
+    it takes the ink of whatever it sits on: silver on the navy homepage, navy
+    on the cream story header. Each file is a plain vector from the company's
+    own site, or from Wikimedia Commons for Uber, used to identify its subject."""
+    L = m.LOGO
+    return (f'<span class="{cls}" role="img" aria-label="{L["name"]}" '
+            f'style="--logo:url(images/logos/{L["file"]});'
+            f'--ar:{L["w"]}/{L["h"]};--lh:{round(L["height"] * scale)}px"></span>')
 
 
 def build_index():
@@ -312,9 +314,9 @@ def build_index():
 
     cards = "".join(f'''
       <article class="th__c">
-        <p class="th__d">{m.WEEK}</p>
+        <div class="th__top">{_logo(m)}<p class="th__d">{m.WEEK}</p></div>
         <h2 class="th__t"><a href="{m.SLUG}.html">{m.TITLE}</a></h2>
-        <p class="th__p">{_teaser(m)}</p>
+        <p class="th__p">{m.HOOK}</p>
         <a class="th__go" href="{m.SLUG}.html">Continue reading &rarr;</a>
       </article>''' for m in WEEKLIES)
 
@@ -362,6 +364,7 @@ def build_weekly(m):
 
 <header class="plate">
   <div class="shell plate__in">
+    {_logo(m, "plate__logo", 1.0)}
     <p class="plate__k">{m.KICKER}<span class="plate__wk">{m.WEEK}</span></p>
     <h1 class="plate__t">{m.TITLE}</h1>
   </div>
