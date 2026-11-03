@@ -31,8 +31,10 @@ The owner wants every change pushed and confirmed live without waiting for appro
 
 ## Trojan Horse stories (`content/stories/`)
 
-- Name the horse early, in the story's own words: what is welcomed, who welcomes it, why it looks like a gift, what rides inside, how it harms. Then tell it as a story whose chapters open on an image, not as a list of findings.
-- Register: a dated scene opening ("Picture the morning of..."), first person, warm, dry humor carried by a concrete image, and a labelled analogy where an abstraction would sit. Never disparage the company the story is about.
+- **Length: under 1,200 words including the `NOTE`, aiming for 800 to 1,000.** Every paragraph must advance the argument. Cut company descriptions that do not support the thesis, repeated caveats and unsupported numbers. Count with the snippet in `docs/HANDOFF.md` section 11.
+- **Opening:** start with a familiar, concrete observation that raises the business question at once. Never open with "Picture the morning", an invented character, or a date and time. Example: "Walk into a grocery store and count the things promising protein... The interesting question is what the customer buys next."
+- Name the horse early and briefly (what is welcomed, what rides inside), then spend the words on the argument. Do not build or explain an extended metaphor.
+- Register: direct, vivid and conversational, first person, short paragraphs, a few useful subheadings. Explain sequences through customer decisions and business incentives. Keep what the evidence shows separate from what founders or companies are betting on, and label proposed features as proposals. Never disparage the company the story is about.
 - No standfirst or sub-description under any title.
 - `HOOK` is exactly one sentence with a concrete number or a tension and no cliche. It is the only text on the homepage card besides the headline.
 - Every story carries the subject company's logo (`LOGO`, file in `assets/images/logos/`).

@@ -1,27 +1,29 @@
 """Trojan Horse of the Week: ultra-personalized health.
 
-Written 3 November 2026 from the owner's brief: no single deal this week, a
-waterfall of consumer health that starts with protein and ends back at the
-recommendation, and how many Y Combinator startups now sit on it.
+Rewritten 3 November 2026 to the owner's brief: what these businesses reveal
+about consumers, how that behavior becomes recurring revenue, and how the
+spending reaches mainstream tech platforms. Under 1,200 words with the note.
 
-Every company description is the company's own, from its Y Combinator profile,
-read on 3 November 2026 from the directory's healthcare and consumer health
-pages. The count of eight is the author's reading of the 49 newest healthcare
-listings (all 2026 batches) and says so. Oura and Thorne figures are from the
-earlier stories, which cite the S-1 and P&G. The student buying protein is
-invented and labelled. One direct quote, RonanRx's own last line.
+Y Combinator counts are the author's arithmetic from the directory's industry
+pages, downloaded 3 November 2026 (5,243 companies across the eight top-level
+industries, each company listed once). "Consumer health" means YC's own
+Consumer Health and Wellness label, so the same definition covers every year.
+Company descriptions and headquarters are self-reported on YC profiles. Hims &
+Hers figures are from its second-quarter 2026 release and its 2025 10-K. Oura's
+panels are from Oura's own page. SURMOUNT-4 is from the ACC summary of the JAMA
+Internal Medicine analysis. Platform features marked as proposals are the
+author's.
 
-No em dashes, no semicolons, no rhetorical questions, no sub-description under
-the title.
+No em dashes, no semicolons, no rhetorical questions, no sub-description.
 """
 
 WEEK = "3 November 2026"
 SLUG = "personalized-health"
 KICKER = "Trojan Horse of the Week"
 TITLE = "The Protein Shake Is the Front Door"
-HOOK = ("By my count, eight of Y Combinator&rsquo;s 49 newest healthcare startups "
-        "sell personalized health straight to consumers, and together they cover "
-        "nearly every step from a tub of protein to a prescription.")
+HOOK = ("A tub of protein is bought once, and a whole set of companies is "
+        "betting its buyer will pay every month to be measured, interpreted "
+        "and treated.")
 LOGO = {"file": "ycombinator.svg", "w": 256, "h": 256, "name": "Y Combinator",
         "height": 36}
 GO = ("uber-rival-dinner.html",
@@ -30,183 +32,146 @@ GO = ("uber-rival-dinner.html",
 YC = "https://www.ycombinator.com/companies/"
 YC_HEALTH = "https://www.ycombinator.com/companies/industry/healthcare"
 YC_CHW = "https://www.ycombinator.com/companies/industry/consumer-health-and-wellness"
-LAYERS = YC + "layers"
-MITO = YC + "mito-health"
-GUT = YC + "gutgutgoose"
-LUMERIA = YC + "lumeria"
-RONAN = YC + "ronanrx-inc"
-PHOENIX = YC + "phoenix"
 HELIOS = YC + "helios-intelligence"
-INSTALAB = YC + "instalab"
-LUCIS = YC + "lucis"
+GUT = YC + "gutgutgoose"
+RONAN = YC + "ronanrx-inc"
 ILLUME = YC + "illume-labs"
-NORI = YC + "nori"
-PRANA = YC + "prana-health"
-CLARA = YC + "clara-2"
+HIMS = ("https://www.sec.gov/Archives/edgar/data/0001773751/000177375126000161/"
+        "hims-20260630x8xkearningsr.htm")
+HIMS_10K = "https://www.sec.gov/Archives/edgar/data/1773751/000177375126000022/hims-20251231.htm"
+SURMOUNT = ("https://www.acc.org/latest-in-cardiology/journal-scans/2025/12/09/"
+            "16/51/surmount-4")
+OURA_LABS = "https://ouraring.com/blog/health-panels/"
+INSTACART = "https://company.instacart.com/health"
+MENUS = ("https://www.scrippsnews.com/life/money/heres-how-the-glp-1-boom-is-"
+         "changing-fast-food-menus-and-prices")
 
 SECTIONS = [
 
- ("A tub of protein", [
-  "Picture the evening of Monday 3 November 2026. A sophomore, who exists only "
-  "in this story, has decided he would like to look better by spring. He does "
-  "what everyone does first. He buys a tub of whey, stocks the fridge with eggs "
-  "and chicken thighs, and downloads an app to count grams of protein. It is the "
-  "cheapest, safest and most sensible step in all of health, and it is also the "
-  "front door to an industry that would like him to keep walking.",
+ ("", [
+  "Walk into a grocery store and count the things promising protein. Cereal. "
+  "Pancakes. Chips. Ice cream. The interesting question is what the customer "
+  "buys next.",
 
-  "There is no acquisition in this week&rsquo;s story. This one is about a "
-  "market that is assembling itself, step by step, and about how many young "
-  "companies are building the steps.",
+  "A tub of whey is a one-time sale. The person who bought it has told the "
+  "market something worth far more: they want their body to change, and they "
+  "will pay to watch it happen. That is this week&rsquo;s Trojan horse. The "
+  "first purchase is cheap and sensible, and inside it rides a willingness to "
+  "pay again, every month, for measurement, interpretation and treatment. "
+  "There is no acquisition in this story.",
  ]),
 
- ("The horse is the word personal", [
-  "Every Trojan horse has the same parts. Here the horse is personalization. "
-  "The customer welcomes it because generic advice has failed him before, and a "
-  "plan built from his own body looks like the opposite of a sales pitch. It "
-  "looks like a gift, an expert who has read his file. What rides inside is a "
-  "measurement, and every measurement is built to find the next thing worth "
-  "measuring. The harm, when there is any, is gradual. A goal that began in the "
-  "gym can travel, one reasonable step at a time, to a prescription and a "
-  "monthly lab draw, and each step is sold by the data from the step before.",
+ ("What the startups reveal", [
+  "Recent Y Combinator profiles point to four things customers want.",
 
-  "A labelled analogy helps. Think of a waterfall with pools. Water lands in "
-  "the first pool, fills it, and spills into the next one down. Each pool is a "
-  "business, and the water is the customer&rsquo;s attention, money and data. "
-  "The pools sit lower and lower, closer to medicine, and the spill from one is "
-  "the inflow of the next.",
+  f"They want specific answers. <a href=\"{HELIOS}\">Helios Intelligence</a>, "
+  "a Boston company from the fall 2026 batch, says its home kit reads more "
+  "than 1,000 biomarkers from a drop of blood.",
+
+  f"They want visible progress. <a href=\"{GUT}\">Gutgutgoose</a>, in San "
+  "Francisco, sequences a customer&rsquo;s stool, formulates probiotics, then "
+  "sequences again 90 days later to see what took hold. The retest is part of "
+  "the product.",
+
+  f"They want easy access. <a href=\"{RONAN}\">RonanRx</a>, also based in San "
+  "Francisco, makes personalized peptides and GLP-1 drugs and sells them after "
+  "a telehealth visit. Its base is one city, but where it can treat patients "
+  "depends on state licenses, which it says it won in 33 states in ten weeks.",
+
+  f"They want to be told what to do next. <a href=\"{ILLUME}\">Illume Labs</a> "
+  "joins wearable, blood and genetic data and texts users their next step.",
+
+  "None of these profiles proves that customers stay. They show where founders "
+  "are placing bets.",
  ]),
 
- ("The first three pools", [
-  "The first pool is food. Protein and whole foods ask for no data at all, "
-  "which is exactly why everyone starts there. Then the goal sharpens. "
-  f"<a href=\"{LAYERS}\">Layers</a>, a 2025 Y Combinator company, says on its "
-  "profile that improving how you look and feel leads to better outcomes in "
-  "career and relationships, and that the body can be optimized like any other "
-  "system. That sentence is the whole first pool, written as a mission "
-  "statement.",
+ ("How big the bet is", [
+  "Healthcare is a small part of Y Combinator. By my count of its "
+  f"<a href=\"{YC_HEALTH}\">directory</a>, 67 of the 813 companies YC funded "
+  "in 2026 are healthcare companies, about 8%. YC labels 8 of those 67 as "
+  f"<a href=\"{YC_CHW}\">consumer health and wellness</a>, about 12%. That is "
+  "no surge. By the same label the share was 21 of 92 in 2021.",
 
-  "The second pool is supplements. This is where the money first became large "
-  "enough for a consumer giant to notice. P&amp;G "
-  "agreed in August to pay <a href=\"thorne-loyalty.html\">$3.8 billion for "
-  "Thorne</a>. Below that sit the startups that personalize the pill bottle. "
-  f"<a href=\"{GUT}\">Gutgutgoose</a> sequences a customer&rsquo;s stool, "
-  "formulates the probiotics it says the gut is missing, and sequences again 90 "
-  f"days later to see what took hold. <a href=\"{MITO}\">Mito Health</a> sells "
-  "a $9 a month membership that includes more than 11,000 practitioner-grade "
-  "supplements at cost, Thorne among them.",
-
-  "The third pool is the wearable and the gym. A ring or a watch turns the "
-  "workout into a score, and a score asks to be improved. Oura reported "
-  f"<a href=\"oura-ipo.html\">5.0 million paid members</a> by June, and about "
-  "85% of members still paying after a year. The idea has become a unit of "
-  f"description. <a href=\"{LUMERIA}\">Lumeria</a>, from the summer 2026 batch, "
-  "calls itself the Oura Ring for skin. It clips a multispectral camera onto a "
-  "phone, tracks breakouts and wrinkles over time, and matches products to what "
-  "the customer&rsquo;s own data says works.",
+  "RonanRx and Gutgutgoose carry other tags, so the label undercounts the "
+  "theme. What stands out this year is breadth: blood testing, gut "
+  "sequencing, prescription drugs and the software that reads "
+  "them all. Most are in San Francisco, like 46 of this year&rsquo;s 67 YC "
+  "healthcare companies, so headquarters says more about YC than about the "
+  "market. Licenses and lab networks decide where each one can sell.",
  ]),
 
- ("Two pools closer to the doctor", [
-  "The fourth pool is where the water turns medical: peptides, testosterone "
-  "and hormone therapy. <a href=\"" + RONAN + "\">RonanRx</a>, also from the "
-  "summer 2026 batch, describes itself as a full-stack pharmaceutical company "
-  "starting with personalized peptides and GLP-1s. Its profile says it went "
-  "from no pharmacy to licenses in 33 states in its first ten weeks, has grown "
-  "50% week over week since launch, manufactures the drugs itself and sells "
-  "directly to patients after a telehealth visit with a licensed doctor. Its "
-  "last line names the next pool: &ldquo;Next comes hormone therapy and the "
-  "rest of personalized medicine.&rdquo; An older Y Combinator company, "
-  f"<a href=\"{PHOENIX}\">Phoenix</a>, already runs a digital clinic for men in "
-  "Canada.",
+ ("Recurring revenue is not cash", [
+  "Each step invites a repeat. A blood panel invites a retest. A wearable "
+  "carries a membership. A prescription refills. Treatment can also run long. "
+  f"In Lilly&rsquo;s SURMOUNT-4 trial, <a href=\"{SURMOUNT}\">82% of the "
+  "participants</a> switched from tirzepatide to placebo regained more than a "
+  "quarter of their lost weight within a year, and the rest did not. Peptides "
+  "are a looser group, with far less evidence behind most of them.",
 
-  "The fifth pool is the blood test, and it is the busiest. "
-  f"<a href=\"{HELIOS}\">Helios Intelligence</a>, from the fall 2026 batch, "
-  "sells an at-home test that it says measures more than 1,000 biomarkers from "
-  "a drop of blood, and describes its goal as a world model of human biology. "
-  f"<a href=\"{INSTALAB}\">Instalab</a> sells proactive testing to what it calls "
-  f"tens of thousands of founders, executives and athletes. <a href=\"{LUCIS}\">"
-  "Lucis</a> describes itself as Function Health for Europe, which tells you "
-  "that a blood-testing brand has also become a unit of description. Mito "
-  "Health lists more than 12,000 lab tests.",
+  "Hims &amp; Hers shows the economics in public. In the second quarter it "
+  f"reported <a href=\"{HIMS}\">nearly 2.9 million subscribers</a> paying an "
+  "average of $92 a month, and revenue of $753.2 million. It also spent $262.2 "
+  "million on marketing, about 35% of revenue by my arithmetic, saw gross "
+  "margin fall to 64% from 76%, and reported free cash flow of negative $68.2 "
+  "million.",
+
+  "Recurring revenue is a promise of future payments. Cash flow is what "
+  "remains after the drug, the pharmacy, the clinician, the lab, shipping, "
+  "advertising and every customer who cancels. The customer comes back because the next measurement says whether the last "
+  "purchase worked.",
  ]),
 
- ("The pool that feeds the first one", [
-  "A waterfall ends in a river. This one ends in a recommendation, and the "
-  "recommendation sends the customer back to the top. "
-  f"<a href=\"{ILLUME}\">Illume Labs</a> connects wearables, blood panels and "
-  "genetic data and texts its users what changed and what to do next. "
-  f"<a href=\"{NORI}\">Nori</a> turns Apple Health, records and wearables into "
-  f"a daily plan. <a href=\"{PRANA}\">Prana</a> watches records and wearables "
-  f"for what it calls clinical drift. <a href=\"{CLARA}\">Clara</a> calls itself "
-  "an AI primary care and longevity practice. RonanRx says labs, wearables and "
-  "treatment response feed back into its platform so doctors can refine the "
-  "dose.",
+ ("Where the spending reaches tech", [
+  "Every new health habit is a product change waiting for a platform that "
+  "already has the customer.",
 
-  "Follow the sophomore through it. His blood test says his vitamin D is low, "
-  "so the plan recommends a supplement. His ring says his sleep is poor, so the "
-  "plan recommends magnesium and an earlier dinner. A later panel suggests a "
-  "conversation about hormones. Each recommendation is reasonable on its own, "
-  "and each one buys a product from an earlier pool and books a measurement "
-  "from a later one. The water goes round. Gutgutgoose puts the economics "
-  "plainly on its profile: most data companies pay for their data and its "
-  "own data pays for itself.",
+  "Wearables are becoming lab storefronts. Oura now sells "
+  f"<a href=\"{OURA_LABS}\">$99 blood panels</a> to members in most American "
+  "states, drawn at Quest and reported inside the app. A ring that measured "
+  "sleep now sells the next measurement. That is new spending on top of the "
+  "membership, and one more reason not to cancel it.",
+
+  "Grocery apps can turn plans into baskets. Instacart already runs "
+  f"<a href=\"{INSTACART}\">AI-powered health tags</a> across its catalog and "
+  "Care Carts that let providers send groceries to patients. My proposal: a "
+  "nutrition plan from a blood test becomes a weekly basket that reorders "
+  "itself. That captures grocery spending from rival stores and makes orders "
+  "more frequent.",
+
+  "Delivery apps can sell the high-protein lunch. Chains are already adding "
+  f"<a href=\"{MENUS}\">high-protein menus</a> for the GLP-1 era. I found no "
+  "protein filter on Uber Eats, so these are proposals: filters by protein, "
+  "discovery by nutrition goal, a standing weekly order and sponsored placement "
+  "for high-protein dishes. Most of that captures spending from home cooking "
+  "and rivals. Sponsored placement adds advertising revenue on top, sold to "
+  "restaurants the app already serves.",
+
+  f"Ad platforms collect from all of it. Hims <a href=\"{HIMS_10K}\">says</a> it "
+  "buys space on digital, social, television, radio and outdoor media, and its "
+  "marketing bill was a third of revenue. For whoever sells that space, it is "
+  "additional spending, paid by the whole category.",
  ]),
 
- ("How many, really", [
-  f"Y Combinator&rsquo;s <a href=\"{YC_HEALTH}\">healthcare directory</a> runs "
-  "to thirteen pages of fifty, more than 600 companies by my arithmetic, and "
-  f"its <a href=\"{YC_CHW}\">consumer health and wellness</a> list holds about "
-  "90. On 3 November the 49 newest healthcare listings were all from 2026 "
-  "batches. By my count eight of them sell personalized health directly to "
-  "people: Helios Intelligence, Lumeria, RonanRx, Gutgutgoose, Illume Labs, "
-  "Omanta, Clara and Juno. Most of the other 41 sell artificial intelligence "
-  "to hospitals, clinics and insurers, for billing, radiology and the front "
-  "desk.",
-
-  "So the honest answer is that consumer health is a minority of what Y "
-  "Combinator is funding in healthcare, about one in six of the newest "
-  "companies. The striking thing is the coverage. Within a single year of "
-  "batches there is a company for nearly every pool: skin scanning, gut "
-  "sequencing, peptides, a thousand-biomarker blood test, and a texting "
-  "companion that ties them together. Y Combinator does not plan the "
-  "waterfall, and its founders build it anyway, each one assuming the pool "
-  "above will keep filling.",
+ ("Who keeps the customer", [
+  "Whoever holds the latest measurement holds the relationship, because the "
+  "latest number decides what gets recommended next and where it is bought. A "
+  "ring that sells blood tests, or a grocery app that receives the plan, sits "
+  "closer to that decision than a supplement on a shelf. Even "
+  f"<a href=\"thorne-loyalty.html\">Thorne</a>, which P&amp;G agreed to buy for "
+  "$3.8 billion, could become the product someone else&rsquo;s app recommends.",
  ]),
 
- ("Where it could break", [
-  "Three things could slow the water. The first is the false alarm. A test "
-  "that measures a thousand markers will flag some of them, and a flag that "
-  "means nothing still costs a follow-up, a supplement or an anxious week. The "
-  "second is the stakes. The first three pools sell food, pills and devices, "
-  "while the fourth sells prescription drugs, which is why RonanRx puts a "
-  "licensed doctor between the intake and the medicine. Mistakes cost more at "
-  "the bottom of the falls. The third is the bill. A membership, a ring, a "
-  "panel, a prescription and a protein subscription each look modest, and "
-  "together they become a second rent.",
-
-  "The case for the waterfall is also strong. People stay. Oura&rsquo;s "
-  "retention shows that customers who are measured every morning keep paying, "
-  "and Mito Health&rsquo;s pitch, prices at cost with itemized receipts, shows "
-  "that some founders are competing on the cost problem directly.",
- ]),
-
- ("What to watch", [
-  "First, whether RonanRx reaches hormone therapy, the step it has already "
-  "named. Second, whether a large consumer company that bought into an upper "
-  "pool, as P&amp;G did with Thorne, reaches down into testing or "
-  "prescriptions. Third, how many of the Winter 2027 companies, whose "
-  "applications were due by 2 November, land in consumer health. Fourth, whether "
-  "the companies that recommend begin to own the products they recommend, "
-  "because that is the moment a waterfall becomes a single business. The "
-  "sophomore only wanted to look better by spring, and every pool below him is "
-  "betting that he will want to know why.",
+ ("What could break it", [
+  "Customers quit when the numbers stop moving, and Hims&rsquo; marketing bill "
+  "shows what replacing them costs. A thousand biomarkers will flag some that "
+  "mean nothing, and each false alarm costs a follow-up. Hims reshaped its weight-loss offer this year "
+  "and now offers compounded GLP-1 drugs only on a limited scale. And if "
+  "testing does not lead to results people can see, the retest is the first "
+  "purchase they cancel.",
  ]),
 ]
 
-NOTE = ("Company descriptions and figures are the companies&rsquo; own, from "
-        "their Y Combinator profiles read on 3 November 2026, and were not "
-        "independently checked. The count of eight, the share of the newest "
-        "listings and the size of the directory are my arithmetic from the "
-        "directory&rsquo;s pages. Oura and Thorne figures come from the earlier "
-        "stories and their sources. Y Combinator has not acquired anything here, "
-        "and its mark identifies the batch and implies no endorsement. The "
-        "sophomore is invented. Nothing here is medical advice.")
+NOTE = ("YC counts are my arithmetic from the directory&rsquo;s industry pages "
+        "on 3 November 2026, and consumer health means YC&rsquo;s own label. "
+        "Startup descriptions and RonanRx&rsquo;s license count are "
+        "company-reported. Features marked as proposals are mine. Nothing here is medical advice.")

@@ -162,6 +162,8 @@ The rules in `CLAUDE.md` are the short version. The detail behind them:
 
 **Story register.** See `CLAUDE.md`. The owner rejected two earlier Oura drafts: the first never named the horse, and the second was eleven separate findings that read like a walkthrough of the filing. The accepted version has eight chapters, names the horse early, and follows one idea through the numbers (every dollar in an IPO has a return address).
 
+**Length and openings (owner's rule, 3 November 2026).** Every Trojan Horse story stays under 1,200 words including the source note, aiming for 800 to 1,000, and every paragraph must advance the argument. No more "Picture the morning" openings, invented characters, or dates and times as openers: start from a familiar, concrete observation that raises the business question. The personalized health story was rewritten to this rule because the first version spent too long on its waterfall metaphor and on listing companies. The Oura (about 1,990 words), Thorne (about 1,380) and Uber (about 1,480) stories predate the rule and are over it.
+
 **Older pages.** The process page, the Prologue, the Palo Alto stories and the Atlas use a plainer, argument-first register. The Trojan Horse stories are the one place where humor and analogy are wanted.
 
 ## 10. Decision log
@@ -174,6 +176,7 @@ The rules in `CLAUDE.md` are the short version. The detail behind them:
 - **2026-10-30:** Trojan Horses was reduced to the P&G and Thorne piece, then the weekly-story format began with the Thorne loyalty story. The tagline became "Hidden Risks Behind Promising Deals", the homepage drawing was removed, the essay lost a paragraph, and the owner set the rule of no sub-descriptions under story titles.
 - **2026-10-31:** the Oura story was written and rewritten twice, and the Uber story was added. The homepage was rebuilt: the timeline was renamed Prologue, the stories became a three-column section with one-sentence hooks, Atlas moved under the Spotify mark, and every story got its company's logo.
 - **2026-11-03:** the Uber story was rewritten around the ezCater purchase and the B2B case for Uber for Business, with Delivery Hero and hotel booking as supporting moves (slug kept so shared links work). A fourth story, on personalized health, was added. It is not about a deal, says so, and uses Y Combinator profiles as its evidence, so the homepage grid now goes two by two for four stories.
+- **2026-11-03 (later):** owner set the 1,200-word cap and the no-scene-opening rule. The health story was rewritten to about 1,000 words around what consumers reveal, recurring revenue against cash flow (Hims & Hers second quarter), and where the spending reaches Oura, Instacart, delivery apps and ad platforms. Its YC claim now uses YC's own Consumer Health and Wellness label across years, which shows no 2026 surge (8 of 67 healthcare companies against 21 of 92 in 2021).
 - **2026-11-02 (atlas-map branch, round 2):** the Map moved to WebGL (PixiJS) with planets, sector bundles, focus mode, glide and pinch zoom, deep links (`#c-`, `#s-`) and a minimap. Ratings became six attributes with a calculated OVR and badges. Timothy Zhang added as co-author.
 - **2026-11-02 (atlas-map branch):** Ryan Chian added as co-author. The Atlas data moved from nine Python modules into `content/atlas/atlas.json`, with every page byte-identical after the move. A Map view (a galaxy of sector territories with camera flights), 2K-style OVR ratings with a rubric, a validator and tests were added.
 - **2026-11-02:** handoff docs added, then the repo was reorganised into `content/`, `assets/` and `build.py`. GitHub Actions now builds and publishes on every commit, so the built HTML is no longer committed and anyone can edit in the browser. The homepage text moved out of the code into `content/home.py`. The unused `mandate_data.py` was removed (its text lives on in Part One of the process page and in git history).
@@ -210,6 +213,19 @@ print("broken internal links:", bad or "none")
 PY
 ```
 
+**Count a story's words** (title, headings, paragraphs and `NOTE`; the cap is 1,200, the aim 800 to 1,000). Put story module names at the end:
+
+```bash
+python3 - health uber <<'PY'
+import sys, re, html, importlib
+sys.path.insert(0, "content/stories")
+for name in sys.argv[1:]:
+    m = importlib.import_module(name)
+    parts = [m.TITLE] + [h for h, _ in m.SECTIONS] + [p for _, ps in m.SECTIONS for p in ps] + [m.NOTE]
+    print(name, len(html.unescape(re.sub(r"<[^>]+>", " ", " ".join(parts))).split()))
+PY
+```
+
 **Watch a push go live:** `gh run watch` follows the build. A green build has published. Then confirm with curl:
 
 ```bash
@@ -231,7 +247,7 @@ curl -s https://trojanhorse.blog/<page>.html | grep -c "<a string from your chan
    - Oura: the filing's note tying the $985.0 million deemed dividend to a specific repurchase, and its principal and selling stockholders table, were outside the readable part. The WSJ article the owner pointed to could not be found, so it is not cited.
    - Thorne: the Flow Space roundup of reactions was seen only through search summaries (it is pay-per-crawl). Reddit blocks automated reading, so there is no post-level evidence and the page says so.
    - Uber: the Citizens analyst view is as reported by Parameter, not from the Citizens note. Waymo's one-million-weekly-rides goal rests on a Bloomberg headline. Only part of the 10-K risk-factor text was read. The Citizens and Waymo-goal paragraphs were cut in the ezCater rewrite. The ezCater figures come from press coverage of Uber's release, which could not be read directly, and no outlet gave a synergy figure.
-   - Personalized health: company claims are self-reported on Y Combinator profiles. The count of eight consumer companies among the 49 newest healthcare listings is the author's classification and will drift as batches are added.
+   - Personalized health: company claims are self-reported on Y Combinator profiles. YC counts come from downloading every page of the eight top-level industry listings on 3 November 2026 (5,243 companies) and grouping by batch year, so they will drift as YC adds and relabels companies. Uber Eats was searched for a protein filter and none was found, so those features are labelled as proposals.
 9. **Dead CSS.** About 76 of 189 class names in `site.css` are used by no page: the circular-horse landing (`.horse`, `.pair`), the cover picker (`.silo*`), First Principles (`.fp*`) and `.belt*`. The older TROJAN HORSES section is dead.
 10. **Dead data.** `INTRO`, `INTRO_2` and `CLOSE` in `content/prologue.py` are imported but not rendered. Atlas modules for telecom, foundation, mobility, robotics, health, defense, quantum and energy exist but are not loaded. To bring one back, move its data into `atlas.json`.
 12. **Atlas ratings are drafts.** Every attribute and badge was drafted on 2026-11-02 from the Atlas data alone and is marked `draft`, with `ovr_by` set to `Claude (draft)`. Review them against `docs/ratings-rubric.md`, or set `SHOW_DRAFT_RATINGS = False` before they go live. Firepower and Deal Heat are unrated for most companies because the Atlas does not state the facts.
