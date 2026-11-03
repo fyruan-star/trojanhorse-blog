@@ -82,6 +82,14 @@ class Geometry(unittest.TestCase):
         for sid in one_row:
             self.assertEqual(LAYOUT["sectors"][sid]["spokes"], [])
 
+    def test_bands_cover_each_row_once_and_sit_inside(self):
+        for sid in AD.HOME.values():
+            t = LAYOUT["sectors"][sid]
+            self.assertEqual([b["id"] for b in t["bands"]], [r["id"] for r in t["rows"]])
+            self.assertLess(t["outer"], t["r"])
+            for a, b in zip(t["bands"], t["bands"][1:]):
+                self.assertLessEqual(a["a1"], b["a0"])
+
     def test_outline_is_a_closed_path(self):
         for t in LAYOUT["sectors"].values():
             self.assertTrue(t["outline"].startswith("M") and t["outline"].endswith("Z"))

@@ -128,7 +128,11 @@ def _territory(rid, rows, cards):
         (math.cos(a0 - WEDGE_GAP / 2), math.sin(a0 - WEDGE_GAP / 2)) for a0, _ in wedges]
     spokes = [(c * MIN_GAP * 0.5, s * MIN_GAP * 0.5, c * base * floor * 0.94, s * base * floor * 0.94) for c, s in spokes]
     rings = [e for e in edges[:-1] if e < base * floor * 0.94]
-    return nodes, base, reach, {"rows": rim, "spokes": spokes, "rings": rings}
+    # each sub-row as a named band: its wedge, from the core to just inside the outline
+    bands = [{"id": row["id"], "name": row["name"], "a0": round(a0, 4), "a1": round(a0 + span, 4)}
+             for row, (a0, span) in zip(rows, wedges)]
+    return nodes, base, reach, {"rows": rim, "spokes": spokes, "rings": rings, "bands": bands,
+                                "inner": MIN_GAP * 0.5, "outer": base * floor * 0.94}
 
 
 def _backer_cards(data):
@@ -154,7 +158,8 @@ def layout(data):
         n["x"], n["y"] = ring * math.cos(t), ring * math.sin(t)
     floor = 1 - sum(amp for _, amp in WOBBLE)
     island_base = (ring + PAD) / floor
-    local[BACKERS] = (island, island_base, island_base * (2 - floor), {"rows": [], "spokes": [], "rings": []})
+    local[BACKERS] = (island, island_base, island_base * (2 - floor),
+                      {"rows": [], "spokes": [], "rings": [], "bands": [], "inner": 0, "outer": island_base * floor * 0.94})
 
     rows_of = {t: [sid for sid, s in sectors.items() if s["tier"] == t] for t in TIER_ORDER}
     rows_of["platform"] = rows_of["platform"] + [BACKERS]
@@ -189,7 +194,8 @@ def layout(data):
                     "rows": [{**r, "x": round(r["x"] + cx, 1), "y": round(r["y"] + cy, 1)} for r in marks["rows"]],
                     "spokes": [[round(x1 + cx, 1), round(y1 + cy, 1), round(x2 + cx, 1), round(y2 + cy, 1)]
                                for x1, y1, x2, y2 in marks["spokes"]],
-                    "rings": [round(r, 1) for r in marks["rings"]]}
+                    "rings": [round(r, 1) for r in marks["rings"]], "bands": marks["bands"],
+                    "inner": round(marks["inner"], 1), "outer": round(marks["outer"], 1)}
         for n in nodes:
             c = n["card"]
             home = data["companies"][c["company"]]["sector"]

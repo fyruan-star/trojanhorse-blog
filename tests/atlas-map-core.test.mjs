@@ -9,27 +9,6 @@ const C = require("../assets/atlas-map-core.js");
 const VIEW = { w: 1000, h: 600 };
 const NO_INSET = { top: 0, right: 0, bottom: 0, left: 0 };
 
-test("fit centres a box and scales it to the tighter side", () => {
-  const t = C.fit([0, 0, 200, 100], VIEW, NO_INSET, 0, { min: 0.01, max: 100 });
-  assert.equal(t.k, 5); // 1000/200 = 5, 600/100 = 6
-  assert.equal(t.x + t.k * 100, 500); // box centre lands on view centre
-  assert.equal(t.y + t.k * 50, 300);
-});
-
-test("fit leaves room for the card panel", () => {
-  const t = C.fit([0, 0, 100, 100], VIEW, { top: 0, right: 400, bottom: 0, left: 0 }, 0, { min: 0.01, max: 100 });
-  assert.equal(t.x + t.k * 50, 300); // centre of the 600px left of the panel
-});
-
-test("fit respects the zoom limits", () => {
-  assert.equal(C.fit([0, 0, 1, 1], VIEW, NO_INSET, 0, { min: 0.1, max: 4 }).k, 4);
-});
-
-test("centre puts a point in the middle of the free area", () => {
-  const t = C.centre({ x: 10, y: 20 }, 2, VIEW, { top: 0, right: 0, bottom: 300, left: 0 });
-  assert.deepEqual([t.x + 2 * 10, t.y + 2 * 20], [500, 150]);
-});
-
 test("flight time is held between 0.8 and 1.2 seconds, and is instant for reduced motion", () => {
   assert.equal(C.flightMs(100, false), 800);
   assert.equal(C.flightMs(5000, false), 1200);
@@ -132,8 +111,136 @@ test("stars are the same every time for the same seed", () => {
   for (const s of C.stars(50, 1)) assert.ok(s.x >= 0 && s.x < 1 && s.y >= 0 && s.y < 1);
 });
 
-test("labels show by zoom: sectors far out, companies close in", () => {
-  assert.deepEqual(C.labelsAt(1), { tiers: true, sectors: true, rows: false, companies: false });
-  assert.equal(C.labelsAt(3).companies, true);
-  assert.equal(C.labelsAt(3).sectors, false);
+test("semantic zoom: planets far out, companies close in, a blend between", () => {
+  assert.equal(C.detail(1), 0);
+  assert.equal(C.detail(10), 1);
+  const mid = C.detail((C.SHOW.planetsUntil + C.SHOW.sectorsFrom) / 2);
+  assert.ok(mid > 0 && mid < 1);
+});
+
+/* ---------------------------------------------------------- camera */
+const V = { w: 800, h: 600 };
+const near = (a, b, e = 1e-6) => Math.abs(a - b) < e;
+
+test("screen and world round-trip", () => {
+  const cam = { x: 100, y: -50, k: 2.5 };
+  const w = C.toWorld(cam, V, C.toScreen(cam, V, { x: 7, y: 9 }));
+  assert.ok(near(w.x, 7) && near(w.y, 9));
+});
+
+test("zooming around a point keeps that point under the cursor", () => {
+  const cam = { x: 0, y: 0, k: 1 }, s = { x: 650, y: 120 };
+  const before = C.toWorld(cam, V, s);
+  const after = C.toWorld(C.zoomAround(cam, V, s, 3.7), V, s);
+  assert.ok(near(before.x, after.x) && near(before.y, after.y));
+});
+
+test("fitCam centres a box and fits its tighter side", () => {
+  const cam = C.fitCam([0, 0, 200, 100], V, 0, { min: 0.01, max: 100 });
+  assert.deepEqual([cam.x, cam.y, cam.k], [100, 50, 4]);
+});
+
+test("clampCam holds the zoom limits and keeps the centre near the map", () => {
+  const c = C.clampCam({ x: 9999, y: -9999, k: 50 }, [0, 0, 100, 100], { min: 1, max: 4 });
+  assert.equal(c.k, 4);
+  assert.ok(c.x <= 100 && c.y >= 0);
+});
+
+test("eased approach closes most of the gap in a few frames and never overshoots", () => {
+  let v = 0;
+  for (let i = 0; i < 6; i++) v = C.approach(v, 100, 16.7, 60);
+  assert.ok(v > 75 && v < 100);
+});
+
+test("inertia slows smoothly and stops", () => {
+  let v = { x: 2, y: -1 }, steps = 0;
+  const first = C.glide(v, 16.7, 325);
+  assert.ok(Math.hypot(first.x, first.y) < Math.hypot(2, 1));
+  while (v && steps < 1000) { v = C.glide(v, 16.7, 325); steps++; }
+  assert.ok(steps > 20 && steps < 400);
+});
+
+test("a flight starts and ends on its cameras, zooms out mid-way on a long jump, and has a duration", () => {
+  const a = { x: 0, y: 0, k: 1 }, b = { x: 5000, y: 0, k: 1 };
+  const f = C.flight(a, b, V);
+  const s = f.at(0), e = f.at(1), m = f.at(0.5);
+  assert.ok(near(s.x, 0) && near(e.x, 5000, 1e-6) && near(e.k, 1, 1e-9));
+  assert.ok(m.k < 1);
+  assert.ok(f.duration > 0);
+});
+
+test("a flight that only zooms still works", () => {
+  const f = C.flight({ x: 10, y: 10, k: 1 }, { x: 10, y: 10, k: 4 }, V);
+  assert.ok(near(f.at(1).k, 4, 1e-9) && near(f.at(0.5).x, 10));
+});
+
+/* ------------------------------------------------------- focus ring */
+test("focus ring puts allies left, rivals right, backers above and backed below", () => {
+  const pos = C.focusRing({ left: ["a"], right: ["r"], top: ["b"], bottom: ["d"] }, 200, 120);
+  assert.ok(pos.a.x < 0 && Math.abs(pos.a.y) < 1e-9);
+  assert.ok(pos.r.x > 0);
+  assert.ok(pos.b.y < 0 && pos.d.y > 0);
+});
+
+test("focus ring keeps neighbours apart, even when one side is crowded", () => {
+  const left = Array.from({ length: 9 }, (_, i) => "l" + i);
+  const pos = C.focusRing({ left, right: ["r1", "r2"], top: ["t"], bottom: [] }, 180, 110);
+  const pts = Object.values(pos);
+  for (const p of pts) for (const q of pts) if (p !== q) assert.ok(Math.hypot(p.x - q.x, p.y - q.y) >= 110 * 0.95);
+  for (const id of left) assert.ok(pos[id].x < 0, id + " should be on the left");
+});
+
+/* ----------------------------------------------------------- bundles */
+test("bundles count relationships between home sectors, by kind", () => {
+  const home = { a: "s1", b: "s2", c: "s2", d: "s1" };
+  const edges = [{ a: "a", b: "b", group: "allies" }, { a: "c", b: "a", group: "backers" }, { a: "a", b: "d", group: "rivals" },
+                 { a: "d", b: "c", group: "allies" }];
+  const out = C.bundles(edges, home);
+  assert.equal(out.length, 1);
+  assert.deepEqual([out[0].a, out[0].b, out[0].count], ["s1", "s2", 3]);
+  assert.deepEqual(out[0].by, { allies: 2, rivals: 0, backers: 1 });
+  assert.equal(C.bundleText(out[0], { s1: "Silicon", s2: "Cloud" }), "Silicon ↔ Cloud: 2 ally, 1 backer");
+});
+
+/* -------------------------------------------------------- deep links */
+const COS = new Set(["oracle", "nvidia"]), SECS = new Set(["silicon", "cloud"]);
+test("deep links: companies and sectors open the map, old card links open the list", () => {
+  assert.deepEqual(C.parseHash("#c-oracle", COS, SECS), { view: "map", company: "oracle" });
+  assert.deepEqual(C.parseHash("#s-cloud", COS, SECS), { view: "map", sector: "cloud" });
+  assert.deepEqual(C.parseHash("#sector-cloud", COS, SECS), { view: "list" });
+  assert.deepEqual(C.parseHash("#c-silicon-accelerators-nvidia", COS, SECS), { view: "list" });
+  assert.deepEqual(C.parseHash("", COS, SECS), { view: null });
+  assert.deepEqual(C.parseHash("#c-nobody", COS, SECS), { view: null });
+});
+
+test("deep links are written back for the current place", () => {
+  assert.equal(C.hashFor({ level: "company", selected: "oracle" }), "#c-oracle");
+  assert.equal(C.hashFor({ level: "sector", sector: "cloud" }), "#s-cloud");
+  assert.equal(C.hashFor({ level: "galaxy" }), "");
+});
+
+/* ------------------------------------------------------------- radar */
+test("radar puts each attribute on its own spoke, unrated at the floor", () => {
+  const pts = C.radar([99, 40, null, 70, 70, 70], 100);
+  assert.equal(pts.length, 6);
+  assert.ok(near(Math.hypot(pts[0].x, pts[0].y), 100, 1e-9));
+  assert.ok(near(Math.hypot(pts[1].x, pts[1].y), C.RADAR_FLOOR * 100, 1e-9));
+  assert.ok(near(Math.hypot(pts[2].x, pts[2].y), C.RADAR_FLOOR * 100, 1e-9));
+  assert.ok(pts[0].y < 0); // first spoke points up
+});
+
+test("on narrow screens the ring is one ellipse that keeps each side's place", () => {
+  const groups = { top: ["b1"], right: ["r1", "r2"], bottom: ["d1", "d2", "d3", "d4"], left: ["a1", "a2", "a3"] };
+  const pos = C.ellipseRing(groups, 110, 190);
+  assert.equal(Object.keys(pos).length, 10);
+  assert.ok(pos.b1.y < -150);
+  for (const id of ["r1", "r2"]) assert.ok(pos[id].x > 0, id);
+  for (const id of ["a1", "a2", "a3"]) assert.ok(pos[id].x < 0, id);
+  for (const p of Object.values(pos)) assert.ok(Math.abs((p.x / 110) ** 2 + (p.y / 190) ** 2 - 1) < 1e-9);
+});
+
+test("ellipse ring spreads neighbours evenly", () => {
+  const pos = C.ellipseRing({ top: [], right: ["a", "b", "c", "d"], bottom: [], left: [] }, 100, 100);
+  const pts = Object.values(pos);
+  for (const p of pts) for (const q of pts) if (p !== q) assert.ok(Math.hypot(p.x - q.x, p.y - q.y) > 100);
 });

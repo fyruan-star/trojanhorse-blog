@@ -200,7 +200,7 @@ FOOT = """
 <footer class="foot">
   <div class="shell foot__in">
     <span>&copy; 2026 The Trojan Horse</span>
-    <span>Francis Ruan &amp; Ryan Chian &middot; Los Angeles</span>
+    <span>Francis Ruan, Ryan Chian &amp; Timothy Zhang &middot; Los Angeles</span>
   </div>
 </footer>
 
@@ -289,7 +289,7 @@ def build_index():
 '''
 
     html = (HEAD.format(title="The Trojan Horse",
-                        desc="A mergers and acquisitions journal and podcast by Francis Ruan and Ryan Chian.")
+                        desc="A mergers and acquisitions journal and podcast by Francis Ruan, Ryan Chian and Timothy Zhang.")
             + CAPITAL_DEF + COVER.replace("{TAGLINE}", TAGLINE) + ESSAY
             + prologue + horses + ROOMS + FOOT)
     (ROOT / "index.html").write_text(html, encoding="utf-8")
@@ -570,6 +570,7 @@ import json as _json
 from urllib.parse import urlparse as _urlparse
 import atlas_data as AD
 import atlas_layout as AL
+import atlas_ratings as AR
 from atlas_essays import INTRO as AT_INTRO, SECTOR_PIECES as AT_PIECES
 from atlas_log import METHOD as AT_METHOD, GAPS as AT_GAPS, NOT_YET as AT_NOT_YET
 
@@ -593,6 +594,15 @@ def _ovr_chip(ent):
     return (f'<span class="ovr{" ovr--draft" if draft else ""}" data-tier="{_esc(tier)}" title="{label}" aria-label="{label}">'
             f'{r["ovr"]}</span>')
 
+def _published(ent):
+    """The rating fields a company publishes in tech-atlas.json, already filtered for drafts."""
+    r = AD.RESOLVED.get(ent)
+    if not r or not (r["attributes"] or r["badges"] or r["ovr"] is not None):
+        return {}
+    c = AD.DATA["companies"][ent]
+    by = {k: c[k] for k in ("ovr_by", "ovr_updated") if c.get(k) and r["attributes"]}
+    return {**r, **by}
+
 def _map_shell():
     """The Map view's frame. atlas-map.js draws into it, and without scripts it stays hidden."""
     sectors = "".join(
@@ -603,31 +613,36 @@ def _map_shell():
         for k, v in RANK_NAME.items())
     return f"""<section class="amap" id="atlas-map" aria-label="Map of the Tech Atlas" hidden>
   <div class="amap__stage">
-    <canvas class="amap__stars" aria-hidden="true"></canvas>
-    <svg class="amap__svg" aria-label="Galaxy of sectors and companies. Tab to a territory or company and press Enter to fly to it."></svg>
-    <div class="amap__hud">
-      <div class="amap__crumbs">
-        <button type="button" class="amap__back" hidden>&larr; Back</button>
-        <p class="amap__where" aria-live="polite">All sectors</p>
+    <div class="amap__view">
+      <div class="amap__canvas"></div>
+      <div class="amap__keys" role="group" aria-label="Sectors and companies on the map"></div>
+      <div class="amap__hud">
+        <div class="amap__crumbs">
+          <button type="button" class="amap__back" hidden>&larr; Back</button>
+          <p class="amap__where" aria-live="polite">All sectors</p>
+        </div>
+        <div class="amap__tools">
+          <button type="button" class="amap__tool" data-zoom="in" aria-label="Zoom in">+</button>
+          <button type="button" class="amap__tool" data-zoom="out" aria-label="Zoom out">&minus;</button>
+          <button type="button" class="amap__tool amap__tool--wide" data-zoom="home">All sectors</button>
+          <button type="button" class="amap__tool amap__tool--wide" aria-expanded="false" aria-controls="amap-filters">Filters</button>
+        </div>
       </div>
-      <div class="amap__tools">
-        <button type="button" class="amap__tool" data-zoom="in" aria-label="Zoom in">+</button>
-        <button type="button" class="amap__tool" data-zoom="out" aria-label="Zoom out">&minus;</button>
-        <button type="button" class="amap__tool amap__tool--wide" data-zoom="home">All sectors</button>
-        <button type="button" class="amap__tool amap__tool--wide" aria-expanded="false" aria-controls="amap-filters">Filters</button>
+      <div class="amap__filters" id="amap-filters" hidden>
+        <fieldset><legend>Sectors</legend>{sectors}</fieldset>
+        <fieldset><legend>Rank</legend>{ranks}</fieldset>
+        <p class="amap__fnote">Relationship types are the switches in the bar above.</p>
       </div>
+      <div class="amap__legend" aria-hidden="true">
+        <span><i class="lk lk--allies"></i>Ally</span><span><i class="lk lk--rivals"></i>Rival</span><span><i class="lk lk--backers"></i>Backer &rarr; backed</span>
+        <span><i class="ring ring--starter"></i>Starter</span><span><i class="ring ring--second"></i>Second string</span><span><i class="ring ring--rookie"></i>Practice squad</span>
+      </div>
+      <canvas class="amap__mini" tabindex="0" role="button" aria-label="Minimap of the whole galaxy. Click a place to fly there, or press Enter to see all sectors."></canvas>
+      <p class="amap__hint" hidden>Scroll to zoom &middot; drag to move &middot; click a company</p>
+      <div class="amap__tip" role="tooltip" hidden></div>
+      <p class="amap__msg" role="status">Loading the map.</p>
     </div>
-    <div class="amap__filters" id="amap-filters" hidden>
-      <fieldset><legend>Sectors</legend>{sectors}</fieldset>
-      <fieldset><legend>Rank</legend>{ranks}</fieldset>
-      <p class="amap__fnote">Relationship types are the switches in the bar above.</p>
-    </div>
-    <div class="amap__legend" aria-hidden="true">
-      <span><i class="lk lk--allies"></i>Ally</span><span><i class="lk lk--rivals"></i>Rival</span><span><i class="lk lk--backers"></i>Backer &rarr; backed</span>
-      <span><i class="ring ring--starter"></i>Starter</span><span><i class="ring ring--second"></i>Second string</span><span><i class="ring ring--rookie"></i>Practice squad</span>
-    </div>
-    <p class="amap__msg" role="status">Loading the map.</p>
-    <aside class="pcard" aria-label="Company card" hidden tabindex="-1"></aside>
+    <aside class="pcard" aria-label="Company card" hidden></aside>
   </div>
 </section>"""
 
@@ -772,10 +787,11 @@ def build_atlas():
     full = {
         "asof": AD.ASOF,
         "sectors": AD.SECTORS,
-        "entities": {k: {"name": v[0], "description": v[1], "home": AD.HOME.get(k), **AD.RATINGS.get(k, {})}
+        "entities": {k: {"name": v[0], "description": v[1], "home": AD.HOME.get(k), **_published(k)}
                      for k, v in AD.ENT.items()},
         "edges": [{**e, "group": AD.GROUP[e["type"]], "added": r["added"]} for e, r in zip(AD.EDGES, AD.DATA["relationships"])],
         "ovr_tiers": [{"min": lo, "label": lab} for lo, lab in AD.OVR_TIERS],
+        "attributes": [{"id": k, "label": AR.ATTR_LABEL[k], "weight": AR.WEIGHTS[k]} for k in AR.ATTRS],
         "map": AL.layout(AD.DATA),
     }
     (ROOT / "tech-atlas.json").write_text(_json.dumps(full, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -798,7 +814,7 @@ def build_atlas():
     <p class="atlas-head__k">As of {AD.ASOF}</p>
     <h1 class="atlas-head__t">The Tech Atlas</h1>
     <p class="atlas-head__l">{len(AD.SECTORS)} sectors, {n_cards} companies, ranked like a depth chart.</p>
-    <p class="atlas-head__by">Francis Ruan and Ryan Chian</p>
+    <p class="atlas-head__by">Francis Ruan, Ryan Chian and Timothy Zhang</p>
   </header>
   <div class="atlas-intro">{intro}</div>
 </div>
@@ -839,6 +855,8 @@ def build_atlas():
 <script type="application/json" id="atlas-data">{_json.dumps(js_data, ensure_ascii=False)}</script>
 <script src="atlas.js" defer></script>
 <script src="atlas-map-core.js" defer></script>
+<script src="atlas-map-scene.js" defer></script>
+<script src="atlas-map-card.js" defer></script>
 <script src="atlas-map.js" defer></script>
 """ + FOOT)
     (ROOT / "tech-atlas.html").write_text(html, encoding="utf-8")

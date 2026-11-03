@@ -2,7 +2,7 @@
 
 **Before you change anything, read `docs/HANDOFF.md` in full.** It has the current state of the site, which file feeds which page, and step-by-step procedures. This file holds only the rules that always apply.
 
-An M&A journal by Francis Ruan and Ryan Chian. Repo `fyruan-star/trojanhorse-blog` (public), domain trojanhorse.blog. Python 3, standard library only. Start Claude Code **inside this folder** so this file loads.
+An M&A journal by Francis Ruan, Ryan Chian and Timothy Zhang. Repo `fyruan-star/trojanhorse-blog` (public), domain trojanhorse.blog. Python 3, standard library only. Start Claude Code **inside this folder** so this file loads.
 
 ## How the site gets built
 

@@ -33,11 +33,15 @@ Every company, card, relationship and rating lives in `content/atlas/atlas.json`
 - **A company** is an entry under `companies`: `name`, `description`, `sector` (its home on the map; `backers` for an owner or investor with no card) and its rating fields.
 - **A card** (a company's place in a sector) is an entry in `placements`: `company`, `sector`, `row`, `rank` (`starter`, `second_string` or `practice_squad`), an optional `label` such as `newly public`, then `key_figure`, `why`, `could_change`, `source` and `trust` (`sourced` or `reported`).
 - **A relationship** is an entry in `relationships`: `from`, `to`, `type` (`alliance`, `supply`, `license`, `dependency`, `rivalry`, `ownership` or `investment`), `text`, `source`, `trust`, `date` and `added`. For ownership and investment, `from` is the owner or backer.
-- **A rating** is `ovr` (40 to 99) with `ovr_status`, `ovr_reason`, `ovr_evidence`, `ovr_updated` and `ovr_by`. The rules are in `docs/ratings-rubric.md`.
+- **Ratings** are six attributes under `attributes`: `dominance`, `momentum`, `leverage`, `durability`, `firepower` and `deal_heat`. Each has `value` (40 to 99, or `null` for unrated), a one-sentence `reason`, `evidence` (links with their trust tag) and `status` (`draft` or `reviewed`). Leverage stores `adjust` instead of `value`, because the build adds it to a base worked out from the relationships. OVR is calculated from the six, never typed in. `ovr_reason` is the headline sentence on the card.
+- **Badges.** Chokepoint and Kingmaker are calculated. Single-Customer Risk and In Play are listed under `badges` as `{"id": "in_play", "reason": ..., "evidence": [...], "status": "draft"}`.
+- The weights, what each level means, and how to review a draft are in `docs/ratings-rubric.md`.
 
 Run `python3 scripts/validate_atlas.py` after an edit. GitHub runs the same checks, so a mistake shows a red X instead of reaching the site.
 
-**Draft ratings.** Ratings marked `"ovr_status": "draft"` are labelled DRAFT on the site. To hide every draft from the public site, set `SHOW_DRAFT_RATINGS = False` near the top of `content/atlas/atlas_data.py`.
+**Draft ratings.** Attributes and badges marked `"status": "draft"` are labelled DRAFT on the site. To hide every draft attribute, badge and the OVRs built from them, set `SHOW_DRAFT_RATINGS = False` near the top of `content/atlas/atlas_data.py`.
+
+**Linking into the map.** `tech-atlas.html#c-oracle` opens the map on a company and `tech-atlas.html#s-silicon` on a sector. Company ids are the keys under `companies`.
 
 ## If the site did not update
 

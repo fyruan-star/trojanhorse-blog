@@ -5,25 +5,17 @@ HERE = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(HERE / "content" / "atlas"))
 import atlas_data as AD
 
-DRAFT = {"name": "X", "ovr": 88, "ovr_status": "draft", "ovr_reason": "r.", "ovr_by": "Claude (draft)"}
-REVIEWED = {**DRAFT, "ovr_status": "reviewed", "ovr_by": "Ryan"}
+class Wiring(unittest.TestCase):
+    def test_every_company_is_resolved(self):
+        self.assertEqual(set(AD.RESOLVED), set(AD.DATA["companies"]))
 
+    def test_ratings_holds_only_companies_with_a_published_ovr(self):
+        self.assertTrue(all(r["ovr"] is not None for r in AD.RATINGS.values()))
 
-class DraftSwitch(unittest.TestCase):
-    def test_drafts_hidden_when_switched_off(self):
-        self.assertIsNone(AD.public_rating(DRAFT, show_drafts=False))
-
-    def test_drafts_shown_when_switched_on(self):
-        self.assertEqual(AD.public_rating(DRAFT, show_drafts=True)["ovr"], 88)
-
-    def test_reviewed_always_shown(self):
-        self.assertEqual(AD.public_rating(REVIEWED, show_drafts=False)["ovr_status"], "reviewed")
-
-    def test_unrated_never_shown(self):
-        self.assertIsNone(AD.public_rating({"name": "X", "ovr": None}, show_drafts=True))
-
-    def test_published_rating_carries_no_other_fields(self):
-        self.assertNotIn("name", AD.public_rating(REVIEWED, show_drafts=False))
+    def test_switch_is_passed_through(self):
+        hidden = AD.atlas_ratings.resolve(AD.DATA, show_drafts=False)
+        self.assertFalse(any(a["status"] == "draft" for r in hidden.values() for a in r["attributes"].values()))
+        self.assertFalse(any(b["status"] == "draft" for r in hidden.values() for b in r["badges"]))
 
 
 class Tiers(unittest.TestCase):

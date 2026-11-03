@@ -1,41 +1,49 @@
 /* ============================================== THE TECH ATLAS: MAP ====
-   A galaxy of sectors drawn in the site's silver line work. Every colour
-   encodes something: a sector, a kind of relationship, or an OVR tier. */
+   A galaxy of sector planets drawn in WebGL (atlas-map-scene.js). Everything
+   you read or press is HTML on top: the controls, the keyboard targets, the
+   minimap and the player card. Every colour encodes something: a sector, a
+   kind of relationship, or an OVR tier. */
 
 :root{
   --m-space:#151C2A;
   --m-space-mid:#1C2638;
   --m-space-lift:#27344B;
-  --m-panel:rgba(29,38,56,.97);
-  --m-halo:#151C2A;
+  --m-panel:#1D2638;
+  --m-card-w:min(400px, 42%);
 }
 
 /* one colour per sector, light enough to read on the dark ground */
-.c-silicon{ --c:#A6DB8C; }
-.c-infra{ --c:#E9B47E; }
-.c-cloud{ --c:#84D2E3; }
-.c-models{ --c:#BCA6F4; }
-.c-software{ --c:#93B2F6; }
-.c-security{ --c:#EDA3DA; }
-.c-internet{ --c:#F4A9A0; }
-.c-devices{ --c:#E6DB8C; }
-.c-fintech{ --c:#8EDCC4; }
+.c-silicon{ --c:#A6DB8C; } .c-infra{ --c:#E9B47E; } .c-cloud{ --c:#84D2E3; }
+.c-models{ --c:#BCA6F4; } .c-software{ --c:#93B2F6; } .c-security{ --c:#EDA3DA; }
+.c-internet{ --c:#F4A9A0; } .c-devices{ --c:#E6DB8C; } .c-fintech{ --c:#8EDCC4; }
 .c-backers{ --c:#C9D2DF; }
 
+/* nothing the page scrolls to should land under the sticky control bar */
+html{ scroll-padding-top:calc(var(--atlas-bar, 0px) + 8px); }
+
 .amap{ max-width:1420px; margin:clamp(14px,2vw,22px) auto 0; padding-inline:clamp(16px,3.2vw,48px); position:relative; z-index:1; }
+
+/* the map and the card sit side by side, so the card never covers the map */
 .amap__stage{
-  position:relative; overflow:hidden; height:calc(100svh - var(--atlas-bar, 110px) - 14px); min-height:520px; max-height:960px;
+  display:grid; grid-template-columns:minmax(0,1fr); overflow:hidden;
+  height:calc(100svh - var(--atlas-bar, 110px) - 14px); min-height:520px; max-height:960px;
   scroll-margin-top:calc(var(--atlas-bar, 110px) + 8px);
   border:1px solid var(--a-line);
   background:radial-gradient(ellipse 80% 70% at 50% 42%, var(--m-space-lift) 0%, var(--m-space-mid) 48%, var(--m-space) 100%);
 }
-.amap__stars,.amap__svg{ position:absolute; inset:0; width:100%; height:100%; display:block; }
-.amap__svg{ cursor:grab; touch-action:none; -webkit-tap-highlight-color:transparent; }
-.amap__svg:active{ cursor:grabbing; }
-.amap__svg:focus-visible{ outline:2px solid var(--silver); outline-offset:-2px; }
+.amap.has-card .amap__stage{ grid-template-columns:minmax(0,1fr) var(--m-card-w); }
+.amap__view{ position:relative; min-width:0; min-height:0; overflow:hidden; }
+.amap__canvas{ position:absolute; inset:0; touch-action:none; cursor:grab; -webkit-tap-highlight-color:transparent; }
+.amap__canvas.is-dragging{ cursor:grabbing; }
+.amap__canvas canvas{ display:block; width:100%; height:100%; }
 
-/* nothing the page scrolls to should land under the sticky control bar */
-html{ scroll-padding-top:calc(var(--atlas-bar, 0px) + 8px); }
+/* one transparent button over each planet or company, for the keyboard */
+.amap__keys{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.amap__key{
+  position:absolute; left:0; top:0; padding:0; margin:0; border:0; border-radius:50%;
+  background:transparent; color:transparent; pointer-events:none; opacity:0;
+}
+.amap__key:focus-visible{ opacity:1; outline:2px solid var(--silver); outline-offset:3px; }
 
 /* the heads-up layer over the map */
 .amap__hud{ position:absolute; top:0; left:0; right:0; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; padding:10px 12px; pointer-events:none; z-index:3; }
@@ -45,19 +53,14 @@ html{ scroll-padding-top:calc(var(--atlas-bar, 0px) + 8px); }
 .amap__tools{ display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
 .amap__back,.amap__tool{
   font:inherit; font-size:15px; line-height:1; min-width:34px; min-height:34px; padding:6px 10px;
-  color:var(--silver); background:rgba(21,28,42,.72); border:1px solid var(--a-line); cursor:pointer;
+  color:var(--silver); background:rgba(21,28,42,.78); border:1px solid var(--a-line); cursor:pointer;
   transition:border-color .2s ease, background .2s ease;
 }
 .amap__tool{ font-size:18px; }
 .amap__tool--wide{ font-size:14px; letter-spacing:.04em; }
 .amap__back:hover,.amap__tool:hover,.amap__tool[aria-expanded="true"]{ border-color:var(--silver-faint); background:rgba(39,52,75,.92); }
-.amap__back:focus-visible,.amap__tool:focus-visible{ outline:2px solid var(--silver); outline-offset:2px; }
+.amap__back:focus-visible,.amap__tool:focus-visible,.amap__mini:focus-visible{ outline:2px solid var(--silver); outline-offset:2px; }
 
-/* with a card open beside the map, the controls move clear of it */
-@media (min-width:901px){
-  .amap.has-card .amap__hud{ padding-right:calc(min(380px, 44%) + 12px); }
-  .amap.has-card .amap__filters{ right:calc(min(380px, 44%) + 12px); }
-}
 .amap__filters{
   position:absolute; top:54px; right:12px; z-index:4; width:min(280px, calc(100% - 24px)); max-height:calc(100% - 70px); overflow:auto;
   padding:12px 14px 14px; background:var(--m-panel); border:1px solid var(--a-line);
@@ -74,7 +77,7 @@ html{ scroll-padding-top:calc(var(--atlas-bar, 0px) + 8px); }
 
 /* legend keys: line kinds and ring kinds */
 .amap__legend{
-  position:absolute; left:12px; bottom:8px; z-index:2; display:flex; flex-wrap:wrap; gap:4px 14px; max-width:calc(100% - 24px);
+  position:absolute; left:12px; bottom:8px; z-index:2; display:flex; flex-wrap:wrap; gap:4px 14px; max-width:calc(100% - 200px);
   font-size:12.5px; color:var(--silver-dim); pointer-events:none;
 }
 .amap__legend span{ display:inline-flex; align-items:center; gap:6px; white-space:nowrap; }
@@ -86,70 +89,39 @@ html{ scroll-padding-top:calc(var(--atlas-bar, 0px) + 8px); }
 .ring--second{ border-style:dashed; }
 .ring--rookie{ border-style:dotted; border-width:2px; }
 
+/* the minimap, bottom right */
+.amap__mini{
+  position:absolute; right:10px; bottom:10px; z-index:2; width:168px; height:116px; cursor:pointer;
+  background:rgba(21,28,42,.82); border:1px solid var(--a-line);
+}
+
+/* the first-visit hint and the hover tooltip */
+.amap__hint{
+  position:absolute; left:50%; bottom:52px; z-index:3; transform:translateX(-50%); padding:7px 14px;
+  font-size:14.5px; letter-spacing:.04em; color:var(--silver); white-space:nowrap;
+  background:rgba(21,28,42,.86); border:1px solid var(--a-line); pointer-events:none;
+}
+.amap__hint[hidden]{ display:none; }
+.amap__tip{
+  position:absolute; left:0; top:0; z-index:4; max-width:300px; padding:8px 11px;
+  font-family:system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size:13px; line-height:1.45; color:var(--silver);
+  background:rgba(21,28,42,.95); border:1px solid var(--silver-faint); pointer-events:none;
+}
+.amap__tip[hidden]{ display:none; }
+
 .amap__msg{ position:absolute; inset:0; display:grid; place-items:center; padding:24px; text-align:center; font-style:italic; font-size:17px; color:var(--silver-dim); z-index:1; pointer-events:none; }
 .amap__msg[hidden]{ display:none; }
 .amap.is-failed .amap__stage{ height:auto; min-height:0; }
 .amap.is-failed .amap__msg{ position:static; }
-.amap.is-failed .amap__hud,.amap.is-failed .amap__legend{ display:none; }
-
-/* ---------------------------------------------------------- the scene */
-.scene{ --s:1; }
-.scene text{ pointer-events:none; opacity:0; transition:opacity .25s ease; paint-order:stroke; stroke:var(--m-halo); stroke-linejoin:round; }
-.scene text.is-shown{ opacity:1; }
-
-.tier-label{ fill:var(--silver-faint); font-size:calc(13px * var(--s)); letter-spacing:.3em; text-transform:uppercase; stroke-width:calc(3px * var(--s)); }
-
-.terr{ cursor:pointer; outline:none; }
-.terr__glow{ opacity:.85; transition:opacity .3s ease; }
-.glow0{ stop-color:var(--c); stop-opacity:.2; }
-.glow1{ stop-color:var(--c); stop-opacity:.06; }
-.glow2{ stop-color:var(--c); stop-opacity:0; }
-.terr__halo{ fill:none; stroke:var(--c); stroke-opacity:.1; stroke-width:16; }
-.terr__line{ fill:none; stroke:var(--c); stroke-opacity:.62; stroke-width:1.3; vector-effect:non-scaling-stroke; transition:stroke-opacity .2s ease; }
-.terr__line2{ fill:none; stroke:var(--c); stroke-opacity:.24; stroke-width:.8; vector-effect:non-scaling-stroke; }
-.terr:hover .terr__line,.terr.is-here .terr__line{ stroke-opacity:.95; }
-.terr:focus-visible .terr__line{ stroke:var(--silver); stroke-opacity:1; stroke-width:2.4; }
-.terr.is-off{ opacity:.16; }
-.terr__div{ fill:none; stroke:var(--c); stroke-opacity:.16; stroke-width:1; stroke-dasharray:2 5; vector-effect:non-scaling-stroke; }
-.terr__title{ fill:var(--c); font-size:calc(15px * var(--s)); font-weight:600; letter-spacing:.18em; text-transform:uppercase; stroke-width:calc(3.5px * var(--s)); }
-.row-label{ fill:var(--silver-dim); font-size:calc(12.5px * var(--s)); font-style:italic; letter-spacing:.03em; stroke-width:calc(3px * var(--s)); }
-
-.node{ cursor:pointer; outline:none; transition:opacity .25s ease; }
-.node__glow{ opacity:.5; }
-.node__core{ fill:var(--c); }
-.node__ring{ fill:none; stroke:var(--c); stroke-opacity:.85; stroke-width:1.4; }
-.rank--second .node__ring{ stroke-dasharray:4 3; }
-.rank--rookie .node__ring{ stroke-dasharray:.1 3.4; stroke-linecap:round; stroke-width:2; }
-.node--echo .node__glow{ display:none; }
-.node--echo .node__core{ fill:var(--m-space); stroke:var(--c); stroke-width:1.2; }
-.node--echo .node__label{ font-style:italic; fill:var(--silver-dim); }
-.node__label{ fill:var(--silver); font-size:calc(12.5px * var(--s)); stroke-width:calc(3.2px * var(--s)); }
-.node:hover .node__ring{ stroke-opacity:1; stroke-width:2.2; }
-.node:focus-visible .node__ring{ stroke:var(--silver); stroke-opacity:1; stroke-width:2.8; stroke-dasharray:none; }
-.node.is-sel .node__ring{ stroke:#fff; stroke-opacity:1; stroke-width:2.6; stroke-dasharray:none; }
-.node.is-sel .node__glow{ opacity:1; }
-.node.is-lit .node__ring{ stroke-width:2.4; stroke-opacity:1; }
-.node[data-rel="allies"] .node__ring{ stroke:var(--a-ally); }
-.node[data-rel="rivals"] .node__ring{ stroke:var(--a-rival); }
-.node[data-rel="backers"] .node__ring{ stroke:var(--a-own); }
-.node.is-dim{ opacity:.17; }
-.node.is-off{ opacity:.06; pointer-events:none; }
-
-.edges{ pointer-events:none; }
-.edge{ fill:none; stroke-linecap:round; }
-.edge--allies{ stroke:var(--a-ally); }
-.edge--rivals{ stroke:var(--a-rival); }
-.edge--backers{ stroke:var(--a-own); }
-.edge__arrow{ fill:var(--a-own); }
+.amap.is-failed .amap__hud,.amap.is-failed .amap__legend,.amap.is-failed .amap__mini{ display:none; }
 
 /* ------------------------------------------------- the player card */
 .pcard{
-  position:absolute; top:0; right:0; bottom:0; z-index:5; width:min(380px, 44%); overflow-y:auto; overscroll-behavior:contain;
+  position:relative; min-width:0; overflow-y:auto; overscroll-behavior:contain;
   padding:18px 20px 26px; background:var(--m-panel); border-left:1px solid var(--a-line);
-  box-shadow:-18px 0 40px rgba(8,12,20,.35);
 }
 .pcard[hidden]{ display:none; }
-.pcard:focus{ outline:none; }
+.pc__more{ display:none; }
 .pc__close{
   position:absolute; top:8px; right:10px; width:34px; height:34px; font:inherit; font-size:24px; line-height:1;
   color:var(--silver); background:transparent; border:1px solid transparent; cursor:pointer;
@@ -158,11 +130,11 @@ html{ scroll-padding-top:calc(var(--atlas-bar, 0px) + 8px); }
 .pc__close:focus-visible{ outline:2px solid var(--silver); }
 .pc__head{ display:flex; gap:16px; align-items:center; padding-right:34px; }
 .pc__ovr{
-  flex:none; display:flex; flex-direction:column; align-items:center; min-width:88px; padding:8px 10px 9px;
+  flex:none; display:flex; flex-direction:column; align-items:center; min-width:92px; padding:8px 10px 9px;
   color:var(--tier); border:1px solid var(--tier);
-  background:linear-gradient(180deg, color-mix(in srgb, var(--tier) 15%, transparent), transparent 80%);
+  background:linear-gradient(180deg, color-mix(in srgb, var(--tier) 18%, transparent), transparent 85%);
 }
-.pc__num{ font-size:56px; line-height:.88; font-weight:600; }
+.pc__num{ font-size:60px; line-height:.86; font-weight:600; }
 .pc__k{ font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; margin-top:4px; }
 .pc__tier{ font-size:13px; letter-spacing:.04em; color:var(--silver); margin-top:2px; white-space:nowrap; }
 .pc__draft{ margin-top:6px; padding:1px 7px; font-size:10px; letter-spacing:.26em; text-transform:uppercase; color:var(--silver); border:1px dashed var(--silver-dim); }
@@ -173,16 +145,62 @@ html{ scroll-padding-top:calc(var(--atlas-bar, 0px) + 8px); }
 .pc__meta{ margin-top:3px; font-size:14.5px; line-height:1.3; font-style:italic; color:var(--silver-dim); }
 .pc__rank{ display:flex; flex-wrap:wrap; gap:5px; margin-top:6px; }
 .badge--label{ color:var(--a-prem); border-color:var(--a-prem); }
+
+.pc__tabs{ display:flex; margin:16px 0 0; border-bottom:1px solid var(--a-line); }
+.pc__tab{
+  flex:1; font:inherit; font-size:15px; letter-spacing:.06em; padding:8px 6px 7px; color:var(--silver-dim);
+  background:transparent; border:0; border-bottom:2px solid transparent; cursor:pointer;
+}
+.pc__tab[aria-selected="true"]{ color:var(--silver); border-bottom-color:var(--c); }
+.pc__tab:focus-visible,.pc__body:focus-visible{ outline:2px solid var(--silver); outline-offset:-2px; }
+.pc__body{ padding-top:12px; }
 .pcard p{ font-size:15.5px; line-height:1.5; color:var(--silver-dim); }
-.pc__h{ margin:0 0 3px; font-size:10.5px; font-weight:400; letter-spacing:.18em; text-transform:uppercase; color:var(--silver-faint); }
-.pc__why{ margin-top:18px; padding:11px 13px 12px; border:1px solid var(--a-line); background:rgba(255,255,255,.03); }
-.pc__why p{ color:var(--silver); }
-.pc__desc{ margin-top:16px; font-size:16.5px !important; color:var(--silver) !important; }
-.pc__fact{ margin-top:13px; }
+.pc__lede{ color:var(--silver) !important; }
+.pc__note{ margin-top:6px; font-size:13px !important; font-style:italic; color:var(--silver-faint) !important; }
+.pc__h{ margin:14px 0 4px; font-size:10.5px; font-weight:400; letter-spacing:.18em; text-transform:uppercase; color:var(--silver-faint); }
+
+/* six attribute bars, 2K style */
+.pc__bars{ list-style:none; margin:12px 0 0; padding:0; }
+.pc__bar{
+  display:grid; grid-template-columns:96px 1fr 52px; align-items:center; gap:10px; width:100%;
+  padding:6px 0; font:inherit; color:var(--silver); background:none; border:0; border-top:1px solid rgba(226,233,243,.07); cursor:pointer; text-align:left;
+}
+.pc__bar:focus-visible{ outline:2px solid var(--silver); outline-offset:2px; }
+.pc__bn{ font-size:14.5px; }
+.pc__bt{ height:7px; background:rgba(226,233,243,.09); overflow:hidden; }
+.pc__bf{ display:block; height:100%; background:var(--tier); }
+.pc__bv{ font-size:17px; font-weight:600; text-align:right; color:var(--tier); }
+.pc__bar[data-tier="Unrated"] .pc__bv{ font-size:12px; font-weight:400; font-style:italic; color:var(--silver-faint); }
+.pc__bd{ grid-column:3; justify-self:end; margin-top:-4px; font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--silver-faint); }
+.pc__why{ padding:2px 0 10px; }
+.pc__why[hidden]{ display:none; }
+.pc__why p{ font-size:14px !important; }
+
+/* the hexagon radar */
+.pc__fig{ margin:12px auto 0; max-width:280px; }
+.pc__radar{ display:block; width:100%; height:auto; overflow:visible; }
+.pc__grid{ fill:none; stroke:rgba(226,233,243,.16); stroke-width:1; }
+.pc__shape{ fill:var(--c); fill-opacity:.22; stroke:var(--c); stroke-width:1.8; stroke-linejoin:round; }
+.pc__dot{ fill:var(--c); }
+.pc__dot--none{ fill:none; stroke:var(--silver-faint); stroke-dasharray:1.5 1.5; }
+.pc__rl{ fill:var(--silver-dim); font-size:11.5px; letter-spacing:.08em; font-family:system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+
+.pc__badges{ list-style:none; margin:4px 0 0; padding:0; display:grid; gap:8px; }
+.pc__badge{ padding:8px 10px; border:1px solid var(--a-line); border-left:3px solid var(--silver); }
+.pc__badge--chokepoint{ border-left-color:#F2D98D; }
+.pc__badge--kingmaker{ border-left-color:#D4B6FF; }
+.pc__badge--single_customer_risk{ border-left-color:var(--a-rival); }
+.pc__badge--in_play{ border-left-color:var(--a-own); }
+.pc__bname{ font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--silver); }
+.pc__badge .pc__bd{ margin-left:8px; }
+.pc__badge p{ font-size:14px !important; margin-top:2px; }
+
+.pc__desc{ font-size:16.5px !important; color:var(--silver) !important; }
+.pc__fact{ margin-top:4px; }
 .pc__src{ display:block; margin-top:6px; font-size:13px; color:var(--silver-dim); }
-.pc__src a,.pcard a{ color:var(--silver); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.16em; }
+.pcard a{ color:var(--silver); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.16em; }
 .pc__also{ margin-top:12px; font-size:14px !important; font-style:italic; }
-.pc__rel{ margin-top:18px; padding-top:8px; border-top:3px solid var(--a-ally); }
+.pc__rel{ margin-top:14px; padding-top:6px; border-top:3px solid var(--a-ally); }
 .pc__rel--rivals{ border-top-style:dashed; border-top-color:var(--a-rival); }
 .pc__rel--backers{ border-top-color:var(--a-own); }
 .pc__rel ul{ list-style:none; margin:0; padding:0; }
@@ -194,14 +212,32 @@ html{ scroll-padding-top:calc(var(--atlas-bar, 0px) + 8px); }
 }
 .pc__go:hover{ color:#fff; }
 .pc__go:focus-visible{ outline:2px solid var(--silver); outline-offset:2px; }
+.pc__govr{ font-size:13px; font-weight:600; color:var(--silver-dim); text-decoration:none; }
 .pc__verb,.pc__in{ font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--silver-faint); }
 .pc__verb{ display:inline-block; margin-right:5px; }
 .pc__x{ margin-top:2px; font-size:14px !important; }
 
-/* phones: the map is a tall frame and the card is a sheet from the bottom */
+/* phones: the map on top and the card as a sheet below it */
+@media (max-width:900px){
+  .amap__stage{ height:80svh; min-height:480px; }
+  /* the card opens as a short peek under the map, and its toggle gives it most of the height */
+  .amap.has-card .amap__stage{ grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr) auto; }
+  .amap.card-open .amap__stage{ grid-template-rows:minmax(0,34%) minmax(0,66%); }
+  .pcard{ border-left:0; border-top:1px solid var(--a-line); padding:12px 16px 24px; max-height:150px; overflow:hidden; }
+  .amap.card-open .pcard{ max-height:none; overflow-y:auto; }
+  .pc__more{ display:block; width:calc(100% - 44px); margin:-4px 0 10px; padding:5px 0; font:inherit; font-size:14px; letter-spacing:.08em; color:var(--silver); background:transparent; border:1px solid var(--a-line); cursor:pointer; }
+  .pc__more:focus-visible{ outline:2px solid var(--silver); }
+  .amap:not(.card-open) .pc__mono,.amap:not(.card-open) .pc__rank{ display:none; }
+  .amap__tool--wide[data-zoom="home"]{ display:none; }
+  .amap__legend{ font-size:11.5px; gap:2px 10px; max-width:calc(100% - 130px); }
+  .amap.has-card .amap__legend,.amap.has-card .amap__mini,.amap.has-card .amap__hint{ display:none; }
+  .amap__mini{ width:108px; height:76px; }
+  .pc__num{ font-size:48px; }
+  .pc__ovr{ min-width:78px; }
+  .pc__name{ font-size:24px; }
+}
 @media (max-width:600px){
   .amap{ padding-inline:16px; }
-  .terr__title{ font-size:calc(12.5px * var(--s)); text-transform:none; letter-spacing:.02em; }
   .amap__hud{ padding:8px; }
   .amap__back{ font-size:0; min-width:38px; }
   .amap__back::before{ content:"\2190"; font-size:18px; }
@@ -209,20 +245,8 @@ html{ scroll-padding-top:calc(var(--atlas-bar, 0px) + 8px); }
   .amap__tools{ flex-wrap:nowrap; gap:4px; }
   .amap__tool{ min-width:34px; padding:6px 8px; }
   .amap__tool--wide{ font-size:13px; }
-}
-@media (max-width:900px){
-  .amap__stage{ height:78svh; min-height:460px; }
-  .amap__tool--wide[data-zoom="home"]{ display:none; }
-  .amap__legend{ font-size:11.5px; gap:2px 10px; }
-  .pcard{ top:auto; left:0; width:auto; height:62%; border-left:0; border-top:1px solid var(--a-line); box-shadow:0 -14px 36px rgba(8,12,20,.45); padding:16px 16px 24px; }
-  .pc__num{ font-size:46px; }
-  .pc__ovr{ min-width:76px; }
-  .pc__name{ font-size:24px; }
-  .pcard:not([hidden]) ~ .amap__legend,.amap__stage:has(.pcard:not([hidden])) .amap__legend{ display:none; }
-}
-
-@media (prefers-reduced-motion: reduce){
-  .scene text,.node,.terr__glow,.terr__line{ transition:none; }
+  .amap__legend{ display:none; }
+  .amap__hint{ font-size:13px; bottom:96px; }
 }
 
 @media print{

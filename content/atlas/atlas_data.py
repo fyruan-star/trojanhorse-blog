@@ -78,17 +78,13 @@ EDGE_LABEL = {
 }
 BAND_LABEL = {"end": "End markets", "platform": "Platforms and software", "stack": "The compute stack"}
 
-RATING_FIELDS = ("ovr", "ovr_status", "ovr_reason", "ovr_evidence", "ovr_updated", "ovr_by")
+import atlas_ratings
 
-def public_rating(company, show_drafts=SHOW_DRAFT_RATINGS):
-    """The rating fields a company publishes, or None when it has none to show."""
-    if company.get("ovr") is None:
-        return None
-    if company.get("ovr_status") != "reviewed" and not show_drafts:
-        return None
-    return {k: company[k] for k in RATING_FIELDS if k in company}
-
-RATINGS = {k: r for k, v in DATA["companies"].items() if (r := public_rating(v))}
+# What each company publishes about its ratings (attributes, calculated OVR,
+# badges), with drafts already removed when SHOW_DRAFT_RATINGS is False.
+RESOLVED = atlas_ratings.resolve(DATA, SHOW_DRAFT_RATINGS) if not ERRORS else {}
+# the companies with a published OVR
+RATINGS = {k: r for k, r in RESOLVED.items() if r["ovr"] is not None}
 
 # OVR tiers, highest first, as in docs/ratings-rubric.md
 OVR_TIERS = [(95, "Generational"), (90, "Superstar"), (85, "All-Star"), (80, "Starter"),

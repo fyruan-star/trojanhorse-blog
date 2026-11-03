@@ -19,12 +19,22 @@ def errors_of(d):
     return V.validate(d)[0]
 
 
-def rated(d, cid="nvidia", **over):
-    rating = {"ovr": 90, "ovr_status": "draft", "ovr_reason": "Leads its row on revenue.",
-              "ovr_evidence": [{"url": "https://example.com/a", "trust": "sourced"}],
-              "ovr_updated": "2026-11-02", "ovr_by": "Claude (draft)"}
-    rating.update(over)
-    d["companies"][cid].update(rating)
+EV = [{"url": "https://example.com/a", "trust": "sourced"}]
+
+
+def rated(d, cid="nvidia", key="dominance", **over):
+    """Give one company one attribute, on the copy."""
+    a = {"value": 90, "reason": "Leads its row on revenue.", "evidence": EV, "status": "draft"}
+    if key == "leverage":
+        a = {"adjust": 20, "reason": "Sole supplier of its part.", "evidence": EV, "status": "draft"}
+    a.update(over)
+    d["companies"][cid].setdefault("attributes", {})[key] = a
+
+
+def badged(d, cid="nvidia", **over):
+    b = {"id": "in_play", "reason": "Reported to be in talks.", "evidence": EV, "status": "draft"}
+    b.update(over)
+    d["companies"][cid].setdefault("badges", []).append(b)
 
 
 class RealData(unittest.TestCase):
@@ -93,8 +103,7 @@ class Companies(unittest.TestCase):
         self.assertTrue(any("descripton" in e for e in errors_of(d)))
 
     def test_reserved_extension_fields_are_allowed(self):
-        d = changed(lambda d: d["companies"]["nvidia"].update(
-            {"attributes": {"scale": 99}, "badges": ["chokepoint"], "ovr_history": []}))
+        d = changed(lambda d: d["companies"]["nvidia"].update({"ovr_history": []}))
         self.assertEqual(errors_of(d), [])
 
 
@@ -115,34 +124,53 @@ class Placements(unittest.TestCase):
 
 
 class Ratings(unittest.TestCase):
-    def test_valid_draft_passes(self):
+    def test_valid_draft_attribute_passes(self):
         self.assertEqual(errors_of(changed(rated)), [])
 
-    def test_out_of_range_ovr_is_caught(self):
+    def test_out_of_range_value_is_caught(self):
         for bad in (39, 100, 85.5, "90"):
             with self.subTest(bad=bad):
-                self.assertTrue(any("ovr" in e for e in errors_of(changed(lambda d: rated(d, ovr=bad)))))
+                self.assertTrue(any("value" in e for e in errors_of(changed(lambda d: rated(d, value=bad)))))
 
-    def test_rating_needs_reason_evidence_and_status(self):
-        cases = [dict(ovr_reason=""), dict(ovr_evidence=[]), dict(ovr_status="final"),
-                 dict(ovr_evidence=[{"url": "https://x.com", "trust": "vibes"}]), dict(ovr_updated="Nov 2")]
+    def test_unrated_attribute_needs_no_evidence(self):
+        self.assertEqual(errors_of(changed(lambda d: rated(d, value=None, evidence=[], reason="No growth figure is stated."))), [])
+
+    def test_rated_attribute_needs_reason_evidence_and_status(self):
+        cases = [dict(reason=""), dict(evidence=[]), dict(status="final"),
+                 dict(evidence=[{"url": "https://x.com", "trust": "vibes"}])]
         for over in cases:
             with self.subTest(over=over):
                 self.assertNotEqual(errors_of(changed(lambda d: rated(d, **over))), [])
 
+    def test_leverage_stores_adjust_not_value(self):
+        self.assertEqual(errors_of(changed(lambda d: rated(d, key="leverage"))), [])
+        self.assertTrue(any("adjust" in e for e in errors_of(changed(lambda d: rated(d, key="leverage", value=80)))))
+        self.assertTrue(any("adjust" in e for e in errors_of(changed(lambda d: rated(d, key="leverage", adjust=60)))))
+
+    def test_unknown_attribute_is_caught(self):
+        self.assertTrue(any("unknown attribute" in e for e in errors_of(changed(lambda d: rated(d, key="speed")))))
+
+    def test_stored_ovr_is_rejected(self):
+        d = changed(lambda d: d["companies"]["nvidia"].update({"ovr": 90}))
+        self.assertTrue(any("calculated" in e for e in errors_of(d)))
+
+    def test_companies_without_a_card_are_not_rated(self):
+        self.assertTrue(any("card" in e for e in errors_of(changed(lambda d: rated(d, cid="softbank")))))
+
+    def test_badges(self):
+        self.assertEqual(errors_of(changed(badged)), [])
+        self.assertTrue(any("calculated" in e for e in errors_of(changed(lambda d: badged(d, id="chokepoint")))))
+        self.assertTrue(any("twice" in e for e in errors_of(changed(lambda d: (badged(d), badged(d))))))
+        self.assertTrue(any("evidence" in e for e in errors_of(changed(lambda d: badged(d, evidence=[])))))
+
     def test_reason_follows_house_punctuation(self):
-        for reason in ("Leads its row—by far.", "Leads; and grows.", "Leads its row?",
+        for reason in ("Leads its row\u2014by far.", "Leads; and grows.", "Leads its row?",
                        "Leads its row. It also grows."):
             with self.subTest(reason=reason):
-                self.assertNotEqual(errors_of(changed(lambda d: rated(d, ovr_reason=reason))), [])
+                self.assertNotEqual(errors_of(changed(lambda d: rated(d, reason=reason))), [])
 
     def test_reason_may_contain_decimal_figures(self):
-        d = changed(lambda d: rated(d, ovr_reason="Data Center revenue of $89.0bn, up 117%."))
-        self.assertEqual(errors_of(d), [])
-
-    def test_unrated_company_carries_no_rating_fields(self):
-        d = changed(lambda d: rated(d, ovr=None))
-        self.assertTrue(any("unrated" in e for e in errors_of(d)))
+        self.assertEqual(errors_of(changed(lambda d: rated(d, reason="Data Center revenue of $89.0bn, up 117%."))), [])
 
 
 class Prose(unittest.TestCase):
