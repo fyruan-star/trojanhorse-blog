@@ -1,211 +1,208 @@
-"""Trojan Horse of the Week, 1 November 2026: Uber.
+"""Trojan Horse of the Week: Uber buys ezCater.
 
-Written in the register of the Oura story: a dated scene, warm and a little
-funny, an analogy doing the explaining, the figures underneath. Every company
-figure is from Uber's own filings (Q2 2026 earnings release, the FY2025 10-K,
-the Q2 10-Q, the Delivery Hero announcement and the Autonomous Solutions
-release). Waymo's scale is from TechCrunch and its Uber arrangement from
-Waymo's own page. The analyst view is attributed to the report it came from.
-One direct quote, the CEO's.
+Rewritten 3 November 2026 around the owner's brief: ezCater first and the B2B
+synergy with Uber's network, with Delivery Hero and hotel booking as the other
+rooms of the same house, and the robotaxi threat as the reason for building it.
 
-The notes this was written from described Uber as distressed. The filings do
-not support that word, so the story treats the worry as strategic, from a
-position of record cash flow, which is the midlife-crisis shape of the thing.
-It also says Waymo's only active delivery operation, as of its October 2025
-announcement, is a pilot with DoorDash, which is narrower than "cannot deliver."
+Every company figure is from a source that was read: Uber's own business page
+(300,000 businesses), the ezCater announcement as reported by PYMNTS, QSR Web
+and AWP, the hotel launch as reported from Uber's Go-Get event and by The
+Points Guy, Uber's Delivery Hero announcement, Q2 release, 10-Q and 10-K. The
+synergy argument is the author's, because Uber gave no synergy figure. The
+office manager in Boston is invented and labelled. One direct quote, the CEO's.
 
 No em dashes, no semicolons, no rhetorical questions, no sub-description under
 the title.
 """
 
-WEEK = "1 November 2026"
+WEEK = "3 November 2026"
 SLUG = "uber-rival-dinner"
 KICKER = "Trojan Horse of the Week"
-TITLE = "Uber Invites Its Rival to Dinner"
-HOOK = ("Uber offered $14.8 billion for Delivery Hero while its own annual "
-        "report names Waymo, its robotaxi partner, as a potential competitor.")
+TITLE = "Uber Gets Into the Expense Report"
+HOOK = ("Uber is paying $2.3 billion for ezCater, whose orders average more than "
+        "$400, to put the office lunch on the account that already pays for the ride.")
 LOGO = {"file": "uber.svg", "w": 926.906, "h": 321.777, "name": "Uber", "height": 34}
 GO = ("oura-ipo.html",
       "The previous Trojan horse: Oura sleeps on its IPO &rarr;")
 
+EZ = ("https://www.pymnts.com/news/acquiring/2026/uber-eats-enters-catering-space-"
+      "with-2-billion-dollar-ezcater-deal/")
+EZ_QSR = "https://www.qsrweb.com/news/uber-to-purchase-ezcater-in-23b-deal/"
+EZ_AWP = ("https://www.vermoegenszentrum.ch/en/stock-exchange-and-markets/news/"
+          "uber-acquires-us-corporate-catering-firm-ezcater-usd23-billion")
+EZ_BNN = ("https://www.bnnbloomberg.ca/business/company-news/2026/10/06/uber-to-buy-"
+          "us-catering-platform-ezcater-for-us23b/")
+EZ_GLOBE = "https://www.bostonglobe.com/2026/10/06/business/ezcater-acquired-uber-eats/"
+UFB = "https://www.uber.com/us/en/business/"
+HOTEL = ("https://www.hotel-online.com/index.php/news/uber-makes-massive-move-into-"
+         "travel-with-hotels-vacation-rentals-and-new-app-features")
+TPG = "https://thepointsguy.com/travel/uber-expedia/"
+DH = ("https://www.sec.gov/Archives/edgar/data/0001543151/000155278126000382/"
+      "e26302_ex99-1.htm")
 Q2 = ("https://www.sec.gov/Archives/edgar/data/0001543151/000154315126000027/"
       "uberq226earningspressrelea.htm")
 CNBC = "https://www.cnbc.com/2026/08/05/uber-stock-q2-2026-earnings.html"
 K10 = "https://www.sec.gov/Archives/edgar/data/1543151/000154315126000015/uber-20251231.htm"
-Q10 = "https://www.sec.gov/Archives/edgar/data/0001543151/000154315126000032/uber-20260630.htm"
-DH = ("https://www.sec.gov/Archives/edgar/data/0001543151/000155278126000382/"
-      "e26302_ex99-1.htm")
-AVS = ("https://investor.uber.com/news-events/news/press-release-details/2026/"
-       "Uber-Unveils-Uber-Autonomous-Solutions-to-Accelerate-Autonomous-Mobility--"
-       "Delivery-Worldwide/default.aspx")
 WAYMO_UBER = "https://waymo.com/waymo-on-uber"
-WAYMO_RIDES = "https://techcrunch.com/2026/03/27/waymo-skyrocketing-ridership-in-one-chart"
-WAYMO_GOAL = ("https://www.bloomberg.com/news/articles/2026-02-11/waymo-co-ceo-"
-              "outlines-path-to-1-million-weekly-trips-in-2026")
-DOORDASH = ("https://techcrunch.com/2025/10/16/waymo-dips-its-wheels-back-into-"
-            "delivery-this-time-with-doordash/")
-CITIZENS = ("https://parameter.io/uber-uber-stock-analysts-maintain-bullish-outlook-"
-            "following-13-7b-delivery-hero-acquisition/")
-TASKS = ("https://www.inquirer.com/business/uber-data-tasks-ai-labeling-datasets-"
-         "drivers-20251018.html")
 
 SECTIONS = [
 
- ("A good quarter and a worse mood", [
-  "Picture the morning of Wednesday 5 August 2026. Uber had just reported a "
-  f"quarter most companies would frame and hang in the lobby (<a href=\"{Q2}\">"
-  "the earnings release</a>). Gross bookings were $58.0 billion, up 24%. Net "
-  "income was $2.4 billion, including a $1.6 billion pre-tax gain from revaluing "
-  "its investments. Free cash flow over the trailing twelve months passed $10 "
-  "billion for the first time in the company&rsquo;s history. By the close the "
-  f"shares were down 5.3%, and <a href=\"{CNBC}\">CNBC reported</a> they had "
-  "been down 12% for the year while the Nasdaq was up 14%. I love a company "
-  "that does its worrying from a position of strength. It resembles a person "
-  "with a corner office, a good salary and a sudden interest in sailing, and the "
-  "use of a midlife crisis is that it reveals what the person is afraid of.",
+ ("A lunch for twenty", [
+  "Picture the morning of Tuesday 6 October 2026, a little before eleven. An "
+  "office manager in Boston, who exists only in this story, is feeding a "
+  "twenty-person meeting. She opens ezCater, finds a restaurant that can manage "
+  "a tray of sandwiches and the vegetarian option nobody touches, and the order "
+  "lands a little above four hundred dollars, which is about where ezCater says "
+  f"its average order sits (<a href=\"{EZ_QSR}\">QSR Web</a>). That same morning "
+  f"Uber said it would buy ezCater, a Boston company, for <a href=\"{EZ}\">$2.3 "
+  "billion in cash</a>. Its chief executive, Dara Khosrowshahi, put it "
+  "plainly: &ldquo;Catering is a big business.&rdquo; I love the "
+  "timing. The company that taught a generation to expense a ride had decided "
+  "the sandwiches belong on the same receipt.",
  ]),
 
- ("What the annual report admits", [
-  "Uber is afraid of cars that drive themselves, and it says so in writing. In "
-  f"<a href=\"{K10}\">its annual report</a> it names Alphabet&rsquo;s Waymo, "
-  "Amazon&rsquo;s Zoox and Tesla among the companies that either compete with "
-  "it or may compete with it in the future. The risk factors add that Waymo has "
-  "already put a commercial fleet on its own platform, that rivals could "
-  "deploy autonomous vehicles on platforms other than Uber&rsquo;s, and that "
-  "Uber&rsquo;s own partners could remove their vehicles from its network.",
+ ("The horse is the expense account", [
+  "Every Trojan horse has the same parts. Something is welcomed by people with "
+  "good reason to like it, it looks like a gift, and something else rides "
+  f"inside. Here the horse is the corporate account. <a href=\"{UFB}\">Uber says</a> "
+  "more than 300,000 businesses use Uber for Business, including more than half "
+  "of the Fortune 500, and it sells them a tidy idea: manage employee rides and "
+  "meals, set policy controls and track spend from one dashboard, with expenses "
+  "reconciled automatically.",
 
-  "Waymo is also one of those partners. In Austin and Atlanta its cars can be "
-  f"hailed only through Uber&rsquo;s app, <a href=\"{WAYMO_UBER}\">according to "
-  "Waymo&rsquo;s own page</a>, and in most of its other cities Waymo runs its "
-  "own app. Imagine a restaurant that rents its dining room to a chef who is "
-  "opening a place across the street, and then add that the chef is very good.",
-
-  "The threat is real and small at once. Waymo reported <a "
-  f"href=\"{WAYMO_RIDES}\">500,000 paid rides a week across ten U.S. "
-  f"cities</a> in March and has talked about reaching a million by the end of "
-  f"the year (<a href=\"{WAYMO_GOAL}\">Bloomberg</a>). Uber does roughly 300 "
-  "million trips a week, which puts Waymo&rsquo;s rides at about one in 600 of "
-  "Uber&rsquo;s volume by my arithmetic, and Uber says autonomous trips of every "
-  "kind are under 0.5% of its total. Its chief executive says trips grew faster "
-  "in markets where robotaxis are widely available through Uber (CNBC). That "
-  "is Uber&rsquo;s argument, that the cars are supply and supply fills "
-  "demand. The annual report worries about the reverse, a supply that learns "
-  "to find the demand without Uber.",
+  "A finance team welcomes that for ordinary reasons. It means fewer receipts, "
+  "fewer arguments and one bill. What rides inside is a marketplace that would "
+  "like to become the company&rsquo;s default for every errand involving a car, "
+  "a meal or a room. Each new service arrives with the account already "
+  "approved, the card already on file and the policy already written. That is "
+  "the part rivals should lose sleep over. A catering platform selling on its "
+  "own has to win each company. Inside Uber, catering only has to appear in an "
+  "app the company already pays.",
  ]),
 
- ("Move one: open every door", [
-  "On 23 February 2026 Uber launched <a href=\"" + AVS + "\">Uber Autonomous "
-  "Solutions</a>, a menu of services for anyone building a robotaxi. It covers "
-  "data and mapping, the software a rider sees inside the car, and what Uber "
-  "calls fleet operations: a mission-control system that shows operators every "
-  "vehicle, remote assistance, field teams that handle lost items, towing and "
-  "cleaning, and insurance. The partners include Nuro and Lucid, Volkswagen, "
-  "Avride, Wayve, WeRide and NVIDIA. Its chief executive has said Uber "
-  "expects to commit more than $10 billion over the coming years, and in the "
-  "second-quarter release its chief "
-  "executive, Dara Khosrowshahi, said Uber is building &ldquo;the world&rsquo;s "
-  "largest platform for autonomous vehicles.&rdquo;",
+ ("What $2.3 billion buys", [
+  "ezCater sells workplace catering, the meetings, training days and "
+  "recurring office lunches that companies order in advance. It booked more than $2.5 billion of gross bookings over the trailing twelve "
+  "months, growing in the high teens, through more than 140,000 restaurants "
+  f"(<a href=\"{EZ_QSR}\">QSR Web</a>). Uber said the business is profitable on a "
+  "non-GAAP operating income basis and expects it to lift its margins "
+  f"(<a href=\"{EZ_AWP}\">AWP</a>). The deal needs regulatory approval and is "
+  "expected to close in the coming months. The announcement framed it as "
+  "ezCater&rsquo;s catering and B2B expertise joined to Uber "
+  "Eats&rsquo; customers and restaurants and to Uber for Business.",
 
-  "There is a logic to it. A company that builds a self-driving car is good at "
-  "software and short of exactly what Uber already has, which is riders, field "
-  "crews who will clean a car at midnight, and an insurer. Uber is offering a "
-  "new robotaxi maker customers and the unglamorous work in one contract. That "
-  "is the horse. The partners arrive as gifts, new supply with no driver "
-  "attached, and the exposure comes through the same gate, since the 10-K says "
-  "those vehicles can leave. Uber and Waymo have said they will end their "
-  "exclusive arrangement in Atlanta and Austin by early 2028, which CNBC "
-  "described as Waymo pulling away.",
+  "Put the two headline numbers side by side and Uber is paying a little under "
+  "one year of ezCater&rsquo;s gross bookings, by my arithmetic. That is a "
+  "generous price for food delivery and an ordinary one for a business whose "
+  "customers are companies with budgets. The difference between those two "
+  "readings is the whole bet.",
  ]),
 
- ("Move two: buy dinner", [
-  f"On 16 July 2026 Uber offered <a href=\"{DH}\">€41.50 a share in cash for "
-  "Delivery Hero</a>, the Berlin-based food delivery group. That values the "
-  "whole company at $14.8 billion, or $13.7 billion once the stake Uber had "
-  "already bought is netted out. It was no stranger&rsquo;s bid. Uber already "
-  "held about 25% of the voting shares and about 12% more through derivatives, "
-  f"and <a href=\"{Q10}\">its 10-Q</a> shows $1.6 billion of total return swaps "
-  "on Delivery Hero stock in the second quarter. Prosus has agreed to tender its "
-  "remaining stake of about 17%, which would bring Uber&rsquo;s economic "
-  "interest to about 53%.",
+ ("Why business lunch is the prize", [
+  "None of the coverage I read gives a synergy figure, so what follows is my "
+  "reading of where the value sits. It sits in four places, and each one starts "
+  "with something Uber already owns.",
 
-  "The offer needs 50% plus one share and merger-control and financial "
-  "regulatory clearances, and Uber expects to close in the second half of 2027. "
-  "It will pay from cash and new debt, with a committed bridge facility of about "
-  "€14 billion, and it says it expects to keep an investment grade rating and "
-  "gross leverage below 2x. Uber&rsquo;s pitch is breadth. The combined "
-  "company would operate in 99 markets with pro forma 2025 gross bookings of "
-  "$236 billion, and the number of markets where it offers both rides and "
-  "delivery would rise from 34 to 58. Uber says customers who use both "
-  "services generate about three times the gross bookings and profit of "
-  "customers who use one.",
+  "The first is the buyer. Uber for Business already handles employee meals, "
+  "which means the person who sets the meal policy is already logged in. "
+  "ezCater adds the order that is too big for a meal voucher, the lunch for "
+  "twenty. Uber gets a new product to sell into 300,000 accounts, and ezCater "
+  "gets a sales force that never has to make a cold call.",
 
-  "Dinner is already close to the size of the ride. In the second quarter "
-  "delivery gross bookings were $27.5 billion against $29.0 billion for "
-  "mobility, and delivery grew faster, 26% to 22%. A robotaxi&rsquo;s job "
-  "description is moving a person. Waymo&rsquo;s one active delivery operation, "
-  f"as of <a href=\"{DOORDASH}\">its October 2025 announcement</a>, was a "
-  "Phoenix pilot with DoorDash, Uber Eats&rsquo; rival, carrying orders from "
-  "DoorDash&rsquo;s own stores. Citizens&rsquo; Andrew Boone, as <a "
-  f"href=\"{CITIZENS}\">Parameter reports</a> it, holds that delivery has a "
-  "stronger competitive position than mobility.",
+  "The second is the size of the ticket. An order above $400, placed ahead of "
+  "time, is worth many ordinary takeout orders to a restaurant and arrives "
+  "with notice. Khosrowshahi described catering as a potential major revenue "
+  "stream for restaurants, and the announcement promised couriers new earning "
+  f"opportunities (<a href=\"{EZ}\">PYMNTS</a>). Scheduled demand is the "
+  "easiest kind for a delivery network to plan around.",
+
+  "The third is the bill. ezCater already invoices companies, and Uber for "
+  "Business already reconciles expenses. Together they can put a ride to the "
+  "client, the lunch for the meeting and the dinner afterward onto one "
+  "statement, and a single statement is very hard to replace.",
+
+  "The fourth is the competitor. <a href=\"" + EZ_BNN + "\">BNN Bloomberg</a> "
+  "framed the deal as Uber&rsquo;s bet to narrow its gap with DoorDash in "
+  "American food delivery. Corporate catering is a corner of that market where "
+  "the customer is a company, and a company changes vendors far less often than "
+  "a person changes apps.",
  ]),
 
- ("What Uber has to trade with", [
-  "Uber has three things a robotaxi company lacks, and each shows in the "
-  "filings. The first is the name. In the second quarter 208 million people "
-  "used the platform in a month, up 16%, and they took 3.9 billion trips. The "
-  "second is cash. Free cash flow was $2.8 billion in the quarter, the company "
-  "spent $3.5 billion on buybacks in the first six months, and it has lined up "
-  "a bridge for the Delivery Hero offer without changing its buyback "
-  "framework.",
+ ("Two more rooms in the house", [
+  "ezCater is the third move of the year, and the other two explain it. In July "
+  f"Uber offered <a href=\"{DH}\">€41.50 a share in cash for Delivery Hero</a>, "
+  "valuing the Berlin food delivery group at $14.8 billion. The combined company "
+  "would operate in 99 markets, the number of markets where Uber offers both "
+  "rides and delivery would rise from 34 to 58, and Uber says customers who use "
+  "both services generate about three times the gross bookings and profit of "
+  "customers who use one. It is paying from cash and new debt, with a committed "
+  "bridge of about €14 billion, and expects to close in the second half of 2027.",
 
-  f"The third is people. Uber has drivers and couriers, and a business built "
-  f"around the unglamorous work of cars in the physical world. Its data-services "
-  f"unit, Uber AI Solutions, offers drivers small digital tasks when they are "
-  f"offline, such as recording audio samples or uploading menus, and Uber&rsquo;s "
-  f"product chief said it was a way to keep drivers earning and not a response "
-  f"to being displaced by autonomous vehicles (<a href=\"{TASKS}\">Bloomberg, via "
-  f"the Inquirer</a>). The field teams that clean and tow robotaxis apply the "
-  f"same idea to a different customer.",
+  "In April, at its Go-Get event, Uber began selling hotel rooms. It partnered "
+  "with Expedia to give American customers more than 700,000 properties inside "
+  "the Uber app, with 10% back in Uber One credits on every booking and Vrbo "
+  f"rentals to follow (<a href=\"{HOTEL}\">Hotel Online</a>). Expedia processes "
+  f"the bookings and handles the customer service (<a href=\"{TPG}\">The Points "
+  "Guy</a>), so Uber is the storefront and Expedia owns the shelves. "
+  "Khosrowshahi described Uber at the event as an app for everything.",
+
+  "Put the three together and you can see a business trip that never leaves "
+  "the app: the ride from the airport, the room, the dinner and the lunch for "
+  "the client. Hotel booking is a consumer feature for American customers today, "
+  "and Uber has not said it is coming to business accounts. It is the obvious "
+  "next room, and the expense account is the hallway that connects them.",
+ ]),
+
+ ("Why a ride company wants your lunch", [
+  "Delivery is already nearly as large as rides. In the second quarter Uber "
+  "booked $27.5 billion in delivery against $29.0 billion in mobility, and "
+  f"delivery grew faster, 26% to 22% (<a href=\"{Q2}\">the earnings release</a>). "
+  "Rides are also the business with a cloud over it. Uber&rsquo;s "
+  f"<a href=\"{K10}\">annual report</a> names Alphabet&rsquo;s Waymo, "
+  "Amazon&rsquo;s Zoox and Tesla among companies that compete with it or may in "
+  "future, while Waymo is also a partner whose cars can be hailed only through "
+  f"Uber in <a href=\"{WAYMO_UBER}\">Austin and Atlanta</a>. Autonomous trips are "
+  f"still under 0.5% of Uber&rsquo;s weekly volume (<a href=\"{CNBC}\">CNBC</a>).",
+
+  "A robotaxi can carry a tray of sandwiches. It cannot sign a vendor agreement "
+  "with a finance department, and a vendor agreement is most of what ezCater "
+  "is. Every move this year points the same way, toward the parts of the "
+  "business that depend on relationships, contracts and accounts, and away from "
+  "the part that depends on who is driving.",
  ]),
 
  ("The case against", [
-  "The honest worry comes in two parts. The first is the borrowing. A $14.8 "
-  "billion offer funded partly by new debt, with a closing a year away, is a "
-  "commitment made while the stock is down. Uber is also promising no workforce "
-  "changes at the Berlin headquarters until at least 2029 and a €2 billion "
-  "investment in Germany over five years, which narrows where it can find "
-  "savings.",
+  "Three deals at once is a great deal of integration. Delivery Hero needs "
+  "acceptances and clearances across many countries and will not close until "
+  "the second half of 2027. ezCater still needs regulatory approval. The hotel "
+  "business belongs, in the ways that matter most, to Expedia, which holds the "
+  "inventory and the customer service.",
 
-  "The second is that dinner does not hedge the ride. Rides remain the larger "
-  "business, the 10-K says its autonomous partners could leave or compete, and "
-  "delivery has its own robotaxi pilot under way, run by a competitor. A "
-  "commitment of more than $10 billion to partners that may not "
-  "stay is a bet on many horses, and the document that describes the bet also "
-  "describes the exit.",
+  "Office catering also depends on offices. Its growth rests on people being "
+  "in the room for the meeting, and that is a habit no acquisition controls. "
+  "DoorDash wants the same corporate lunch. And a single statement is only "
+  "sticky if the services on it are each good enough to keep, so the bundle "
+  "has to win line by line before it can win as a bundle.",
  ]),
 
  ("What to watch", [
-  "Four things can be checked in public. The first is what happens to Waymo on "
-  "Uber&rsquo;s app once the exclusive arrangement in Austin and Atlanta ends "
-  "by early 2028. The second is how the Delivery Hero offer moves through "
-  "acceptance and clearances during the second half of 2027. The third is "
-  "whether autonomous trips climb past the 0.5% of Uber&rsquo;s volume that "
-  "Uber reports today. The fourth is whether delivery keeps growing faster than "
-  "rides, 26% against 22% in the latest quarter. A company can be "
-  "worried and well run at the same moment, and these four numbers show which "
-  "of the two is gaining.",
+  "First, whether ezCater closes on schedule and shows up inside Uber for "
+  "Business accounts, which is where the synergy either appears or does not. "
+  "Second, whether hotel booking reaches business accounts or travels beyond "
+  "the United States. Third, the Delivery Hero acceptances during 2027. Fourth, "
+  "Uber&rsquo;s third-quarter results, not yet reported as of 3 November, for "
+  "whether delivery keeps outgrowing rides. A company that owns the expense "
+  "account owns the habit, and these four numbers show how much of the habit "
+  "Uber has bought.",
  ]),
 ]
 
-NOTE = ("Company figures come from Uber&rsquo;s second-quarter 2026 earnings "
-        "release, its 2025 annual report, its second-quarter 10-Q and its "
-        "Delivery Hero announcement and Autonomous Solutions release. Waymo&rsquo;s "
-        "ride count is from TechCrunch, its year-end goal is from Bloomberg&rsquo;s "
-        "headline, and its Uber arrangement is from Waymo&rsquo;s own page. The "
-        "analyst view is as reported by Parameter and was not checked against "
-        "Citizens&rsquo; own note. The share of Uber&rsquo;s volume that Waymo "
-        "represents is my arithmetic from a March figure and an August one, so it "
-        "is a scale and not a measurement. The notes this story grew from called "
-        "Uber distressed. Its filings show record cash flow, so the story treats "
-        "the worry as strategic.")
+NOTE = ("ezCater&rsquo;s figures are from the 6 October 2026 announcement as "
+        "reported by PYMNTS, QSR Web and AWP. I could not read Uber&rsquo;s own "
+        "release page, and none of the coverage I read gave a synergy figure, so "
+        "the synergy argument is mine. The 300,000 businesses and the description "
+        "of the account are from Uber&rsquo;s business page. Hotel details are "
+        "from coverage of the 29 April Go-Get event and from The Points Guy. "
+        "Delivery Hero terms, second-quarter figures and the competitor list "
+        "come from Uber&rsquo;s own filings. The price compared with gross "
+        "bookings is my arithmetic. The office manager is invented.")
