@@ -16,10 +16,18 @@ Sector order follows the stack, from the physical foundation at the bottom to
 the end markets at the top. The telecom, foundation, mobility, robotics,
 health, defense, quantum and energy modules stay on disk but are not loaded.
 """
-import json, pathlib
+import json, pathlib, sys
+
+# False removes every draft rating from the published pages and JSON, so only
+# ratings marked "reviewed" go live. True publishes drafts, labelled DRAFT.
+SHOW_DRAFT_RATINGS = True
 
 DATA = json.loads((pathlib.Path(__file__).parent / "atlas.json").read_text(encoding="utf-8"))
 ASOF = DATA["asof"]
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent.parent / "scripts"))
+import validate_atlas
+ERRORS, WARNINGS = validate_atlas.validate(DATA)
 
 # atlas.json spells the ranks out. The renderer uses the short codes.
 RANK_CODE = {"starter": "starter", "second_string": "second", "practice_squad": "rookie"}
@@ -50,13 +58,13 @@ GROUP = {"alliance": "allies", "supply": "allies", "license": "allies", "depende
          "rivalry": "rivals", "ownership": "backers", "investment": "backers"}
 GROUP_LABEL = {"allies": "Allies and partners", "rivals": "Rivals", "backers": "Owners and backers"}
 
-# which sector is each company's home, by first appearance as a player
-HOME = {}
+# each company's home sector, where the map draws it. Companies with no card
+# have the sector "backers" and are left out of HOME.
+HOME = {k: v["sector"] for k, v in DATA["companies"].items() if v["sector"] != validate_atlas.BACKERS}
 APPEARS = {}
 for s in SECTORS:
     for p in s["positions"]:
         for pl in p["players"]:
-            HOME.setdefault(pl["e"], s["id"])
             APPEARS.setdefault(pl["e"], []).append((s["id"], p["id"], pl["t"]))
 
 # the companies that appear only in relationships (investors, owners, funds)
@@ -70,27 +78,30 @@ EDGE_LABEL = {
 }
 BAND_LABEL = {"end": "End markets", "platform": "Platforms and software", "stack": "The compute stack"}
 
-# Overview map. Edges worth drawing between sectors, chosen by hand from EDGES.
-def check():
-    problems = []
-    for ed in EDGES:
-        for e in (ed["a"], ed["b"]):
-            if e not in ENT:
-                problems.append(f"edge endpoint missing: {e}")
-        if ed["type"] not in EDGE_LABEL:
-            problems.append(f"bad edge type {ed['type']}")
-    for s in SECTORS:
-        for p in s["positions"]:
-            for pl in p["players"]:
-                if pl["e"] not in ENT:
-                    problems.append(f"player missing: {pl['e']} in {s['id']}/{p['id']}")
-                if pl["t"] not in TIER_LABEL:
-                    problems.append(f"bad tier {pl['t']}")
-    return problems
+RATING_FIELDS = ("ovr", "ovr_status", "ovr_reason", "ovr_evidence", "ovr_updated", "ovr_by")
+
+def public_rating(company, show_drafts=SHOW_DRAFT_RATINGS):
+    """The rating fields a company publishes, or None when it has none to show."""
+    if company.get("ovr") is None:
+        return None
+    if company.get("ovr_status") != "reviewed" and not show_drafts:
+        return None
+    return {k: company[k] for k in RATING_FIELDS if k in company}
+
+RATINGS = {k: r for k, v in DATA["companies"].items() if (r := public_rating(v))}
+
+# OVR tiers, highest first, as in docs/ratings-rubric.md
+OVR_TIERS = [(95, "Generational"), (90, "Superstar"), (85, "All-Star"), (80, "Starter"),
+             (75, "Rotation"), (70, "Role player"), (60, "Bench"), (40, "Prospect")]
+
+def ovr_tier(ovr):
+    return next(label for floor, label in OVR_TIERS if ovr >= floor)
 
 if __name__ == "__main__":
-    pr = check()
-    print("problems:", pr or "none")
+    for w in WARNINGS:
+        print("warning:", w)
+    print("problems:", ERRORS or "none")
     n = sum(len(p["players"]) for s in SECTORS for p in s["positions"])
     print(len(SECTORS), "sectors,", sum(len(s["positions"]) for s in SECTORS), "positions,", n, "cards,",
-          len(HOME), "companies with a home,", len(BACKERS), "backers,", len(EDGES), "edges")
+          len(HOME), "companies with a home,", len(BACKERS), "backers,", len(EDGES), "edges,",
+          len(RATINGS), "ratings published")

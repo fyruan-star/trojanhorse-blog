@@ -251,587 +251,2203 @@
   "companies": {
     "nvidia": {
       "name": "Nvidia",
-      "description": "Sells AI chips, networking and software as complete racks."
+      "description": "Sells AI chips, networking and software as complete racks.",
+      "sector": "silicon",
+      "ovr": 96,
+      "ovr_status": "draft",
+      "ovr_reason": "Nvidia's Data Center revenue was $89.0bn in the quarter to 26 Jul 2026, up 117%, and estimates put its share of AI accelerator revenue at about 70% to over 80%.",
+      "ovr_evidence": [
+        {
+          "url": "https://pulse2.com/nvidia-operating-income-jumps-124-to-63-7-billion-as-revenue-doubles-and-q3-outlook-hits-108-billion/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "amd": {
       "name": "AMD",
-      "description": "Designs CPUs and AI GPUs, and sells rack-scale systems."
+      "description": "Designs CPUs and AI GPUs, and sells rack-scale systems.",
+      "sector": "silicon",
+      "ovr": 84,
+      "ovr_status": "draft",
+      "ovr_reason": "AMD reached 30.7% of x86 units in Q2 2026, or 34.1% with semi-custom and embedded, and its Data Center segment grew 107% year on year to $6.7bn.",
+      "ovr_evidence": [
+        {
+          "url": "https://hothardware.com/news/amd-record-x86-market-share-cut-intels-chip-lead",
+          "trust": "sourced"
+        },
+        {
+          "url": "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "intel": {
       "name": "Intel",
-      "description": "Designs the most-used x86 CPUs and runs its own foundry."
+      "description": "Designs the most-used x86 CPUs and runs its own foundry.",
+      "sector": "silicon",
+      "ovr": 81,
+      "ovr_status": "draft",
+      "ovr_reason": "Intel shipped 69.3% of x86 units in Q2 2026 and fell below 70% for the first time since 1995, and Nvidia bought $5bn of its stock to co-develop x86 products.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.tomshardware.com/pc-components/cpus/intel-commits-to-14a-mass-production-in-2028-as-its-sales-rise-25-percent-year-over-year",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "arm": {
       "name": "Arm",
-      "description": "Licenses the instruction set most non-PC chips use, and now sells its own server chip."
+      "description": "Licenses the instruction set most non-PC chips use, and now sells its own server chip.",
+      "sector": "silicon",
+      "ovr": 90,
+      "ovr_status": "draft",
+      "ovr_reason": "Arm collects a royalty on most chips outside PCs, and its Q1 FY27 revenue was $1.29bn, up 22%, with royalties of $715m and data center royalties more than doubling.",
+      "ovr_evidence": [
+        {
+          "url": "https://futurumgroup.com/insights/arm-q1-fy-2027-data-center-royalties-strengthen-as-agi-cpu-gains-traction/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "qualcomm": {
       "name": "Qualcomm",
-      "description": "Mobile chips and modems, now entering data center CPUs."
+      "description": "Mobile chips and modems, now entering data center CPUs.",
+      "sector": "silicon",
+      "ovr": 73,
+      "ovr_status": "draft",
+      "ovr_reason": "Qualcomm won its Nuvia licence case against Arm in Sept 2025, which Arm said it would appeal, and agreed to buy Alphawave for about $2.4bn to enter data center.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.businesswire.com/news/home/20250930042277/en/Qualcomm-Achieves-Complete-Victory-Over-Arm-in-Litigation-Challenging-Licensing-Agreements/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "broadcom": {
       "name": "Broadcom",
-      "description": "Co-designs custom AI accelerators and sells the Ethernet that links them."
+      "description": "Co-designs custom AI accelerators and sells the Ethernet that links them.",
+      "sector": "silicon",
+      "ovr": 93,
+      "ovr_status": "draft",
+      "ovr_reason": "Broadcom's AI semiconductor revenue was $16.7bn in the quarter to 2 Aug 2026, up 221% year on year, and it co-designs the accelerators for the biggest buyers and builds Google's TPUs.",
+      "ovr_evidence": [
+        {
+          "url": "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-third-quarter-fiscal-year-2026-financial",
+          "trust": "sourced"
+        },
+        {
+          "url": "https://finance.yahoo.com/sectors/technology/articles/broadcom-inks-major-ai-chip-165033115.html",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "google": {
       "name": "Google",
-      "description": "Search, cloud and its own TPU AI chips."
+      "description": "Search, cloud and its own TPU AI chips.",
+      "sector": "silicon",
+      "ovr": 94,
+      "ovr_status": "draft",
+      "ovr_reason": "Google took roughly $82bn of Q2 2026 advertising revenue, up about 14%, with search near 90% of referral traffic and AI Mode in Search past 1 billion monthly users.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.thekeyword.co/news/big-tech-q2-2026-ad-revenue",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "amazon": {
       "name": "Amazon",
-      "description": "Retail, AWS and its own Trainium AI chips."
+      "description": "Retail, AWS and its own Trainium AI chips.",
+      "sector": "silicon",
+      "ovr": 92,
+      "ovr_status": "draft",
+      "ovr_reason": "Amazon held 28% of cloud infrastructure spending in Q2 2026 on Synergy's figures, and AWS sales were $42.2bn, up 37%, with operating income of $16.6bn.",
+      "ovr_evidence": [
+        {
+          "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "marvell": {
       "name": "Marvell",
-      "description": "Custom chip design partner and data center networking silicon."
+      "description": "Custom chip design partner and data center networking silicon.",
+      "sector": "silicon",
+      "ovr": 77,
+      "ovr_status": "draft",
+      "ovr_reason": "Marvell and Broadcom are estimated to control about 95% of custom accelerator co-design, which makes Marvell the only other scaled partner a buyer can call.",
+      "ovr_evidence": [
+        {
+          "url": "https://alatirok.com/ai-chip-market-share-2026/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "openai": {
       "name": "OpenAI",
-      "description": "Frontier model lab, now also a designer of its own accelerators."
+      "description": "Frontier model lab, now also a designer of its own accelerators.",
+      "sector": "silicon",
+      "ovr": 88,
+      "ovr_status": "draft",
+      "ovr_reason": "OpenAI closed a $122bn round at an $852bn post-money valuation in March 2026 on the largest consumer audience, and its rating rests on turning compute commitments into revenue.",
+      "ovr_evidence": [
+        {
+          "url": "https://news.bloomberglaw.com/tech-and-telecom-law/openai-valued-at-852-billion-after-closing-122-billion-round",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "huawei": {
       "name": "Huawei",
-      "description": "Ascend AI chips and the leading domestic alternative in China."
+      "description": "Ascend AI chips and the leading domestic alternative in China.",
+      "sector": "silicon",
+      "ovr": 77,
+      "ovr_status": "draft",
+      "ovr_reason": "Huawei took 28% of China AI chip shipments in H1 2026 (572,000 units) as its shipments nearly doubled, and growth depends on access to enough advanced manufacturing capacity.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.benzinga.com/markets/tech/26/10/62319484/nvidia-loses-ground-in-china-as-huaweis-ai-chip-shipments-nearly-double-capturing-28-market-share-report",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "cerebras": {
       "name": "Cerebras",
-      "description": "Wafer-scale AI systems, public since May 2026."
+      "description": "Wafer-scale AI systems, public since May 2026.",
+      "sector": "silicon",
+      "ovr": 68,
+      "ovr_status": "draft",
+      "ovr_reason": "Cerebras raised $5.55bn in its May 2026 IPO and cites an OpenAI agreement valued above $20bn, so its position rests on turning that commitment into delivered capacity.",
+      "ovr_evidence": [
+        {
+          "url": "https://techcrunch.com/2026/05/14/cerebras-raises-5-5b-kicking-off-2026s-ipo-season-with-a-bang/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "groq": {
       "name": "Groq",
-      "description": "Low-latency inference chips and a cloud, partly licensed to Nvidia."
+      "description": "Low-latency inference chips and a cloud, partly licensed to Nvidia.",
+      "sector": "silicon",
+      "ovr": 55,
+      "ovr_status": "draft",
+      "ovr_reason": "Groq licensed its inference technology to Nvidia in a deal reported at about $20bn, which faces a reported Justice Department review and a Delaware stockholder suit.",
+      "ovr_evidence": [
+        {
+          "url": "https://groq.com/newsroom/groq-and-nvidia-enter-non-exclusive-inference-technology-licensing-agreement-to-accelerate-ai-inference-at-global-scale",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "tenstorrent": {
       "name": "Tenstorrent",
-      "description": "AI chips and servers from a startup led by chip architect Jim Keller."
+      "description": "AI chips and servers from a startup led by chip architect Jim Keller.",
+      "sector": "silicon",
+      "ovr": 62,
+      "ovr_status": "draft",
+      "ovr_reason": "Tenstorrent raised a $1.5bn Series E at a $6.2bn valuation on 19 Oct 2026 and now has to turn the round into Galaxy server shipments and manufacturing capacity.",
+      "ovr_evidence": [
+        {
+          "url": "https://money.usnews.com/investing/news/articles/2026-10-19/ai-chip-startup-tenstorrent-more-than-doubles-its-valuation-to-6-2-billion-in-funding-round",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "etched": {
       "name": "Etched",
-      "description": "Startup building chips specialised for transformer models."
+      "description": "Startup building chips specialised for transformer models.",
+      "sector": "silicon",
+      "ovr": 52,
+      "ovr_status": "draft",
+      "ovr_reason": "Etched raised a $500m Series B in January 2026 on a chip built only for transformers, so its case depends on that architecture staying dominant.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.cbinsights.com/company/etched/financials",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "tsmc": {
       "name": "TSMC",
-      "description": "Makes most of the world's leading-edge chips for others."
+      "description": "Makes most of the world's leading-edge chips for others.",
+      "sector": "silicon",
+      "ovr": 98,
+      "ovr_status": "draft",
+      "ovr_reason": "TSMC held 72.5% of top-ten foundry revenue in 2Q26 on about $40.2bn and makes the leading-edge chips for Nvidia, Apple and most others.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.trendforce.com/presscenter/news/20260909-13225.html",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "samsung": {
       "name": "Samsung",
-      "description": "Memory leader and the number two foundry."
+      "description": "Memory leader and the number two foundry.",
+      "sector": "silicon",
+      "ovr": 88,
+      "ovr_status": "draft",
+      "ovr_reason": "Samsung retook the DRAM lead in Q2 2026 with 38 to 39% and has about 33% of HBM and rising, with Counterpoint and IDC ranking the memory leaders differently.",
+      "ovr_evidence": [
+        {
+          "url": "https://counterpointresearch.com/en/insights/ai-demand-reshapes-dram-rankings-in-q2-2026",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "smic": {
       "name": "SMIC",
-      "description": "China's largest chip foundry."
+      "description": "China's largest chip foundry.",
+      "sector": "silicon",
+      "ovr": 72,
+      "ovr_status": "draft",
+      "ovr_reason": "SMIC lifted its foundry share to 5.4% in 2Q26 from 5.1% as China steers domestic buyers to domestic chips, and equipment access under export controls is its main exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.taipeitimes.com/News/biz/archives/2026/09/10/2003863979",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "intel_foundry": {
       "name": "Intel Foundry",
-      "description": "Intel's contract manufacturing arm, still building outside customers."
+      "description": "Intel's contract manufacturing arm, still building outside customers.",
+      "sector": "silicon",
+      "ovr": 62,
+      "ovr_status": "draft",
+      "ovr_reason": "Intel Foundry had $293m of external revenue and a $2.1bn operating loss in Q2 2026, and customers decide on 14A between the second half of 2026 and the first half of 2027.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.alpha-sense.com/earnings/intc/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "umc_gf": {
       "name": "UMC and GlobalFoundries",
-      "description": "Mature-node foundries serving cars, industry and communications."
+      "description": "Mature-node foundries serving cars, industry and communications.",
+      "sector": "silicon",
+      "ovr": 68,
+      "ovr_status": "draft",
+      "ovr_reason": "UMC and GlobalFoundries held 3.9% and 3.2% of top-ten foundry revenue in 2Q26 from mature-node capacity, which faces Chinese mature-node capacity and pricing.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.trendforce.com/presscenter/news/20260909-13225.html",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "rapidus": {
       "name": "Rapidus",
-      "description": "Japan's state-backed 2nm foundry start-up."
+      "description": "Japan's state-backed 2nm foundry start-up.",
+      "sector": "silicon",
+      "ovr": 54,
+      "ovr_status": "draft",
+      "ovr_reason": "Rapidus raised about 267.6bn yen in Feb 2026 plus 150bn yen from Japan's METI and targets 2nm mass production for 2027, with working yields and paying customers still to come.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.theregister.com/2026/02/27/rapidus_funding/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "sk_hynix": {
       "name": "SK hynix",
-      "description": "Leads high-bandwidth memory, the memory stacked beside AI chips."
+      "description": "Leads high-bandwidth memory, the memory stacked beside AI chips.",
+      "sector": "silicon",
+      "ovr": 89,
+      "ovr_status": "draft",
+      "ovr_reason": "SK hynix held about 50% of HBM in Q2 2026, down from 64% a year earlier, and still leads the memory that sits next to Nvidia's chips.",
+      "ovr_evidence": [
+        {
+          "url": "https://counterpointresearch.com/en/insights/ai-demand-reshapes-dram-rankings-in-q2-2026",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "micron": {
       "name": "Micron",
-      "description": "The US memory maker, third in DRAM and HBM."
+      "description": "The US memory maker, third in DRAM and HBM.",
+      "sector": "silicon",
+      "ovr": 81,
+      "ovr_status": "draft",
+      "ovr_reason": "Micron is the one scaled US memory maker, with 24 to 25% of DRAM and about 18% of HBM in Q2 2026, and has to hold HBM share as Samsung ramps.",
+      "ovr_evidence": [
+        {
+          "url": "https://counterpointresearch.com/en/insights/ai-demand-reshapes-dram-rankings-in-q2-2026",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "cxmt": {
       "name": "CXMT",
-      "description": "China's leading DRAM maker."
+      "description": "China's leading DRAM maker.",
+      "sector": "silicon",
+      "ovr": 67,
+      "ovr_status": "draft",
+      "ovr_reason": "CXMT held about 10% of DRAM in Q2 2026 on Chinese demand for domestic supply, with export controls on equipment and the move up to HBM as its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://counterpointresearch.com/en/insights/ai-demand-reshapes-dram-rankings-in-q2-2026",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "asml": {
       "name": "ASML",
-      "description": "Sole maker of the extreme ultraviolet machines that print leading-edge chips."
+      "description": "Sole maker of the extreme ultraviolet machines that print leading-edge chips.",
+      "sector": "silicon",
+      "ovr": 97,
+      "ovr_status": "draft",
+      "ovr_reason": "ASML is the only company that makes EUV machines, so every leading-edge fab is its customer, and its Q2 2026 net sales were EUR 9.3bn with EUR 3.8bn from EUV systems.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.nasdaq.com/articles/asml-q2-earnings-call-highlights",
+          "trust": "sourced"
+        },
+        {
+          "url": "https://www.cnbc.com/2022/03/23/inside-asml-the-company-advanced-chipmakers-use-for-euv-lithography.html",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "amat": {
       "name": "Applied Materials",
-      "description": "Deposition, etch and inspection tools."
+      "description": "Deposition, etch and inspection tools.",
+      "sector": "silicon",
+      "ovr": 86,
+      "ovr_status": "draft",
+      "ovr_reason": "Applied Materials was the second-largest IC equipment supplier in 2025 (TechInsights) with the broadest set of deposition and etch tools, and export controls on China sales are its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.techinsights.com/blog/top-ic-manufacturing-equipment-suppliers-2025",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "lam": {
       "name": "Lam Research",
-      "description": "Etch and deposition tools, strong in memory."
+      "description": "Etch and deposition tools, strong in memory.",
+      "sector": "silicon",
+      "ovr": 84,
+      "ovr_status": "draft",
+      "ovr_reason": "Lam Research ranked third among chip equipment suppliers in 2025 (TechInsights), with strength in etch and in booming memory, which ties it to memory capex cycles.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.techinsights.com/blog/top-ic-manufacturing-equipment-suppliers-2025",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "tel": {
       "name": "Tokyo Electron",
-      "description": "Coating and etch tools."
+      "description": "Coating and etch tools.",
+      "sector": "silicon",
+      "ovr": 83,
+      "ovr_status": "draft",
+      "ovr_reason": "Tokyo Electron ranked fourth among chip equipment suppliers in 2025 (TechInsights) and leads in coating and developing tools, with Japan and China export policy as its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.techinsights.com/blog/top-ic-manufacturing-equipment-suppliers-2025",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "kla": {
       "name": "KLA",
-      "description": "Inspection and process control tools."
+      "description": "Inspection and process control tools.",
+      "sector": "silicon",
+      "ovr": 82,
+      "ovr_status": "draft",
+      "ovr_reason": "KLA ranked fifth among chip equipment suppliers in 2025 (TechInsights), and its inspection and process control business grows with chip complexity, with China exposure named as the risk.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.techinsights.com/blog/top-ic-manufacturing-equipment-suppliers-2025",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "naura": {
       "name": "Naura",
-      "description": "China's largest chip equipment maker."
+      "description": "China's largest chip equipment maker.",
+      "sector": "silicon",
+      "ovr": 70,
+      "ovr_status": "draft",
+      "ovr_reason": "Naura forecast 2025 revenue of 46.8 to 52.0bn yuan from Chinese fabs buying domestic tools, and its margins face price pressure from domestic rivals.",
+      "ovr_evidence": [
+        {
+          "url": "https://tomshardware.com/tech-industry/chinese-chip-tool-makers-posted-record-2025-revenues-while-margins-slipped",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "amec": {
       "name": "AMEC",
-      "description": "Chinese etch tool maker."
+      "description": "Chinese etch tool maker.",
+      "sector": "silicon",
+      "ovr": 68,
+      "ovr_status": "draft",
+      "ovr_reason": "AMEC grew 2025 revenue 36.6% to 12.4bn yuan selling etch tools to Chinese fabs, and its gross margin fell 1.9 points to 39.2% under pricing pressure.",
+      "ovr_evidence": [
+        {
+          "url": "https://tomshardware.com/tech-industry/chinese-chip-tool-makers-posted-record-2025-revenues-while-margins-slipped",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "substrate": {
       "name": "Substrate",
-      "description": "Startup building an X-ray lithography system to rival ASML."
+      "description": "Startup building an X-ray lithography system to rival ASML.",
+      "sector": "silicon",
+      "ovr": 46,
+      "ovr_status": "draft",
+      "ovr_reason": "Substrate raised a $100m Series A at a valuation above $1bn in Oct 2025 and targets production in 2028, with no revenue and claims unproven at scale.",
+      "ovr_evidence": [
+        {
+          "url": "https://app.dealroom.co/news/feed/substrate-raises-100m-to-challenge-asml",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "softbank": {
       "name": "SoftBank",
-      "description": "Holds about 90% of Arm."
+      "description": "Holds about 90% of Arm.",
+      "sector": "backers",
+      "ovr": null
     },
     "meti": {
       "name": "Japan's METI",
-      "description": "Japan's industry ministry, funding Rapidus through its IPA."
+      "description": "Japan's industry ministry, funding Rapidus through its IPA.",
+      "sector": "backers",
+      "ovr": null
     },
     "anthropic": {
       "name": "Anthropic",
-      "description": "Frontier model lab that buys chips from Google, Amazon, Nvidia and AMD."
+      "description": "Frontier model lab that buys chips from Google, Amazon, Nvidia and AMD.",
+      "sector": "models",
+      "ovr": 91,
+      "ovr_status": "draft",
+      "ovr_reason": "Anthropic led enterprise LLM API spend at about 40% in Menlo's late 2025 survey and reported run-rate revenue of $65bn at the end of July 2026, with compute supply as its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.cnbc.com/2026/08/17/anthropic-says-annualized-revenue-climbed-to-65-billion-in-july.html",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "meta": {
       "name": "Meta",
-      "description": "Social platforms and a large AI chip buyer."
+      "description": "Social platforms and a large AI chip buyer.",
+      "sector": "models",
+      "ovr": 90,
+      "ovr_status": "draft",
+      "ovr_reason": "Meta's Q2 2026 ad revenue was $59.36bn, up 27%, on 3.60 billion daily people, with impressions up 14% and price per ad up 12%.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.thekeyword.co/news/big-tech-q2-2026-ad-revenue",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "tesla": {
       "name": "Tesla",
-      "description": "Electric vehicles, energy storage, robotaxis and its own AI chips."
+      "description": "Electric vehicles, energy storage, robotaxis and its own AI chips.",
+      "sector": "backers",
+      "ovr": null
     },
     "apple": {
       "name": "Apple",
-      "description": "Designs its own chips and is TSMC's second-largest customer."
+      "description": "Designs its own chips and is TSMC's second-largest customer.",
+      "sector": "devices",
+      "ovr": 87,
+      "ovr_status": "draft",
+      "ovr_reason": "Apple shipped 55.7m phones for 20.2% share in Q2 2026, up about 15%, and with Samsung was the only top-five vendor that grew.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.biztechreports.com/news-archive/2026/8/6/global-smartphone-shipments-fall-67-in-q2-2026-as-the-memory-crisis-splits-the-market-in-two-idc-august-11-2026",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "celestica": {
       "name": "Celestica",
-      "description": "Builds the white-box Ethernet switches many hyperscalers buy."
+      "description": "Builds the white-box Ethernet switches many hyperscalers buy.",
+      "sector": "infra",
+      "ovr": 83,
+      "ovr_status": "draft",
+      "ovr_reason": "Celestica led Ethernet AI back-end switch sales in 2Q26 (Dell'Oro) by building to the specification of the largest cloud buyers, who could move design in-house.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.delloro.com/news/ai-back-end-networks-switch-sales-surpass-front-end-networks-for-the-first-time-in-2q2026/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "arista": {
       "name": "Arista Networks",
-      "description": "High-speed Ethernet switches for cloud and AI clusters."
+      "description": "High-speed Ethernet switches for cloud and AI clusters.",
+      "sector": "infra",
+      "ovr": 81,
+      "ovr_status": "draft",
+      "ovr_reason": "Arista's Q2 2026 revenue was $3.04bn, up 37.7%, with a 2026 outlook of about $12.6bn, and it ranked third in Ethernet AI back-end switches as Cisco gained share.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.nasdaq.com/articles/arista-networks-q2-earnings-call-highlights",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "cisco": {
       "name": "Cisco",
-      "description": "Networking, security and, since 2024, Splunk."
+      "description": "Networking, security and, since 2024, Splunk.",
+      "sector": "infra",
+      "ovr": 78,
+      "ovr_status": "draft",
+      "ovr_reason": "Cisco took $9.3bn of hyperscale AI orders in fiscal 2026, about 4.5 times the year before, and gained the most share in 2Q26 Ethernet AI back-end switches (Dell'Oro).",
+      "ovr_evidence": [
+        {
+          "url": "https://pulse2.com/cisco-ai-infrastructure-revenue-targets-7-5-billion-after-hyperscaler-orders-reach-9-3-billion/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "ayar": {
       "name": "Ayar Labs",
-      "description": "Startup putting light-based links inside AI systems."
+      "description": "Startup putting light-based links inside AI systems.",
+      "sector": "infra",
+      "ovr": 57,
+      "ovr_status": "draft",
+      "ovr_reason": "Ayar Labs reported a $500m Series E in March 2026 at about $3.75bn to $3.8bn, with conflicting sources, and still needs volume production and a major customer.",
+      "ovr_evidence": [
+        {
+          "url": "https://ai2.work/blog/ayar-labs-raises-500m-to-replace-copper-with-light-in-ai-chips-2026",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "dell": {
       "name": "Dell",
-      "description": "Largest server maker and a growing AI systems seller."
+      "description": "Largest server maker and a growing AI systems seller.",
+      "sector": "infra",
+      "ovr": 86,
+      "ovr_status": "draft",
+      "ovr_reason": "Dell led Q1 2026 server revenue with 16.5% on $20.28bn (IDC) and took $64bn of AI server orders in fiscal 2026, with a $43bn backlog and shipments limited by component supply.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.networkworld.com/article/4147841/idc-dell-leads-server-market-driven-by-ai-infrastructure-needs.html",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "netapp": {
       "name": "NetApp",
-      "description": "Enterprise storage and data management."
+      "description": "Enterprise storage and data management.",
+      "sector": "infra",
+      "ovr": 78,
+      "ovr_status": "draft",
+      "ovr_reason": "NetApp reported fiscal 2025 revenue of $6.65bn from a large installed base in enterprise data, and its position depends on whether AI workloads buy from that base or from specialists.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.storagereview.com/best/storage-arrays",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "everpure": {
       "name": "Everpure (Pure Storage)",
-      "description": "Flash storage, renamed from Pure Storage."
+      "description": "Flash storage, renamed from Pure Storage.",
+      "sector": "infra",
+      "ovr": 76,
+      "ovr_status": "draft",
+      "ovr_reason": "Everpure, formerly Pure Storage, reported $3.7bn of fiscal 2026 revenue from all-flash systems sold into AI data pipelines, and the price of flash is its exposure as memory costs rise.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.storagereview.com/best/storage-arrays",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "vast": {
       "name": "VAST Data",
-      "description": "Storage platform for AI data, valued at $30bn in April 2026."
+      "description": "Storage platform for AI data, valued at $30bn in April 2026.",
+      "sector": "infra",
+      "ovr": 79,
+      "ovr_status": "draft",
+      "ovr_reason": "VAST Data, the fastest-growing independent in storage, raised $1bn at a $30bn valuation on 22 Apr 2026 and reports over $500m of committed recurring revenue.",
+      "ovr_evidence": [
+        {
+          "url": "https://tech-insider.org/vast-data-1-billion-series-f-30-billion-valuation-2026/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "ddn": {
       "name": "DDN",
-      "description": "Storage for the largest AI and supercomputing clusters."
+      "description": "Storage for the largest AI and supercomputing clusters.",
+      "sector": "infra",
+      "ovr": 72,
+      "ovr_status": "draft",
+      "ovr_reason": "DDN took $300m from Blackstone at a $5bn valuation in January 2025, runs inside the largest clusters by its own account, and has to reach the roughly $1bn revenue projected for 2026.",
+      "ovr_evidence": [
+        {
+          "url": "https://pulse2.com/ddn-ai-and-data-intelligence-solutions-company-raises-300-million-at-5-billion-valuation/amp/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "weka": {
       "name": "WEKA",
-      "description": "Parallel file system for AI workloads."
+      "description": "Parallel file system for AI workloads.",
+      "sector": "infra",
+      "ovr": 62,
+      "ovr_status": "draft",
+      "ovr_reason": "WEKA was valued above $1.6bn in an older report and says it works with 12 of the Fortune 50, and it competes with better-funded rivals.",
+      "ovr_evidence": [
+        {
+          "url": "https://cloudian.com/guides/ai-infrastructure/best-storage-systems-for-massive-unstructured/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "supermicro": {
       "name": "Super Micro",
-      "description": "AI server and rack builder."
+      "description": "AI server and rack builder.",
+      "sector": "infra",
+      "ovr": 73,
+      "ovr_status": "draft",
+      "ovr_reason": "Super Micro held 7.6% of server revenue in Q1 2026 (IDC) by shipping new GPU systems fast, and margins and governance questions at smaller scale are its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.networkworld.com/article/4147841/idc-dell-leads-server-market-driven-by-ai-infrastructure-needs.html",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "odms": {
       "name": "Foxconn, Quanta, Wistron",
-      "description": "Contract makers that build servers for the biggest buyers."
+      "description": "Contract makers that build servers for the biggest buyers.",
+      "sector": "infra",
+      "ovr": 80,
+      "ovr_status": "draft",
+      "ovr_reason": "Foxconn, Quanta and Wistron sit in unbranded ODM direct supply, which was 50.2% of server revenue in Q1 2026 (IDC), building to the buyer's design at the lowest cost.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.networkworld.com/article/4147841/idc-dell-leads-server-market-driven-by-ai-infrastructure-needs.html",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "hpe": {
       "name": "HPE",
-      "description": "Enterprise servers and networking."
+      "description": "Enterprise servers and networking.",
+      "sector": "infra",
+      "ovr": 69,
+      "ovr_status": "draft",
+      "ovr_reason": "HPE held 3% of server revenue in Q1 2026 (IDC) on a large enterprise and supercomputing base, and is exposed to share loss to Dell and ODMs.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.networkworld.com/article/4147841/idc-dell-leads-server-market-driven-by-ai-infrastructure-needs.html",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "lenovo": {
       "name": "Lenovo",
-      "description": "PCs and servers."
+      "description": "PCs and servers.",
+      "sector": "infra",
+      "ovr": 82,
+      "ovr_status": "draft",
+      "ovr_reason": "Lenovo led Q2 2026 PC shipments with 24.4% share against HP's 19.1% (IDC), with its own shipments down 2.1% in a market that fell 4.9%.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.mactrast.com/2026/07/idc-apple-the-only-major-computer-maker-to-increase-shipments-in-q2-2026/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "equinix": {
       "name": "Equinix",
-      "description": "Colocation and interconnection data centers."
+      "description": "Colocation and interconnection data centers.",
+      "sector": "infra",
+      "ovr": 84,
+      "ovr_status": "draft",
+      "ovr_reason": "Equinix reported Q2 2026 revenue of $2.63bn and record annualized bookings of $424m, up 23%, selling interconnection as well as space at sites about 82% utilized.",
+      "ovr_evidence": [
+        {
+          "url": "https://investor.equinix.com/news-events/press-releases/detail/1114/equinix-reports-second-quarter-results-raises-2026",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "digital_realty": {
       "name": "Digital Realty",
-      "description": "Wholesale and colocation data center landlord."
+      "description": "Wholesale and colocation data center landlord.",
+      "sector": "infra",
+      "ovr": 81,
+      "ovr_status": "draft",
+      "ovr_reason": "Digital Realty reported a record $1.9bn backlog and two further hyperscale US leases worth $410m of annual rent after Q2 2026, with power availability for new sites as its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://pro.stockalarm.io/quote/DLR-PJ/earnings",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "qts": {
       "name": "QTS",
-      "description": "Hyperscale data center operator owned by Blackstone."
+      "description": "Hyperscale data center operator owned by Blackstone.",
+      "sector": "infra",
+      "ovr": 82,
+      "ovr_status": "draft",
+      "ovr_reason": "Blackstone says QTS's leased capacity is 15 times what it was five years ago, and other sources cite 3 GW commissioned and over 5 GW contracted.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.blackstone.com/insights/article/2026-mid-year-investment-perspectives/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "blackstone": {
       "name": "Blackstone",
-      "description": "Alternative asset manager and owner of QTS and a stake in DDN."
+      "description": "Alternative asset manager and owner of QTS and a stake in DDN.",
+      "sector": "backers",
+      "ovr": null
     },
     "blue_owl": {
       "name": "Blue Owl",
-      "description": "Asset manager that holds 80% of Meta's Hyperion data center venture."
+      "description": "Asset manager that holds 80% of Meta's Hyperion data center venture.",
+      "sector": "infra",
+      "ovr": 73,
+      "ovr_status": "draft",
+      "ovr_reason": "Blue Owl holds 80% of the Hyperion joint venture with Meta, funded by about $27bn of development cost, and Meta leases the campus and guarantees the first 16 years.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.prnewswire.com/news-releases/meta-announces-joint-venture-with-funds-managed-by-blue-owl-capital-to-develop-hyperion-data-center-302590584.html",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "apollo": {
       "name": "Apollo",
-      "description": "Credit investor financing AI chips and data centers."
+      "description": "Credit investor financing AI chips and data centers.",
+      "sector": "infra",
+      "ovr": 75,
+      "ovr_status": "draft",
+      "ovr_reason": "Apollo leads a $35bn package to buy chips for lease to Anthropic, reported as the largest private credit deal on record, which ties it to credit performance if AI demand slows.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.bloomberg.com/news/articles/2026-07-09/apollo-s-35-billion-ai-chip-credit-deal-is-set-to-begin-trading",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "crusoe": {
       "name": "Crusoe",
-      "description": "Builds AI data centers and rents GPU capacity."
+      "description": "Builds AI data centers and rents GPU capacity.",
+      "sector": "infra",
+      "ovr": 68,
+      "ovr_status": "draft",
+      "ovr_reason": "Crusoe's Series F of $3.9bn at about $30.9bn post-money was reported for Sept 2026, and it has to fill the capacity it builds around cheap power at those prices.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.marktechpost.com/2026/08/23/best-gpu-neoclouds-2026/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "ge_vernova": {
       "name": "GE Vernova",
-      "description": "Gas turbines and grid equipment."
+      "description": "Gas turbines and grid equipment.",
+      "sector": "infra",
+      "ovr": 90,
+      "ovr_status": "draft",
+      "ovr_reason": "GE Vernova's backlog stood at $176bn at the end of Q2 2026 with gas turbine slot reservations at 56 GW, and turbine slots are booked into 2030.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.power-eng.com/gas/turbines/data-centers-drive-record-surge-in-ge-vernova-power-equipment-orders-as-turbine-slots-tighten-through-2030/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "vertiv": {
       "name": "Vertiv",
-      "description": "Power and cooling gear inside data centers."
+      "description": "Power and cooling gear inside data centers.",
+      "sector": "infra",
+      "ovr": 84,
+      "ovr_status": "draft",
+      "ovr_reason": "Vertiv's trailing organic orders grew 81% and Q2 2026 sales rose 24% as it sells the power and cooling inside denser racks.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.nasdaq.com/articles/vertivs-15-billion-backlog-loudest-ai-signal-2026",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "eaton": {
       "name": "Eaton",
-      "description": "Electrical equipment for data centers."
+      "description": "Electrical equipment for data centers.",
+      "sector": "infra",
+      "ovr": 82,
+      "ovr_status": "draft",
+      "ovr_reason": "Eaton's data center orders were reportedly up about 200% in Q4 2025 on electrical gear at every step between grid and rack, with lead times and copper costs as its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.tikr.com/blog/eaton-ge-vernova-beat-ai-chip-stocks",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "bloom": {
       "name": "Bloom Energy",
-      "description": "Fuel cells used for on-site data center power."
+      "description": "Fuel cells used for on-site data center power.",
+      "sector": "infra",
+      "ovr": 75,
+      "ovr_status": "draft",
+      "ovr_reason": "Bloom Energy's fuel cell backlog was near $6bn at the start of 2026, up 140% year on year, from power delivered on site without waiting for the grid.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.fool.com/investing/2026/10/10/ai-data-centers-are-power-hungry-these-6-power-and/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "constellation": {
       "name": "Constellation",
-      "description": "Nuclear fleet owner supplying Microsoft."
+      "description": "Nuclear fleet owner supplying Microsoft.",
+      "sector": "infra",
+      "ovr": 75,
+      "ovr_status": "draft",
+      "ovr_reason": "Constellation signed a 20-year power purchase agreement with Microsoft to restart the Crane nuclear plant in 2027, which depends on regulatory approvals and the restart date.",
+      "ovr_evidence": [
+        {
+          "url": "https://techcrunch.com/2026/01/09/meta-signs-deals-with-three-nuclear-companies-for-6-plus-gw-of-power/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "talen": {
       "name": "Talen",
-      "description": "Owns the Susquehanna nuclear plant that supplies Amazon."
+      "description": "Owns the Susquehanna nuclear plant that supplies Amazon.",
+      "sector": "backers",
+      "ovr": null
     },
     "x_energy": {
       "name": "X-energy",
-      "description": "Small modular reactor maker, public since April 2026."
+      "description": "Small modular reactor maker, public since April 2026.",
+      "sector": "infra",
+      "ovr": 60,
+      "ovr_status": "draft",
+      "ovr_reason": "X-energy raised about $1bn in its April 2026 IPO and its Amazon deal could reach up to 5 GW of nuclear power by 2039, with its first plants yet to be built.",
+      "ovr_evidence": [
+        {
+          "url": "https://techcrunch.com/2026/04/24/nuclear-startup-x-energy-raises-1b-in-data-center-driven-ipo/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "oklo": {
       "name": "Oklo",
-      "description": "Advanced reactor developer with a Meta prepayment."
+      "description": "Advanced reactor developer with a Meta prepayment.",
+      "sector": "infra",
+      "ovr": 56,
+      "ovr_status": "draft",
+      "ovr_reason": "Oklo holds a binding Meta prepayment and development funding agreement, with a first phase targeted for 2030 and full capacity by 2034, subject to licensing and construction schedules.",
+      "ovr_evidence": [
+        {
+          "url": "https://techcrunch.com/2026/01/09/meta-signs-deals-with-three-nuclear-companies-for-6-plus-gw-of-power/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "terrapower": {
       "name": "TerraPower",
-      "description": "Sodium-cooled reactor developer backed by Meta."
+      "description": "Sodium-cooled reactor developer backed by Meta.",
+      "sector": "infra",
+      "ovr": 58,
+      "ovr_status": "draft",
+      "ovr_reason": "TerraPower announced two new Natrium units of up to 690 MW for Meta in January 2026, with rights to six more units and a construction timeline still ahead.",
+      "ovr_evidence": [
+        {
+          "url": "https://techcrunch.com/2026/01/09/meta-signs-deals-with-three-nuclear-companies-for-6-plus-gw-of-power/",
+          "trust": "sourced"
+        },
+        {
+          "url": "https://techcrunch.com/2026/01/09/meta-signs-deals-with-three-nuclear-companies-for-6-plus-gw-of-power/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "valar": {
       "name": "Valar Atomics",
-      "description": "Nuclear startup that raised $1bn in August 2026."
+      "description": "Nuclear startup that raised $1bn in August 2026.",
+      "sector": "infra",
+      "ovr": 48,
+      "ovr_status": "draft",
+      "ovr_reason": "Valar raised $1bn in August 2026 (Bloomberg, as reported), and its rating depends on demonstrating a working reactor.",
+      "ovr_evidence": [
+        {
+          "url": "https://finance.yahoo.com/energy/articles/vc-money-floods-u-nuclear-220000297.html",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "microsoft": {
       "name": "Microsoft",
-      "description": "Azure, Office, GitHub and a large stake in OpenAI."
+      "description": "Azure, Office, GitHub and a large stake in OpenAI.",
+      "sector": "cloud",
+      "ovr": 91,
+      "ovr_status": "draft",
+      "ovr_reason": "Microsoft held 20% of cloud infrastructure spending in Q2 2026 on Synergy's figures, with Azure and other cloud services up 43% and a commercial backlog reported at $678bn.",
+      "ovr_evidence": [
+        {
+          "url": "https://redmondmag.com/articles/2026/07/30/microsoft-tops-90b-quarterly-revenue.aspx",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "williams": {
       "name": "Williams",
-      "description": "Pipeline company building behind-the-meter gas power for data centers."
+      "description": "Pipeline company building behind-the-meter gas power for data centers.",
+      "sector": "backers",
+      "ovr": null
     },
     "elementl": {
       "name": "Elementl Power",
-      "description": "Nuclear developer that agreed to supply Google."
+      "description": "Nuclear developer that agreed to supply Google.",
+      "sector": "backers",
+      "ovr": null
     },
     "oracle": {
       "name": "Oracle",
-      "description": "Databases, business applications and a fast-growing AI cloud."
+      "description": "Databases, business applications and a fast-growing AI cloud.",
+      "sector": "cloud",
+      "ovr": 79,
+      "ovr_status": "draft",
+      "ovr_reason": "Oracle's cloud infrastructure revenue was $7.4bn in the quarter to August 2026, up 121%, and an analyst estimate puts OpenAI at about half of its $664bn of remaining performance obligations.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.oracle.com/news/announcement/q1fy27-earnings-release-2026-09-10/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "alibaba": {
       "name": "Alibaba Cloud",
-      "description": "China's largest cloud provider."
+      "description": "China's largest cloud provider.",
+      "sector": "cloud",
+      "ovr": 78,
+      "ovr_status": "draft",
+      "ovr_reason": "Alibaba's AI cloud and compute revenue was 48.44bn yuan in the June 2026 quarter, up 45%, and it leads China with access to enough AI chips as its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.businessday.co.za/world/international-companies/2026-08-20-alibaba-misses-profit-target-as-capex-climbs-75-in-ai-push/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "coreweave": {
       "name": "CoreWeave",
-      "description": "GPU cloud that rents Nvidia capacity to the biggest AI buyers."
+      "description": "GPU cloud that rents Nvidia capacity to the biggest AI buyers.",
+      "sector": "cloud",
+      "ovr": 80,
+      "ovr_status": "draft",
+      "ovr_reason": "CoreWeave's Q2 2026 revenue was $2.575bn with a backlog of about $104bn, and Microsoft was about 67% of its 2025 revenue beside a $640m net interest bill.",
+      "ovr_evidence": [
+        {
+          "url": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Second-Quarter-2026-Results/default.aspx",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "nebius": {
       "name": "Nebius",
-      "description": "GPU cloud with long contracts from Microsoft and Meta."
+      "description": "GPU cloud with long contracts from Microsoft and Meta.",
+      "sector": "cloud",
+      "ovr": 74,
+      "ovr_status": "draft",
+      "ovr_reason": "Nebius reported Q2 revenue of about $582m, with Microsoft agreeing to pay up to $17.4bn through 2031 and Meta $12bn over five years, and leans on convertible debt for funding.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.nextplatform.com/cloud/2026/08/14/the-neoclouds-build-cash-hoards-faster-than-revenues/5288040",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "lambda": {
       "name": "Lambda",
-      "description": "GPU cloud preparing for a 2027 listing."
+      "description": "GPU cloud preparing for a 2027 listing.",
+      "sector": "cloud",
+      "ovr": 67,
+      "ovr_status": "draft",
+      "ovr_reason": "Lambda raised a Series E of more than $1.5bn in November 2025 and a $1bn credit facility in May 2026, and has yet to win a flagship contract as large as CoreWeave's.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.marktechpost.com/2026/08/23/best-gpu-neoclouds-2026/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "fireworks": {
       "name": "Fireworks AI",
-      "description": "Serves open models to developers at scale."
+      "description": "Serves open models to developers at scale.",
+      "sector": "cloud",
+      "ovr": 70,
+      "ovr_status": "draft",
+      "ovr_reason": "Fireworks raised a $1.505bn Series D at a $17.5bn valuation in July 2026, with annualized revenue reported above $1bn from serving open models to developers.",
+      "ovr_evidence": [
+        {
+          "url": "https://valueaddvc.com/pulse/company/fireworks",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "together": {
       "name": "Together AI",
-      "description": "Cloud and software for running and training open models."
+      "description": "Cloud and software for running and training open models.",
+      "sector": "cloud",
+      "ovr": 63,
+      "ovr_status": "draft",
+      "ovr_reason": "Together AI raised an $800m Series C at an $8.3bn valuation on 1 July 2026 and competes with the hyperscalers' own model services.",
+      "ovr_evidence": [
+        {
+          "url": "https://valueaddvc.com/pulse/company/together",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "baseten": {
       "name": "Baseten",
-      "description": "Inference platform for companies deploying their own models."
+      "description": "Inference platform for companies deploying their own models.",
+      "sector": "cloud",
+      "ovr": 56,
+      "ovr_status": "draft",
+      "ovr_reason": "Baseten's funding is unverified, with sources split between a $300m round at $5bn in early 2026 and $1.5bn at $13bn in June 2026.",
+      "ovr_evidence": [
+        {
+          "url": "https://newmarketpitch.com/blogs/news/ai-infrastructure-inference-startup",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "modal": {
       "name": "Modal",
-      "description": "Serverless compute for AI workloads."
+      "description": "Serverless compute for AI workloads.",
+      "sector": "cloud",
+      "ovr": 55,
+      "ovr_status": "draft",
+      "ovr_reason": "Modal's funding is unverified, with sources split between a reported $750m at $15.75bn in October 2026 and an earlier $2.5bn in talks.",
+      "ovr_evidence": [
+        {
+          "url": "https://newmarketpitch.com/blogs/news/ai-infrastructure-inference-startup",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "wasabi": {
       "name": "Wasabi",
-      "description": "Cloud storage with no exit fees, valued at about $1.8bn in January 2026."
+      "description": "Cloud storage with no exit fees, valued at about $1.8bn in January 2026.",
+      "sector": "cloud",
+      "ovr": 54,
+      "ovr_status": "draft",
+      "ovr_reason": "Wasabi raised a $70m equity round in January 2026 at about $1.8bn on storage with no exit fee, a gap that narrowed when hyperscalers waived exit fees for departing customers.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.foley.com/news/2026/01/foley-guides-wasabi-technologies-in-70m-equity-funding-round/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "xai": {
       "name": "xAI (SpaceXAI)",
-      "description": "Maker of Grok, folded into SpaceX in February 2026."
+      "description": "Maker of Grok, folded into SpaceX in February 2026.",
+      "sector": "models",
+      "ovr": 66,
+      "ovr_status": "draft",
+      "ovr_reason": "SpaceX bought xAI in an all-stock deal that closed 2 Feb 2026, and Grok's reported revenue of about $500m annualized is small against the compute it is buying.",
+      "ovr_evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/SpaceXAI",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "spacex": {
       "name": "SpaceX",
-      "description": "Rockets, Starlink, and the owner of xAI."
+      "description": "Rockets, Starlink, and the owner of xAI.",
+      "sector": "backers",
+      "ovr": null
     },
     "deepseek": {
       "name": "DeepSeek",
-      "description": "Chinese lab releasing open-weight models."
+      "description": "Chinese lab releasing open-weight models.",
+      "sector": "models",
+      "ovr": 73,
+      "ovr_status": "draft",
+      "ovr_reason": "DeepSeek had 24.4% of text requests on OpenRouter in the week of 21 Sept 2026 (one source) with low-priced open weights, with export controls and Chinese compute supply as its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.usecarly.com/blog/llm-market-share/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "mistral": {
       "name": "Mistral AI",
-      "description": "European model lab, with ASML as its largest shareholder."
+      "description": "European model lab, with ASML as its largest shareholder.",
+      "sector": "models",
+      "ovr": 72,
+      "ovr_status": "draft",
+      "ovr_reason": "Mistral raised a €3bn Series D at about €21bn in Sept 2026, led by Samsung, Scaleup Europe and PSG Equity, selling sovereign AI to European governments and companies.",
+      "ovr_evidence": [
+        {
+          "url": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "thinking_machines": {
       "name": "Thinking Machines Lab",
-      "description": "Startup founded by former OpenAI chief technology officer Mira Murati."
+      "description": "Startup founded by former OpenAI chief technology officer Mira Murati.",
+      "sector": "models",
+      "ovr": 52,
+      "ovr_status": "draft",
+      "ovr_reason": "Thinking Machines Lab's last confirmed valuation is a $12bn seed from July 2025, and it still has to ship a product and confirm a round.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.pymnts.com/news/artificial-intelligence/2026/thinking-machines-lab-seeks-40-billion-dollar-valuation",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "ssi": {
       "name": "Safe Superintelligence",
-      "description": "Startup founded by former OpenAI chief scientist Ilya Sutskever."
+      "description": "Startup founded by former OpenAI chief scientist Ilya Sutskever.",
+      "sector": "models",
+      "ovr": 57,
+      "ovr_status": "draft",
+      "ovr_reason": "Safe Superintelligence is valued at about $32bn with no product revenue and a planned $5bn Nvidia investment, so its rating rests on producing a model.",
+      "ovr_evidence": [
+        {
+          "url": "https://valueaddvc.com/blog/safe-superintelligence-valuation-2026-32-billion-zero-revenue-and-ilya-sutskevers-7-billion-bet",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "cursor": {
       "name": "Cursor (Anysphere)",
-      "description": "AI coding editor."
+      "description": "AI coding editor.",
+      "sector": "models",
+      "ovr": 72,
+      "ovr_status": "draft",
+      "ovr_reason": "Cursor's annualized revenue was reported at $3bn by May 2026 on a $29.3bn last priced round, and it depends on models it buys from the labs.",
+      "ovr_evidence": [
+        {
+          "url": "https://dealroom.co/news/138472-cursor-hits-50b-valuation-in-quick-re-raise/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "perplexity": {
       "name": "Perplexity",
-      "description": "AI answer engine."
+      "description": "AI answer engine.",
+      "sector": "models",
+      "ovr": 62,
+      "ovr_status": "draft",
+      "ovr_reason": "Perplexity was valued at about $20bn with about $450m of annualized revenue in Sept 2025, and it buys models from the labs it competes with.",
+      "ovr_evidence": [
+        {
+          "url": "https://valueaddvc.com/blog/safe-superintelligence-valuation-2026-32-billion-zero-revenue-and-ilya-sutskevers-7-billion-bet",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "salesforce": {
       "name": "Salesforce",
-      "description": "Customer relationship software and the Agentforce agent platform."
+      "description": "Customer relationship software and the Agentforce agent platform.",
+      "sector": "software",
+      "ovr": 81,
+      "ovr_status": "draft",
+      "ovr_reason": "Salesforce's Agentforce ARR passed $1.5bn in Q2 FY27, up more than 240%, and agentic pricing at about $0.10 an action has to replace seat revenue.",
+      "ovr_evidence": [
+        {
+          "url": "https://valueaddvc.com/pulse/salesforce-agentforce-1-5-billion-arr-benioff-2026",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "servicenow": {
       "name": "ServiceNow",
-      "description": "Workflow software for IT and the enterprise."
+      "description": "Workflow software for IT and the enterprise.",
+      "sector": "software",
+      "ovr": 84,
+      "ovr_status": "draft",
+      "ovr_reason": "ServiceNow's Q2 2026 subscription revenue was $3,877m, up 24.5%, with current remaining performance obligations of $13.20bn, up 21%, across IT, HR and customer workflows.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1373715/000137371526000072/erq2fy26.htm",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "sap": {
       "name": "SAP",
-      "description": "The largest enterprise resource planning vendor."
+      "description": "The largest enterprise resource planning vendor.",
+      "sector": "software",
+      "ovr": 84,
+      "ovr_status": "draft",
+      "ovr_reason": "SAP's Q2 2026 cloud revenue was EUR 6.3bn, up 24% at constant currency, with a current cloud backlog of EUR 22.9bn, up 27%, in systems that are hardest to replace.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.prnewswire.com/news-releases/sap-quarterly-statement-q2-2026-302833633.html",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "workday": {
       "name": "Workday",
-      "description": "HR and finance software, reported in talks to be taken private."
+      "description": "HR and finance software, reported in talks to be taken private.",
+      "sector": "software",
+      "ovr": 73,
+      "ovr_status": "draft",
+      "ovr_reason": "Workday's fiscal Q2 2027 subscription revenue was $2.471bn, up 13.9%, with total subscription backlog up 8% and Silver Lake reportedly in talks to take it private.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.rte.ie/news/business/2026/0814/1587833-silver-lake-reportedly-in-talks-to-buy-workday/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "snowflake": {
       "name": "Snowflake",
-      "description": "Cloud data platform sold on consumption."
+      "description": "Cloud data platform sold on consumption.",
+      "sector": "software",
+      "ovr": 81,
+      "ovr_status": "draft",
+      "ovr_reason": "Snowflake's fiscal Q1 2027 product revenue was $1.334bn, up 34%, on a large base of enterprise data warehouses, with Databricks growing about twice as fast.",
+      "ovr_evidence": [
+        {
+          "url": "https://finance.yahoo.com/markets/stocks/articles/palantir-vs-snowflake-growth-stock-153045683.html",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "databricks": {
       "name": "Databricks",
-      "description": "Data and AI platform valued at $190bn in August 2026."
+      "description": "Data and AI platform valued at $190bn in August 2026.",
+      "sector": "software",
+      "ovr": 88,
+      "ovr_status": "draft",
+      "ovr_reason": "Databricks reported a $7bn revenue run rate in Q2 2026, growing more than 80%, and closed $5bn at a $190bn valuation in August 2026.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.thestar.com.my/tech/tech-news/2026/08/13/databricks-valued-at-190-billion-in-latest-funding-round",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "palantir": {
       "name": "Palantir",
-      "description": "Data and AI software for governments and large companies."
+      "description": "Data and AI software for governments and large companies.",
+      "sector": "software",
+      "ovr": 85,
+      "ovr_status": "draft",
+      "ovr_reason": "Palantir's Q2 2026 revenue was $1.935bn, up 92.8%, with its FY guide raised to about $8.15bn and dependence on a few government buyers as its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://finance.yahoo.com/markets/stocks/articles/palantir-vs-snowflake-growth-stock-153045683.html",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "datadog": {
       "name": "Datadog",
-      "description": "Monitoring and observability for cloud applications."
+      "description": "Monitoring and observability for cloud applications.",
+      "sector": "software",
+      "ovr": 82,
+      "ovr_status": "draft",
+      "ovr_reason": "Datadog's Q2 2026 revenue was $1.12bn, up 36%, with remaining performance obligations of $3.47bn, up 43%, and customer concentration in AI-native buyers as its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/0001561550/000162828026053829/ex-991x20260630x8k.htm",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "grafana": {
       "name": "Grafana Labs",
-      "description": "Open-source observability, reported near a $9bn valuation."
+      "description": "Open-source observability, reported near a $9bn valuation.",
+      "sector": "software",
+      "ovr": 64,
+      "ovr_status": "draft",
+      "ovr_reason": "Grafana Labs was reported raising at about $9bn in early 2026 with ARR over $400m, and valuation figures vary from $6bn to $9.5bn.",
+      "ovr_evidence": [
+        {
+          "url": "https://siliconangle.com/2026/02/13/grafana-labs-reportedly-raising-funding-9b-valuation/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "sierra": {
       "name": "Sierra",
-      "description": "Customer service agents, valued above $15bn."
+      "description": "Customer service agents, valued above $15bn.",
+      "sector": "software",
+      "ovr": 66,
+      "ovr_status": "draft",
+      "ovr_reason": "Sierra raised $950m at a valuation above $15bn in May 2026 on ARR estimates of $150m to $200m, and competes with Salesforce and ServiceNow selling the same agents.",
+      "ovr_evidence": [
+        {
+          "url": "https://newmarketpitch.com/blogs/news/conversational-ai-top-startups-valuation",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "harvey": {
       "name": "Harvey",
-      "description": "AI for law firms."
+      "description": "AI for law firms.",
+      "sector": "software",
+      "ovr": 61,
+      "ovr_status": "draft",
+      "ovr_reason": "Harvey raised $200m in March 2026 at an $11bn valuation as a vertical tool for law firms, with frontier labs selling the same capability directly as its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://radarkit.ai/blog/100-hottest-ai-startups-to-watch/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "decagon": {
       "name": "Decagon",
-      "description": "Customer support agents."
+      "description": "Customer support agents.",
+      "sector": "software",
+      "ovr": 58,
+      "ovr_status": "draft",
+      "ovr_reason": "Decagon raised a $250m Series D at a $4.5bn valuation in January 2026 selling support agents on resolution rates, against Sierra and the incumbents.",
+      "ovr_evidence": [
+        {
+          "url": "https://newmarketpitch.com/blogs/news/conversational-ai-top-startups-valuation",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "glean": {
       "name": "Glean",
-      "description": "Work search and agents across company apps."
+      "description": "Work search and agents across company apps.",
+      "sector": "software",
+      "ovr": 64,
+      "ovr_status": "draft",
+      "ovr_reason": "Glean announced $300m of ARR in May 2026 after a last priced round of $150m at $7.2bn, and Microsoft and Google bundle the same search.",
+      "ovr_evidence": [
+        {
+          "url": "https://aibusinessweekly.net/p/top-ai-startups-2026",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "elevenlabs": {
       "name": "ElevenLabs",
-      "description": "Voice AI."
+      "description": "Voice AI.",
+      "sector": "software",
+      "ovr": 63,
+      "ovr_status": "draft",
+      "ovr_reason": "ElevenLabs raised a $500m Series D at an $11bn valuation in February 2026, with a later tender reported at $22bn, and the labs are shipping native voice models.",
+      "ovr_evidence": [
+        {
+          "url": "https://aibusinessweekly.net/p/top-ai-startups-2026",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "silver_lake": {
       "name": "Silver Lake",
-      "description": "Technology buyout firm."
-    },
-    "thoma_bravo": {
-      "name": "Thoma Bravo",
-      "description": "The largest software buyout investor."
+      "description": "Technology buyout firm.",
+      "sector": "backers",
+      "ovr": null
     },
     "palo_alto": {
       "name": "Palo Alto Networks",
-      "description": "Firewalls, cloud and now identity security, built by acquisition."
+      "description": "Firewalls, cloud and now identity security, built by acquisition.",
+      "sector": "security",
+      "ovr": 89,
+      "ovr_status": "draft",
+      "ovr_reason": "Palo Alto Networks' next-generation security ARR was $9.10bn at the end of fiscal 2026, up 63%, with part of that growth acquired, so organic growth is lower than the headline.",
+      "ovr_evidence": [
+        {
+          "url": "https://investors.paloaltonetworks.com/news-releases/news-release-details/palo-alto-networks-reports-fiscal-fourth-quarter-and-fiscal-10",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "crowdstrike": {
       "name": "CrowdStrike",
-      "description": "Endpoint and cloud security sold as one platform."
+      "description": "Endpoint and cloud security sold as one platform.",
+      "sector": "security",
+      "ovr": 86,
+      "ovr_status": "draft",
+      "ovr_reason": "CrowdStrike's Q2 fiscal 2027 revenue was $1.47bn, up 26%, with record net new ARR of $333m and Falcon Flex accounts above $2.29bn of ARR, up 101%.",
+      "ovr_evidence": [
+        {
+          "url": "https://ir.crowdstrike.com/news-releases/news-release-details/crowdstrike-reports-second-quarter-fiscal-year-2027-financial",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "fortinet": {
       "name": "Fortinet",
-      "description": "Firewalls and secure networking."
+      "description": "Firewalls and secure networking.",
+      "sector": "security",
+      "ovr": 83,
+      "ovr_status": "draft",
+      "ovr_reason": "Fortinet's Q2 2026 revenue was $2.05bn, up 26%, with billings of $2.37bn, up 33%, and its exposure is a firewall refresh cycle, which may not repeat.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.theglobeandmail.com/investing/markets/stocks/PANW/pressreleases/8236351/can-fortinet-sase-momentum-propel-the-stock-to-new-highs/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "zscaler": {
       "name": "Zscaler",
-      "description": "Security delivered from the cloud."
+      "description": "Security delivered from the cloud.",
+      "sector": "security",
+      "ovr": 77,
+      "ovr_status": "draft",
+      "ovr_reason": "Zscaler's fiscal Q4 2026 ARR was $3.771bn, up 25%, or 20% excluding the Red Canary purchase, with organic growth of 20% set against bigger platforms.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/0001713683/000171368326000156/zs-07312026_991.htm",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "okta": {
       "name": "Okta",
-      "description": "Identity for people, and now for AI agents."
+      "description": "Identity for people, and now for AI agents.",
+      "sector": "security",
+      "ovr": 73,
+      "ovr_status": "draft",
+      "ovr_reason": "Okta's fiscal Q2 2027 revenue was $805m, up 11%, with new products about 30% of bookings, and it grows slower than the platform vendors.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.kavout.com/market-lens/is-okta-s-recent-earnings-beat-a-turning-point-for-investors",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "wiz": {
       "name": "Wiz",
-      "description": "Cloud security, owned by Google since March 2026."
+      "description": "Cloud security, owned by Google since March 2026.",
+      "sector": "security",
+      "ovr": 85,
+      "ovr_status": "draft",
+      "ovr_reason": "Wiz closed into Google Cloud on 11 Mar 2026 at about $29.5bn as the leading cloud security product across all the clouds, reported at $1bn of ARR in 2025.",
+      "ovr_evidence": [
+        {
+          "url": "https://abc.xyz/investor/news/news-details/2026/Google-Completes-Acquisition-of-Wiz-2026-ta7OaU2uA0/default.aspx",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "cyberark": {
       "name": "CyberArk",
-      "description": "Privileged access and identity security, bought by Palo Alto."
+      "description": "Privileged access and identity security, bought by Palo Alto.",
+      "sector": "security",
+      "ovr": 83,
+      "ovr_status": "draft",
+      "ovr_reason": "CyberArk closed into Palo Alto Networks on 11 Feb 2026 at a 26% premium, about $25bn, for control of privileged human and machine accounts.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.paloaltonetworks.com/company/press/2026/palo-alto-networks-completes-acquisition-of-cyberark-to-secure-the-ai-era",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "island": {
       "name": "Island",
-      "description": "Enterprise browser startup valued at $6.4bn."
+      "description": "Enterprise browser startup valued at $6.4bn.",
+      "sector": "security",
+      "ovr": 60,
+      "ovr_status": "draft",
+      "ovr_reason": "Island raised $400m at a $6.4bn valuation in September 2026 (CNBC) to make the browser the control point for security, and has to displace endpoint and network incumbents.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.cnbc.com/2026/09/24/island-ai-cybersecurity-funding.html",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "cyera": {
       "name": "Cyera",
-      "description": "Data security startup valued at $12bn."
+      "description": "Data security startup valued at $12bn.",
+      "sector": "security",
+      "ovr": 62,
+      "ovr_status": "draft",
+      "ovr_reason": "Cyera raised $600m at a $12bn valuation in June 2026, led by Evolution Equity Partners, and round size conflicts across sources.",
+      "ovr_evidence": [
+        {
+          "url": "https://news.crunchbase.com/cybersecurity/q3-2026-large-venture-investments-ai-defense-startups/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "armis": {
       "name": "Armis",
-      "description": "Connected-device security, bought by ServiceNow."
+      "description": "Connected-device security, bought by ServiceNow.",
+      "sector": "security",
+      "ovr": 65,
+      "ovr_status": "draft",
+      "ovr_reason": "ServiceNow agreed to pay $7.75bn for Armis, which sees every connected device a company owns, and the rating rests on integration into ServiceNow's workflow products.",
+      "ovr_evidence": [
+        {
+          "url": "https://news.crunchbase.com/cybersecurity/q3-2026-large-venture-investments-ai-defense-startups/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "veza": {
       "name": "Veza",
-      "description": "Access governance, bought by ServiceNow."
+      "description": "Access governance, bought by ServiceNow.",
+      "sector": "backers",
+      "ovr": null
     },
     "sgnl": {
       "name": "SGNL",
-      "description": "Identity startup bought by CrowdStrike."
+      "description": "Identity startup bought by CrowdStrike.",
+      "sector": "security",
+      "ovr": 52,
+      "ovr_status": "draft",
+      "ovr_reason": "CrowdStrike bought SGNL, the identity startup that decides in real time which person or agent gets access, for a reported $740m that is unconfirmed.",
+      "ovr_evidence": [
+        {
+          "url": "https://news.crunchbase.com/cybersecurity/q3-2026-large-venture-investments-ai-defense-startups/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "tiktok": {
       "name": "TikTok US",
-      "description": "US short-video app, run since January 2026 by a joint venture."
+      "description": "US short-video app, run since January 2026 by a joint venture.",
+      "sector": "internet",
+      "ovr": 77,
+      "ovr_status": "draft",
+      "ovr_reason": "The TikTok US joint venture closed on 22 January 2026 with US daily users held at about 95% of earlier levels (Sensor Tower), and depends on the algorithm staying as strong.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.cnbc.com/2026/02/16/tiktok-us-joint-venture-user-data-no-mass-exodus-oracle-mgx-silver-lake-larry-ellison-trump.html",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "bytedance": {
       "name": "ByteDance",
-      "description": "TikTok's parent, retaining 19.9% of the US venture."
+      "description": "TikTok's parent, retaining 19.9% of the US venture.",
+      "sector": "backers",
+      "ovr": null
     },
     "mgx": {
       "name": "MGX",
-      "description": "Abu Dhabi investment firm in AI infrastructure."
+      "description": "Abu Dhabi investment firm in AI infrastructure.",
+      "sector": "backers",
+      "ovr": null
     },
     "netflix": {
       "name": "Netflix",
-      "description": "Subscription and ad-supported streaming."
+      "description": "Subscription and ad-supported streaming.",
+      "sector": "internet",
+      "ovr": 82,
+      "ovr_status": "draft",
+      "ovr_reason": "Netflix's Q3 2026 revenue was $12.87bn, up 12%, at a 34.6% operating margin, and its 2026 ad revenue target was cut to $2.7bn.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/0001065280/000106528026000290/ex991_q326.htm",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "paramount": {
       "name": "Paramount Skydance",
-      "description": "Combined with Warner Bros. Discovery on 6 October 2026."
+      "description": "Combined with Warner Bros. Discovery on 6 October 2026.",
+      "sector": "internet",
+      "ovr": 71,
+      "ovr_status": "draft",
+      "ovr_reason": "Paramount Skydance's merger, signed 27 Feb 2026 at $31 a share in cash, closed on 6 October 2026 and combines two studios and two streaming services, with integration and debt ahead.",
+      "ovr_evidence": [
+        {
+          "url": "https://deadline.com/2026/10/skydance-merger-paramount-warner-bros-discovery-1237147750/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "disney": {
       "name": "Disney",
-      "description": "Streaming, studios and parks."
+      "description": "Streaming, studios and parks.",
+      "sector": "internet",
+      "ovr": 73,
+      "ovr_status": "draft",
+      "ovr_reason": "Disney's combined streaming services were 4.7% of US TV time in July 2026, a combined figure covering more than Disney+ alone, with its studios and parks feeding the service.",
+      "ovr_evidence": [
+        {
+          "url": "https://ppc.land/nielsen-gauge/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "shopify": {
       "name": "Shopify",
-      "description": "Commerce software for merchants outside Amazon."
+      "description": "Commerce software for merchants outside Amazon.",
+      "sector": "internet",
+      "ovr": 84,
+      "ovr_status": "draft",
+      "ovr_reason": "Shopify's GMV was $115.6bn in Q2 2026, up 32%, on revenue of $3.6bn, up 34%, powering the merchants that compete with Amazon.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/0001594805/000159480526000047/shop-20260630.htm",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "tencent": {
       "name": "Tencent",
-      "description": "WeChat, games and ads in China."
+      "description": "WeChat, games and ads in China.",
+      "sector": "internet",
+      "ovr": 85,
+      "ovr_status": "draft",
+      "ovr_reason": "Tencent's Q2 2026 revenue was RMB 204.8bn, up 11%, and its domestic games revenue was RMB 47.3bn, up 17%, with free cash flow turning negative as AI spending rose.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.cnbc.com/2026/08/12/china-tencent-earnings-q2-2026-gaming-ai-advertising.html",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "roblox": {
       "name": "Roblox",
-      "description": "User-built game platform."
+      "description": "User-built game platform.",
+      "sector": "internet",
+      "ovr": 68,
+      "ovr_status": "draft",
+      "ovr_reason": "Roblox's Q2 2026 bookings grew 8% to about $1.6bn, and daily users were 123 million, down from a 152 million peak, with a Q3 outlook for negative bookings growth.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/0001315098/000162828026051059/ex991-robloxq22026earnin.htm",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "xiaomi": {
       "name": "Xiaomi",
-      "description": "Smartphones, devices and electric cars."
+      "description": "Smartphones, devices and electric cars.",
+      "sector": "devices",
+      "ovr": 70,
+      "ovr_status": "draft",
+      "ovr_reason": "Xiaomi held about 11.2% to 11.3% of phone shipments in Q2 2026 with the steepest decline among the top vendors, as memory prices hit value-priced phones hardest.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.threads.com/@boxtobyte/post/Dax5DUqmYtL/idc-announced-smartphone-shipments-in-the-global-market-in-q-samsung-share/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "oppo": {
       "name": "OPPO",
-      "description": "Smartphones."
+      "description": "Smartphones.",
+      "sector": "devices",
+      "ovr": 69,
+      "ovr_status": "draft",
+      "ovr_reason": "OPPO held 10.4% of phone shipments in Q2 2026, down 17.5% in an IDC-based table, with memory costs as its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.threads.com/@boxtobyte/post/Dax5DUqmYtL/idc-announced-smartphone-shipments-in-the-global-market-in-q-samsung-share/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "vivo": {
       "name": "vivo",
-      "description": "Smartphones."
+      "description": "Smartphones.",
+      "sector": "devices",
+      "ovr": 67,
+      "ovr_status": "draft",
+      "ovr_reason": "vivo held 7.6% of phone shipments in Q2 2026, down 19.4% in an IDC-based table, with memory costs as its exposure.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.threads.com/@boxtobyte/post/Dax5DUqmYtL/idc-announced-smartphone-shipments-in-the-global-market-in-q-samsung-share/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "hp": {
       "name": "HP",
-      "description": "PCs and printers."
+      "description": "PCs and printers.",
+      "sector": "devices",
+      "ovr": 79,
+      "ovr_status": "draft",
+      "ovr_reason": "HP held 19.1% of Q2 2026 PC shipments (IDC), second to Lenovo, with its shipments down 9% as memory costs rise.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.mactrast.com/2026/07/idc-apple-the-only-major-computer-maker-to-increase-shipments-in-q2-2026/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "essilor": {
       "name": "EssilorLuxottica",
-      "description": "Eyewear maker that builds Meta's Ray-Ban and Oakley glasses."
+      "description": "Eyewear maker that builds Meta's Ray-Ban and Oakley glasses.",
+      "sector": "devices",
+      "ovr": 81,
+      "ovr_status": "draft",
+      "ovr_reason": "EssilorLuxottica sold over 7 million Ray-Ban and Oakley Meta glasses in 2025 and its first-half 2026 revenue from Meta glasses nearly doubled, with dependence on one platform partner.",
+      "ovr_evidence": [
+        {
+          "url": "https://basic-tutorials.com/news/smart-glasses-are-booming-sales-of-meta-glasses-have-nearly-doubled/",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "visa": {
       "name": "Visa",
-      "description": "Card network moving payments between banks, merchants and cardholders."
+      "description": "Card network moving payments between banks, merchants and cardholders.",
+      "sector": "fintech",
+      "ovr": 93,
+      "ovr_status": "draft",
+      "ovr_reason": "Visa's payments volume passed $4tn in a quarter for the first time in fiscal Q3 2026, and net revenue was $11.6bn, up 14%, from a fee on every card payment.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.investing.com/news/company-news/visa-q3-fy2026-slides-payments-volume-tops-4t-guidance-raised-93CH-4818318",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "mastercard": {
       "name": "Mastercard",
-      "description": "Card network and the second-largest payments network."
+      "description": "Card network and the second-largest payments network.",
+      "sector": "fintech",
+      "ovr": 90,
+      "ovr_status": "draft",
+      "ovr_reason": "Mastercard's Q2 2026 net revenue was $9.3bn, up 14%, on gross dollar volume of $2.9tn, up 8%, with value-added services up 20%.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/0001141391/000114139126000081/ma06302026-exx991xearnings.htm",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "paypal": {
       "name": "PayPal",
-      "description": "Online wallet and checkout, subject to a reported takeover proposal."
+      "description": "Online wallet and checkout, subject to a reported takeover proposal.",
+      "sector": "fintech",
+      "ovr": 74,
+      "ovr_status": "draft",
+      "ovr_reason": "PayPal's Q1 2026 payment volume was $464bn, up 11%, and a reported $60.50 a share proposal from Stripe and Advent depends on whether its board engages.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.cnbc.com/2026/07/15/stripe-advent-offer-to-buy-paypal-for-more-than-53-billion-reuters.html",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "stripe": {
       "name": "Stripe",
-      "description": "Payments infrastructure for online businesses."
+      "description": "Payments infrastructure for online businesses.",
+      "sector": "fintech",
+      "ovr": 84,
+      "ovr_status": "draft",
+      "ovr_reason": "Stripe processed $1.9tn in 2025, up 34%, as the default way online businesses accept payments, and was valued at $159bn in a February 2026 employee tender.",
+      "ovr_evidence": [
+        {
+          "url": "https://techcrunch.com/2026/07/15/stripe-and-advent-reportedly-offered-to-buy-paypal-for-around-53-4b/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "adyen": {
       "name": "Adyen",
-      "description": "Payments platform for large merchants."
+      "description": "Payments platform for large merchants.",
+      "sector": "fintech",
+      "ovr": 78,
+      "ovr_status": "draft",
+      "ovr_reason": "Adyen's Q1 2026 processed volume was EUR 382bn, up 21%, with net revenue up 16%, or 20% at constant currency, from one platform sold to large global merchants.",
+      "ovr_evidence": [
+        {
+          "url": "https://finance.yahoo.com/markets/stocks/articles/paypals-total-payment-volume-whats-144600397.html",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "block": {
       "name": "Block",
-      "description": "Square merchant payments and Cash App."
-    },
-    "advent": {
-      "name": "Advent International",
-      "description": "Private equity firm in the reported PayPal proposal."
+      "description": "Square merchant payments and Cash App.",
+      "sector": "fintech",
+      "ovr": 66,
+      "ovr_status": "draft",
+      "ovr_reason": "Block owns both the merchant terminal and the consumer app and was named as an equity partner in the reported PayPal proposal, with no 2026 volume figure found.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.cnbc.com/2026/07/15/stripe-advent-offer-to-buy-paypal-for-more-than-53-billion-reuters.html",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "nubank": {
       "name": "Nubank",
-      "description": "Latin American digital bank."
+      "description": "Latin American digital bank.",
+      "sector": "fintech",
+      "ovr": 83,
+      "ovr_status": "draft",
+      "ovr_reason": "Nubank reports about 139 million customers and $1.1bn of net income in Q2 2026 (secondary), from a cheap digital model, with those figures unaudited.",
+      "ovr_evidence": [
+        {
+          "url": "https://axis-intelligence.com/neobank-statistics/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "revolut": {
       "name": "Revolut",
-      "description": "UK-based global digital bank."
+      "description": "UK-based global digital bank.",
+      "sector": "fintech",
+      "ovr": 80,
+      "ovr_status": "draft",
+      "ovr_reason": "Revolut's reported valuation was $115bn in July 2026 from an employee share sale, with 68 to 80 million customers and a private price near 19 times revenue.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.mobibank.fi/neobank-valuations-2026/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "chime": {
       "name": "Chime",
-      "description": "US neobank, public since 2026."
+      "description": "US neobank, public since 2026.",
+      "sector": "fintech",
+      "ovr": 72,
+      "ovr_status": "draft",
+      "ovr_reason": "Chime's Q2 2026 revenue was $670m, up 27%, with 10.4 million active members, up 20%, in the largest consumer banking market.",
+      "ovr_evidence": [
+        {
+          "url": "https://valueaddvc.com/blog/chime-ipo-2026-everything-we-know-about-the-neobanks-public-listing",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "sofi": {
       "name": "SoFi",
-      "description": "US digital lender and bank."
+      "description": "US digital lender and bank.",
+      "sector": "fintech",
+      "ovr": 69,
+      "ovr_status": "draft",
+      "ovr_reason": "SoFi reported 15.8 million members and about 24.4 million products by Q2 2026 in one source and 14.7 million members in another, so its member counts conflict.",
+      "ovr_evidence": [
+        {
+          "url": "https://axis-intelligence.com/neobank-statistics/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "tether": {
       "name": "Tether",
-      "description": "Issuer of USDT, the largest stablecoin."
+      "description": "Issuer of USDT, the largest stablecoin.",
+      "sector": "fintech",
+      "ovr": 86,
+      "ovr_status": "draft",
+      "ovr_reason": "Tether holds about 58% of stablecoin supply, at roughly $184bn to $190bn, and faces licensing under the GENIUS Act.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.fool.com/research/largest-stablecoins/",
+          "trust": "reported"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "circle": {
       "name": "Circle",
-      "description": "Issuer of USDC, the second-largest stablecoin."
+      "description": "Issuer of USDC, the second-largest stablecoin.",
+      "sector": "fintech",
+      "ovr": 82,
+      "ovr_status": "draft",
+      "ovr_reason": "Circle's USDC stood at $73.3bn at the end of Q2 2026, up 19%, and its reserve return rate fell 66 basis points to 3.48%, so its income falls when rates fall.",
+      "ovr_evidence": [
+        {
+          "url": "https://investor.circle.com/files/doc_news/2026/Aug/05/CIRCLE_Q2-2026.pdf",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     },
     "coinbase": {
       "name": "Coinbase",
-      "description": "The largest US crypto exchange."
+      "description": "The largest US crypto exchange.",
+      "sector": "fintech",
+      "ovr": 74,
+      "ovr_status": "draft",
+      "ovr_reason": "Coinbase reached a record 10.3% share of crypto trading volume in Q2 2026 on revenue of about $1.2bn, down about 19%, with a net loss of $359.5m.",
+      "ovr_evidence": [
+        {
+          "url": "https://www.cnbc.com/2026/07/30/coinbase-coin-earnings-q2-2026.html",
+          "trust": "sourced"
+        }
+      ],
+      "ovr_updated": "2026-11-02",
+      "ovr_by": "Claude (draft)"
     }
   },
   "placements": [
@@ -2601,7 +4217,8 @@
       "text": "Makes Nvidia's chips. Nvidia was about 19% of TSMC's 2025 revenue, up from 12%.",
       "source": "https://www.taiwannews.com.tw/news/6310676",
       "trust": "reported",
-      "date": "2026-01"
+      "date": "2026-01",
+      "added": "2026-10-23"
     },
     {
       "from": "tsmc",
@@ -2610,7 +4227,8 @@
       "text": "Makes Apple's chips. Apple fell from 22% to 17% of TSMC's revenue in 2025.",
       "source": "https://www.taiwannews.com.tw/news/6310676",
       "trust": "reported",
-      "date": "2026-01"
+      "date": "2026-01",
+      "added": "2026-10-23"
     },
     {
       "from": "amd",
@@ -2618,8 +4236,9 @@
       "type": "investment",
       "text": "6 GW Instinct supply agreement with a warrant for up to 160 million AMD shares.",
       "source": "https://ir.amd.com/news-events/press-releases/detail/1260/amd-and-openai-announce-strategic-partnership-to-deploy-6-gigawatts-of-amd-gpus",
-      "trust": "primary",
-      "date": "2025-10"
+      "trust": "sourced",
+      "date": "2025-10",
+      "added": "2026-10-23"
     },
     {
       "from": "broadcom",
@@ -2627,8 +4246,9 @@
       "type": "alliance",
       "text": "Co-develop and deploy 10 GW of OpenAI-designed accelerators under a signed term sheet.",
       "source": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
-      "trust": "primary",
-      "date": "2025-10"
+      "trust": "sourced",
+      "date": "2025-10",
+      "added": "2026-10-23"
     },
     {
       "from": "nvidia",
@@ -2637,7 +4257,8 @@
       "text": "A 10 GW and up to $100bn letter of intent never became definitive. Reuters reported in February 2026 that Nvidia was close to investing about $30bn in OpenAI's round instead, a figure not yet final.",
       "source": "https://www.bnnbloomberg.ca/business/artificial-intelligence/2026/02/20/nvidia-close-to-investing-us30-billion-in-openais-mega-funding-round-reuters-source-says/",
       "trust": "reported",
-      "date": "2026-02"
+      "date": "2026-02",
+      "added": "2026-10-23"
     },
     {
       "from": "nvidia",
@@ -2645,8 +4266,9 @@
       "type": "license",
       "text": "Non-exclusive licence of Groq's inference technology, with its founder and team joining Nvidia.",
       "source": "https://groq.com/newsroom/groq-and-nvidia-enter-non-exclusive-inference-technology-licensing-agreement-to-accelerate-ai-inference-at-global-scale",
-      "trust": "primary",
-      "date": "2025-12"
+      "trust": "sourced",
+      "date": "2025-12",
+      "added": "2026-10-23"
     },
     {
       "from": "nvidia",
@@ -2655,7 +4277,8 @@
       "text": "Bought $5bn of Intel stock at $23.28 a share and agreed to co-develop x86 products.",
       "source": "https://the-decoder.com/nvidia-and-intel-strike-partnership-on-x86-chips-with-5-billion-investment/",
       "trust": "reported",
-      "date": "2025-09"
+      "date": "2025-09",
+      "added": "2026-10-23"
     },
     {
       "from": "intel",
@@ -2664,7 +4287,8 @@
       "text": "x86 share: Intel 69.3% and AMD 30.7% in Q2 2026.",
       "source": "https://shattered.io/amd-cpu-market-share-record-2026-intel-31-year-low/",
       "trust": "reported",
-      "date": "2026-Q2"
+      "date": "2026-Q2",
+      "added": "2026-10-23"
     },
     {
       "from": "nvidia",
@@ -2672,8 +4296,9 @@
       "type": "rivalry",
       "text": "Merchant AI accelerators, with AMD winning multi-gigawatt supply deals.",
       "source": "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results",
-      "trust": "primary",
-      "date": "2026-Q2"
+      "trust": "sourced",
+      "date": "2026-Q2",
+      "added": "2026-10-23"
     },
     {
       "from": "nvidia",
@@ -2682,7 +4307,8 @@
       "text": "China AI chips: Nvidia 34% and Huawei 28% of H1 2026 shipments.",
       "source": "https://www.benzinga.com/markets/tech/26/10/62319484/nvidia-loses-ground-in-china-as-huaweis-ai-chip-shipments-nearly-double-capturing-28-market-share-report",
       "trust": "reported",
-      "date": "2026-H1"
+      "date": "2026-H1",
+      "added": "2026-10-23"
     },
     {
       "from": "google",
@@ -2691,7 +4317,8 @@
       "text": "Up to 1 million TPUs, with well over a gigawatt online in 2026. Anthropic also keeps using Trainium and Nvidia.",
       "source": "https://www.maginative.com/anthropic-secures-1m-google-tpus-while-keeping-amazon-as-primary-training-partner",
       "trust": "reported",
-      "date": "2025-10"
+      "date": "2025-10",
+      "added": "2026-10-23"
     },
     {
       "from": "google",
@@ -2700,7 +4327,8 @@
       "text": "Reported multibillion-dollar TPU deal to diversify away from Nvidia.",
       "source": "https://siliconangle.com/2026/02/26/google-meta-reportedly-strike-new-multibillion-dollar-ai-chip-deal/",
       "trust": "reported",
-      "date": "2026-02"
+      "date": "2026-02",
+      "added": "2026-10-23"
     },
     {
       "from": "broadcom",
@@ -2709,7 +4337,8 @@
       "text": "Builds Google's custom TPUs. Broadcom's CEO said Ironwood TPUs shipped in high volume to Google and Anthropic, and a long-term agreement covers future generations.",
       "source": "https://finance.yahoo.com/sectors/technology/articles/broadcom-inks-major-ai-chip-165033115.html",
       "trust": "reported",
-      "date": "2026-Q3"
+      "date": "2026-Q3",
+      "added": "2026-10-23"
     },
     {
       "from": "amazon",
@@ -2718,7 +4347,8 @@
       "text": "Anthropic's primary training partner on Trainium.",
       "source": "https://www.maginative.com/anthropic-secures-1m-google-tpus-while-keeping-amazon-as-primary-training-partner",
       "trust": "reported",
-      "date": "2025-10"
+      "date": "2025-10",
+      "added": "2026-10-23"
     },
     {
       "from": "amd",
@@ -2726,8 +4356,9 @@
       "type": "supply",
       "text": "Up to 2 GW of MI450 GPUs in Helios racks.",
       "source": "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results",
-      "trust": "primary",
-      "date": "2026-Q2"
+      "trust": "sourced",
+      "date": "2026-Q2",
+      "added": "2026-10-23"
     },
     {
       "from": "arm",
@@ -2735,8 +4366,9 @@
       "type": "rivalry",
       "text": "Licence litigation over Nuvia cores. A Delaware court ruled for Qualcomm in Sept 2025 and Arm said it would appeal.",
       "source": "https://www.businesswire.com/news/home/20250930042277/en/Qualcomm-Achieves-Complete-Victory-Over-Arm-in-Litigation-Challenging-Licensing-Agreements/",
-      "trust": "primary",
-      "date": "2025-09"
+      "trust": "sourced",
+      "date": "2025-09",
+      "added": "2026-10-23"
     },
     {
       "from": "qualcomm",
@@ -2744,8 +4376,9 @@
       "type": "license",
       "text": "Builds its chips under an Arm architecture licence.",
       "source": "https://www.businesswire.com/news/home/20250930042277/en/Qualcomm-Achieves-Complete-Victory-Over-Arm-in-Litigation-Challenging-Licensing-Agreements/",
-      "trust": "primary",
-      "date": "2025-09"
+      "trust": "sourced",
+      "date": "2025-09",
+      "added": "2026-10-23"
     },
     {
       "from": "softbank",
@@ -2754,7 +4387,8 @@
       "text": "Retained about 90% of Arm after its 2023 listing.",
       "source": "https://www.eenewseurope.com/en/arm-to-hit-nasdaq-with-us54-5-billion-valuation/",
       "trust": "reported",
-      "date": "2023-09"
+      "date": "2023-09",
+      "added": "2026-10-23"
     },
     {
       "from": "tesla",
@@ -2763,7 +4397,8 @@
       "text": "$16.5bn AI6 chip contract at Taylor, Texas, to 2033.",
       "source": "https://www.datacenterdynamics.com/en/news/samsung-electronics-signs-165bn-deal-with-tesla-to-manufacture-ai6-chips-at-taylor-texas-fab/",
       "trust": "reported",
-      "date": "2025-07"
+      "date": "2025-07",
+      "added": "2026-10-23"
     },
     {
       "from": "tesla",
@@ -2772,7 +4407,8 @@
       "text": "Reported as a customer for the 14A process, unconfirmed.",
       "source": "https://finance.yahoo.com/technology/articles/intel-intc-lands-major-customer-151209880.html",
       "trust": "reported",
-      "date": "2026"
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "meti",
@@ -2781,7 +4417,8 @@
       "text": "About 100bn yen in Feb 2026 and a further 150bn yen in June 2026 through the IPA.",
       "source": "https://www.design-reuse.com/news/202530620-rapidus-completes-150-billion-yen-funding-round-from-japan-government/",
       "trust": "reported",
-      "date": "2026-06"
+      "date": "2026-06",
+      "added": "2026-10-23"
     },
     {
       "from": "cerebras",
@@ -2790,7 +4427,8 @@
       "text": "Multi-year agreement valued above $20bn, cited in Cerebras's S-1/A.",
       "source": "https://techcrunch.com/2026/05/14/cerebras-raises-5-5b-kicking-off-2026s-ipo-season-with-a-bang/",
       "trust": "reported",
-      "date": "2025-12"
+      "date": "2025-12",
+      "added": "2026-10-23"
     },
     {
       "from": "asml",
@@ -2799,7 +4437,8 @@
       "text": "ASML is the sole supplier of EUV machines, and TSMC is the largest buyer of leading-edge tools.",
       "source": "https://www.cnbc.com/2022/03/23/inside-asml-the-company-advanced-chipmakers-use-for-euv-lithography.html",
       "trust": "reported",
-      "date": "2022-03"
+      "date": "2022-03",
+      "added": "2026-10-23"
     },
     {
       "from": "substrate",
@@ -2808,7 +4447,8 @@
       "text": "Aims to replace EUV lithography with an X-ray system by 2028.",
       "source": "https://app.dealroom.co/news/feed/substrate-raises-100m-to-challenge-asml",
       "trust": "reported",
-      "date": "2025-10"
+      "date": "2025-10",
+      "added": "2026-10-23"
     },
     {
       "from": "samsung",
@@ -2817,7 +4457,8 @@
       "text": "DRAM leadership flipped to Samsung in Q2 2026 on Counterpoint's data. IDC still shows SK hynix first for 2025.",
       "source": "https://counterpointresearch.com/en/insights/ai-demand-reshapes-dram-rankings-in-q2-2026",
       "trust": "reported",
-      "date": "2026-Q2"
+      "date": "2026-Q2",
+      "added": "2026-10-23"
     },
     {
       "from": "blackstone",
@@ -2825,8 +4466,9 @@
       "type": "investment",
       "text": "$300m minority investment at a $5bn valuation.",
       "source": "https://pulse2.com/ddn-ai-and-data-intelligence-solutions-company-raises-300-million-at-5-billion-valuation/amp/",
-      "trust": "primary",
-      "date": "2025-01"
+      "trust": "sourced",
+      "date": "2025-01",
+      "added": "2026-10-23"
     },
     {
       "from": "blackstone",
@@ -2834,8 +4476,9 @@
       "type": "ownership",
       "text": "Blackstone owns QTS and says its leased capacity has grown 15 times in five years.",
       "source": "https://www.blackstone.com/insights/article/2026-mid-year-investment-perspectives/",
-      "trust": "primary",
-      "date": "2026-mid"
+      "trust": "sourced",
+      "date": "2026-mid",
+      "added": "2026-10-23"
     },
     {
       "from": "blue_owl",
@@ -2843,8 +4486,9 @@
       "type": "investment",
       "text": "Blue Owl funds hold 80% of the Hyperion joint venture and Meta 20%. Meta leases the campus and guarantees the first 16 years.",
       "source": "https://www.prnewswire.com/news-releases/meta-announces-joint-venture-with-funds-managed-by-blue-owl-capital-to-develop-hyperion-data-center-302590584.html",
-      "trust": "primary",
-      "date": "2025"
+      "trust": "sourced",
+      "date": "2025",
+      "added": "2026-10-23"
     },
     {
       "from": "apollo",
@@ -2853,7 +4497,8 @@
       "text": "Leads a reported $35bn package, with Blackstone, to buy chips for lease to Anthropic.",
       "source": "https://www.bloomberg.com/news/articles/2026-07-09/apollo-s-35-billion-ai-chip-credit-deal-is-set-to-begin-trading",
       "trust": "reported",
-      "date": "2026-07"
+      "date": "2026-07",
+      "added": "2026-10-23"
     },
     {
       "from": "nvidia",
@@ -2862,7 +4507,8 @@
       "text": "Reported as a backer of VAST Data's April 2026 round.",
       "source": "https://tech-insider.org/vast-data-1-billion-series-f-30-billion-valuation-2026/",
       "trust": "reported",
-      "date": "2026-04"
+      "date": "2026-04",
+      "added": "2026-10-23"
     },
     {
       "from": "dell",
@@ -2871,7 +4517,8 @@
       "text": "Dell's Lightning file system is positioned against VAST, DDN and WEKA.",
       "source": "https://www.storagereview.com/best/storage-arrays",
       "trust": "reported",
-      "date": "2026-04"
+      "date": "2026-04",
+      "added": "2026-10-23"
     },
     {
       "from": "nvidia",
@@ -2879,8 +4526,9 @@
       "type": "rivalry",
       "text": "Second and third in Ethernet AI back-end switch sales, 2Q26.",
       "source": "https://www.delloro.com/news/ai-back-end-networks-switch-sales-surpass-front-end-networks-for-the-first-time-in-2q2026/",
-      "trust": "primary",
-      "date": "2026-Q2"
+      "trust": "sourced",
+      "date": "2026-Q2",
+      "added": "2026-10-23"
     },
     {
       "from": "cisco",
@@ -2888,8 +4536,9 @@
       "type": "rivalry",
       "text": "Cisco ranked fourth in 2Q26 and gained the most share against Arista's third.",
       "source": "https://www.delloro.com/news/ai-back-end-networks-switch-sales-surpass-front-end-networks-for-the-first-time-in-2q2026/",
-      "trust": "primary",
-      "date": "2026-Q2"
+      "trust": "sourced",
+      "date": "2026-Q2",
+      "added": "2026-10-23"
     },
     {
       "from": "dell",
@@ -2898,7 +4547,8 @@
       "text": "First and second in server revenue, Q1 2026 (IDC).",
       "source": "https://www.networkworld.com/article/4147841/idc-dell-leads-server-market-driven-by-ai-infrastructure-needs.html",
       "trust": "reported",
-      "date": "2026-Q1"
+      "date": "2026-Q1",
+      "added": "2026-10-23"
     },
     {
       "from": "marvell",
@@ -2907,7 +4557,8 @@
       "text": "Both sell light-based interconnect, Marvell through its reported Celestial AI purchase.",
       "source": "https://ai2.work/blog/ayar-labs-raises-500m-to-replace-copper-with-light-in-ai-chips-2026",
       "trust": "reported",
-      "date": "2026"
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "microsoft",
@@ -2916,7 +4567,8 @@
       "text": "20-year agreement to restart the Crane nuclear plant in 2027.",
       "source": "https://www.nuclearnewsnetwork.com/news/nuclear-power-data-centers-explained",
       "trust": "reported",
-      "date": "2024-09"
+      "date": "2024-09",
+      "added": "2026-10-23"
     },
     {
       "from": "meta",
@@ -2925,7 +4577,8 @@
       "text": "Part of Meta's January 2026 nuclear deals. Meta backs Oklo's Ohio campus, targeted as early as 2030, with no financial terms disclosed.",
       "source": "https://techcrunch.com/2026/01/09/meta-signs-deals-with-three-nuclear-companies-for-6-plus-gw-of-power/",
       "trust": "reported",
-      "date": "2026-01"
+      "date": "2026-01",
+      "added": "2026-10-23"
     },
     {
       "from": "meta",
@@ -2933,8 +4586,9 @@
       "type": "supply",
       "text": "The first two TerraPower reactors for Meta would provide 690 MW, with rights to six more units. Part of Meta's 6-plus GW of nuclear deals, with no financial terms disclosed.",
       "source": "https://techcrunch.com/2026/01/09/meta-signs-deals-with-three-nuclear-companies-for-6-plus-gw-of-power/",
-      "trust": "primary",
-      "date": "2026-01"
+      "trust": "sourced",
+      "date": "2026-01",
+      "added": "2026-10-23"
     },
     {
       "from": "amazon",
@@ -2943,7 +4597,8 @@
       "text": "Deal that could reach up to 5 GW of nuclear power by 2039.",
       "source": "https://techcrunch.com/2026/04/24/nuclear-startup-x-energy-raises-1b-in-data-center-driven-ipo/",
       "trust": "reported",
-      "date": "2026-04"
+      "date": "2026-04",
+      "added": "2026-10-23"
     },
     {
       "from": "amazon",
@@ -2952,7 +4607,8 @@
       "text": "Susquehanna arrangement covering up to 1,920 MW.",
       "source": "https://www.nuclearnewsnetwork.com/news/nuclear-power-data-centers-explained",
       "trust": "reported",
-      "date": "2025"
+      "date": "2025",
+      "added": "2026-10-23"
     },
     {
       "from": "google",
@@ -2961,7 +4617,8 @@
       "text": "Agreed in January 2026 to procure up to 1,800 MW of advanced nuclear power from Elementl Power.",
       "source": "https://enkiai.com/sustainability-initiatives/data-center/google-nuclear-2026-1800-mw-elementl-power-deal/",
       "trust": "reported",
-      "date": "2026-01"
+      "date": "2026-01",
+      "added": "2026-10-23"
     },
     {
       "from": "blackstone",
@@ -2970,7 +4627,8 @@
       "text": "Committed $5.34bn with Apollo and KKR for a 49% stake in five Williams power projects serving data centers.",
       "source": "https://www.datacenterdynamics.com/en/news/blackstone-invests-534bn-in-williams-behind-the-meter-natural-gas-power-projects-for-the-data-center-sector/",
       "trust": "reported",
-      "date": "2026"
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "everpure",
@@ -2978,8 +4636,9 @@
       "type": "investment",
       "text": "Participated in Wasabi's $70m round, January 2026.",
       "source": "https://www.foley.com/news/2026/01/foley-guides-wasabi-technologies-in-70m-equity-funding-round/",
-      "trust": "primary",
-      "date": "2026-01"
+      "trust": "sourced",
+      "date": "2026-01",
+      "added": "2026-10-23"
     },
     {
       "from": "amazon",
@@ -2987,8 +4646,9 @@
       "type": "investment",
       "text": "Amazon's Q2 2026 net income included $53.4bn of non-operating gains, mainly from its Anthropic investments.",
       "source": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results",
-      "trust": "primary",
-      "date": "2026-07"
+      "trust": "sourced",
+      "date": "2026-07",
+      "added": "2026-10-23"
     },
     {
       "from": "microsoft",
@@ -2997,7 +4657,8 @@
       "text": "Microsoft's results included a $3.2bn gain tied to its Anthropic investment.",
       "source": "https://aa.com.tr/en/science-technology/microsoft-beats-quarterly-revenue-estimates-as-azure-growth-accelerates/4013210",
       "trust": "reported",
-      "date": "2026-07"
+      "date": "2026-07",
+      "added": "2026-10-23"
     },
     {
       "from": "oracle",
@@ -3006,7 +4667,8 @@
       "text": "$300bn, five-year cloud contract starting in 2027 and assuming about 4.5 GW.",
       "source": "https://intuitionlabs.ai/articles/oracle-openai-300b-deal-analysis",
       "trust": "reported",
-      "date": "2025-09"
+      "date": "2025-09",
+      "added": "2026-10-23"
     },
     {
       "from": "coreweave",
@@ -3015,7 +4677,8 @@
       "text": "About $21bn of AI cloud capacity through December 2032, on top of a $14.2bn agreement from September 2025.",
       "source": "https://www.datacenterdynamics.com/en/news/meta-signs-21bn-ai-infrastructure-contract-with-coreweave/",
       "trust": "reported",
-      "date": "2026-04"
+      "date": "2026-04",
+      "added": "2026-10-23"
     },
     {
       "from": "coreweave",
@@ -3024,7 +4687,8 @@
       "text": "Contracts with OpenAI total about $22.4bn.",
       "source": "https://www.nextplatform.com/cloud/2026/08/14/the-neoclouds-build-cash-hoards-faster-than-revenues/5288040",
       "trust": "reported",
-      "date": "2026"
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "coreweave",
@@ -3033,7 +4697,8 @@
       "text": "Microsoft was about 67% of CoreWeave's 2025 revenue.",
       "source": "https://sacra.com/c/coreweave/",
       "trust": "reported",
-      "date": "2026"
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "nebius",
@@ -3041,8 +4706,9 @@
       "type": "supply",
       "text": "About $17.4bn through 2031 for dedicated GPU capacity, rising to about $19.4bn if Microsoft buys more, subject to delivery of the promised capacity.",
       "source": "https://www.sec.gov/Archives/edgar/data/1513845/000110465925110025/tm2530771-1_424b5.htm",
-      "trust": "primary",
-      "date": "2025-09"
+      "trust": "sourced",
+      "date": "2025-09",
+      "added": "2026-10-23"
     },
     {
       "from": "nebius",
@@ -3051,7 +4717,8 @@
       "text": "$12bn of dedicated compute over five years from early 2027, with up to $15bn more.",
       "source": "https://www.nasdaq.com/articles/nebius-has-40-billion-customer-commitments-most-it-comes-2-customers",
       "trust": "reported",
-      "date": "2026"
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "amazon",
@@ -3060,7 +4727,8 @@
       "text": "Synergy's Q2 2026 split: Amazon 28%, Microsoft 20%, Google 15%.",
       "source": "https://shattered.io/aws-falls-28-percent-google-cloud-record-15-2026/",
       "trust": "reported",
-      "date": "2026-Q2"
+      "date": "2026-Q2",
+      "added": "2026-10-23"
     },
     {
       "from": "google",
@@ -3069,7 +4737,8 @@
       "text": "Google's cloud grew 82% against Azure's 43% in the latest quarter (secondary reports).",
       "source": "https://cryptobriefing.com/google-cloud-82-percent-growth-aws-azure/",
       "trust": "reported",
-      "date": "2026-Q2"
+      "date": "2026-Q2",
+      "added": "2026-10-23"
     },
     {
       "from": "nvidia",
@@ -3078,7 +4747,8 @@
       "text": "CoreWeave rents Nvidia systems and is among the first to run Vera Rubin NVL72 racks in production.",
       "source": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Delivers-NVIDIA-Vera-Rubin-NVL72-Performance-at-Production-Scale-Starting-With-Cognition/default.aspx",
       "trust": "reported",
-      "date": "2026-08"
+      "date": "2026-08",
+      "added": "2026-10-23"
     },
     {
       "from": "amazon",
@@ -3087,7 +4757,8 @@
       "text": "Committed $50bn to OpenAI's round. About $35bn is contingent on an IPO or an AGI milestone.",
       "source": "https://news.bloomberglaw.com/tech-and-telecom-law/openai-valued-at-852-billion-after-closing-122-billion-round",
       "trust": "reported",
-      "date": "2026-03"
+      "date": "2026-03",
+      "added": "2026-10-23"
     },
     {
       "from": "softbank",
@@ -3096,7 +4767,8 @@
       "text": "Committed $30bn to the $122bn round.",
       "source": "https://news.bloomberglaw.com/tech-and-telecom-law/openai-valued-at-852-billion-after-closing-122-billion-round",
       "trust": "reported",
-      "date": "2026-03"
+      "date": "2026-03",
+      "added": "2026-10-23"
     },
     {
       "from": "microsoft",
@@ -3105,7 +4777,8 @@
       "text": "Participated in the 2026 round, amount undisclosed. Large Azure and Oracle commitments sit alongside it.",
       "source": "https://finance.yahoo.com/markets/stocks/articles/openai-closes-122bn-funding-round-093126735.html",
       "trust": "reported",
-      "date": "2026-03"
+      "date": "2026-03",
+      "added": "2026-10-23"
     },
     {
       "from": "spacex",
@@ -3114,7 +4787,8 @@
       "text": "Bought xAI in an all-stock deal that closed on 2 Feb 2026. xAI is now the SpaceXAI division.",
       "source": "https://en.wikipedia.org/wiki/SpaceXAI",
       "trust": "reported",
-      "date": "2026-02"
+      "date": "2026-02",
+      "added": "2026-10-23"
     },
     {
       "from": "asml",
@@ -3123,7 +4797,8 @@
       "text": "Invested €1.3bn in 2025 for about 11% and became its largest shareholder.",
       "source": "https://www.dutchnews.nl/2025/09/asml-confirms-e1-3-billion-investment-in-french-ai-firm",
       "trust": "reported",
-      "date": "2025-09"
+      "date": "2025-09",
+      "added": "2026-10-23"
     },
     {
       "from": "samsung",
@@ -3132,7 +4807,8 @@
       "text": "Led Mistral's €3bn Series D with Scaleup Europe and PSG Equity.",
       "source": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
       "trust": "reported",
-      "date": "2026-09"
+      "date": "2026-09",
+      "added": "2026-10-23"
     },
     {
       "from": "nvidia",
@@ -3141,7 +4817,8 @@
       "text": "July 2026 partnership with a planned $5bn investment.",
       "source": "https://en.wikipedia.org/wiki/Safe_Superintelligence_Inc.",
       "trust": "reported",
-      "date": "2026-07"
+      "date": "2026-07",
+      "added": "2026-10-23"
     },
     {
       "from": "anthropic",
@@ -3150,7 +4827,8 @@
       "text": "Menlo's late 2025 survey put Anthropic at 40% of enterprise API spend and OpenAI at 27%.",
       "source": "https://www.hpcwire.com/bigdatawire/this-just-in/menlo-ventures-report-enterprise-llm-spend-reaches-8-4b-as-anthropic-overtakes-openai/",
       "trust": "reported",
-      "date": "2025-12"
+      "date": "2025-12",
+      "added": "2026-10-23"
     },
     {
       "from": "google",
@@ -3159,7 +4837,8 @@
       "text": "Gemini passed 950 million monthly users in July 2026, closing on ChatGPT's consumer lead.",
       "source": "https://www.forbes.com/sites/tylerroush/2026/07/22/950-million-people-now-use-gemini-each-month-as-alphabet-posts-earnings-beat/",
       "trust": "reported",
-      "date": "2026-07"
+      "date": "2026-07",
+      "added": "2026-10-23"
     },
     {
       "from": "anthropic",
@@ -3168,7 +4847,8 @@
       "text": "Coding tools buy frontier models, and Menlo estimated Anthropic at 54% of coding model spend.",
       "source": "https://www.hpcwire.com/bigdatawire/this-just-in/menlo-ventures-report-enterprise-llm-spend-reaches-8-4b-as-anthropic-overtakes-openai/",
       "trust": "reported",
-      "date": "2025-12"
+      "date": "2025-12",
+      "added": "2026-10-23"
     },
     {
       "from": "deepseek",
@@ -3177,7 +4857,8 @@
       "text": "Open-weight models taking developer request share on OpenRouter.",
       "source": "https://www.usecarly.com/blog/llm-market-share/",
       "trust": "reported",
-      "date": "2026-09"
+      "date": "2026-09",
+      "added": "2026-10-23"
     },
     {
       "from": "databricks",
@@ -3186,7 +4867,8 @@
       "text": "Databricks at $190bn private against Snowflake's public value, and growing faster.",
       "source": "https://valueaddvc.com/blog/databricks-vs-snowflake-in-2026-which-data-platform-wins-for-your-ai-stack",
       "trust": "reported",
-      "date": "2026"
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "oracle",
@@ -3195,7 +4877,8 @@
       "text": "Cloud applications: Oracle's SaaS grew 10% against SAP's cloud growth of 24%.",
       "source": "https://www.prnewswire.com/news-releases/sap-quarterly-statement-q2-2026-302833633.html",
       "trust": "reported",
-      "date": "2026-Q2"
+      "date": "2026-Q2",
+      "added": "2026-10-23"
     },
     {
       "from": "google",
@@ -3203,8 +4886,9 @@
       "type": "ownership",
       "text": "Completed 11 March 2026. The headline price was $32bn, about $29.5bn after adjustments per Alphabet's filing. Wiz stays available on AWS, Azure and Oracle Cloud.",
       "source": "https://www.sec.gov/Archives/edgar/data/0001652044/000165204426000071/goog-20260630.htm",
-      "trust": "primary",
-      "date": "2026-03"
+      "trust": "sourced",
+      "date": "2026-03",
+      "added": "2026-10-23"
     },
     {
       "from": "palo_alto",
@@ -3212,8 +4896,9 @@
       "type": "ownership",
       "text": "Completed 11 February 2026. CyberArk holders received $45 in cash plus 2.2005 Palo Alto shares each, about $25bn in all.",
       "source": "https://www.paloaltonetworks.com/company/press/2026/palo-alto-networks-completes-acquisition-of-cyberark-to-secure-the-ai-era",
-      "trust": "primary",
-      "date": "2026-02"
+      "trust": "sourced",
+      "date": "2026-02",
+      "added": "2026-10-23"
     },
     {
       "from": "servicenow",
@@ -3221,8 +4906,9 @@
       "type": "ownership",
       "text": "Agreed in December 2025 to buy Armis for about $7.75bn in cash. Closing was expected in the second half of 2026.",
       "source": "https://www.sec.gov/Archives/edgar/data/1373715/000137371526000007/now-20251231.htm",
-      "trust": "primary",
-      "date": "2026"
+      "trust": "sourced",
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "servicenow",
@@ -3230,8 +4916,9 @@
       "type": "ownership",
       "text": "Agreed in December 2025 to buy Veza for about $1.25bn in cash per its 10-K. Press reports had put the price near $1bn.",
       "source": "https://www.sec.gov/Archives/edgar/data/1373715/000137371526000007/now-20251231.htm",
-      "trust": "primary",
-      "date": "2026"
+      "trust": "sourced",
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "crowdstrike",
@@ -3240,7 +4927,8 @@
       "text": "Agreed in January 2026 to buy SGNL for nearly $740m, per CrowdStrike's CEO. The announcement gave no terms.",
       "source": "https://cyberscoop.com/crowdstrike-sngl-deal-740-million/",
       "trust": "reported",
-      "date": "2026"
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "palo_alto",
@@ -3248,8 +4936,9 @@
       "type": "rivalry",
       "text": "Both sell a security platform to the same buyers. PANW's next-generation ARR is $9.10bn against CrowdStrike's $5.84bn.",
       "source": "https://investors.paloaltonetworks.com/news-releases/news-release-details/palo-alto-networks-reports-fiscal-fourth-quarter-and-fiscal-10",
-      "trust": "primary",
-      "date": "2026"
+      "trust": "sourced",
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "microsoft",
@@ -3258,7 +4947,8 @@
       "text": "Reported to be intensifying competition in endpoint and identity.",
       "source": "https://www.kucoin.com/blog/okta-crowdstrike-earnings-ai-cybersecurity-demand",
       "trust": "reported",
-      "date": "2026"
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "oracle",
@@ -3267,7 +4957,8 @@
       "text": "Holds 15% of the US venture that closed in January 2026.",
       "source": "https://www.cnbc.com/2026/02/16/tiktok-us-joint-venture-user-data-no-mass-exodus-oracle-mgx-silver-lake-larry-ellison-trump.html",
       "trust": "reported",
-      "date": "2026-01"
+      "date": "2026-01",
+      "added": "2026-10-23"
     },
     {
       "from": "silver_lake",
@@ -3276,7 +4967,8 @@
       "text": "Holds 15% of the US venture.",
       "source": "https://www.npr.org/2026/01/22/nx-s1-5685456/tiktok-finalizes-deal-to-form-new-american-entity",
       "trust": "reported",
-      "date": "2026-01"
+      "date": "2026-01",
+      "added": "2026-10-23"
     },
     {
       "from": "mgx",
@@ -3285,7 +4977,8 @@
       "text": "Holds 15% of the US venture.",
       "source": "https://www.npr.org/2026/01/22/nx-s1-5685456/tiktok-finalizes-deal-to-form-new-american-entity",
       "trust": "reported",
-      "date": "2026-01"
+      "date": "2026-01",
+      "added": "2026-10-23"
     },
     {
       "from": "bytedance",
@@ -3294,7 +4987,8 @@
       "text": "Retains 19.9%.",
       "source": "https://www2.yicaiglobal.com/news/tiktok-sets-up-us-jv-with-chinas-bytedance-owning-largest-single-stake",
       "trust": "reported",
-      "date": "2026-01"
+      "date": "2026-01",
+      "added": "2026-10-23"
     },
     {
       "from": "mgx",
@@ -3303,7 +4997,8 @@
       "text": "Among the investors in OpenAI's $122bn round.",
       "source": "https://finance.yahoo.com/markets/stocks/articles/openai-closes-122bn-funding-round-093126735.html",
       "trust": "reported",
-      "date": "2026-03"
+      "date": "2026-03",
+      "added": "2026-10-23"
     },
     {
       "from": "mgx",
@@ -3312,7 +5007,8 @@
       "text": "Among the investors in Databricks' August 2026 round.",
       "source": "https://letsdatascience.com/news/databricks-closes-5-billion-funding-at-190-billion-2cbf4001",
       "trust": "reported",
-      "date": "2026-08"
+      "date": "2026-08",
+      "added": "2026-10-23"
     },
     {
       "from": "google",
@@ -3321,7 +5017,8 @@
       "text": "YouTube was the top streaming service in US TV time in July 2026 at 14.2%, ahead of Netflix.",
       "source": "https://ppc.land/nielsen-gauge/",
       "trust": "reported",
-      "date": "2026-07"
+      "date": "2026-07",
+      "added": "2026-10-23"
     },
     {
       "from": "meta",
@@ -3330,7 +5027,8 @@
       "text": "The two largest ad platforms: Meta's ad revenue grew 27% against Google's 14% in Q2 2026.",
       "source": "https://www.thekeyword.co/news/big-tech-q2-2026-ad-revenue",
       "trust": "reported",
-      "date": "2026-Q2"
+      "date": "2026-Q2",
+      "added": "2026-10-23"
     },
     {
       "from": "shopify",
@@ -3339,7 +5037,8 @@
       "text": "Shopify says it works with OpenAI, Google, Meta and Microsoft on agentic commerce protocols (earnings-call commentary).",
       "source": "https://www.digitalapplied.com/blog/shopify-q2-2026-results-ai-orders-agentic-commerce",
       "trust": "reported",
-      "date": "2026-Q2"
+      "date": "2026-Q2",
+      "added": "2026-10-23"
     },
     {
       "from": "essilor",
@@ -3348,7 +5047,8 @@
       "text": "Builds and sells Ray-Ban and Oakley Meta glasses, over 7 million in 2025.",
       "source": "https://basic-tutorials.com/news/smart-glasses-are-booming-sales-of-meta-glasses-have-nearly-doubled/",
       "trust": "reported",
-      "date": "2026"
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "google",
@@ -3357,7 +5057,8 @@
       "text": "Planned Android XR glasses.",
       "source": "https://dymesty.com/blogs/articles/smart-glasses-release-calendar-2026",
       "trust": "reported",
-      "date": "2026"
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "samsung",
@@ -3366,7 +5067,8 @@
       "text": "First and second in Q2 2026 phone shipments, about 62.7m against 55.7m to 55.8m depending on the IDC release.",
       "source": "https://www.idc.com/resource-center/press-releases/2q26-mpt-top5/",
       "trust": "reported",
-      "date": "2026-Q2"
+      "date": "2026-Q2",
+      "added": "2026-10-23"
     },
     {
       "from": "lenovo",
@@ -3375,7 +5077,8 @@
       "text": "First and second in Q2 2026 PC shipments, 24.4% against 19.1% (IDC).",
       "source": "https://www.mactrast.com/2026/07/idc-apple-the-only-major-computer-maker-to-increase-shipments-in-q2-2026/",
       "trust": "reported",
-      "date": "2026-Q2"
+      "date": "2026-Q2",
+      "added": "2026-10-23"
     },
     {
       "from": "visa",
@@ -3384,7 +5087,8 @@
       "text": "Visa's net revenue was $11.6bn in fiscal Q3 2026, up 14%. Mastercard's rose 14% in its June quarter.",
       "source": "https://s1.q4cdn.com/050606653/files/doc_financials/2026/q3/Q3-2026-Earnings-Release_vF.pdf",
       "trust": "reported",
-      "date": "2026"
+      "date": "2026",
+      "added": "2026-10-23"
     },
     {
       "from": "tether",
@@ -3393,7 +5097,8 @@
       "text": "Tether holds about 58% of supply and USDC about a quarter.",
       "source": "https://transak.com/blog/stablecoin-market-cap-2026",
       "trust": "reported",
-      "date": "2026"
+      "date": "2026",
+      "added": "2026-10-23"
     }
   ]
 }

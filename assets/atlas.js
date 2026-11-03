@@ -23,6 +23,8 @@
     for (var k in attrs) n.setAttribute(k, attrs[k]);
     return n;
   }
+  // the Map view (atlas-map.js) handles chips and search while it is showing
+  function inMap() { return document.body.classList.contains("view-map"); }
   function activeSector() { return sectors.filter(function (s) { return s.classList.contains("is-on"); })[0]; }
   function cardsFor(sector, ent) {
     return [].slice.call(sector.querySelectorAll('.card[data-e="' + ent + '"]'));
@@ -100,7 +102,7 @@
   }, true);
 
   // tabs, chips and tiles
-  chips.forEach(function (c) { c.addEventListener("click", function () { showSector(c.dataset.sector); }); });
+  chips.forEach(function (c) { c.addEventListener("click", function () { if (!inMap()) showSector(c.dataset.sector); }); });
   [].forEach.call(document.querySelectorAll(".tile"), function (t) {
     t.addEventListener("click", function (e) { e.preventDefault(); showSector(t.dataset.sector); });
   });
@@ -139,6 +141,7 @@
     var byName = {};
     Object.keys(data.names).forEach(function (k) { byName[data.names[k].toLowerCase()] = k; });
     var run = function () {
+      if (inMap()) return;
       var q = search.value.trim().toLowerCase();
       if (!q) return;
       var k = byName[q];
@@ -151,6 +154,22 @@
     search.addEventListener("change", run);
     search.addEventListener("keydown", function (e) { if (e.key === "Enter") run(); });
   }
+
+  // sort: the depth chart as drawn, or every card in the sector ranked by OVR
+  var sortButtons = [].slice.call(document.querySelectorAll(".sort__b"));
+  function applySort(mode) {
+    var byOvr = mode === "ovr";
+    document.body.classList.toggle("sort-ovr", byOvr);
+    sortButtons.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.sort === mode ? "true" : "false"); });
+    sectors.forEach(function (s) {
+      var cards = [].slice.call(s.querySelectorAll(".card"));
+      cards.slice().sort(function (a, b) { return (+b.dataset.ovr || 0) - (+a.dataset.ovr || 0); })
+        .forEach(function (c, i) { c.style.order = byOvr ? i : ""; });
+    });
+    var o = document.querySelector(".card[open]");
+    if (o) mark(o.dataset.e); else clearMarks();
+  }
+  sortButtons.forEach(function (b) { b.addEventListener("click", function () { applySort(b.dataset.sort); }); });
 
   // start on the sector in the address, a company, or silicon
   function start() {

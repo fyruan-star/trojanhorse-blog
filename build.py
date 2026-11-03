@@ -200,7 +200,7 @@ FOOT = """
 <footer class="foot">
   <div class="shell foot__in">
     <span>&copy; 2026 The Trojan Horse</span>
-    <span>Francis Ruan &middot; Los Angeles</span>
+    <span>Francis Ruan &amp; Ryan Chian &middot; Los Angeles</span>
   </div>
 </footer>
 
@@ -289,7 +289,7 @@ def build_index():
 '''
 
     html = (HEAD.format(title="The Trojan Horse",
-                        desc="A mergers and acquisitions journal and podcast by Francis Ruan.")
+                        desc="A mergers and acquisitions journal and podcast by Francis Ruan and Ryan Chian.")
             + CAPITAL_DEF + COVER.replace("{TAGLINE}", TAGLINE) + ESSAY
             + prologue + horses + ROOMS + FOOT)
     (ROOT / "index.html").write_text(html, encoding="utf-8")
@@ -569,6 +569,7 @@ def build_buyers():
 import json as _json
 from urllib.parse import urlparse as _urlparse
 import atlas_data as AD
+import atlas_layout as AL
 from atlas_essays import INTRO as AT_INTRO, SECTOR_PIECES as AT_PIECES
 from atlas_log import METHOD as AT_METHOD, GAPS as AT_GAPS, NOT_YET as AT_NOT_YET
 
@@ -579,7 +580,63 @@ def _host(u):
 def _esc(s):
     return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
 
+RANK_NAME = {"starter": "Starter", "second": "Second string", "rookie": "Practice squad"}
+
+def _ovr_chip(ent):
+    """The small OVR mark on a List card, or nothing for an unrated company."""
+    r = AD.RATINGS.get(ent)
+    if not r:
+        return ""
+    draft = r["ovr_status"] == "draft"
+    tier = AD.ovr_tier(r["ovr"])
+    label = f'OVR {r["ovr"]}, {tier}{", draft rating" if draft else ""}'
+    return (f'<span class="ovr{" ovr--draft" if draft else ""}" data-tier="{_esc(tier)}" title="{label}" aria-label="{label}">'
+            f'{r["ovr"]}</span>')
+
+def _map_shell():
+    """The Map view's frame. atlas-map.js draws into it, and without scripts it stays hidden."""
+    sectors = "".join(
+        f'<label><input type="checkbox" data-fsector="{s["id"]}" checked><span class="sw sw--{s["id"]}"></span>{_esc(s["name"])}</label>'
+        for s in AD.SECTORS)
+    ranks = "".join(
+        f'<label><input type="checkbox" data-frank="{k}" checked><span class="ring ring--{k}"></span>{v}</label>'
+        for k, v in RANK_NAME.items())
+    return f"""<section class="amap" id="atlas-map" aria-label="Map of the Tech Atlas" hidden>
+  <div class="amap__stage">
+    <canvas class="amap__stars" aria-hidden="true"></canvas>
+    <svg class="amap__svg" aria-label="Galaxy of sectors and companies. Tab to a territory or company and press Enter to fly to it."></svg>
+    <div class="amap__hud">
+      <div class="amap__crumbs">
+        <button type="button" class="amap__back" hidden>&larr; Back</button>
+        <p class="amap__where" aria-live="polite">All sectors</p>
+      </div>
+      <div class="amap__tools">
+        <button type="button" class="amap__tool" data-zoom="in" aria-label="Zoom in">+</button>
+        <button type="button" class="amap__tool" data-zoom="out" aria-label="Zoom out">&minus;</button>
+        <button type="button" class="amap__tool amap__tool--wide" data-zoom="home">All sectors</button>
+        <button type="button" class="amap__tool amap__tool--wide" aria-expanded="false" aria-controls="amap-filters">Filters</button>
+      </div>
+    </div>
+    <div class="amap__filters" id="amap-filters" hidden>
+      <fieldset><legend>Sectors</legend>{sectors}</fieldset>
+      <fieldset><legend>Rank</legend>{ranks}</fieldset>
+      <p class="amap__fnote">Relationship types are the switches in the bar above.</p>
+    </div>
+    <div class="amap__legend" aria-hidden="true">
+      <span><i class="lk lk--allies"></i>Ally</span><span><i class="lk lk--rivals"></i>Rival</span><span><i class="lk lk--backers"></i>Backer &rarr; backed</span>
+      <span><i class="ring ring--starter"></i>Starter</span><span><i class="ring ring--second"></i>Second string</span><span><i class="ring ring--rookie"></i>Practice squad</span>
+    </div>
+    <p class="amap__msg" role="status">Loading the map.</p>
+    <aside class="pcard" aria-label="Company card" hidden tabindex="-1"></aside>
+  </div>
+</section>"""
+
 def build_atlas():
+    if AD.ERRORS:
+        raise SystemExit("atlas.json has problems. Run python3 scripts/validate_atlas.py:\n  " + "\n  ".join(AD.ERRORS))
+    drafts = [k for k, r in AD.RATINGS.items() if r["ovr_status"] == "draft"]
+    if drafts:
+        print(f"WARNING: {len(drafts)} draft ratings will be published. Set SHOW_DRAFT_RATINGS = False in content/atlas/atlas_data.py to hide them.")
     names = {k: v[0] for k, v in AD.ENT.items()}
     sec_name = {s["id"]: s["name"] for s in AD.SECTORS}
     # first card id for each company, so connections can link to it
@@ -634,9 +691,11 @@ def build_atlas():
         also_html = f'<p class="also">Also in {_esc(", ".join(also))}</p>' if also else ""
         label = {"starter": "Why it leads", "second": "Why it may rise", "rookie": "Why it matters"}[t]
         conns = conn_html(e)
-        return f"""<details class="card card--{t}" id="{cid}" data-e="{e}" data-conf="{conf}">
+        ovr = AD.RATINGS.get(e, {}).get("ovr", "")
+        return f"""<details class="card card--{t}" id="{cid}" data-e="{e}" data-conf="{conf}" data-ovr="{ovr}">
   <summary>
-    <div class="card__top"><span class="card__name">{_esc(names[e])}</span><span class="badge {bcls}">{_esc(badge)}</span></div>
+    <div class="card__top">{_ovr_chip(e)}<span class="card__name">{_esc(names[e])}</span><span class="badge {bcls}">{_esc(badge)}</span></div>
+    <div class="card__where">{_esc(p["name"])} &middot; {RANK_NAME[t]}</div>
     <div class="card__stat">{_esc(pl["stat"])}</div>
   </summary>
   <div class="card__more">
@@ -697,18 +756,27 @@ def build_atlas():
         f'<label><input type="checkbox" data-group="{k}" checked><span class="key key--{k}"></span>{v}</label>'
         for k, v in AD.GROUP_LABEL.items())
     datalist = "".join(f'<option value="{_esc(names[e])}">' for e in sorted(card_id, key=lambda k: names[k]))
+    map_html = _map_shell()
+    # sorting by OVR only means something when ratings are published
+    sort_html = ('<div class="sort" role="group" aria-label="Sort the cards"><span class="sort__k">Sort</span>'
+                 '<button type="button" class="sort__b" data-sort="depth" aria-pressed="true">Depth chart</button>'
+                 '<button type="button" class="sort__b" data-sort="ovr" aria-pressed="false">OVR</button></div>') if AD.RATINGS else ""
 
     js_data = {
         "asof": AD.ASOF,
         "names": {e: names[e] for e in card_id},
+        "backers": {e: names[e] for e in AD.BACKERS},
         "home": AD.HOME,
         "edges": [{"a": e["a"], "b": e["b"], "g": AD.GROUP[e["type"]]} for e in AD.EDGES],
     }
     full = {
         "asof": AD.ASOF,
         "sectors": AD.SECTORS,
-        "entities": {k: {"name": v[0], "description": v[1], "home": AD.HOME.get(k)} for k, v in AD.ENT.items()},
-        "edges": AD.EDGES,
+        "entities": {k: {"name": v[0], "description": v[1], "home": AD.HOME.get(k), **AD.RATINGS.get(k, {})}
+                     for k, v in AD.ENT.items()},
+        "edges": [{**e, "group": AD.GROUP[e["type"]], "added": r["added"]} for e, r in zip(AD.EDGES, AD.DATA["relationships"])],
+        "ovr_tiers": [{"min": lo, "label": lab} for lo, lab in AD.OVR_TIERS],
+        "map": AL.layout(AD.DATA),
     }
     (ROOT / "tech-atlas.json").write_text(_json.dumps(full, ensure_ascii=False, indent=1), encoding="utf-8")
 
@@ -721,7 +789,7 @@ def build_atlas():
 
     html = (HEAD.format(title="The Tech Atlas | The Trojan Horse",
                         desc="A depth chart of the technology industry: who leads, who is catching up, and who is allied with, competing with or backed by whom.")
-            + '<link rel="stylesheet" href="atlas.css">\n'
+            + '<link rel="stylesheet" href="atlas.css">\n<link rel="stylesheet" href="atlas-map.css">\n'
             + f"""
 <a class="back" href="index.html">&larr; The Trojan Horse</a>
 
@@ -730,20 +798,27 @@ def build_atlas():
     <p class="atlas-head__k">As of {AD.ASOF}</p>
     <h1 class="atlas-head__t">The Tech Atlas</h1>
     <p class="atlas-head__l">{len(AD.SECTORS)} sectors, {n_cards} companies, ranked like a depth chart.</p>
+    <p class="atlas-head__by">Francis Ruan and Ryan Chian</p>
   </header>
   <div class="atlas-intro">{intro}</div>
 </div>
 
 <nav class="atlas-bar" aria-label="Atlas controls">
   <div class="atlas-wide"><div class="atlas-bar__in">
+    <div class="view" role="group" aria-label="View">
+      <button type="button" class="view__b" data-view="map" aria-pressed="false">Map</button><button type="button" class="view__b" data-view="list" aria-pressed="true">List</button>
+    </div>
     <input id="atlas-search" class="atlas-search" list="atlas-names" placeholder="Find a company" aria-label="Find a company">
     <datalist id="atlas-names">{datalist}</datalist>
     <div class="toggles" aria-label="Relationships to show">{toggles}</div>
+    {sort_html}
     <div class="chips">{chips}</div>
   </div></div>
 </nav>
 
-<div class="atlas-wide">
+{map_html}
+
+<div class="atlas-wide atlas-list" id="atlas-list">
   <section class="overview" id="overview">
     {"".join(bands)}
   </section>
@@ -763,6 +838,8 @@ def build_atlas():
 </div>
 <script type="application/json" id="atlas-data">{_json.dumps(js_data, ensure_ascii=False)}</script>
 <script src="atlas.js" defer></script>
+<script src="atlas-map-core.js" defer></script>
+<script src="atlas-map.js" defer></script>
 """ + FOOT)
     (ROOT / "tech-atlas.html").write_text(html, encoding="utf-8")
     print(f"tech-atlas.html  ({len(AD.SECTORS)} sectors, {n_cards} cards, {len(AD.EDGES)} edges)")

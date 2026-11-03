@@ -8,11 +8,22 @@
   --a-card:#37445D;
   --a-card-open:#3F4D68;
   --a-ally:#8FD0B0;
-  --a-rival:#E2A58F;
-  --a-own:#E0CB8E;
+  --a-rival:#EE8B7C;
+  --a-own:#8DB4F2;
   --a-dep:#93B6DB;
   --a-prem:#0EA1F1;
 }
+
+/* OVR tiers, from docs/ratings-rubric.md. Brighter means higher. */
+[data-tier="Generational"]{ --tier:#F2D98D; }
+[data-tier="Superstar"]{ --tier:#D4B6FF; }
+[data-tier="All-Star"]{ --tier:#94CFF7; }
+[data-tier="Starter"]{ --tier:#E2E9F3; }
+[data-tier="Rotation"]{ --tier:#C3CBD8; }
+[data-tier="Role player"]{ --tier:#C6B79D; }
+[data-tier="Bench"]{ --tier:#A6AFBE; }
+[data-tier="Prospect"]{ --tier:#9099AB; }
+[data-tier="Unrated"]{ --tier:rgba(226,233,243,.5); }
 
 .atlas-wide{ max-width:1420px; margin-inline:auto; padding-inline:clamp(16px,3.2vw,48px); position:relative; z-index:1; }
 
@@ -20,6 +31,7 @@
 .atlas-head{ padding:clamp(86px,11vw,150px) 0 clamp(10px,2vw,24px); text-align:left; }
 .atlas-head__k{ font-size:12px; letter-spacing:.34em; text-transform:uppercase; color:var(--silver-faint); margin-bottom:18px; }
 .atlas-head__t{ font-size:clamp(44px,2.2rem + 4vw,104px); font-weight:400; line-height:1; letter-spacing:.01em; margin-bottom:22px; }
+.atlas-head__by{ margin-top:16px; font-size:15px; letter-spacing:.14em; color:var(--silver-faint); }
 .atlas-head__l{ max-width:46ch; font-size:clamp(17px,1.6vw,22px); line-height:1.5; font-style:italic; color:var(--silver-dim); }
 .atlas-intro{ max-width:64ch; margin:clamp(26px,4vw,46px) 0 0; }
 .atlas-intro p{ font-size:clamp(16.5px,1.45vw,19px); line-height:1.68; color:var(--silver-dim); }
@@ -38,6 +50,20 @@
   border:1px solid var(--a-line); padding:7px 12px; font:inherit; font-size:15px;
 }
 .atlas-search::placeholder{ color:var(--silver-faint); }
+/* Map or List, and the List's sort. Both need scripts, so they stay hidden without them. */
+.view,.sort{ display:none; }
+body.js .view{ display:inline-flex; }
+body.js:not(.view-map) .sort{ display:inline-flex; align-items:center; }
+.view__b,.sort__b{
+  font:inherit; font-size:15px; padding:5px 14px; color:var(--silver-dim); background:transparent;
+  border:1px solid var(--a-line); cursor:pointer; transition:color .2s ease, background .2s ease, border-color .2s ease;
+}
+.view__b + .view__b,.sort__b + .sort__b{ border-left:0; }
+.view__b:hover,.sort__b:hover{ color:var(--silver); }
+.view__b[aria-pressed="true"],.sort__b[aria-pressed="true"]{ color:var(--navy); background:var(--silver); border-color:var(--silver); }
+.view__b:focus-visible,.sort__b:focus-visible,.chip:focus-visible{ outline:2px solid var(--silver); outline-offset:2px; }
+.sort__k{ font-size:11.5px; letter-spacing:.26em; text-transform:uppercase; color:var(--silver-faint); margin-right:10px; }
+body.view-map #atlas-list{ display:none; }
 .chips{ display:flex; flex-wrap:wrap; gap:6px; flex:1 1 100%; }
 .chip{
   font:inherit; font-size:13.5px; padding:3px 10px; color:var(--silver-dim);
@@ -92,8 +118,21 @@
 .card[open]{ background:var(--a-card-open); border-color:var(--silver-faint); }
 .card summary{ list-style:none; cursor:pointer; padding:10px 12px 11px; }
 .card summary::-webkit-details-marker{ display:none; }
-.card__top{ display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
-.card__name{ font-size:18px; line-height:1.15; font-weight:500; }
+.card__top{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:4px 8px; }
+.card__name{ font-size:18px; line-height:1.15; font-weight:500; flex:1; min-width:0; }
+.ovr{
+  flex:none; align-self:center; display:inline-flex; align-items:baseline; gap:4px; padding:2px 5px 1px; margin-right:2px;
+  font-size:15px; font-weight:600; line-height:1.1; color:var(--tier); border:1px solid var(--tier);
+}
+.ovr--draft{ border-style:dashed; }
+.ovr--draft::after{ content:"draft"; font-size:9px; font-weight:400; letter-spacing:.14em; text-transform:uppercase; }
+.card__where{ display:none; margin-top:3px; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--silver-faint); }
+
+/* sorted by OVR: the sector's cards become one ranked grid */
+.sort-ovr .board{ display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:10px; align-items:start; }
+.sort-ovr .pos,.sort-ovr .tier{ display:contents; }
+.sort-ovr .pos__h,.sort-ovr .cols,.sort-ovr .tier::before{ display:none; }
+.sort-ovr .card__where{ display:block; }
 .badge{ font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--silver-dim); border:1px solid var(--a-line); padding:1px 6px; white-space:nowrap; }
 .badge--leading{ color:var(--navy); background:var(--silver); border-color:var(--silver); }
 .badge--rising{ border-style:dashed; }
