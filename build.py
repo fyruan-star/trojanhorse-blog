@@ -282,7 +282,7 @@ def build_index():
 <section class="th" aria-label="Trojan Horses">
   <div class="shell">
     <p class="th__k">Trojan Horses</p>
-    <div class="th__grid">{cards}
+    <div class="th__grid th__grid--n{len(WEEKLIES)}">{cards}
     </div>
   </div>
 </section>

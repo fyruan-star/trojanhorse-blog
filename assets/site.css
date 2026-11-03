@@ -1151,6 +1151,18 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
 }
 .th__go:hover{ border-bottom-color:var(--silver); }
 
+/* four stories sit two by two, the second row under its own hairline */
+@media (min-width:901px){
+  .th__grid--n4{ grid-template-columns:repeat(2,1fr); }
+  .th__grid--n4 .th__c:nth-child(odd)::before{ display:none; }
+  .th__grid--n4 .th__c:nth-child(n+3){
+    margin-top:clamp(44px,5vw,64px); padding-top:clamp(44px,5vw,64px);
+    border-top:1px solid rgba(255,255,255,.16);
+  }
+  .th__grid--n4 .th__c:nth-child(n+3)::before{ top:clamp(44px,5vw,64px); }
+  .th__grid--n4 .th__t{ min-height:2.3em; }
+}
+
 /* below three columns the stories stack, each with room above and below */
 @media (max-width:900px){
   .th__grid{ grid-template-columns:1fr; row-gap:clamp(44px,8vw,64px); }
