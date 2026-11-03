@@ -11,13 +11,17 @@ preview: python3 build.py && python3 -m http.server -d _site 8731
 import importlib, pathlib, re, shutil, sys
 
 HERE = pathlib.Path(__file__).parent
-for folder in ("content", "content/stories", "content/atlas"):
+for folder in ("content", "content/stories", "content/atlas", "content/companies"):
     sys.path.insert(0, str(HERE / folder))
 
 import line_art as sketch
 from home import TAGLINE, ESSAY, EPISODES, STORIES
 # the homepage shows the stories in this order, and every one keeps its own page
 WEEKLIES = [importlib.import_module(name) for name in STORIES]
+# a stats page for every company with both a words file and a numbers file
+COMPANIES = [importlib.import_module(p.stem) for p in sorted((HERE / "content/companies").glob("*.py"))
+             if p.with_suffix(".json").exists()]
+COMPANY_PAGE = {c.ATLAS: f"company-{c.SLUG}.html" for c in COMPANIES}
 
 ROOT = HERE / "_site"          # the built site, never committed
 
@@ -719,6 +723,7 @@ def build_atlas():
     <p><b>What could change it</b>{_esc(pl["cond"])}</p>
     <p class="card__src"><span class="conf conf--{conf}">{conf}</span> <a href="{pl["src"]}">{_host(pl["src"])}</a></p>
     {also_html}
+    {f'<p class="card__page"><a href="{COMPANY_PAGE[e]}">Stats page &rarr;</a></p>' if e in COMPANY_PAGE else ""}
     {conns}
   </div>
 </details>"""
@@ -787,7 +792,8 @@ def build_atlas():
     full = {
         "asof": AD.ASOF,
         "sectors": AD.SECTORS,
-        "entities": {k: {"name": v[0], "description": v[1], "home": AD.HOME.get(k), **_published(k)}
+        "entities": {k: {"name": v[0], "description": v[1], "home": AD.HOME.get(k), **_published(k),
+                         **({"page": COMPANY_PAGE[k]} if k in COMPANY_PAGE else {})}
                      for k, v in AD.ENT.items()},
         "edges": [{**e, "group": AD.GROUP[e["type"]], "added": r["added"]} for e, r in zip(AD.EDGES, AD.DATA["relationships"])],
         "ovr_tiers": [{"min": lo, "label": lab} for lo, lab in AD.OVR_TIERS],
@@ -875,6 +881,178 @@ GROUND = """
   </div>
 </section>
 """
+
+# =========================================================== COMPANY PAGES ===
+# A company laid out like an NBA player page: the team colours and a big name,
+# a stat strip, a bio grid, the Atlas ratings as the scouting profile, and the
+# year-by-year table with the season in progress on top. The words come from
+# content/companies/<slug>.py and the numbers from <slug>.json, which
+# scripts/fetch_company.py writes from the company's SEC filings.
+
+COMPANY_HEAD = ('<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700'
+                '&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">\n'
+                '<link rel="stylesheet" href="company.css">\n')
+
+# the stats columns: data key, Totals heading, % of revenue heading
+CP_COLS = [("revenue", "REV", "REV"), ("growth", "GROWTH %", "GROWTH %"),
+           ("gross_profit", "GROSS", "GM %"), ("rnd", "R&amp;D", "R&amp;D %"),
+           ("op_income", "OP INC", "OM %"), ("net_income", "NET INC", "NM %"),
+           ("ocf", "OP CF", "OCF %"), ("buybacks", "BUYBACKS", "BUYBACK %")]
+
+
+def _sec_index(cik, accn):
+    return f"https://www.sec.gov/Archives/edgar/data/{cik}/{accn.replace('-', '')}/{accn}-index.htm"
+
+
+def build_company(c):
+    j = _json.loads((HERE / "content/companies" / f"{c.SLUG}.json").read_text(encoding="utf-8"))
+    dec = 1 if max(r["v"]["revenue"] or 0 for r in j["annual"]) >= 50e9 else 2
+
+    def money(x):
+        return "n/a" if x is None else f"{x / 1e9:,.{dec}f}"
+
+    def cell(r, key, mode):
+        v = r["v"]
+        if key == "growth":
+            txt = (f"{100 * (v['revenue'] / v['revenue_prior'] - 1):.1f}"
+                   if v.get("revenue_prior") and v["revenue"] is not None else "n/a")
+        elif key == "revenue" or mode == "tot":
+            txt = money(v[key])
+        else:
+            txt = f"{100 * v[key] / v['revenue']:.1f}" if v[key] is not None and v["revenue"] else "n/a"
+        if key in r.get("derived", []):
+            return f'<td class="cp-d" title="Worked out: year to date less the previous year to date">{txt}</td>'
+        return f"<td>{txt}</td>"
+
+    def row(r, mode):
+        form = r.get("form") or ""
+        team = f'<a href="{_sec_index(j["cik"], r["accn"])}">{form}</a>' if r.get("accn") else form
+        part = f' <span class="cp-part">{r["quarters"]} of 4 qtrs</span>' if r.get("quarters") else ""
+        return (f'<tr><th scope="row">{r["label"]}{part}</th><td class="cp-team">{team}</td>'
+                + "".join(cell(r, k, mode) for k, _, _ in CP_COLS) + "</tr>")
+
+    seasons = {"fy": ([j["ytd"]] if j.get("ytd") else []) + j["annual"], "q": j["quarters"]}
+    tables = []
+    for season, rows in seasons.items():
+        for mode in ("tot", "pct"):
+            heads = "".join(f'<th scope="col">{t if mode == "tot" else p}</th>' for _, t, p in CP_COLS)
+            unit = "dollar figures in $ billions" if mode == "tot" else "share of revenue in %, revenue in $ billions"
+            first = "BY FISCAL YEAR" if season == "fy" else "BY QUARTER"
+            tables.append(f'''<div class="cp-tbl" data-k="{season}-{mode}"{"" if (season, mode) == ("fy", "tot") else " hidden"}>
+      <p class="cp-rows">{len(rows)} Rows &middot; Page 1 of 1</p>
+      <div class="cp-scroll"><table>
+        <caption>Financial splits <span>{unit}</span></caption>
+        <thead><tr><th scope="col">{first}</th><th scope="col">FORM</th>{heads}</tr></thead>
+        <tbody>{"".join(row(r, mode) for r in rows)}</tbody>
+      </table></div>
+    </div>''')
+
+    # trailing four quarters against the four before them, my arithmetic
+    q = j["quarters"]
+    def ttm(key, qs):
+        return sum(x["v"][key] for x in qs) if len(qs) == 4 and all(x["v"][key] is not None for x in qs) else None
+    rev, prev, oi = ttm("revenue", q[:4]), ttm("revenue", q[4:8]), ttm("op_income", q[:4])
+    strip = [("Rev (TTM)", f"${rev / 1e9:,.1f}B"),
+             ("Growth", f"{100 * (rev / prev - 1):+.0f}%" if prev else "n/a"),
+             ("Op margin", f"{100 * oi / rev:.0f}%" if oi is not None else "n/a")]
+    big = "".join(f'<div class="cp-big"><span>{k}</span><b>{v}</b></div>' for k, v in strip)
+    bio = "".join(
+        f'<div class="cp-fact"><span>{k}</span><b>{f"<a href={chr(34)}{src}{chr(34)}>{v}</a>" if src else v}</b></div>'
+        for k, v, src in c.BIO)
+
+    # the Atlas ratings, as a scouting profile
+    rec = AD.RESOLVED.get(c.ATLAS) or {}
+    attrs = rec.get("attributes", {})
+    bars = []
+    for k in AR.ATTRS:
+        a = attrs.get(k) or {}
+        val = a.get("value")
+        ev = " ".join(f'<a href="{e["url"]}">{_host(e["url"])}</a>' for e in a.get("evidence", []))
+        bars.append(f'''<li class="cp-attr">
+          <div class="cp-attr__top"><span>{AR.ATTR_LABEL[k]}</span><b>{val if val is not None else "NR"}</b></div>
+          <div class="cp-bar"><i style="width:{val or 0}%"></i></div>
+          <p>{_esc(a["reason"]) if a.get("reason") else "Not rated yet."} {ev}</p>
+        </li>''')
+    ovr = rec.get("ovr")
+    tier = AD.ovr_tier(ovr) if ovr is not None else "Unrated"
+    draft = rec.get("ovr_status") == "draft"
+    badges = "".join(f'<span class="cp-badge">{_esc(b["label"])}</span>' for b in rec.get("badges", []))
+
+    sector = next(s["name"] for s in AD.SECTORS if s["id"] == AD.HOME[c.ATLAS])
+    ticker = f'{j["exchanges"][0]}: {j["tickers"][0]}'
+    others = "".join(f'<a href="company-{o.SLUG}.html"{" aria-current=" + chr(34) + "page" + chr(34) if o is c else ""}>{" ".join(o.NAME)}</a>'
+                     for o in COMPANIES)
+    links = "".join(f'<a href="{u}">{t} <span aria-hidden="true">&#8599;</span></a>' for t, u in c.LINKS)
+    about = "".join(f"<p>{x}</p>" for x in c.ABOUT)
+    L = c.LOGO
+    logo = (f'role="img" aria-label="{" ".join(c.NAME)} logo" '
+            f'style="--logo:url(images/logos/{L["file"]});--ar:{L["w"]}/{L["h"]}"')
+    name = "".join(f"<span>{w}</span>" for w in c.NAME)
+
+    html = (HEAD.format(title=f"{' '.join(c.NAME)} | The Trojan Horse",
+                        desc=f"{' '.join(c.NAME)}'s numbers, year by year, from its SEC filings.")
+            .replace("</head>", COMPANY_HEAD + "</head>")
+            .replace("<body>", f'<body class="cp" style="--team:{c.TEAM};--accent:{c.ACCENT}">')
+            + f'''
+<nav class="cp-top" aria-label="Site">
+  <a class="cp-top__brand" href="index.html">The Trojan Horse</a>
+  <div class="cp-top__links"><a href="index.html">Stories</a><a href="ten-years.html">Prologue</a><a href="tech-atlas.html">Atlas</a>{others}</div>
+  <a class="cp-top__pill" href="tech-atlas.html#c-{c.ATLAS}">Atlas card</a>
+</nav>
+
+<header class="cp-hero">
+  <span class="cp-hero__wm" aria-hidden="true" style="--logo:url(images/logos/{L["file"]})"></span>
+  <div class="cp-hero__in">
+    <div class="cp-hero__art"><span class="cp-logo" {logo}></span></div>
+    <div class="cp-hero__id">
+      <p class="cp-hero__line">{_esc(sector)} | {j["tickers"][0]} | {_esc(c.POSITION)}</p>
+      <h1 class="cp-hero__name">{name}</h1>
+    </div>
+    <a class="cp-ovr" href="#profile" aria-label="Overall rating {ovr if ovr is not None else "not rated"}, {tier}{", draft" if draft else ""}">
+      <b>{ovr if ovr is not None else "NR"}</b><span>OVR &middot; {tier}</span>{"<i>Draft rating</i>" if draft else ""}
+    </a>
+  </div>
+</header>
+
+<section class="cp-strip" aria-label="Key numbers">
+  <div class="cp-strip__big">{big}</div>
+  <div class="cp-strip__bio">{bio}</div>
+</section>
+
+<nav class="cp-tabs" aria-label="Page sections">
+  <div class="cp-tabs__l"><a href="#profile">Profile</a><a href="#stats" aria-current="true">Stats</a><a href="#bio">Bio</a></div>
+  <div class="cp-tabs__r">{links}</div>
+</nav>
+
+<main class="cp-main">
+  <details class="cp-card cp-profile" id="profile">
+    <summary>Profile</summary>
+    <p class="cp-ovrline"><b>OVR {ovr if ovr is not None else "NR"}</b> {tier}{" &middot; draft rating" if draft else ""} {badges}</p>
+    {f'<p class="cp-why">{_esc(rec["ovr_reason"])}</p>' if rec.get("ovr_reason") else ""}
+    <ul class="cp-attrs">{"".join(bars)}</ul>
+    <p class="cp-small">Ratings are the <a href="tech-atlas.html#c-{c.ATLAS}">Atlas</a>&rsquo;s, set by its rubric. Draft means not yet reviewed.</p>
+  </details>
+
+  <section class="cp-card cp-filters" id="stats" aria-label="Table options" hidden>
+    <label><span>Season type</span><select id="cp-season"><option value="fy">Fiscal years</option><option value="q">Quarters</option></select></label>
+    <label><span>Per mode</span><select id="cp-mode"><option value="tot">Totals</option><option value="pct">% of revenue</option></select></label>
+  </section>
+
+  <section class="cp-card cp-stats" aria-label="Financial splits">
+    {"".join(tables)}
+  </section>
+
+  <section class="cp-card cp-bio" id="bio">
+    <h2>Bio</h2>
+    {about}
+    <p class="cp-small">Financials are from {" ".join(c.NAME)}&rsquo;s 10-K and 10-Q filings as tagged for the SEC, fetched {j["fetched"]}, and each FORM link opens the filing that first reported the period. Every period shows its most recently reported value. Fourth quarters, quarterly cash flow and buybacks (marked with a dotted line), the trailing-twelve-month strip and growth rates are my arithmetic. Linked bio facts are from Wikipedia. Logos are trademarks, used to identify the company.</p>
+  </section>
+</main>
+<script src="company.js"></script>
+''' + FOOT)
+    (ROOT / f"company-{c.SLUG}.html").write_text(html, encoding="utf-8")
+    print(f"company-{c.SLUG}.html  ({len(seasons['fy'])} years, {len(seasons['q'])} quarters)")
+
 
 def ground():
     rows = []
@@ -1163,5 +1341,7 @@ if __name__ == "__main__":
     build_desk_index()
     build_buyers()
     build_atlas()
+    for _c in COMPANIES:
+        build_company(_c)
     build_katabasis()
     build_podcast()

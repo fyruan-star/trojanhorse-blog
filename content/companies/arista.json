@@ -1,0 +1,378 @@
+{
+ "slug": "arista",
+ "cik": 1596532,
+ "name": "Arista Networks, Inc.",
+ "tickers": [
+  "ANET"
+ ],
+ "exchanges": [
+  "NYSE"
+ ],
+ "fiscal_year_end": "1231",
+ "city": "SANTA CLARA",
+ "state": "CA",
+ "fetched": "2026-11-03",
+ "annual": [
+  {
+   "label": "FY2025",
+   "start": "2025-01-01",
+   "end": "2025-12-31",
+   "accn": "0001596532-26-000013",
+   "form": "10-K",
+   "v": {
+    "revenue": 9005700000,
+    "gross_profit": 5768700000,
+    "rnd": 1237300000,
+    "op_income": 3856100000,
+    "net_income": 3511400000,
+    "ocf": 4371900000,
+    "buybacks": 1603100000,
+    "revenue_prior": 7003100000
+   }
+  },
+  {
+   "label": "FY2024",
+   "start": "2024-01-01",
+   "end": "2024-12-31",
+   "accn": "0001596532-25-000028",
+   "form": "10-K",
+   "v": {
+    "revenue": 7003100000,
+    "gross_profit": 4491300000,
+    "rnd": 996700000,
+    "op_income": 2944600000,
+    "net_income": 2852100000,
+    "ocf": 3708200000,
+    "buybacks": 423600000,
+    "revenue_prior": 5860200000
+   }
+  },
+  {
+   "label": "FY2023",
+   "start": "2023-01-01",
+   "end": "2023-12-31",
+   "accn": "0001596532-24-000043",
+   "form": "10-K",
+   "v": {
+    "revenue": 5860200000,
+    "gross_profit": 3630300000,
+    "rnd": 854900000,
+    "op_income": 2257300000,
+    "net_income": 2087300000,
+    "ocf": 2034000000,
+    "buybacks": 112300000,
+    "revenue_prior": 4381310000
+   }
+  },
+  {
+   "label": "FY2022",
+   "start": "2022-01-01",
+   "end": "2022-12-31",
+   "accn": "0001596532-23-000016",
+   "form": "10-K",
+   "v": {
+    "revenue": 4381310000,
+    "gross_profit": 2675696000,
+    "rnd": 728394000,
+    "op_income": 1527106000,
+    "net_income": 1352446000,
+    "ocf": 492813000,
+    "buybacks": 670287000,
+    "revenue_prior": 2948037000
+   }
+  },
+  {
+   "label": "FY2021",
+   "start": "2021-01-01",
+   "end": "2021-12-31",
+   "accn": "0001596532-22-000026",
+   "form": "10-K",
+   "v": {
+    "revenue": 2948037000,
+    "gross_profit": 1880779000,
+    "rnd": 586752000,
+    "op_income": 924739000,
+    "net_income": 840854000,
+    "ocf": 1015856000,
+    "buybacks": 411645000,
+    "revenue_prior": 2317512000
+   }
+  },
+  {
+   "label": "FY2020",
+   "start": "2020-01-01",
+   "end": "2020-12-31",
+   "accn": "0001596532-21-000049",
+   "form": "10-K",
+   "v": {
+    "revenue": 2317512000,
+    "gross_profit": 1481886000,
+    "rnd": 486594000,
+    "op_income": 699684000,
+    "net_income": 634557000,
+    "ocf": 735114000,
+    "buybacks": 395173000,
+    "revenue_prior": 2410706000
+   }
+  },
+  {
+   "label": "FY2019",
+   "start": "2019-01-01",
+   "end": "2019-12-31",
+   "accn": "0001596532-20-000024",
+   "form": "10-K",
+   "v": {
+    "revenue": 2410706000,
+    "gross_profit": 1544338000,
+    "rnd": 462759000,
+    "op_income": 805774000,
+    "net_income": 859867000,
+    "ocf": 963034000,
+    "buybacks": 266142000,
+    "revenue_prior": 2151369000
+   }
+  },
+  {
+   "label": "FY2018",
+   "start": "2018-01-01",
+   "end": "2018-12-31",
+   "accn": "0001596532-19-000027",
+   "form": "10-K",
+   "v": {
+    "revenue": 2151369000,
+    "gross_profit": 1373377000,
+    "rnd": 442468000,
+    "op_income": 273347000,
+    "net_income": 328115000,
+    "ocf": 503119000,
+    "buybacks": 0,
+    "revenue_prior": 1646186000
+   }
+  },
+  {
+   "label": "FY2017",
+   "start": "2017-01-01",
+   "end": "2017-12-31",
+   "accn": "0001596532-18-000018",
+   "form": "10-K",
+   "v": {
+    "revenue": 1646186000,
+    "gross_profit": 1061769000,
+    "rnd": 349594000,
+    "op_income": 470272000,
+    "net_income": 423201000,
+    "ocf": 631627000,
+    "buybacks": 0,
+    "revenue_prior": 1129167000
+   }
+  }
+ ],
+ "ytd": {
+  "label": "FY2026 YTD",
+  "quarters": 2,
+  "start": "2026-01-01",
+  "end": "2026-06-30",
+  "v": {
+   "revenue": 5744700000,
+   "gross_profit": 3587100000,
+   "rnd": 691900000,
+   "op_income": 2535800000,
+   "net_income": 2235800000,
+   "ocf": 2776500000,
+   "buybacks": 0,
+   "revenue_prior": 4209600000
+  },
+  "accn": "0001596532-26-000175",
+  "form": "10-Q"
+ },
+ "quarters": [
+  {
+   "start": "2026-04-01",
+   "end": "2026-06-30",
+   "fy_end": null,
+   "q": 2,
+   "derived": [
+    "ocf",
+    "buybacks"
+   ],
+   "v": {
+    "revenue": 3035700000,
+    "gross_profit": 1910300000,
+    "rnd": 348200000,
+    "op_income": 1378000000,
+    "net_income": 1212900000,
+    "ocf": 1083000000,
+    "buybacks": 0,
+    "revenue_prior": 2204800000
+   },
+   "label": "Q2 FY2026",
+   "accn": "0001596532-26-000175",
+   "form": "10-Q"
+  },
+  {
+   "start": "2026-01-01",
+   "end": "2026-03-31",
+   "fy_end": null,
+   "q": 1,
+   "derived": [],
+   "v": {
+    "revenue": 2709000000,
+    "gross_profit": 1676800000,
+    "rnd": 343700000,
+    "op_income": 1157800000,
+    "net_income": 1022900000,
+    "ocf": 1693500000,
+    "buybacks": 0,
+    "revenue_prior": 2004800000
+   },
+   "label": "Q1 FY2026",
+   "accn": "0001596532-26-000078",
+   "form": "10-Q"
+  },
+  {
+   "start": "2025-10-01",
+   "end": "2025-12-31",
+   "fy_end": "2025-12-31",
+   "q": 4,
+   "derived": [
+    "revenue",
+    "gross_profit",
+    "rnd",
+    "op_income",
+    "net_income",
+    "ocf",
+    "buybacks"
+   ],
+   "v": {
+    "revenue": 2487800000,
+    "gross_profit": 1563800000,
+    "rnd": 348400000,
+    "op_income": 1032900000,
+    "net_income": 955800000,
+    "ocf": 1261900000,
+    "buybacks": 620100000,
+    "revenue_prior": 1930400000
+   },
+   "label": "Q4 FY2025",
+   "accn": "0001596532-26-000013",
+   "form": "10-K"
+  },
+  {
+   "start": "2025-07-01",
+   "end": "2025-09-30",
+   "fy_end": "2025-12-31",
+   "q": 3,
+   "derived": [
+    "ocf",
+    "buybacks"
+   ],
+   "v": {
+    "revenue": 2308300000,
+    "gross_profit": 1490200000,
+    "rnd": 326000000,
+    "op_income": 978200000,
+    "net_income": 853000000,
+    "ocf": 1268200000,
+    "buybacks": 0,
+    "revenue_prior": 1810900000
+   },
+   "label": "Q3 FY2025",
+   "accn": "0001596532-25-000286",
+   "form": "10-Q"
+  },
+  {
+   "start": "2025-04-01",
+   "end": "2025-06-30",
+   "fy_end": "2025-12-31",
+   "q": 2,
+   "derived": [
+    "ocf",
+    "buybacks"
+   ],
+   "v": {
+    "revenue": 2204800000,
+    "gross_profit": 1438600000,
+    "rnd": 296500000,
+    "op_income": 986200000,
+    "net_income": 888800000,
+    "ocf": 1200100000,
+    "buybacks": 195900000,
+    "revenue_prior": 1690400000
+   },
+   "label": "Q2 FY2025",
+   "accn": "0001596532-25-000216",
+   "form": "10-Q"
+  },
+  {
+   "start": "2025-01-01",
+   "end": "2025-03-31",
+   "fy_end": "2025-12-31",
+   "q": 1,
+   "derived": [],
+   "v": {
+    "revenue": 2004800000,
+    "gross_profit": 1276100000,
+    "rnd": 266400000,
+    "op_income": 858800000,
+    "net_income": 813800000,
+    "ocf": 641700000,
+    "buybacks": 787100000,
+    "revenue_prior": 1571400000
+   },
+   "label": "Q1 FY2025",
+   "accn": "0001596532-25-000106",
+   "form": "10-Q"
+  },
+  {
+   "start": "2024-10-01",
+   "end": "2024-12-31",
+   "fy_end": "2024-12-31",
+   "q": 4,
+   "derived": [
+    "revenue",
+    "gross_profit",
+    "rnd",
+    "op_income",
+    "net_income",
+    "ocf",
+    "buybacks"
+   ],
+   "v": {
+    "revenue": 1930400000,
+    "gross_profit": 1231000000,
+    "rnd": 285000000,
+    "op_income": 799600000,
+    "net_income": 801000000,
+    "ocf": 1030900000,
+    "buybacks": 123800000,
+    "revenue_prior": 1540469000
+   },
+   "label": "Q4 FY2024",
+   "accn": "0001596532-25-000028",
+   "form": "10-K"
+  },
+  {
+   "start": "2024-07-01",
+   "end": "2024-09-30",
+   "fy_end": "2024-12-31",
+   "q": 3,
+   "derived": [
+    "ocf",
+    "buybacks"
+   ],
+   "v": {
+    "revenue": 1810900000,
+    "gross_profit": 1161700000,
+    "rnd": 235800000,
+    "op_income": 785300000,
+    "net_income": 748000000,
+    "ocf": 1174500000,
+    "buybacks": 65100000,
+    "revenue_prior": 1509456000
+   },
+   "label": "Q3 FY2024",
+   "accn": "0001596532-24-000368",
+   "form": "10-Q"
+  }
+ ]
+}

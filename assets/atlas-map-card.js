@@ -57,7 +57,8 @@
     panel.appendChild(h("button", { type: "button", cls: "pc__close", "aria-label": "Close card", text: "×" }));
     panel.appendChild(h("header", { cls: "pc__head" }, [ovr, h("div", { cls: "pc__id" }, [
       h("span", { cls: "pc__mono", "aria-hidden": "true", text: C.initials(e.name) }),
-      h("div", {}, [name, h("p", { cls: "pc__meta", text: meta }), h("p", { cls: "pc__rank" }, rankBits)])])]));
+      h("div", {}, [name, h("p", { cls: "pc__meta", text: meta }), h("p", { cls: "pc__rank" }, rankBits),
+        e.page ? h("a", { cls: "pc__page", href: e.page, text: "Stats page →" }) : null])])]));
 
     var list = h("div", { cls: "pc__tabs", role: "tablist", "aria-label": "Card sections" });
     TABS.forEach(function (t) {

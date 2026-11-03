@@ -14,6 +14,7 @@ The website at **https://trojanhorse.blog**. Every change committed here goes li
 | A Trojan Horse story | `content/stories/` |
 | The Prologue timeline | `content/prologue.py` |
 | The Tech Atlas: companies, relationships, ratings | `content/atlas/atlas.json` (see below) |
+| A company stats page (NBA-style) | words in `content/companies/<name>.py`, numbers in `<name>.json` (run `python3 scripts/fetch_company.py <name> <SEC CIK>` to refresh them) |
 | Any other page | `content/` (file names match the pages) |
 | Colours, fonts, layout | `assets/site.css` |
 | Images and logos | `assets/images/` |

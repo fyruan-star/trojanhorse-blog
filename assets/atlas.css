@@ -216,3 +216,6 @@ body.hide-allies .rel--allies,body.hide-rivals .rel--rivals,body.hide-backers .r
   .card__stat,.tile__b,.note p,.atlas-intro p,.pos__m,.card__more{ color:#333; }
   .card .card__more{ display:block; }
 }
+
+/* link from a List card to the company's stats page */
+.card__page a{ font-weight:600; }

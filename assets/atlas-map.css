@@ -252,3 +252,6 @@ html{ scroll-padding-top:calc(var(--atlas-bar, 0px) + 8px); }
 @media print{
   .amap{ display:none; }
 }
+
+/* link from the player card to the company's stats page */
+.pc__page{ display:inline-block; margin-top:6px; font-size:13px; font-weight:600; text-decoration:underline; text-underline-offset:3px; }
