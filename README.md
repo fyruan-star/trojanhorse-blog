@@ -35,13 +35,18 @@ Every company, card, relationship and rating lives in `content/atlas/atlas.json`
 - **A relationship** is an entry in `relationships`: `from`, `to`, `type` (`alliance`, `supply`, `license`, `dependency`, `rivalry`, `ownership` or `investment`), `text`, `source`, `trust`, `date` and `added`. For ownership and investment, `from` is the owner or backer.
 - **Ratings** are six attributes under `attributes`: `dominance`, `momentum`, `leverage`, `durability`, `firepower` and `deal_heat`. Each has `value` (40 to 99, or `null` for unrated), a one-sentence `reason`, `evidence` (links with their trust tag) and `status` (`draft` or `reviewed`). Leverage stores `adjust` instead of `value`, because the build adds it to a base worked out from the relationships. OVR is calculated from the six, never typed in. `ovr_reason` is the headline sentence on the card.
 - **Badges.** Chokepoint and Kingmaker are calculated. Single-Customer Risk and In Play are listed under `badges` as `{"id": "in_play", "reason": ..., "evidence": [...], "status": "draft"}`.
-- The weights, what each level means, and how to review a draft are in `docs/ratings-rubric.md`.
+- **Profile extras**, all optional. `bio` on a company holds `ticker`, `listed` (`Public` or `Private`), `hq`, `founded` and `ceo`, each with its link in `bio.sources`. Fill a field only from a page you read, and the profile shows only the filled ones. `stats` on a card holds three or four `{"label", "value"}` headline numbers for the profile, and each value must already be in that card's `key_figure`.
+- **Logos.** `logo` on a company is `{"file", "kind", "source", "license"}` for an official file in `assets/logos/` (`kind` is `simple-icons`, `commons` or `press-kit`), with `"ground": "dark"` for a white mark. A company without one gets an initials monogram in its sector colour. Never draw or alter a logo.
+- **Teams** are listed under `teams` (`id`, `name`, `captains`). The build places every company by the rules in `docs/ratings-rubric.md`. To move a company, give it `team` (a team id, or `independent`) and a one-sentence `team_reason`. The build fails on an even tie until one is set.
+- The weights, what each level means, the team rules and how to review a draft are in `docs/ratings-rubric.md`.
 
 Run `python3 scripts/validate_atlas.py` after an edit. GitHub runs the same checks, so a mistake shows a red X instead of reaching the site.
 
 **Draft ratings.** Attributes and badges marked `"status": "draft"` are labelled DRAFT on the site. To hide every draft attribute, badge and the OVRs built from them, set `SHOW_DRAFT_RATINGS = False` near the top of `content/atlas/atlas_data.py`.
 
-**Linking into the map.** `tech-atlas.html#c-oracle` opens the map on a company and `tech-atlas.html#s-silicon` on a sector. Company ids are the keys under `companies`.
+**Linking into the Atlas.** Every company has a profile page, such as `atlas/oracle.html`, which is the link to use from a story. `tech-atlas.html#c-oracle` opens the map with Oracle in the spotlight, `#s-silicon` opens a sector and `#t-nvidia` lights up a team. Sector standings are at `atlas/sector-<id>.html` and teams at `atlas/teams.html`. Company ids are the keys under `companies`.
+
+**Browser checks.** `node scripts/check_atlas_map.mjs` drives the map and the new pages in Chromium and WebKit against a local preview (it needs the `playwright` package, which the build does not).
 
 ## If the site did not update
 

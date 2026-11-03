@@ -1,11 +1,19 @@
 /* Tech Atlas: the Map view and the Map/List switch.
 
    The List works without this file. With it, the page opens on a galaxy of
-   sector planets: click one to fly in, click a company to bring it and its
-   neighbours forward, and press Esc or Back to step out. PixiJS (the WebGL
+   sectors, each drawn as a horse: click one to fly in, click a company to put
+   it and its connections in the spotlight, choose a team to light up its
+   members, and press Esc or Back to step out. PixiJS (the WebGL
    renderer) and the data (tech-atlas.json) load only when the Map is first
    shown. The scene is atlas-map-scene.js, the card atlas-map-card.js, and the
-   arithmetic atlas-map-core.js. Addresses: #c-<company> and #s-<sector>. */
+   arithmetic atlas-map-core.js. Addresses: #c-<company>, #s-<sector> and #t-<team>.
+
+   Input. A trackpad swipe pans in any direction, a pinch zooms toward the
+   cursor and a mouse wheel zooms toward the cursor. Wheel events are sorted by
+   AtlasMapCore.wheelKind (ctrlKey, deltaMode, deltaX, wheelDeltaY, then the
+   size of the step). Swipes glide on the system's own momentum, and get a glide
+   of ours only when they stop dead. A scroll that began on the page keeps
+   scrolling the page when it reaches the map. */
 (function () {
   "use strict";
   var C = window.AtlasMapCore;
@@ -17,6 +25,8 @@
   var PIXI_SRI = "sha384-sQhAUuZTvdanRcBHbVCTasnEWH28GGEK87FJGPj/JaqwL/15KWQwKe7whTHdCkwm";
   var VIEW_KEY = "atlas-view", HINT_KEY = "atlas-map-hint";
   var DRAG_SLOP = 6, VELOCITY_WINDOW = 90, LOAD_TIMEOUT_MS = 12000;
+  // a page scroll that reaches the map within this long keeps scrolling the page
+  var PAGE_SCROLL_GRACE_MS = 300, SWIPE_END_MS = 70, CARD_GAP = 24, DESKTOP = 900;
 
   var host = root.querySelector(".amap__canvas");
   var keys = root.querySelector(".amap__keys");
@@ -29,6 +39,11 @@
   var mini = root.querySelector(".amap__mini");
   var filtersBtn = root.querySelector('[aria-controls="amap-filters"]');
   var filtersBox = document.getElementById("amap-filters");
+  var teamsBtn = root.querySelector('[aria-controls="amap-teams"]');
+  var teamsBox = document.getElementById("amap-teams");
+  var fullBtn = root.querySelector(".amap__full");
+  var stage = root.querySelector(".amap__stage");
+  var spot = root.querySelector(".amap__spot");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } return null; }
@@ -44,7 +59,7 @@
     [].forEach.call(document.querySelectorAll("#atlas-names option[data-backer]"), function (o) { o.disabled = !isMap; });
     if (remember) store(VIEW_KEY, v);
     // a map address (#c-, #s-) would reopen the Map on reload, so the List drops it
-    if (!isMap && /^#(c|s)-[a-z0-9_]+$/.test(location.hash)) history.replaceState(null, "", location.pathname + location.search);
+    if (!isMap && /^#(c|s|t)-[a-z0-9_]+$/.test(location.hash)) history.replaceState(null, "", location.pathname + location.search);
     if (isMap) ensureMap();
     running();
   }
@@ -124,7 +139,10 @@
     var onMap = {};
     data.map.cards.forEach(function (c) { if (c.main) onMap[c.company] = c.sector; });
     var companies = new Set(Object.keys(onMap)), sectorSet = new Set(Object.keys(data.map.sectors));
-    var nav = { level: "galaxy", sector: null, selected: null, tab: "ratings" };
+    var teamById = {};
+    (data.teams || []).forEach(function (t) { teamById[t.id] = t; });
+    var teamSet = new Set(Object.keys(teamById));
+    var nav = { level: "galaxy", sector: null, selected: null, tab: "ratings", team: null };
     var filters = { sectors: new Set(Object.keys(data.map.sectors)), ranks: new Set(["starter", "second", "rookie"]), groups: {} };
     [].forEach.call(document.querySelectorAll(".toggles input[data-group]"), function (i) { filters.groups[i.dataset.group] = i.checked; });
     var frameHooks = [];
@@ -132,7 +150,17 @@
     return AtlasMapScene.create(PIXI, data, host, {
       reduced: function () { return reduce.matches; },
       reserveTop: 50, reserveBottom: 34,
-      onFrame: function (cam, view) { frameHooks.forEach(function (f) { f(cam, view); }); }
+      onFrame: function (cam, view) { frameHooks.forEach(function (f) { f(cam, view); }); },
+      // the vignette is HTML over the canvas: a clear circle on the company, dim and soft beyond it
+      onSpot: function (s) {
+        if (!spot) return;
+        if (!s) { if (!spot.hidden) spot.hidden = true; return; }
+        spot.hidden = false;
+        spot.style.setProperty("--sx", s.x.toFixed(1) + "px");
+        spot.style.setProperty("--sy", s.y.toFixed(1) + "px");
+        spot.style.setProperty("--sr", s.r.toFixed(1) + "px");
+        spot.style.opacity = s.a.toFixed(3);
+      }
     }).then(function (scene) {
       scene.setFilters(filters);
 
@@ -143,19 +171,29 @@
         var before = scene.view();
         if (Math.abs(before.w - r.width) < 1 && Math.abs(before.h - r.height) < 1) return;
         scene.resize(r.width, r.height);
-        if (nav.level === "galaxy") scene.jump(scene.galaxyCam());
+        scene.setInset(inset());
+        if (nav.level === "galaxy" && nav.team) scene.jump(scene.teamCam(teamById[nav.team].members));
+        else if (nav.level === "galaxy") scene.jump(scene.galaxyCam());
         else if (nav.level === "sector") scene.jump(scene.sectorCam(nav.sector));
         else if (nav.level === "company") scene.focus(nav.selected);
         drawMini(true);
+      }
+      // on desktop the card floats inside the frame, so the spotlight centres in the space beside it
+      function inset() {
+        var floating = !panel.hidden && window.innerWidth > DESKTOP;
+        return { right: floating ? panel.offsetWidth + CARD_GAP : 0, top: 56, bottom: 40 };
       }
       if (window.ResizeObserver) new ResizeObserver(resize).observe(host);
       else window.addEventListener("resize", resize);
 
       /* ---- where we are */
       function sync() {
-        backBtn.hidden = nav.level === "galaxy";
-        where.textContent = nav.level === "galaxy" ? "All sectors" :
-          sectorName[nav.sector] + (nav.selected ? " · " + ent[nav.selected].name : "");
+        backBtn.hidden = nav.level === "galaxy" && !nav.team;
+        where.textContent = nav.team && nav.level === "galaxy" ? "Team " + teamById[nav.team].name :
+          nav.level === "galaxy" ? "All sectors" : sectorName[nav.sector] + (nav.selected ? " · " + ent[nav.selected].name : "");
+        [].forEach.call(teamsBox.querySelectorAll("[data-team]"), function (b) {
+          b.setAttribute("aria-pressed", b.dataset.team === nav.team ? "true" : "false");
+        });
         scene.setSector(nav.sector);
         var hash = C.hashFor(nav);
         if (location.hash !== hash) history.replaceState(null, "", hash || location.pathname + location.search);
@@ -165,27 +203,36 @@
         keysDirty = true;
       }
       function goGalaxy() {
-        nav = { level: "galaxy", sector: null, selected: null, tab: nav.tab };
-        scene.focus(null); closeCard(); sync(); scene.fly(scene.galaxyCam());
+        nav = { level: "galaxy", sector: null, selected: null, tab: nav.tab, team: null };
+        scene.focus(null); scene.setTeam(null); closeCard(); sync(); scene.fly(scene.galaxyCam());
       }
       function goSector(sid) {
-        nav = { level: "sector", sector: sid, selected: null, tab: nav.tab };
-        scene.focus(null); closeCard(); sync(); scene.fly(scene.sectorCam(sid));
+        nav = { level: "sector", sector: sid, selected: null, tab: nav.tab, team: null };
+        scene.focus(null); scene.setTeam(null); closeCard(); sync(); scene.fly(scene.sectorCam(sid));
+      }
+      function goTeam(tid) {
+        var t = teamById[tid];
+        if (!t) return;
+        nav = { level: "galaxy", sector: null, selected: null, tab: nav.tab, team: tid };
+        scene.focus(null); closeCard(); scene.setTeam(tid, t.members); sync(); scene.fly(scene.teamCam(t.members));
       }
       function goCompany(id, focusCard) {
         if (!companies.has(id)) return;
         var sid = onMap[id];
         if (!filters.sectors.has(sid)) { filters.sectors.add(sid); tick("[data-fsector='" + sid + "']"); scene.setFilters(filters); }
-        nav = { level: "company", sector: sid, selected: id, tab: nav.tab };
+        nav = { level: "company", sector: sid, selected: id, tab: nav.tab, team: null };
+        scene.setTeam(null);
         openCard(id, focusCard);
         resize();
+        scene.setInset(inset());
         scene.focus(id);
         sync();
         scene.fly(scene.companyCam(id));
       }
       function tick(sel) { var b = filtersBox.querySelector(sel); if (b) b.checked = true; }
       function back() {
-        if (nav.level === "company") goSector(nav.sector);
+        if (nav.team) goGalaxy();
+        else if (nav.level === "company") goSector(nav.sector);
         else if (nav.level === "sector") goGalaxy();
       }
 
@@ -301,6 +348,8 @@
         if (ev.target.closest && ev.target.closest("input, textarea, select")) return;
         dismissHint();
         if (!filtersBox.hidden) { toggleFilters(false); filtersBtn.focus(); return; }
+        if (!teamsBox.hidden) { toggleTeams(false); teamsBtn.focus(); return; }
+        if (root.classList.contains("is-full")) { setFull(false); return; }
         var inside = root.contains(document.activeElement), prev = { sel: nav.selected, sec: nav.sector };
         back();
         if (inside || document.activeElement === document.body) {
@@ -370,12 +419,28 @@
       host.addEventListener("pointerup", end);
       host.addEventListener("pointercancel", end);
       host.addEventListener("pointerleave", function () { scene.setHover(null); hideTip(); host.style.cursor = ""; });
+      var gesture = null, swipe = [], swipeTimer = 0, lastOutside = -1e9;
+      document.addEventListener("wheel", function (ev) { if (!host.contains(ev.target)) lastOutside = performance.now(); }, { passive: true, capture: true });
       host.addEventListener("wheel", function (ev) {
+        var now = performance.now();
+        // a page scroll that runs onto the map carries on scrolling the page
+        if (!isFull() && !ev.ctrlKey && now - lastOutside < PAGE_SCROLL_GRACE_MS) { lastOutside = now; return; }
         ev.preventDefault();
         dismissHint();
-        var dy = ev.deltaY * (ev.deltaMode === 1 ? 16 : ev.deltaMode === 2 ? 400 : 1);
-        // a trackpad pinch arrives as a wheel event with ctrlKey set
-        scene.zoomBy(Math.exp(-dy * (ev.ctrlKey ? 0.011 : 0.0016)), local(ev));
+        var kind = C.wheelKind(ev, gesture, now);
+        gesture = { kind: kind, t: now };
+        var unit = ev.deltaMode === 1 ? 16 : ev.deltaMode === 2 ? 400 : 1, dx = ev.deltaX * unit, dy = ev.deltaY * unit;
+        if (kind === "pinch") { scene.zoomBy(Math.exp(-dy * 0.011), local(ev)); return; }
+        if (kind === "wheel") { scene.zoomBy(Math.exp(-dy * 0.0016), local(ev)); return; }
+        scene.panBy(-dx, -dy);
+        swipe.push({ t: now, dx: -dx, dy: -dy });
+        if (swipe.length > 8) swipe.shift();
+        clearTimeout(swipeTimer);
+        swipeTimer = setTimeout(function () {
+          var v = C.swipeRelease(swipe, performance.now());
+          swipe = [];
+          if (v) scene.release(v);
+        }, SWIPE_END_MS);
       }, { passive: false });
       // Safari reports trackpad pinches as gesture events instead
       var gScale = 1;
@@ -417,9 +482,43 @@
       }
       function hideTip() { tip.hidden = true; }
 
-      /* ---- filters, chips and search */
-      function toggleFilters(open) { filtersBox.hidden = !open; filtersBtn.setAttribute("aria-expanded", open ? "true" : "false"); }
+      /* ---- filters, teams, full screen, chips and search */
+      function toggleFilters(open) {
+        filtersBox.hidden = !open; filtersBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) toggleTeams(false);
+      }
       filtersBtn.addEventListener("click", function () { toggleFilters(filtersBox.hidden); });
+      function toggleTeams(open) {
+        teamsBox.hidden = !open; teamsBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) { toggleFilters(false); var b = teamsBox.querySelector("[data-team]"); if (b) b.focus({ preventScroll: true }); }
+      }
+      teamsBtn.addEventListener("click", function () { toggleTeams(teamsBox.hidden); });
+      teamsBox.addEventListener("click", function (ev) {
+        var b = ev.target.closest("[data-team]");
+        if (!b) return;
+        if (b.dataset.team === nav.team) goGalaxy(); else goTeam(b.dataset.team);
+      });
+      function isFull() { return root.classList.contains("is-full") || document.fullscreenElement === stage; }
+      // the Fullscreen API where there is one, and a fixed overlay where there is not (iPhone Safari)
+      function setFull(on) {
+        if (on && stage.requestFullscreen && !root.classList.contains("is-full") && !setFull.failed) {
+          stage.requestFullscreen().catch(function () { setFull.failed = true; setFull(true); });
+        } else if (!on && document.fullscreenElement) document.exitFullscreen();
+        else { root.classList.toggle("is-full", on); document.documentElement.classList.toggle("amap-locked", on); }
+        // the overlay covers the page, so Tab and screen readers stay inside it
+        if (root.classList.contains("is-full") || !on) {
+          [].forEach.call(document.body.children, function (el) { if (!el.contains(root)) el.inert = !!on && root.classList.contains("is-full"); });
+        }
+        fullSync();
+      }
+      function fullSync() {
+        var on = isFull();
+        fullBtn.setAttribute("aria-pressed", on ? "true" : "false");
+        fullBtn.textContent = on ? "Exit full screen" : "Full screen";
+        setTimeout(resize, 60);
+      }
+      fullBtn.addEventListener("click", function () { setFull(!isFull()); });
+      document.addEventListener("fullscreenchange", fullSync);
       filtersBox.addEventListener("change", function (ev) {
         var i = ev.target;
         if (i.dataset.fsector) filters.sectors[i.checked ? "add" : "delete"](i.dataset.fsector);
@@ -505,13 +604,14 @@
 
       /* ---- addresses */
       function route(hash, quiet) {
-        var r = C.parseHash(hash, companies, sectorSet);
+        var r = C.parseHash(hash, companies, sectorSet, teamSet);
         if (r.company) goCompany(r.company);
         else if (r.sector) goSector(r.sector);
+        else if (r.team) goTeam(r.team);
         else if (!quiet) goGalaxy();
       }
       window.addEventListener("hashchange", function () {
-        var r = C.parseHash(location.hash, companies, sectorSet);
+        var r = C.parseHash(location.hash, companies, sectorSet, teamSet);
         if (r.view === "list") { setView("list", false); return; }
         if (r.view === "map") { if (!inMap()) setView("map", false); route(location.hash, true); }
       });
@@ -520,8 +620,8 @@
       if (pendingRoute) route(pendingRoute, true);
 
       return {
-        goCompany: goCompany, goSector: goSector, goGalaxy: goGalaxy, back: back, scene: scene,
-        state: function () { return { level: nav.level, sector: nav.sector, selected: nav.selected, tab: nav.tab }; }
+        goCompany: goCompany, goSector: goSector, goGalaxy: goGalaxy, goTeam: goTeam, back: back, scene: scene, setFull: setFull,
+        state: function () { return { level: nav.level, sector: nav.sector, selected: nav.selected, tab: nav.tab, team: nav.team }; }
       };
     });
   }
@@ -540,7 +640,7 @@
 
   var h0 = location.hash.replace("#", "");
   var wantsList = h0.indexOf("sector-") === 0 || /^c-[a-z0-9_]+-/.test(h0);
-  var wantsMap = /^(c|s)-[a-z0-9_]+$/.test(h0);
+  var wantsMap = /^(c|s|t)-[a-z0-9_]+$/.test(h0);
   if (wantsMap) pendingRoute = location.hash;
   setView(wantsList ? "list" : wantsMap ? "map" : (store(VIEW_KEY) === "list" ? "list" : "map"), false);
   // for checks in the browser console and tests

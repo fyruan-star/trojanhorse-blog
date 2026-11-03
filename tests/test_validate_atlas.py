@@ -179,5 +179,93 @@ class Prose(unittest.TestCase):
         self.assertTrue(any("semicolon" in e for e in errors_of(d)))
 
 
+def has(errs, *words):
+    return any(all(w in e for w in words) for e in errs)
+
+
+class Teams(unittest.TestCase):
+    def test_captain_must_exist(self):
+        d = changed(lambda d: d["teams"][0]["captains"].append("no_such_co"))
+        self.assertTrue(has(errors_of(d), "no_such_co"))
+
+    def test_company_team_must_be_a_team(self):
+        d = changed(lambda d: d["companies"]["amd"].update({"team": "no_such_team"}))
+        self.assertTrue(has(errors_of(d), "amd", "team"))
+
+    def test_override_needs_a_reason(self):
+        d = changed(lambda d: d["companies"]["amd"].pop("team_reason"))
+        self.assertTrue(has(errors_of(d), "amd", "team_reason"))
+
+    def test_an_open_tie_fails_the_build(self):
+        d = changed(lambda d: [d["companies"]["amd"].pop(k) for k in ("team", "team_reason")])
+        self.assertTrue(has(errors_of(d), "amd", "tie"))
+
+    def test_a_team_needs_three_members(self):
+        d = changed(lambda d: d["teams"].append({"id": "apple", "name": "Apple", "captains": ["apple"]}))
+        self.assertTrue(has(errors_of(d), "apple", "members"))
+
+    def test_a_captain_cannot_lead_two_teams(self):
+        d = changed(lambda d: d["teams"][1]["captains"].append("microsoft"))
+        self.assertTrue(has(errors_of(d), "microsoft", "captain"))
+
+
+class Bio(unittest.TestCase):
+    def bio(self, **fields):
+        return changed(lambda d: d["companies"]["nvidia"].update({"bio": fields}))
+
+    def test_filled_fields_with_sources_pass(self):
+        d = self.bio(ticker="NASDAQ: NVDA", hq="Santa Clara, California",
+                     sources={"ticker": "https://example.com/a", "hq": "https://example.com/b"})
+        self.assertEqual(errors_of(d), [])
+
+    def test_every_filled_field_needs_a_source(self):
+        self.assertTrue(has(errors_of(self.bio(ceo="Someone", sources={})), "nvidia", "ceo", "source"))
+
+    def test_unknown_bio_field_is_caught(self):
+        self.assertTrue(has(errors_of(self.bio(motto="x", sources={"motto": "https://example.com"})), "motto"))
+
+    def test_listed_is_public_or_private(self):
+        self.assertTrue(has(errors_of(self.bio(listed="Maybe", sources={"listed": "https://example.com"})), "listed"))
+
+    def test_founded_is_a_year(self):
+        self.assertTrue(has(errors_of(self.bio(founded="the nineties", sources={"founded": "https://example.com"})), "founded"))
+
+
+class Logos(unittest.TestCase):
+    def test_missing_file_is_caught(self):
+        d = changed(lambda d: d["companies"]["nvidia"]["logo"].update({"file": "nope.svg"}))
+        self.assertTrue(has(errors_of(d), "nvidia", "logo"))
+
+    def test_logo_needs_a_source_and_licence(self):
+        for over in ({"source": "http://x.com"}, {"license": ""}, {"kind": "drawn"}, {"ground": "grey"}):
+            with self.subTest(over=over):
+                d = changed(lambda d: d["companies"]["nvidia"]["logo"].update(over))
+                self.assertTrue(has(errors_of(d), "nvidia", "logo"))
+
+    def test_file_must_stay_in_the_logo_folder(self):
+        d = changed(lambda d: d["companies"]["nvidia"]["logo"].update({"file": "../site.css"}))
+        self.assertTrue(has(errors_of(d), "nvidia", "logo"))
+
+
+class Stats(unittest.TestCase):
+    def stats(self, items, i=0):
+        return changed(lambda d: d["placements"][i].update({"stats": items}))
+
+    def test_values_taken_from_the_key_figure_pass(self):
+        # placement 0 is Nvidia: Data Center $89.0bn ... Total revenue $96.2bn ... Q3 guide $108bn
+        self.assertEqual(errors_of(self.stats([{"label": "Data Center", "value": "$89.0bn"},
+                                               {"label": "Q3 guide", "value": "$108bn"}])), [])
+
+    def test_a_number_not_in_the_key_figure_is_caught(self):
+        self.assertTrue(has(errors_of(self.stats([{"label": "Data Center", "value": "$90bn"}])), "stats", "key figure"))
+
+    def test_at_most_four(self):
+        item = {"label": "Data Center", "value": "$89.0bn"}
+        self.assertTrue(has(errors_of(self.stats([item] * 5)), "stats"))
+
+    def test_each_stat_needs_a_label(self):
+        self.assertTrue(has(errors_of(self.stats([{"label": "", "value": "$89.0bn"}])), "stats", "label"))
+
+
 if __name__ == "__main__":
     unittest.main()

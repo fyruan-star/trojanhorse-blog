@@ -244,3 +244,93 @@ test("ellipse ring spreads neighbours evenly", () => {
   const pts = Object.values(pos);
   for (const p of pts) for (const q of pts) if (p !== q) assert.ok(Math.hypot(p.x - q.x, p.y - q.y) > 100);
 });
+
+/* ---------------------------------------------------- round 3: input */
+const ev = (o) => Object.assign({ deltaX: 0, deltaY: 0, deltaMode: 0, ctrlKey: false }, o);
+
+test("a pinch arrives as a wheel event with ctrlKey and always zooms", () => {
+  assert.equal(C.wheelKind(ev({ deltaY: 3.5, ctrlKey: true }), null, 0), "pinch");
+  assert.equal(C.wheelKind(ev({ deltaY: 3.5, ctrlKey: true }), { kind: "pan", t: 0 }, 50), "pinch");
+});
+
+test("line or page deltas come from a mouse wheel", () => {
+  assert.equal(C.wheelKind(ev({ deltaY: 3, deltaMode: 1 }), null, 0), "wheel");
+  assert.equal(C.wheelKind(ev({ deltaY: 1, deltaMode: 2 }), null, 0), "wheel");
+});
+
+test("a sideways delta, or small fractional ones, come from a trackpad swipe", () => {
+  assert.equal(C.wheelKind(ev({ deltaX: 4, deltaY: 1 }), null, 0), "pan");
+  assert.equal(C.wheelKind(ev({ deltaY: 2.5 }), null, 0), "pan");
+  assert.equal(C.wheelKind(ev({ deltaY: -12 }), null, 0), "pan");
+});
+
+test("large whole-number steps come from a mouse wheel", () => {
+  assert.equal(C.wheelKind(ev({ deltaY: 100 }), null, 0), "wheel");
+  assert.equal(C.wheelKind(ev({ deltaY: -120 }), null, 0), "wheel");
+});
+
+test("wheelDeltaY, where the browser sends it, tells a trackpad from a mouse", () => {
+  assert.equal(C.wheelKind(ev({ deltaY: 12, wheelDeltaY: -36 }), null, 0), "pan");
+  assert.equal(C.wheelKind(ev({ deltaY: 4.000244140625, wheelDeltaY: -120 }), null, 0), "wheel");
+  // Safari gives every wheel event the trackpad ratio, so a full notch still reads as a wheel
+  assert.equal(C.wheelKind(ev({ deltaY: 100, wheelDeltaY: -300 }), null, 0), "wheel");
+});
+
+test("one gesture keeps its kind until the input rests", () => {
+  const prev = { kind: "pan", t: 1000 };
+  assert.equal(C.wheelKind(ev({ deltaY: 100 }), prev, 1050), "pan");
+  assert.equal(C.wheelKind(ev({ deltaY: 100 }), prev, 1000 + C.GESTURE_REST_MS + 1), "wheel");
+});
+
+test("a swipe that stops abruptly gets a glide, and one the system already slowed does not", () => {
+  const steady = [0, 16, 32, 48, 64].map((t) => ({ t, dx: 0, dy: 24 }));
+  const v = C.swipeRelease(steady, 64 + 80);
+  assert.ok(v && v.y > 1 && Math.abs(v.x) < 1e-9);
+  const decayed = [24, 16, 9, 4, 1.5, 0.4].map((dy, i) => ({ t: i * 16, dx: 0, dy }));
+  assert.equal(C.swipeRelease(decayed, 5 * 16 + 80), null);
+  assert.equal(C.swipeRelease(steady, 64 + 10), null, "still swiping");
+});
+
+test("panning follows the swipe per frame and arrives without overshoot", () => {
+  let left = { x: 0, y: 100 }, moved = 0;
+  for (let i = 0; i < 30; i++) { const s = C.panStep(left, 16.7, false); moved += s.y; left = s.left; }
+  assert.ok(Math.abs(moved - 100) < 0.5 && moved <= 100.0001);
+  const instant = C.panStep({ x: 5, y: 7 }, 16.7, true);
+  assert.deepEqual([instant.x, instant.y, instant.left.x, instant.left.y], [5, 7, 0, 0]);
+});
+
+/* ------------------------------------------------ round 3: spotlight */
+const FRAME = { w: 1000, h: 600 };
+
+test("spotlight fits every connection when they are close enough to read", () => {
+  const plan = C.spotlightPlan({ x: 0, y: 0 }, { a: { x: 100, y: 0 }, b: { x: -50, y: 80 } }, FRAME, { read: 1, max: 4, pad: 60 });
+  assert.deepEqual(plan.ring, []);
+  assert.deepEqual(plan.inPlace.sort(), ["a", "b"]);
+  assert.equal(plan.cam.x, 0); assert.equal(plan.cam.y, 0);
+  assert.ok(plan.cam.k >= 1 && plan.cam.k <= 4);
+  // every connection lands inside the frame with the padding to spare
+  ["a", "b"].forEach((id) => {
+    const p = C.toScreen(plan.cam, FRAME, { a: { x: 100, y: 0 }, b: { x: -50, y: 80 } }[id]);
+    assert.ok(p.x >= 60 && p.x <= 940 && p.y >= 60 && p.y <= 540);
+  });
+});
+
+test("a connection too far to read is pulled into the ring, and the zoom stays readable", () => {
+  const plan = C.spotlightPlan({ x: 0, y: 0 }, { near: { x: 100, y: 0 }, far: { x: 9000, y: 0 } }, FRAME, { read: 1, max: 4, pad: 60 });
+  assert.deepEqual(plan.ring, ["far"]);
+  assert.deepEqual(plan.inPlace, ["near"]);
+  assert.ok(plan.cam.k >= 1);
+});
+
+test("the spotlight centres the company in the part of the frame the card leaves free", () => {
+  const plan = C.spotlightPlan({ x: 0, y: 0 }, {}, FRAME, { read: 1, max: 2, pad: 60, right: 400 });
+  const s = C.toScreen(plan.cam, FRAME, { x: 0, y: 0 });
+  assert.ok(Math.abs(s.x - 300) < 1e-6 && Math.abs(s.y - 300) < 1e-6);
+});
+
+test("team addresses open the map with that team highlighted", () => {
+  const r = C.parseHash("#t-nvidia", new Set(["nvidia"]), new Set(["silicon"]), new Set(["nvidia", "google"]));
+  assert.deepEqual(r, { view: "map", team: "nvidia" });
+  assert.equal(C.hashFor({ level: "galaxy", team: "google" }), "#t-google");
+  assert.deepEqual(C.parseHash("#t-nope", new Set(), new Set(), new Set(["google"])), { view: null });
+});

@@ -12,6 +12,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 ATLAS = ROOT / "content" / "atlas" / "atlas.json"
 sys.path.insert(0, str(ROOT / "content" / "atlas"))
 import atlas_ratings as R
+import atlas_teams as TM
 
 TIERS = {"end", "platform", "stack"}
 RANKS = {"starter", "second_string", "practice_squad"}
@@ -24,13 +25,21 @@ STATUSES = {"draft", "reviewed"}
 # a company with no card lives on the backers island of the map
 BACKERS = "backers"
 
-COMPANY_KEYS = {"name", "description", "sector"}
+COMPANY_KEYS = {"name", "description", "sector", "team", "team_reason", "bio", "logo"}
 RATING_KEYS = {"attributes", "badges", "ovr_reason", "ovr_updated", "ovr_by"}
 # room to grow: allowed now, used later
 RESERVED_KEYS = {"ovr_history"}
 # calculated by the build, so never stored
 CALCULATED_KEYS = {"ovr", "ovr_status", "ovr_evidence"}
-PLACEMENT_KEYS = {"company", "sector", "row", "rank", "label", "key_figure", "why", "could_change", "source", "trust"}
+PLACEMENT_KEYS = {"company", "sector", "row", "rank", "label", "key_figure", "why", "could_change", "source", "trust", "stats"}
+BIO_KEYS = {"ticker", "listed", "hq", "founded", "ceo"}
+LISTED = {"Public", "Private"}
+LOGO_KEYS = {"file", "kind", "source", "license", "ground"}
+LOGO_KINDS = {"simple-icons", "commons", "press-kit"}
+LOGO_GROUNDS = {"light", "dark"}
+LOGO_DIR = ROOT / "assets" / "logos"
+LOGO_FILE = re.compile(r"^[a-z0-9_]+\.(svg|png)$")
+MAX_STATS = 4
 LINE_KEYS = {"from", "to", "type", "text", "source", "trust", "date", "added"}
 
 # Lines a review found wrong or too loose to draw (2026-10-23). They stay out.
@@ -100,12 +109,29 @@ def _placements(d, rows, errors):
             errors.append(f"{where}: source must be an https link")
         for f in ("key_figure", "why", "could_change"):
             _prose(where, f, p.get(f), errors)
+        if "stats" in p:
+            _stats(where, p["stats"], p.get("key_figure") or "", errors)
         key = (p.get("company"), p.get("sector"), p.get("row"))
         if key in seen:
             errors.append(f"{where}: duplicate card")
         seen.add(key)
         plays_in.setdefault(p.get("company"), set()).add(p.get("sector"))
     return plays_in
+
+
+def _stats(where, stats, key_figure, errors):
+    """Headline numbers for a profile: each value must already be in the card's key figure."""
+    if not isinstance(stats, list) or not 1 <= len(stats) <= MAX_STATS:
+        errors.append(f"{where}: stats must be a list of 1 to {MAX_STATS} items")
+        return
+    for s in stats:
+        if not isinstance(s, dict) or set(s) != {"label", "value"} or not str(s.get("label", "")).strip():
+            errors.append(f"{where}: each of stats needs a label and a value, and nothing else")
+            continue
+        core = str(s["value"]).lstrip("$+-\u2212 ").replace("$", "")
+        if not core or core not in key_figure:
+            errors.append(f"{where}: stats value {s['value']} is not in the key figure")
+        _prose(where, "stats label", s["label"], errors)
 
 
 def _evidence(where, ev, errors, required):
@@ -180,6 +206,95 @@ def _rating(cid, c, has_card, errors):
         errors.append(f"{where}: ovr_updated must be a date like 2026-11-02")
 
 
+def _bio(where, bio, errors):
+    """Optional facts for the profile page, each with the link it was read from."""
+    if not isinstance(bio, dict):
+        errors.append(f"{where}: bio must be an object")
+        return
+    sources = bio.get("sources") or {}
+    for k in sorted(set(bio) - BIO_KEYS - {"sources"}):
+        errors.append(f"{where}: unknown bio field {k}")
+    for k in sorted(BIO_KEYS & set(bio)):
+        v = bio[k]
+        if not isinstance(v, str) or not v.strip():
+            errors.append(f"{where}: bio {k} is empty")
+        if not _https(sources.get(k)):
+            errors.append(f"{where}: bio {k} needs an https source in bio.sources")
+    for k in sorted(set(sources) - BIO_KEYS):
+        errors.append(f"{where}: bio.sources has {k}, which is not a bio field")
+    if "listed" in bio and bio["listed"] not in LISTED:
+        errors.append(f"{where}: bio listed must be Public or Private")
+    if "founded" in bio and not re.fullmatch(r"\d{4}", str(bio["founded"])):
+        errors.append(f"{where}: bio founded must be a year like 1993")
+
+
+def _logo(where, logo, errors):
+    """An official mark: a file in assets/logos, where it came from and its licence."""
+    if not isinstance(logo, dict):
+        errors.append(f"{where}: logo must be an object")
+        return
+    for k in sorted(set(logo) - LOGO_KEYS):
+        errors.append(f"{where}: unknown logo field {k}")
+    f = logo.get("file")
+    if not isinstance(f, str) or not LOGO_FILE.match(f) or not (LOGO_DIR / f).is_file():
+        errors.append(f"{where}: logo file must be a file in assets/logos, such as nvidia.svg")
+    if logo.get("kind") not in LOGO_KINDS:
+        errors.append(f"{where}: logo kind must be one of {sorted(LOGO_KINDS)}")
+    if not _https(logo.get("source")):
+        errors.append(f"{where}: logo source must be an https link")
+    if not isinstance(logo.get("license"), str) or not logo["license"].strip():
+        errors.append(f"{where}: logo license is empty")
+    else:
+        _prose(where, "logo license", logo["license"], errors)
+    if "ground" in logo and logo["ground"] not in LOGO_GROUNDS:
+        errors.append(f"{where}: logo ground must be light or dark")
+
+
+def _teams(d, errors):
+    """Declared teams, the team overrides on companies, and the rosters the rules give."""
+    companies = d.get("companies", {})
+    ids, led = set(), {}
+    for t in d.get("teams", []):
+        tid = t.get("id")
+        where = f"team {tid}"
+        if not isinstance(tid, str) or not ID.match(tid) or tid == TM.INDEPENDENT:
+            errors.append(f"{where}: id must be lower case letters, digits and underscores")
+        if tid in ids:
+            errors.append(f"{where}: duplicate id")
+        ids.add(tid)
+        if not t.get("name"):
+            errors.append(f"{where}: name is empty")
+        caps = t.get("captains")
+        if not isinstance(caps, list) or not caps:
+            errors.append(f"{where}: needs at least one captain")
+            continue
+        for cid in caps:
+            if cid not in companies:
+                errors.append(f"{where}: captain {cid} does not exist")
+            elif cid in led:
+                errors.append(f"{where}: {cid} is already captain of {led[cid]}")
+            led.setdefault(cid, tid)
+    for cid, c in companies.items():
+        where = f"company {cid}"
+        if "team" in c:
+            if c["team"] not in ids | {TM.INDEPENDENT}:
+                errors.append(f"{where}: team {c['team']} is not a team (or {TM.INDEPENDENT})")
+            if cid in led:
+                errors.append(f"{where}: a captain cannot be moved to another team")
+            _one_sentence(where, "team_reason", c.get("team_reason"), errors)
+        elif "team_reason" in c:
+            errors.append(f"{where}: team_reason without a team")
+    if errors:
+        return
+    out = TM.assign(d)
+    for cid, teams in sorted(out["ties"].items()):
+        errors.append(f"company {cid}: tie between teams {' and '.join(teams)}. Set team and team_reason to settle it")
+    for tid in sorted(ids):
+        n = sum(1 for m in out["members"].values() if m["team"] == tid)
+        if n < TM.MIN_MEMBERS:
+            errors.append(f"team {tid}: has {n} members, and a team needs at least {TM.MIN_MEMBERS}")
+
+
 def _companies(d, plays_in, linked, errors, warnings):
     sectors = {s.get("id") for s in d.get("sectors", [])}
     for cid, c in d.get("companies", {}).items():
@@ -203,6 +318,10 @@ def _companies(d, plays_in, linked, errors, warnings):
         if cid not in plays_in and cid not in linked:
             warnings.append(f"{where}: appears on no card and in no relationship")
         _rating(cid, c, cid in plays_in, errors)
+        if "bio" in c:
+            _bio(where, c["bio"], errors)
+        if "logo" in c:
+            _logo(where, c["logo"], errors)
 
 
 def _relationships(d, errors):
@@ -253,6 +372,8 @@ def validate(d):
     plays_in = _placements(d, rows, errors)
     linked = _relationships(d, errors)
     _companies(d, plays_in, linked, errors, warnings)
+    if not errors:
+        _teams(d, errors)
     return errors, warnings
 
 

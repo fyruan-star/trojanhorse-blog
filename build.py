@@ -571,6 +571,7 @@ from urllib.parse import urlparse as _urlparse
 import atlas_data as AD
 import atlas_layout as AL
 import atlas_ratings as AR
+import atlas_pages as AP
 from atlas_essays import INTRO as AT_INTRO, SECTOR_PIECES as AT_PIECES
 from atlas_log import METHOD as AT_METHOD, GAPS as AT_GAPS, NOT_YET as AT_NOT_YET
 
@@ -603,8 +604,23 @@ def _published(ent):
     by = {k: c[k] for k in ("ovr_by", "ovr_updated") if c.get(k) and r["attributes"]}
     return {**r, **by}
 
-def _map_shell():
+def _extras(ctx, ent):
+    """What the map needs beyond ratings: the logo file, the team and the profile page."""
+    c = AD.DATA["companies"][ent]
+    out = {"profile": f"atlas/{ent}.html", "initials": AP.initials(c["name"])}
+    if c.get("logo"):
+        out["logo"] = {"file": "logos/" + c["logo"]["file"], "ground": c["logo"].get("ground", "light")}
+    m = ctx.members.get(ent)
+    if m:
+        out["team"] = m["team"]
+    return out
+
+def _map_shell(rosters):
     """The Map view's frame. atlas-map.js draws into it, and without scripts it stays hidden."""
+    teams = "".join(
+        f'<li><button type="button" data-team="{t["id"]}" aria-pressed="false"><span class="amap__tn">{_esc(t["name"])}</span>'
+        f'<span class="amap__tc">{len(t["members"])} members</span><b>{t["ovr"] if t["ovr"] is not None else ""}</b></button></li>'
+        for t in sorted(rosters, key=lambda t: -(t["ovr"] or 0)))
     sectors = "".join(
         f'<label><input type="checkbox" data-fsector="{s["id"]}" checked><span class="sw sw--{s["id"]}"></span>{_esc(s["name"])}</label>'
         for s in AD.SECTORS)
@@ -615,6 +631,8 @@ def _map_shell():
   <div class="amap__stage">
     <div class="amap__view">
       <div class="amap__canvas"></div>
+      <div class="amap__spot" aria-hidden="true" hidden></div>
+      <div class="amap__grain" aria-hidden="true"></div>
       <div class="amap__keys" role="group" aria-label="Sectors and companies on the map"></div>
       <div class="amap__hud">
         <div class="amap__crumbs">
@@ -625,8 +643,15 @@ def _map_shell():
           <button type="button" class="amap__tool" data-zoom="in" aria-label="Zoom in">+</button>
           <button type="button" class="amap__tool" data-zoom="out" aria-label="Zoom out">&minus;</button>
           <button type="button" class="amap__tool amap__tool--wide" data-zoom="home">All sectors</button>
+          <button type="button" class="amap__tool amap__tool--wide" aria-expanded="false" aria-controls="amap-teams">Teams</button>
           <button type="button" class="amap__tool amap__tool--wide" aria-expanded="false" aria-controls="amap-filters">Filters</button>
+          <button type="button" class="amap__tool amap__tool--wide amap__full" aria-pressed="false">Full screen</button>
         </div>
+      </div>
+      <div class="amap__teams" id="amap-teams" hidden>
+        <p class="amap__fk">Teams</p>
+        <ul>{teams}</ul>
+        <p class="amap__fnote">Members glow and everyone else dims. <a href="atlas/teams.html">How teams are formed</a>.</p>
       </div>
       <div class="amap__filters" id="amap-filters" hidden>
         <fieldset><legend>Sectors</legend>{sectors}</fieldset>
@@ -652,6 +677,7 @@ def build_atlas():
     drafts = [k for k, r in AD.RATINGS.items() if r["ovr_status"] == "draft"]
     if drafts:
         print(f"WARNING: {len(drafts)} draft ratings will be published. Set SHOW_DRAFT_RATINGS = False in content/atlas/atlas_data.py to hide them.")
+    ctx = AP.context(AD, HEAD, FOOT)
     names = {k: v[0] for k, v in AD.ENT.items()}
     sec_name = {s["id"]: s["name"] for s in AD.SECTORS}
     # first card id for each company, so connections can link to it
@@ -718,6 +744,7 @@ def build_atlas():
     <p><b>{label}</b>{_esc(pl["why"])}</p>
     <p><b>What could change it</b>{_esc(pl["cond"])}</p>
     <p class="card__src"><span class="conf conf--{conf}">{conf}</span> <a href="{pl["src"]}">{_host(pl["src"])}</a></p>
+    <p class="card__pf"><a href="atlas/{e}.html">Full profile &rarr;</a></p>
     {also_html}
     {conns}
   </div>
@@ -771,7 +798,7 @@ def build_atlas():
         f'<label><input type="checkbox" data-group="{k}" checked><span class="key key--{k}"></span>{v}</label>'
         for k, v in AD.GROUP_LABEL.items())
     datalist = "".join(f'<option value="{_esc(names[e])}">' for e in sorted(card_id, key=lambda k: names[k]))
-    map_html = _map_shell()
+    map_html = _map_shell(ctx.rosters)
     # sorting by OVR only means something when ratings are published
     sort_html = ('<div class="sort" role="group" aria-label="Sort the cards"><span class="sort__k">Sort</span>'
                  '<button type="button" class="sort__b" data-sort="depth" aria-pressed="true">Depth chart</button>'
@@ -787,8 +814,10 @@ def build_atlas():
     full = {
         "asof": AD.ASOF,
         "sectors": AD.SECTORS,
-        "entities": {k: {"name": v[0], "description": v[1], "home": AD.HOME.get(k), **_published(k)}
+        "entities": {k: {"name": v[0], "description": v[1], "home": AD.HOME.get(k), **_published(k), **_extras(ctx, k)}
                      for k, v in AD.ENT.items()},
+        "teams": [{"id": t["id"], "name": t["name"], "captains": t["captains"], "ovr": t["ovr"], "ovr_status": t["ovr_status"],
+                   "members": [m["company"] for m in t["members"]]} for t in ctx.rosters],
         "edges": [{**e, "group": AD.GROUP[e["type"]], "added": r["added"]} for e, r in zip(AD.EDGES, AD.DATA["relationships"])],
         "ovr_tiers": [{"min": lo, "label": lab} for lo, lab in AD.OVR_TIERS],
         "attributes": [{"id": k, "label": AR.ATTR_LABEL[k], "weight": AR.WEIGHTS[k]} for k in AR.ATTRS],
@@ -802,10 +831,11 @@ def build_atlas():
     method = "".join(f"<p>{_esc(x)}</p>" for x in AT_METHOD)
     intro = "".join(f"<p>{x}</p>" for x in AT_INTRO)
     n_cards = sum(len(p["players"]) for s in AD.SECTORS for p in s["positions"])
+    standings_links = "".join(f'<a href="atlas/sector-{s["id"]}.html">{_esc(s["name"])}</a>' for s in AD.SECTORS)
 
     html = (HEAD.format(title="The Tech Atlas | The Trojan Horse",
                         desc="A depth chart of the technology industry: who leads, who is catching up, and who is allied with, competing with or backed by whom.")
-            + '<link rel="stylesheet" href="atlas.css">\n<link rel="stylesheet" href="atlas-map.css">\n'
+            + '<link rel="stylesheet" href="atlas.css">\n<link rel="stylesheet" href="atlas-map.css">\n<link rel="stylesheet" href="atlas-pages.css">\n'
             + f"""
 <a class="back" href="index.html">&larr; The Trojan Horse</a>
 
@@ -817,6 +847,7 @@ def build_atlas():
     <p class="atlas-head__by">Francis Ruan, Ryan Chian and Timothy Zhang</p>
   </header>
   <div class="atlas-intro">{intro}</div>
+  <nav class="atlas-standings" aria-label="Standings and teams"><span class="atlas-standings__k">Standings</span>{standings_links}<a class="atlas-standings__t" href="atlas/teams.html">Teams</a></nav>
 </div>
 
 <nav class="atlas-bar" aria-label="Atlas controls">
@@ -855,12 +886,15 @@ def build_atlas():
 <script type="application/json" id="atlas-data">{_json.dumps(js_data, ensure_ascii=False)}</script>
 <script src="atlas.js" defer></script>
 <script src="atlas-map-core.js" defer></script>
+<script src="atlas-map-art.js" defer></script>
 <script src="atlas-map-scene.js" defer></script>
 <script src="atlas-map-card.js" defer></script>
 <script src="atlas-map.js" defer></script>
 """ + FOOT)
     (ROOT / "tech-atlas.html").write_text(html, encoding="utf-8")
     print(f"tech-atlas.html  ({len(AD.SECTORS)} sectors, {n_cards} cards, {len(AD.EDGES)} edges)")
+    n_pages = AP.write_all(ctx, ROOT)
+    print(f"atlas/  ({n_pages} pages: {len(AD.ENT)} profiles, {len(AD.SECTORS)} standings, {len(ctx.rosters)} teams and the teams page)")
 
 
 GROUND = """

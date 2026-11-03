@@ -2,6 +2,7 @@
 
    Three tabs: Ratings (OVR, six attribute bars, a hexagon radar, badges),
    Profile (the Atlas card text) and Connections (allies, rivals, backers).
+   The header carries the company's logo and a link to its full profile page.
    Everything is built with textContent, never parsed HTML. */
 (function () {
   "use strict";
@@ -30,6 +31,12 @@
     if (parent) parent.appendChild(n);
     return n;
   }
+  /** The company's official mark on a round ground, or its initials when the Atlas has none. */
+  function mark(e) {
+    if (!e.logo) return h("span", { cls: "pc__mono", "aria-hidden": "true", text: e.initials || C.initials(e.name) });
+    return h("span", { cls: "pc__logo" + (e.logo.ground === "dark" ? " pc__logo--dark" : ""), "aria-hidden": "true" },
+             [h("img", { src: e.logo.file, alt: "", decoding: "async" })]);
+  }
   function host(u) { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return "source"; } }
   function source(url, trust) {
     return h("span", { cls: "pc__src" }, [h("span", { cls: "conf conf--" + trust, text: trust }), " ",
@@ -56,8 +63,9 @@
       home.pl.badge ? h("span", { cls: "badge badge--label", text: home.pl.badge }) : null] : [];
     panel.appendChild(h("button", { type: "button", cls: "pc__close", "aria-label": "Close card", text: "×" }));
     panel.appendChild(h("header", { cls: "pc__head" }, [ovr, h("div", { cls: "pc__id" }, [
-      h("span", { cls: "pc__mono", "aria-hidden": "true", text: C.initials(e.name) }),
-      h("div", {}, [name, h("p", { cls: "pc__meta", text: meta }), h("p", { cls: "pc__rank" }, rankBits)])])]));
+      mark(e),
+      h("div", {}, [name, h("p", { cls: "pc__meta", text: meta }), h("p", { cls: "pc__rank" }, rankBits),
+        e.profile ? h("a", { cls: "pc__profile", href: e.profile, text: "Open full profile \u2192" }) : null])])]));
 
     var list = h("div", { cls: "pc__tabs", role: "tablist", "aria-label": "Card sections" });
     TABS.forEach(function (t) {

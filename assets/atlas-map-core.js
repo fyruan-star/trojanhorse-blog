@@ -16,6 +16,8 @@
   // zoom, as a multiple of the zoom that fits the whole galaxy, where planets give way to companies
   var SHOW = { planetsUntil: 1.45, sectorsFrom: 2.1 };
   var SQRT2 = Math.SQRT2;
+  // input: how long a wheel gesture may rest and still be the same gesture, and how fast a swipe pans
+  var GESTURE_REST_MS = 120, RELEASE_GAP_MS = 60, PAN_TAU = 45, DECAYED = 0.35, MIN_GLIDE = 0.05;
 
   function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
 
@@ -208,9 +210,75 @@
     return out;
   }
 
+  /* ------------------------------------------------------------ input */
+  /** What a wheel event is: "pinch" (zoom), "wheel" (a mouse wheel, zoom) or "pan" (a trackpad swipe).
+      prev is the last gesture {kind, t}: a gesture keeps its kind until it rests GESTURE_REST_MS.
+      1. ctrlKey set: browsers report a trackpad pinch this way.
+      2. deltaMode 1 or 2 (lines or pages): only wheels report that.
+      3. Any deltaX: a sideways swipe, which a plain mouse wheel cannot make.
+      4. wheelDeltaY (Chrome, Edge, Safari): a multiple of 120 is a wheel notch. -3 x deltaY marks a
+         trackpad in Chrome, but Safari reports that ratio for wheels too, so it counts only for small steps.
+      5. Otherwise large whole-number steps (50 and up) are a wheel, and small or fractional ones a swipe.
+      A swipe starts with small steps, so its first event decides it, and the gesture keeps that kind. */
+  function wheelKind(ev, prev, now) {
+    if (ev.ctrlKey) return "pinch";
+    if (prev && prev.kind !== "pinch" && now - prev.t <= GESTURE_REST_MS) return prev.kind;
+    if (ev.deltaMode) return "wheel";
+    if (ev.deltaX) return "pan";
+    var w = ev.wheelDeltaY;
+    var d = Math.abs(ev.deltaY);
+    if (w) {
+      if (w % 120 === 0) return "wheel";
+      if (Math.abs(w + 3 * ev.deltaY) < 1e-6 && d < 50) return "pan";
+    }
+    return d >= 50 && Math.abs(d - Math.round(d)) < 1e-9 ? "wheel" : "pan";
+  }
+
+  /** When a swipe ends: a glide velocity (px/ms, the way the deltas point) if the stream stopped
+      abruptly, or null while it continues or when the system already slowed it (its own momentum). */
+  function swipeRelease(samples, now) {
+    if (!samples.length || now - samples[samples.length - 1].t < RELEASE_GAP_MS) return null;
+    var tail = samples.slice(-5), mags = tail.map(function (s) { return Math.hypot(s.dx, s.dy); });
+    if (mags[mags.length - 1] < DECAYED * Math.max.apply(null, mags)) return null;
+    var span = tail[tail.length - 1].t - tail[0].t + 16, sx = 0, sy = 0;
+    tail.forEach(function (s) { sx += s.dx; sy += s.dy; });
+    var v = { x: sx / span, y: sy / span };
+    return Math.hypot(v.x, v.y) < MIN_GLIDE ? null : v;
+  }
+
+  /** One frame of a swipe: how far to move now (px) and what is left. Reduced motion moves at once. */
+  function panStep(left, dt, reduced) {
+    var f = reduced ? 1 : 1 - Math.exp(-dt / PAN_TAU), x = left.x * f, y = left.y * f;
+    return { x: x, y: y, left: { x: left.x - x, y: left.y - y } };
+  }
+
+  /* -------------------------------------------------------- spotlight */
+  /** Where the camera goes to spotlight company c with its neighbours (world points by id).
+      opt: read (the lowest zoom where labels are readable), max, pad (px), and right/top/bottom
+      (px the card and controls cover). Fit every neighbour if that zoom is readable. Otherwise
+      stay readable and send the ones that do not fit to the ring. */
+  function spotlightPlan(c, nbrs, view, opt) {
+    var right = opt.right || 0, top = opt.top || 0, bottom = opt.bottom || 0;
+    var hw = (view.w - right) / 2 - opt.pad, hh = (view.h - top - bottom) / 2 - opt.pad;
+    var ids = Object.keys(nbrs).sort(), fit = Infinity;
+    ids.forEach(function (id) {
+      var dx = Math.abs(nbrs[id].x - c.x), dy = Math.abs(nbrs[id].y - c.y);
+      if (dx > 1e-9) fit = Math.min(fit, hw / dx);
+      if (dy > 1e-9) fit = Math.min(fit, hh / dy);
+    });
+    var k = fit >= opt.read ? Math.min(fit, opt.max) : opt.read, inPlace = [], ring = [];
+    ids.forEach(function (id) {
+      var ok = Math.abs(nbrs[id].x - c.x) * k <= hw + 1e-6 && Math.abs(nbrs[id].y - c.y) * k <= hh + 1e-6;
+      (ok ? inPlace : ring).push(id);
+    });
+    var sx = (view.w - right) / 2, sy = top + (view.h - top - bottom) / 2;
+    return { cam: { x: c.x - (sx - view.w / 2) / k, y: c.y - (sy - view.h / 2) / k, k: k }, inPlace: inPlace, ring: ring,
+             centre: { x: sx, y: sy } };
+  }
+
   /* ------------------------------------------------------- deep links */
   /** What an address hash asks for: the map at a company or sector, the list, or nothing. */
-  function parseHash(hash, companies, sectors) {
+  function parseHash(hash, companies, sectors, teams) {
     var h = (hash || "").replace(/^#/, "");
     if (h.indexOf("sector-") === 0) return { view: "list" };
     if (h.indexOf("c-") === 0) {
@@ -219,11 +287,13 @@
       return id.indexOf("-") > -1 ? { view: "list" } : { view: null };
     }
     if (h.indexOf("s-") === 0 && sectors.has(h.slice(2))) return { view: "map", sector: h.slice(2) };
+    if (h.indexOf("t-") === 0 && teams && teams.has(h.slice(2))) return { view: "map", team: h.slice(2) };
     return { view: null };
   }
   function hashFor(state) {
     if (state.level === "company" && state.selected) return "#c-" + state.selected;
     if (state.level === "sector" && state.sector) return "#s-" + state.sector;
+    if (state.team) return "#t-" + state.team;
     return "";
   }
 
@@ -272,6 +342,8 @@
     toScreen: toScreen, toWorld: toWorld, fitCam: fitCam, zoomAround: zoomAround, clampCam: clampCam,
     approach: approach, glide: glide, flight: flight, flightMs: flightMs, easeInOut: easeInOut, detail: detail,
     collide: collide, arc: arc, onCurve: onCurve, bundles: bundles, bundleText: bundleText, focusRing: focusRing, ellipseRing: ellipseRing,
+    wheelKind: wheelKind, swipeRelease: swipeRelease, panStep: panStep, spotlightPlan: spotlightPlan,
+    GESTURE_REST_MS: GESTURE_REST_MS,
     parseHash: parseHash, hashFor: hashFor, radar: radar, tier: tier, nodeRadius: nodeRadius, initials: initials,
     stars: stars, R_UNRATED: R_UNRATED, RADAR_FLOOR: RADAR_FLOOR, SHOW: SHOW
   };
