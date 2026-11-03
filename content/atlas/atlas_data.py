@@ -1,44 +1,49 @@
-"""Tech Atlas: the whole landscape, assembled from one module per sector.
+"""Tech Atlas: the whole landscape, read from atlas.json.
 
-Nine sectors. Entities are shared across sectors, so a company
-has one record and appears wherever it plays. Sector order follows the stack,
-from the physical foundation at the bottom to the end markets at the top.
+atlas.json is the one source of truth for the List view (tech-atlas.html), the
+Map view and the published tech-atlas.json. Edit it, then run
+python3 scripts/validate_atlas.py. This module turns it back into the shapes
+build.py renders: ENT, SECTORS and EDGES.
+
+Every card carries a one line key figure with a period and a link. `why` is
+the mechanism in one sentence and `could_change` is the named condition that
+would change the order. Both are the author's reading of the evidence and are
+marked as inference on the page. Trust on cards is sourced or reported. Trust
+on relationships is primary (a filing, release or regulator document),
+reported (credible press without the document) or inferred.
+
+Sector order follows the stack, from the physical foundation at the bottom to
+the end markets at the top. The telecom, foundation, mobility, robotics,
+health, defense, quantum and energy modules stay on disk but are not loaded.
 """
-import importlib
+import json, pathlib
 
-ASOF = "23 October 2026"
+DATA = json.loads((pathlib.Path(__file__).parent / "atlas.json").read_text(encoding="utf-8"))
+ASOF = DATA["asof"]
 
-# Scoped to what a Bay Area technology coverage banker or a tech M&A banker
-# works on. The telecom, foundation, mobility, robotics, health, defense,
-# quantum and energy modules stay on disk but are not loaded.
-_MODULES = ["silicon", "infra", "cloud", "models", "software", "security",
-            "internet", "devices", "fintech"]
+# atlas.json spells the ranks out. The renderer uses the short codes.
+RANK_CODE = {"starter": "starter", "second_string": "second", "practice_squad": "rookie"}
 
-ENT, SECTORS, EDGES = {}, [], []
-for m in _MODULES:
-    mod = importlib.import_module(f"atlas_{m}")
-    for k, v in mod.ENT.items():
-        ENT.setdefault(k, v)
-    SECTORS.append(mod.SECTOR)
-    EDGES.extend(mod.EDGES)
+ENT = {k: (v["name"], v["description"]) for k, v in DATA["companies"].items()}
 
-# Lines that are drawn must be ones a source states. Dropped: every relationship
-# marked inferred except plain ownership, and the ones below that a review found
-# wrong or too loose to draw (an investor shown as a rival, a duplicate
-# ownership line that was really a revenue fact, two firms that are not rivals).
-_DROP = {("thoma_bravo", "salesforce"), ("sk_hynix", "samsung"), ("apple", "lenovo"),
-         ("byd", "tesla"), ("china_robots", "amazon"),
-         ("google", "wasabi"), ("silver_lake", "workday"), ("stripe", "paypal"),
-         ("advent", "paypal"), ("block", "paypal"), ("spacex", "cursor")}
-def _keep(e):
-    if (e["a"], e["b"]) in _DROP:
-        return False
-    if "largest business by revenue" in e["text"]:
-        return False
-    if e["conf"] == "inferred" and e["type"] != "ownership":
-        return False
-    return True
-EDGES[:] = [e for e in EDGES if _keep(e)]
+def _player(pl):
+    out = {"e": pl["company"], "t": RANK_CODE[pl["rank"]]}
+    if pl.get("label"):
+        out["badge"] = pl["label"]
+    if pl["trust"] != "sourced":
+        out["conf"] = pl["trust"]
+    out.update(stat=pl["key_figure"], why=pl["why"], cond=pl["could_change"], src=pl["source"])
+    return out
+
+SECTORS = [dict(id=s["id"], name=s["name"], band=s["tier"], blurb=s["blurb"], positions=[
+    dict(id=r["id"], name=r["name"], metric=r["metric"], metric_src=r["metric_source"],
+         players=[_player(pl) for pl in DATA["placements"] if pl["sector"] == s["id"] and pl["row"] == r["id"]])
+    for r in s["rows"]]) for s in DATA["sectors"]]
+
+# Only lines a source states are in atlas.json. scripts/validate_atlas.py keeps
+# out the ones a review rejected.
+EDGES = [dict(a=r["from"], b=r["to"], type=r["type"], text=r["text"], src=r["source"],
+              date=r["date"], conf=r["trust"]) for r in DATA["relationships"]]
 
 # Three kinds of line are drawn. The seven source types fold into them.
 GROUP = {"alliance": "allies", "supply": "allies", "license": "allies", "dependency": "allies",
