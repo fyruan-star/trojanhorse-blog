@@ -1,19 +1,25 @@
 #!/usr/bin/env python3
-"""Emit the index, the stories page and the podcast page.
+"""Build trojanhorse.blog.
 
-The site shows one story. Everything previously published lives in archive/,
-which is git-ignored, so it stays on disk and never reaches the web. To bring
-a piece back: move its html out of archive/, add it to STORY below, rebuild.
+    python3 build.py
+
+Reads the words in content/, copies assets/ as they are, and writes the whole
+site into _site/. GitHub runs this on every commit to main and publishes
+_site/, so nobody needs to run it to change the site. Run it yourself only to
+preview: python3 build.py && python3 -m http.server -d _site 8731
 """
-import pathlib, re, sys
-import sketch
-import weekly_data, weekly_thorne, weekly_uber
-from weekly_data import (WEEK as W_WEEK, SLUG as W_SLUG, KICKER as W_KICKER,
-                         TITLE as W_TITLE)
-# the order here is the order on the homepage, and every entry keeps its own page
-WEEKLIES = [weekly_data, weekly_thorne, weekly_uber]
+import importlib, pathlib, re, shutil, sys
 
-ROOT = pathlib.Path(__file__).parent
+HERE = pathlib.Path(__file__).parent
+for folder in ("content", "content/stories", "content/atlas"):
+    sys.path.insert(0, str(HERE / folder))
+
+import line_art as sketch
+from home import TAGLINE, ESSAY, EPISODES, STORIES
+# the homepage shows the stories in this order, and every one keeps its own page
+WEEKLIES = [importlib.import_module(name) for name in STORIES]
+
+ROOT = HERE / "_site"          # the built site, never committed
 
 # The one story the site shows. Everything else lives in archive/, which is
 # git-ignored and never deployed.
@@ -114,7 +120,7 @@ COVER = """
   <div class="shell cover__stage">
     <img class="cover__horse" src="images/horse-light.png"
          alt="A rearing horse drawn in silver line work, its hindquarters breaking apart into fragments">
-    <p class="cover__tag">Mergers &amp; Acquisitions<span class="cover__tag__sub">Hidden Risks Behind Promising Deals</span></p>
+    <p class="cover__tag">Mergers &amp; Acquisitions<span class="cover__tag__sub">{TAGLINE}</span></p>
   </div>
 
   <div class="cover__mist" aria-hidden="true"></div>
@@ -127,58 +133,9 @@ COVER = """
 
 """
 
-ESSAY = """
-<!-- ============================================================== TALE === -->
-<section class="essay" id="opening">
-  <div class="shell">
-
-    <div class="tale">
-      <p class="tale__open"><span class="tale__cap">P</span>icture the morning the Trojans woke up to an empty beach. Ten years of tents and smoke and shouting had vanished overnight. The black ships were gone, and where the Greek camp had stood there was trampled sand and one enormous horse of fresh-cut pine. I love this part of the story. The whole city poured out through the gates to look at it.</p>
-    </div>
-
-    <div class="tale">
-      <p>Children ran up and slapped the wood. Somebody&rsquo;s grandmother, who had spent a decade sleeping in her clothes, stood in the sun and cried because the war looked finished. A priest named Laocoön had his doubts. He said he feared the Greeks even when they came bearing gifts, and he hurled a spear into the horse&rsquo;s side. It stuck there, quivering, and from deep inside the wood came a low hollow groan. Then a Greek named Sinon, who had let himself be captured on purpose, wept and swore the horse was an offering to Athena that would protect the city if it stood inside. The Trojans believed him. The horse was too big for the gate, so they tore down a stretch of their own wall to bring it in, and that night the soldiers climbed out of its belly and opened the city from within.</p>
-
-      <p>What delights me is how well that plan understood its audience. The Greeks had given up on the walls and started studying the people behind them. Ten years of siege taught them what Troy wanted most, which was for the war to be over, and they built that wish out of timber and left it where it would be found. The Trojans felt rewarded, and a person who feels rewarded stops inspecting the gift.</p>
-
-      <p>Mergers and acquisitions run on the same instincts. At the end of the day a company acquires something in order to win, whether that is a customer base, a technology or a position its rival cannot reach, and the people across the table are studying what you want just as closely. So every deal is a horse standing at somebody&rsquo;s gate, and the useful thing to do is walk up to it and ask what it is carrying. A bank welcomes a private credit partner because the partner brings capital to its clients, and the partner gets to know those clients. A bank hands its junior analysts an AI assistant that finishes in minutes the hands-on work they used to do late at night, and that work is where they learned to judge a business. A chipmaker prepays a supplier two billion dollars to guarantee its wafers, the supplier runs into trouble, and the chipmaker ends up holding a large share of the supplier&rsquo;s stock. Each of those was welcomed for a good reason by sensible people.</p>
-
-      <p>Any curious person can follow these stories. All it takes is the willingness to walk up to a very large gift and find out who built it. I will tell the deals one at a time, with the strategy as it unfolded and the sources beside every claim. Welcome to The Trojan Horse.</p>
-      <p class="tale__sign">Francis Ruan</p>
-    </div>
-
-  </div>
-</section>
-"""
 
 # Episodes are questions, not deal recaps: the thing worth an hour is the
 # mechanism underneath, not the transaction on top.
-EPISODES = [
- ("Why Models Fail",
-  "A discounted cash flow depends on forecast growth and a discount rate, and both are assumptions. This episode examines where valuation models break when applied to a real business, and what a forecast claims when it assumes that growth costs nothing.",
-  "Recording October"),
- ("Sleep As Capital",
-  "Junior bankers regularly work through the night. This episode examines what research on sleep deprivation shows about judgment, and whether a team that relies on long hours is gaining output or borrowing against later performance.",
-  "In production"),
- ("The Adjusted Truth",
-  "Adjusted EBITDA excludes items that management classifies as unusual. This episode examines who sets that definition, how it varies between companies and how it changes the multiple a buyer pays.",
-  "In production"),
- ("Managing The Number",
-  "Companies shape reported earnings through legal choices about timing and classification. This episode examines how those choices are used to meet consensus estimates and what they imply about the quarters that are not reported.",
-  "In production"),
- ("Who Picks Comparables",
-  "A valuation based on comparable companies depends on which companies are chosen. This episode examines how different peer sets change the answer, and why the selection is rarely shown.",
-  "In production"),
- ("Writers Make Bankers",
-  "Much of an analyst's work is persuasive writing about a business. This episode examines what separates strong writing from weak writing in banking and how analysts learn it.",
-  "Recording October"),
- ("The Confidence Trap",
-  "Two valuation methods that agree can seem to confirm each other. This episode examines how one assumption can enter both, which makes the agreement weaker evidence than it appears.",
-  "In production"),
- ("Disconnected",
-  "An experiment in building a complex model with the internet switched off, to test how much a person can recall without searching.",
-  "In production"),
-]
 ROMAN_EP = ["I","II","III","IV","V","VI","VII","VIII"]
 
 def episode_rows():
@@ -333,7 +290,7 @@ def build_index():
 
     html = (HEAD.format(title="The Trojan Horse",
                         desc="A mergers and acquisitions journal and podcast by Francis Ruan.")
-            + CAPITAL_DEF + COVER + ESSAY
+            + CAPITAL_DEF + COVER.replace("{TAGLINE}", TAGLINE) + ESSAY
             + prologue + horses + ROOMS + FOOT)
     (ROOT / "index.html").write_text(html, encoding="utf-8")
     print("index.html")
@@ -386,9 +343,6 @@ def build_weekly(m):
     print(f"{m.SLUG}.html  ({sum(len(p) for _, p in m.SECTIONS)} paragraphs)")
 
 
-from mandate_data import (KICKER as M_KICKER, TITLE as M_TITLE, LEDE as M_LEDE,
-                          SECTIONS as M_SECTIONS, SOURCES as M_SOURCES,
-                          TAKEAWAY as M_TAKEAWAY)
 
 def build_stories_page():
     """The Mandate was merged into the sale page, where it is Part One. The old
@@ -404,9 +358,9 @@ def build_stories_page():
 
 
 # ====================================================== THE GROUND FLOOR ===
-from primers_data import PRIMERS
-from deals_data import DEALS
-from kata_data import YEARS, INTRO, INTRO_2, CLOSE_HEAD, CLOSE
+from background import PRIMERS
+from deal_notes import DEALS
+from prologue import YEARS, INTRO, INTRO_2, CLOSE_HEAD, CLOSE
 
 DEAL_LINKS = {
  "SoftBank / Arm":      "the-blueprint",
@@ -519,7 +473,7 @@ def build_deals():
     print(f"{len(DEALS)} deal notes")
 
 
-from desk_data import DESK, DESK_INTRO
+from palo_alto import DESK, DESK_INTRO
 
 def build_desk():
     """Three stories from the Palo Alto software team's list, one page each."""
@@ -589,10 +543,10 @@ DESK_DOOR = """
 """
 
 
-from buyers_data import SUB as B_SUB, LEDE as B_LEDE, SECTIONS as B_SECTIONS, SRCS as B_SRCS
+from buyers_bank import SUB as B_SUB, LEDE as B_LEDE, SECTIONS as B_SECTIONS, SRCS as B_SRCS
 
 def build_buyers():
-    """The Buyer's Bank, generated from buyers_data like every other piece."""
+    """The Buyer's Bank, generated from content/buyers_bank.py like every other piece."""
     ld, row = _title("The", "Buyer&rsquo;s", "Bank")
     srcs = "\n".join(f"      <li>{x}</li>" for x in B_SRCS)
     tail = ('  <div class="srcs">\n    <h3>Sources and method</h3>\n    <ol>\n'
@@ -932,7 +886,7 @@ def build_katabasis():
 
 
 # ================================================== THE PROCESS, A CHAPTER ===
-from process_data import (KICKER as P_KICKER, TITLE as P_TITLE, LEDE as P_LEDE,
+from process import (KICKER as P_KICKER, TITLE as P_TITLE, LEDE as P_LEDE,
                           INTRO as P_INTRO, STAGES as P_STAGES,
                           CLOSE_HEAD as P_CLOSE_HEAD, CLOSE as P_CLOSE,
                           PART1 as P_PART1, PART3 as P_PART3,
@@ -1040,7 +994,7 @@ def build_process():
 # =================================================== TROJAN HORSES ===
 # Argument rather than reporting, and the page says so. A landing page with two
 # circular horses, each opening its own reading.
-from horses_data import (KICKER as H_KICKER, TITLE as H_TITLE, LEDE as H_LEDE,
+from pg_and_thorne import (KICKER as H_KICKER, TITLE as H_TITLE, LEDE as H_LEDE,
                          SECTIONS as H_SECTIONS, NOTE as H_NOTE)
 
 def build_horses():
@@ -1099,6 +1053,9 @@ def build_horses():
 
 
 if __name__ == "__main__":
+    if ROOT.exists():
+        shutil.rmtree(ROOT)
+    shutil.copytree(HERE / "assets", ROOT)
     build_index()
     build_stories_page()
     build_process()

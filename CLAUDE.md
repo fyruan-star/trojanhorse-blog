@@ -1,28 +1,24 @@
 # The Trojan Horse (trojanhorse.blog)
 
-**Before you change anything, read `HANDOFF.md` in full.** It has the current state of the site, which source file feeds which page, and step-by-step procedures. This file holds only the rules that always apply.
+**Before you change anything, read `docs/HANDOFF.md` in full.** It has the current state of the site, which file feeds which page, and step-by-step procedures. This file holds only the rules that always apply.
 
-An M&A journal by Francis Ruan. Static site on GitHub Pages (branch `main`, folder `/`), repo `fyruan-star/trojanhorse-blog`, domain trojanhorse.blog. Python 3, standard library only.
+An M&A journal by Francis Ruan. Repo `fyruan-star/trojanhorse-blog` (public), domain trojanhorse.blog. Python 3, standard library only. Start Claude Code **inside this folder** so this file loads.
 
-Start Claude Code **inside this folder**. A `CLAUDE.md` in a subfolder loads only after Claude reads a file there, and project memory is keyed to the git repo, so a session started in a parent folder will not see this guidance up front.
+## How the site gets built
 
-## The rule that matters most: the HTML is generated
-
-Every page in the repo root except `404.html` is written by `python3 build-site.py` from data modules (`*_data.py`, `weekly_*.py`) and from templates inside `build-site.py`. A hand edit to generated HTML is overwritten by the next build.
-
-Hand-editable files: `site.css`, `story.css`, `atlas.css`, `atlas.js`, `404.html`, `images/`, `CNAME`.
+- `content/` holds every word. `assets/` holds CSS, JavaScript, images, logos, `404.html` and `CNAME`. `build.py` reads both and writes the whole site into `_site/`.
+- `_site/` is git-ignored. Never commit built HTML, and never edit it, because the next build replaces it.
+- `.github/workflows/publish.yml` runs `python3 build.py` on GitHub for every commit to `main` and publishes `_site/` to Pages. Pull requests are built but not published.
 
 To change the live site:
 
-1. Edit the source. `HANDOFF.md` section 6 maps each page to its source.
-2. Run `python3 build-site.py`.
-3. Preview with `python3 -m http.server 8731` and open http://localhost:8731/ (add `?v=2` to bypass cached CSS). Check about 1280px, 900px and 375px wide.
-4. Audit the changed pages (snippet in `HANDOFF.md` section 11).
-5. Run `git status`. Stage the source files and the regenerated HTML **by name**, never `git add -A`, because another person or session may have uncommitted work in the same folder. Commit.
-6. `git push origin main`.
-7. Confirm it is live: curl the page for a string from your change. Pages normally publishes in 20 to 90 seconds. If it is not live after 3 minutes the build has hung, and `gh api -X POST repos/fyruan-star/trojanhorse-blog/pages/builds` requests a fresh one.
+1. Edit a file in `content/` or `assets/` (`docs/HANDOFF.md` section 6 maps pages to files).
+2. Preview: `python3 build.py && python3 -m http.server -d _site 8731`, then open http://localhost:8731/ (add `?v=2` to bypass cached CSS). Check about 1280px, 900px and 375px wide.
+3. Audit the changed pages (snippet in `docs/HANDOFF.md` section 11).
+4. Run `git status`. Stage files **by name**, never `git add -A`, because another person or session may have work in the same folder. Commit and `git push origin main`.
+5. Watch the build with `gh run watch` (or the Actions tab), then curl the live page for a string from your change. A red build leaves the previous site live. Fix and push again. To republish without a change, run `gh workflow run publish.yml`.
 
-The owner wants every change pushed and confirmed live without waiting for approval. Ask first only before anything destructive: deleting pages or history, force-pushing, or changing DNS or Pages settings.
+The owner wants every change pushed and confirmed live without waiting for approval. Ask first only before anything destructive: deleting content or history, force-pushing, or changing DNS, Pages or repository settings.
 
 ## Editorial rules for all prose on the site
 
@@ -33,24 +29,24 @@ The owner wants every change pushed and confirmed live without waiting for appro
 - When the owner's notes contradict the sources, write what the sources show and tell him in your reply.
 - Do not name private individuals who supplied information.
 
-## Trojan Horse of the Week stories (`weekly_*.py`)
+## Trojan Horse stories (`content/stories/`)
 
 - Name the horse early, in the story's own words: what is welcomed, who welcomes it, why it looks like a gift, what rides inside, how it harms. Then tell it as a story whose chapters open on an image, not as a list of findings.
 - Register: a dated scene opening ("Picture the morning of..."), first person, warm, dry humor carried by a concrete image, and a labelled analogy where an abstraction would sit. Never disparage the company the story is about.
 - No standfirst or sub-description under any title.
 - `HOOK` is exactly one sentence with a concrete number or a tension and no cliche. It is the only text on the homepage card besides the headline.
-- Every story carries the subject company's logo (`LOGO`, file in `images/logos/`).
-- Homepage card order is the order of `WEEKLIES` in `build-site.py`, not date order.
-- Full procedure: `HANDOFF.md` section 7B.
+- Every story carries the subject company's logo (`LOGO`, file in `assets/images/logos/`).
+- Homepage order is `STORIES` in `content/home.py`, not date order.
+- Full procedure: `docs/HANDOFF.md` section 7B.
 
 ## Gotchas that have already cost time
 
 - `HEAD.format(...)` builds every page title and description, so never put `{` or `}` in them.
-- In data modules use an f-string only on lines that contain a placeholder. A plain string holding `{NAME}` leaks the braces into the page.
-- Prose strings are inserted as raw HTML. Write `&rsquo;`, `&amp;`, `&ldquo;`, `&rarr;`.
-- The repo is public and `.nojekyll` is set, so every committed file is served. Never commit secrets, private notes or personal data. `archive/` is git-ignored and local only.
-- Run scripts with plain `python3`. The `-I` flag removes the script folder from the import path and breaks the local modules.
-- Browsers cache `site.css`, so add `?v=N` to the preview URL. Screenshots can lag behind scrolling, so measure with DOM queries (widths, positions) before trusting a picture.
+- In content files use an f-string only on lines that contain a placeholder. A plain string holding `{NAME}` leaks the braces into the page.
+- Content strings are inserted as raw HTML. Write `&rsquo;`, `&amp;`, `&ldquo;`, `&rarr;`. A straight double quote inside a double-quoted string breaks the build.
+- The repo is public, so never commit secrets, private notes or personal data. `archive/` is git-ignored and exists only on the owner's Mac.
+- Run scripts with plain `python3`. The `-I` flag removes the script folder from the import path.
+- Browsers cache `site.css`, so add `?v=N` to the preview URL. Screenshots can lag behind scrolling, so measure with DOM queries before trusting a picture.
 
 ## Working with the owner
 

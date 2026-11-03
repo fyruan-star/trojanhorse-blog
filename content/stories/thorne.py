@@ -1,7 +1,6 @@
 """Trojan Horse of the Week, 26 October 2026: Thorne.
 
-Superseded as the featured piece by weekly_data.py. Still built, still live at
-its URL, and linked from the P&G and Thorne page.
+Its place on the homepage is set by STORIES in content/home.py.
 
 Register for this slot, set by Francis on 2026-10-30: philosophical and dry,
 professional, with a labelled analogy doing the work an abstraction would

@@ -1,0 +1,46 @@
+# Builds the site and publishes it to trojanhorse.blog on every commit to main.
+# Pull requests are built but not published, so a broken edit shows a red X
+# before anyone merges it. "Run workflow" on the Actions tab republishes by hand.
+name: Publish the site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - name: Build the site
+        run: python3 build.py
+      - name: Package the site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  publish:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish to trojanhorse.blog
+        id: deployment
+        uses: actions/deploy-pages@v5

@@ -1,25 +1,38 @@
 # The Trojan Horse
 
-An M&A journal by Francis Ruan, live at https://trojanhorse.blog.
+The website at **https://trojanhorse.blog**. Every change committed here goes live by itself in about two minutes.
 
-This repository is the whole website. The pages are static HTML that is **generated** by `build-site.py` from Python data modules. To change a page, edit its source and rebuild. Do not hand-edit the generated `.html` files, because the next build overwrites them.
+## Change something
 
-## Quick start
+1. Open the file from the table below, here on GitHub.
+2. Click the **pencil icon**, change the words, then click **Commit changes**.
+3. Wait two minutes and refresh the site.
 
-```bash
-git clone https://github.com/fyruan-star/trojanhorse-blog.git
-cd trojanhorse-blog
-python3 build-site.py          # Python 3, standard library only, nothing to install
-python3 -m http.server 8731    # preview at http://localhost:8731/
-```
+| To change | Open |
+| --- | --- |
+| Homepage tagline, essay, story order, podcast list | `content/home.py` |
+| A Trojan Horse story | `content/stories/` |
+| The Prologue timeline | `content/prologue.py` |
+| Any other page | `content/` (file names match the pages) |
+| Colours, fonts, layout | `assets/site.css` |
+| Images and logos | `assets/images/` |
 
-A clean build reproduces the live site byte for byte. Pushing to `main` publishes it through GitHub Pages, usually within a minute and with no review step.
+Change only the words inside the quotation marks. Keep tags such as `<p>` and `<a href="...">`. Write `&rsquo;` for an apostrophe, `&amp;` for &, and `&ldquo;` `&rdquo;` for quotation marks.
 
-## Read next
+## Add a story
 
-- `HANDOFF.md` is the working guide: the current state of the site, which source file feeds which page, step-by-step procedures, editorial standards, a decision log and the open items.
-- `CLAUDE.md` holds the standing rules for AI assistants. Claude Code loads it automatically when it is opened in this folder.
+1. Copy `content/stories/uber.py` to `content/stories/yourname.py` and replace its words.
+2. Put the company logo in `assets/images/logos/` and update `LOGO` in your file.
+3. Add `"yourname"` to `STORIES` in `content/home.py`.
 
-## Note on visibility
+## If the site did not update
 
-The repository is public and Pages serves every committed file, so nothing private belongs here: no keys, no personal data, no unpublished drafts. Retired writing lives in a local `archive/` folder that is git-ignored.
+Open the **Actions** tab. A red ✗ means the edit broke the build. Click it to read the error, fix the file, and commit again. The site keeps showing the last good version until then.
+
+## No edit access?
+
+Click the pencil anyway. GitHub turns your edit into a pull request, and the owner publishes it.
+
+---
+
+House style and sourcing rules: `CLAUDE.md`. Full guide: `docs/HANDOFF.md`. Preview on your own computer (optional): `python3 build.py && python3 -m http.server -d _site 8731`.

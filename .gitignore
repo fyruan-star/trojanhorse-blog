@@ -1,6 +1,11 @@
 __pycache__/
 .DS_Store
-images/horse.webp
 
-# Archived writing. Kept on disk, never deployed.
+# The built site. GitHub builds it on every commit, so it is never committed.
+_site/
+
+# Retired writing, kept on this computer only.
 archive/
+
+# A large local copy of the cover art, never published.
+assets/images/horse.webp
