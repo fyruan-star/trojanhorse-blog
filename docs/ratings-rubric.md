@@ -183,6 +183,52 @@ Calculated badges follow from the data, so their status follows the attribute or
 3. Set the attribute's `status` to `"reviewed"`. Do the same for each badge you agree with, and delete any you do not.
 4. Set `ovr_by` to your name and `ovr_updated` to today. If a reviewed rating changes later, add the old OVR to `ovr_history` first.
 
+## Teams
+
+A team is an ecosystem: companies tied together by ownership, backing and major partnerships, usually across sectors. Teams are worked out by `content/atlas/atlas_teams.py` from the relationships already in the Atlas. They are never a judgment of quality.
+
+### How a company joins a team
+
+The rules run in this order:
+
+1. **Captains.** Each team under `teams` names its captains, the companies it is built around. The first is the captain and any others are co-captains. A company can captain only one team.
+2. **Overrides.** A company's own `team` field (a team id, or `independent`) settles its place, with a one-sentence `team_reason`. Captains cannot be moved.
+3. **Ownership.** A company owned by a captain joins that captain's team. Ownership beats every other tie.
+4. **Direct ties to captains.** Otherwise each direct tie to a captain scores points for that captain's team: backing from the captain (an `investment` line from it) 10, `supply` 3, `alliance` 3, `license` 2 and `dependency` 2. Rivalry scores nothing. Capital counts only for the company that receives it, so investing in a captain does not put a fund on its team. Ties to co-captains add up. The highest score wins.
+5. **Once removed.** A company owned by a member placed by rules 1 to 4 joins its owner's team. The rule goes one step only.
+6. **Independent.** Any other company is independent.
+
+Only direct ties count. When ties were allowed to chain through members, almost every company ended up on one 23-company team, because the Atlas network is small and dense around a few hubs.
+
+An even score between two teams, or owners on two teams, is a **tie**. `python3 scripts/validate_atlas.py` fails the build until the company has a `team` override, so a tie is always settled by a person with a written reason. A team also needs at least three members.
+
+### The teams on 3 November 2026
+
+| Team | Captains | Other members | Team OVR (draft) |
+| --- | --- | --- | --- |
+| Google | Google | Broadcom, Samsung, Wiz, Elementl Power | 86 |
+| Nvidia | Nvidia | TSMC, Intel, VAST Data, Groq, Safe Superintelligence | 83 |
+| Microsoft and OpenAI | Microsoft, OpenAI | CoreWeave, AMD, Shopify, Oracle, Nebius, Constellation, Cerebras | 81 |
+| Amazon and Anthropic | Amazon, Anthropic | Cursor, X-energy, Talen | 75 |
+| Meta | Meta | EssilorLuxottica, TerraPower, Oklo | 68 |
+
+Settled by hand:
+
+- **AMD** to Microsoft and OpenAI: its 6 GW supply agreement with OpenAI is larger than the up to 2 GW it agreed with Anthropic.
+- **Broadcom** to Google: it builds Google's TPUs in volume under a long-term agreement, while its OpenAI accelerators rest on a term sheet.
+- **Nebius** to Microsoft and OpenAI: its Microsoft contract of about $17.4bn is larger than the $12bn it agreed with Meta.
+- **TikTok US** independent: Oracle's 15% stake would put it on Microsoft and OpenAI under rule 5, but ByteDance keeps the largest stated stake, 19.9%, and ByteDance is on no team.
+
+TSMC joins Nvidia under rule 4, because Apple, its other large customer, captains no team. 115 of the 144 companies are independent, because the Atlas draws only the relationships a source states.
+
+### Team OVR
+
+Team OVR is the **starting five**: the five highest member OVRs, weighted 30%, 25%, 20%, 15% and 10%, rounded. A team with fewer than five rated members rescales the weights over the members it has. Unrated members do not count. It rewards depth, so a team with one superstar and a thin roster can score below a team of solid starters. Team OVR counts as a draft when any of its five rests on a draft.
+
+## Sector standings
+
+Each sector's standings page ranks the companies placed in it by OVR. Equal OVRs share a rank and are listed by name. A company placed in two rows of one sector appears once, at its best depth. Unrated companies are listed under the table, never ranked. The change column compares OVR with the last entry in `ovr_history`. It shows a dash until a company has one.
+
 ## Showing or hiding drafts
 
 `SHOW_DRAFT_RATINGS` at the top of `content/atlas/atlas_data.py` controls the public site. When it is `False`, the build removes every draft attribute, every draft badge, any OVR that rests on a draft, and the headline sentence of any company left without a published rating, from both `tech-atlas.html` and `tech-atlas.json`. When it is `True`, drafts are published and labelled DRAFT.

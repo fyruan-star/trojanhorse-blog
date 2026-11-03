@@ -1,22 +1,29 @@
 /* Tech Atlas map: the WebGL scene, drawn with PixiJS.
 
-   One camera moves over the galaxy. Far out, each sector is a labelled planet
-   and sectors are joined by bundled lines. Closer in, the planets open into
-   their companies. Selecting a company pulls it and its neighbours into a
-   constellation in front of everything else. atlas-map.js turns input into
-   calls on the object create() returns, and the arithmetic is in
-   atlas-map-core.js. */
+   One camera moves over the galaxy. Far out, each sector is a horse drawn in
+   its own colour over a nebula wash, and sectors are joined by bundled lines.
+   Closer in, the sectors open into their companies, shown by their logos on
+   the orbits of their rows. Selecting a company puts it in a spotlight: the
+   camera fits it and its connections in the frame, and pulls any that are too
+   far to read into a ring around it. A team can be lit up the same way.
+   atlas-map.js turns input into calls on the object create() returns, the
+   arithmetic is in atlas-map-core.js and the textures in atlas-map-art.js. */
 (function () {
   "use strict";
-  var C = window.AtlasMapCore;
+  var C = window.AtlasMapCore, ART = window.AtlasMapArt;
 
   var SECTOR_COLOR = { silicon: 0xA6DB8C, infra: 0xE9B47E, cloud: 0x84D2E3, models: 0xBCA6F4, software: 0x93B2F6,
                        security: 0xEDA3DA, internet: 0xF4A9A0, devices: 0xE6DB8C, fintech: 0x8EDCC4, backers: 0xC9D2DF };
   var LINE = { allies: 0x8FD0B0, rivals: 0xEE8B7C, backers: 0x8DB4F2 };
-  var SPACE = 0x151C2A, SILVER = 0xE2E9F3, DIM = 0xA9B3C4;
+  var SPACE = 0x151C2A, SILVER = 0xE2E9F3, DIM = 0xC3CCDA;
   var SERIF = '"Cormorant Garamond", Georgia, serif';
   var SANS = 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
-  var ZOOM_TAU = 90, GLIDE_TAU = 325, FOCUS_MS = 720, MAX_ZOOM = 14;
+  // a logo badge never shrinks below a readable size on screen, nor grows past a tidy one
+  var BADGE_MIN_PX = 12, BADGE_MAX_PX = 24;
+  var ZOOM_TAU = 90, GLIDE_TAU = 325, FOCUS_MS = 760, TEAM_MS = 600, MAX_ZOOM = 14;
+  // what a neighbour is to the company in the spotlight, by kind and by which end it is
+  var KIND_WORD = { supply: ["supplier", "customer"], license: ["licensee", "licensor"], dependency: ["depends on it", "relied on"],
+                    ownership: ["owner", "owned"], investment: ["backer", "backed"], alliance: ["ally", "ally"], rivalry: ["rival", "rival"] };
   var TIERS = [{ id: "end" }, { id: "platform" }, { id: "stack" }];
   var RANK_CODE = { starter: "starter", second_string: "second", practice_squad: "rookie" };
 
@@ -80,15 +87,13 @@
     var bundleG = new PIXI.Graphics(), hoverG = new PIXI.Graphics(), focusLayer = new PIXI.Container(), labelLayer = new PIXI.Container();
     var focusLines = new PIXI.Graphics(), focusDots = new PIXI.Graphics();
     focusLayer.addChild(focusLines, focusDots);
+    var teamG = new PIXI.Graphics(), spotLight = new PIXI.Sprite(GLOW);
+    spotLight.anchor.set(0.5); spotLight.visible = false;
     under.addChild(bundleG);
-    overlay.addChild(hoverG, focusLayer, labelLayer);
+    overlay.addChild(spotLight, hoverG, teamG, focusLayer, labelLayer);
+    var star = ART.shootingStar(PIXI, bg, reduced);
 
     /* --------------------------------------------- sectors (planets) */
-    function outlinePoints(d) {
-      return d.replace(/[MZ]/g, "").trim().split(/\s*L\s*/).reduce(function (a, p) {
-        var xy = p.trim().split(/\s+/); a.push(+xy[0], +xy[1]); return a;
-      }, []);
-    }
     function dashedCircle(g, r, dash, gap) {
       var n = Math.max(6, Math.floor(2 * Math.PI * r / (dash + gap)));
       for (var i = 0; i < n; i++) {
@@ -100,27 +105,40 @@
     sectorIds.forEach(function (sid, i) {
       var t = lay.sectors[sid], color = SECTOR_COLOR[sid] || SILVER;
       var sc = new PIXI.Container();
+      // a soft nebula wash in the sector colour, the horse over it, then the orbits of its rows
       var glow = new PIXI.Sprite(GLOW);
-      glow.anchor.set(0.5); glow.tint = color; glow.width = glow.height = t.r * 2.5; glow.alpha = 0.32;
-      var pts = outlinePoints(t.outline), pts2 = outlinePoints(t.outline2);
-      var disc = new PIXI.Graphics().poly(pts).fill({ color: color, alpha: 0.11 });
-      var rim = new PIXI.Graphics().poly(pts).stroke({ width: 1.4, color: color, alpha: 0.75, pixelLine: false })
-        .poly(pts2).stroke({ width: 0.8, color: color, alpha: 0.3 });
+      glow.anchor.set(0.5); glow.tint = color; glow.width = glow.height = t.r * 3.1; glow.alpha = 0.22;
+      var horse = new PIXI.Sprite(PIXI.Texture.EMPTY);
+      horse.anchor.set(0.5); horse.tint = color; horse.visible = false;
       var bands = new PIXI.Graphics();
-      t.bands.forEach(function (b, j) {
-        var steps = 18, poly = [];
-        for (var s = 0; s <= steps; s++) { var a = b.a0 + (b.a1 - b.a0) * s / steps; poly.push(t.outer * Math.cos(a), t.outer * Math.sin(a)); }
-        for (s = steps; s >= 0; s--) { a = b.a0 + (b.a1 - b.a0) * s / steps; poly.push(t.inner * Math.cos(a), t.inner * Math.sin(a)); }
-        bands.poly(poly).fill({ color: color, alpha: j % 2 ? 0.035 : 0.075 });
+      t.rings.forEach(function (r) { bands.circle(0, 0, r); });
+      bands.stroke({ width: 1, color: color, alpha: 0.13 });
+      t.bands.forEach(function (b) {
+        bands.moveTo(t.outer * Math.cos(b.a0), t.outer * Math.sin(b.a0)).arc(0, 0, t.outer, b.a0, b.a1);
       });
-      t.rings.forEach(function (r) { dashedCircle(bands, r, 4, 9); });
-      bands.stroke({ width: 1, color: color, alpha: 0.22 });
+      bands.stroke({ width: 1.4, color: color, alpha: 0.42 });
+      t.bands.forEach(function (b) {
+        var c = Math.cos(b.a0), sn = Math.sin(b.a0);
+        bands.moveTo((t.outer - 9) * c, (t.outer - 9) * sn).lineTo((t.outer + 9) * c, (t.outer + 9) * sn);
+      });
+      bands.stroke({ width: 1, color: color, alpha: 0.35 });
       var nodesC = new PIXI.Container();
-      sc.addChild(glow, disc, bands, rim, nodesC);
+      sc.addChild(glow, horse, bands, nodesC);
       world.addChild(sc);
       // sectors sit at slightly different depths, so they slide against each other as the camera moves
-      sectors[sid] = { id: sid, t: t, c: sc, glow: glow, disc: disc, bands: bands, rim: rim, nodes: nodesC, color: color,
+      sectors[sid] = { id: sid, t: t, c: sc, glow: glow, horse: horse, bands: bands, nodes: nodesC, color: color,
                        depth: [-0.03, 0.02, -0.012, 0.034, -0.024, 0.012, 0.028, -0.034, 0.006, -0.018][i % 10] };
+    });
+    // the backers island keeps a plain wash: the horses belong to the nine sectors
+    ART.horse(PIXI).then(function (h) {
+      if (!h) return;
+      sectorIds.forEach(function (sid) {
+        if (sid === "backers") return;
+        var s = sectors[sid];
+        s.horse.texture = h.texture;
+        s.horse.height = s.t.r * 2.5; s.horse.width = s.horse.height * h.ratio;
+        s.horse.visible = true;
+      });
     });
 
     /* --------------------------------------------------- companies */
@@ -140,13 +158,31 @@
       else if (rank === "rookie") dashedCircle(ring, r + 3.5, 0.6, 3.2);
       else ring.circle(0, 0, r + 3.5);
       ring.stroke({ width: rank === "rookie" ? 2 : 1.4, color: color, alpha: 0.9 });
-      nc.addChild(glow, g, ring);
+      var badge = new PIXI.Sprite(PIXI.Texture.EMPTY);
+      badge.anchor.set(0.5); badge.visible = false;
+      nc.addChild(glow, g, ring, badge);
       s.nodes.addChild(nc);
       return { i: i, id: c.company, sector: c.sector, row: c.row, rank: rank, main: c.main, x: c.x, y: c.y, r: r,
-               home: home, color: color, c: nc, glow: glow, phase: i * 1.731, off: false };
+               home: home, color: color, c: nc, glow: glow, dot: g, badge: badge, phase: i * 1.731, off: false };
     });
     var mainOf = {};
     nodes.forEach(function (n) { if (n.main) mainOf[n.id] = n; });
+    // logo badges load once, the first time companies come into view
+    var badgeTex = {}, badgesAsked = false;
+    function loadBadges() {
+      if (badgesAsked) return;
+      badgesAsked = true;
+      Object.keys(mainOf).forEach(function (id) {
+        var n = mainOf[id];
+        ART.badge(PIXI, ent[id], n.color).then(function (b) {
+          badgeTex[id] = b.texture;
+          n.badge.texture = b.texture;
+          n.badge.width = n.badge.height = 2 * (n.r + 2);
+          n.hasBadge = true;
+          if (focus && focus.proxies[id]) focus.proxies[id].setBadge(b.texture);
+        });
+      });
+    }
 
     /* ------------------------------------------------------ labels */
     function text(str, style) {
@@ -200,17 +236,24 @@
     });
 
     /* ------------------------------------------------------ camera */
-    var cam = { x: 0, y: 0, k: 1 }, kGal = 1, zoomTo = null, vel = null, fl = null, tilt = 0;
+    var cam = { x: 0, y: 0, k: 1 }, kGal = 1, zoomTo = null, vel = null, fl = null, tilt = 0, panLeft = null;
     var state = { detail: 0, focus: null, hover: null, keyFocus: null, sector: null, filters: null, t: 0 };
+    // the part of the view the card and the controls cover, so the spotlight centres in what is left
+    var inset = { right: 0, top: 0, bottom: 0 };
+    var team = null;    // {id, members: Set, t0, leaving}
     function limits() { return { min: kGal, max: kGal * MAX_ZOOM }; }
     function galaxyCam() { return C.fitCam(lay.bounds, view, 24, { min: 1e-4, max: 1e4 }); }
     function sectorCam(sid) {
       var t = lay.sectors[sid];
       return C.fitCam([t.x - t.r, t.y - t.r, t.x + t.r, t.y + t.r], view, 28, limits());
     }
-    function companyCam(id) {
-      var n = mainOf[id];
-      return { x: n.x, y: n.y, k: Math.min(sectorCam(n.sector).k * 1.4, kGal * MAX_ZOOM) };
+    function companyCam(id) { return spotPlan(id).cam; }
+    function teamCam(members) {
+      var xs = [], ys = [];
+      members.forEach(function (id) { if (mainOf[id]) { xs.push(mainOf[id].x); ys.push(mainOf[id].y); } });
+      if (!xs.length) return galaxyCam();
+      var m = 160, box = [Math.min.apply(null, xs) - m, Math.min.apply(null, ys) - m, Math.max.apply(null, xs) + m, Math.max.apply(null, ys) + m];
+      return C.fitCam(box, view, 40, limits());
     }
     function clampNow() {
       var m = 0.5 * Math.max(view.w, view.h) / cam.k;
@@ -235,6 +278,7 @@
       last = now; state.t = now;
       step(now, dt);
       render(now);
+      star.step(now, view);
       if (hooks.onFrame) hooks.onFrame(cam, view);
     });
 
@@ -251,6 +295,13 @@
         if (Math.abs(Math.log(k / zoomTo.k)) < 0.002) k = zoomTo.k;
         cam = { x: zoomTo.w.x - (zoomTo.s.x - view.w / 2) / k, y: zoomTo.w.y - (zoomTo.s.y - view.h / 2) / k, k: k };
         if (k === zoomTo.k) zoomTo = null;
+        clampNow();
+      }
+      // a trackpad swipe, eased in over a few frames so it moves at the display's rate
+      if (panLeft) {
+        var ps = C.panStep(panLeft, dt, reduced());
+        cam = { x: cam.x - ps.x / cam.k, y: cam.y - ps.y / cam.k, k: cam.k };
+        panLeft = Math.hypot(ps.left.x, ps.left.y) < 0.05 ? null : ps.left;
         clampNow();
       }
       if (vel) {
@@ -274,36 +325,55 @@
         var sc = still ? 1 : Math.pow(z, l.f * 1.4);
         l.sprite.tileScale.set(sc);
       });
+      if (d > 0.3) loadBadges();
+      var fp = focusProgress(now), tp = teamProgress(now);
+      // the horse is clearest far out and fades back once its companies are in view
       sectorIds.forEach(function (sid) {
         var s = sectors[sid], t = s.t, off = state.filters && !state.filters.sectors.has(sid);
         var dep = still ? 0 : s.depth;
         s.c.position.set(t.x + (cam.x - t.x) * dep, t.y + (cam.y - t.y) * dep);
         s.c.alpha = off ? 0.18 : 1;
-        s.disc.alpha = 1 - 0.55 * d;
-        s.glow.alpha = 0.32 * (1 - 0.45 * d);
-        s.bands.alpha = d;
-        s.nodes.alpha = d;
-        s.nodes.visible = d > 0.01;
+        var quiet = (1 - 0.55 * fp) * (1 - 0.55 * tp);
+        s.horse.alpha = (0.62 - 0.44 * d) * quiet;
+        s.glow.alpha = 0.22 * (1 - 0.35 * d) * quiet;
+        s.bands.alpha = d * (1 - 0.6 * fp);
+        s.nodes.alpha = Math.max(d, tp);
+        s.nodes.visible = d > 0.01 || tp > 0.01;
       });
-      var tsec = now / 1000;
+      var tsec = now / 1000, bd = Math.max(0, Math.min(1, (d - 0.45) / 0.3)), lit = focus && !focus.leaving ? focus.ids : null;
       nodes.forEach(function (n) {
         var dx = 0, dy = 0;
         if (!still && d > 0.01) { dx = Math.sin(tsec * 0.6 + n.phase) * 1.6; dy = Math.cos(tsec * 0.47 + n.phase * 1.3) * 1.6; }
         n.c.position.set(n.x - lay.sectors[n.sector].x + dx, n.y - lay.sectors[n.sector].y + dy);
-        n.c.alpha = n.off ? 0.08 : 1;
-        var hot = n.main && (n.id === state.hover || n.id === state.keyFocus);
+        var a = n.off ? 0.08 : 1;
+        // in the spotlight its proxy stands in for the node, and everyone else steps back
+        if (lit) a *= lit[n.id] && n.main ? 1 - fp : 1 - 0.86 * fp;
+        if (team) {
+          var member = team.members.has(n.id) && n.main;
+          a = a * (1 - tp) + tp * (member ? 1 : d > 0.35 ? 0.14 : 0);
+        }
+        n.c.alpha = a;
+        n.sr = n.r * cam.k;
+        // a team's members show their logos even far out
+        var nb = team && n.main && team.members.has(n.id) ? Math.max(bd, tp) : bd;
+        if (n.main && n.hasBadge) {
+          n.badge.visible = nb > 0.01; n.badge.alpha = nb; n.dot.alpha = 1 - nb;
+          var want = Math.max(BADGE_MIN_PX, Math.min(BADGE_MAX_PX, (n.r + 2) * cam.k * 1.5));
+          n.badge.width = n.badge.height = 2 * want / cam.k;
+          n.sr = n.sr + (want - n.sr) * nb;
+        }
+        var hot = n.main && (n.id === state.hover || n.id === state.keyFocus || (team && tp > 0 && team.members.has(n.id)));
+        var pulse = team && hot && !still ? 1 + 0.18 * Math.sin(tsec * 2.4 + n.phase) : 1;
         n.glow.alpha = n.main ? (hot ? 0.95 : 0.42) : 0;
-        n.glow.scale.set((hot ? 7.5 : 5) * n.r / 128);
+        n.glow.scale.set((hot ? 7.5 : 5) * pulse * n.r / 128);
       });
-      // the galaxy recedes behind a constellation
-      var fp = focusProgress(now);
-      rig.scale.set(1 - 0.07 * fp);
-      world.alpha = 1 - 0.8 * fp;
-      bg.alpha = 1 - 0.35 * fp;
-      drawBundles(d, fp);
+      bg.alpha = 1 - 0.25 * fp;
+      drawBundles(d, Math.max(fp, tp));
       drawHover(d, fp);
+      drawTeam(tp);
       drawFocus(now);
-      placeLabels(d, fp);
+      drawSpot(fp);
+      placeLabels(d, fp, tp);
     }
 
     /* ---------------------------------------------- screen positions */
@@ -333,7 +403,7 @@
       bundleList.forEach(function (b) {
         var c = bundleCurve(b), hot = state.hover === "bundle:" + b.a + "|" + b.b;
         bundleG.moveTo(c.start.x, c.start.y).quadraticCurveTo(c.ctrl.x, c.ctrl.y, c.end.x, c.end.y)
-          .stroke({ width: 1.2 + 1.3 * Math.sqrt(b.count), color: hot ? 0xFFFFFF : SILVER, alpha: a * (hot ? 0.75 : 0.28), cap: "round" });
+          .stroke({ width: 0.8 + 0.9 * Math.sqrt(b.count), color: hot ? 0xFFFFFF : SILVER, alpha: a * (hot ? 0.7 : 0.15), cap: "round" });
       });
     }
 
@@ -369,8 +439,8 @@
       });
     }
 
-    /* ---------------------------------------------- the constellation */
-    var focus = null;   // {id, t0, proxies: {id: proxy}, links: [...]}
+    /* ------------------------------------------------- the spotlight */
+    var focus = null;   // {id, t0, proxies: {id: proxy}, plan, ids, leavers, leaving}
     function focusProgress(now) {
       if (!focus) return 0;
       if (reduced()) return focus.leaving ? 0 : 1;
@@ -378,54 +448,85 @@
       return focus.leaving ? 1 - p : p;
     }
     function compact() { return Math.min(view.w, view.h) < 520; }
+    function neighbours(id) {
+      var pos = {}, links = {};
+      edgesOf(id).forEach(function (e) {
+        var o = e.a === id ? e.b : e.a;
+        if (mainOf[o].off) return;
+        pos[o] = { x: mainOf[o].x, y: mainOf[o].y };
+        (links[o] = links[o] || []).push(e);
+      });
+      return { pos: pos, links: links };
+    }
+    /** The spotlight's camera, and which neighbours stay where they are and which join the ring. */
+    function spotPlan(id) {
+      var n = mainOf[id], nb = neighbours(id), sk = sectorCam(n.sector).k;
+      var plan = C.spotlightPlan({ x: n.x, y: n.y }, nb.pos, view, {
+        read: kGal * C.SHOW.sectorsFrom, max: Math.max(kGal * C.SHOW.sectorsFrom, sk * 2.2), pad: compact() ? 54 : 78,
+        right: inset.right, top: inset.top, bottom: inset.bottom });
+      plan.links = nb.links;
+      return plan;
+    }
     function makeProxy(id, centre) {
       var e = ent[id], home = e.home || "backers", color = SECTOR_COLOR[home] || SILVER, small = compact();
-      var r = centre ? (small ? 25 : 32) : (small ? 16 : 21);
+      var r = centre ? (small ? 25 : 31) : (small ? 15 : 19);
       var c = new PIXI.Container();
       var glow = new PIXI.Sprite(GLOW);
-      glow.anchor.set(0.5); glow.tint = color; glow.width = glow.height = r * 5; glow.alpha = centre ? 0.7 : 0.4;
-      var disc = new PIXI.Graphics().circle(0, 0, r).fill({ color: color }).circle(0, 0, r + 4).stroke({ width: 1.5, color: color, alpha: 0.7 });
+      glow.anchor.set(0.5); glow.tint = color; glow.width = glow.height = r * 5.2; glow.alpha = centre ? 0.75 : 0.4;
+      var disc = new PIXI.Graphics().circle(0, 0, r).fill({ color: color }).circle(0, 0, r + 4).stroke({ width: 1.5, color: color, alpha: 0.75 });
       var ini = new PIXI.Text({ text: C.initials(e.name), style: { fontFamily: SANS, fontSize: centre ? (small ? 15 : 18) : (small ? 11 : 13), fontWeight: "700", fill: SPACE } });
       ini.anchor.set(0.5);
-      c.addChild(glow, disc, ini);
+      var badge = new PIXI.Sprite(PIXI.Texture.EMPTY);
+      badge.anchor.set(0.5); badge.visible = false;
+      c.addChild(glow, disc, ini, badge);
       focusLayer.addChild(c);
-      var name = text(e.name, { fontFamily: SANS, fontSize: centre ? (small ? 13.5 : 15) : (small ? 11.5 : 12.5), fontWeight: centre ? "600" : "400" });
-      var score = e.ovr != null ? text(String(e.ovr), { fontFamily: SANS, fontSize: small ? 11 : 12, fontWeight: "700", fill: tierColor(e.ovr) }) : null;
-      return { id: id, c: c, r: r, centre: centre, name: name, score: score, pos: null, from: null, to: null, alpha: 0 };
+      var name = text(e.name, { fontFamily: SANS, fontSize: centre ? (small ? 14 : 16) : (small ? 12 : 13), fontWeight: centre ? "600" : "500" });
+      var score = e.ovr != null ? text(String(e.ovr), { fontFamily: SANS, fontSize: small ? 11.5 : 12.5, fontWeight: "700", fill: tierColor(e.ovr) }) : null;
+      var px = { id: id, c: c, r: r, centre: centre, name: name, score: score, kind: null, pos: null, from: null, mode: null, ringAt: null,
+                 alpha: 0, trail: [] };
+      px.setBadge = function (tex) {
+        badge.texture = tex; badge.width = badge.height = 2 * (r + 3); badge.visible = true; ini.visible = false;
+        disc.clear().circle(0, 0, r + 4).stroke({ width: 1.5, color: color, alpha: 0.85 });
+      };
+      if (badgeTex[id]) px.setBadge(badgeTex[id]);
+      return px;
     }
     function tierColor(ovr) {
       return ovr >= 95 ? 0xF2D98D : ovr >= 90 ? 0xD4B6FF : ovr >= 85 ? 0x94CFF7 : ovr >= 80 ? 0xE2E9F3 : 0xB7C0CE;
     }
     function dropProxy(p) {
       focusLayer.removeChild(p.c); p.c.destroy({ children: true });
-      [p.name, p.score].forEach(function (t) { if (t) { labelLayer.removeChild(t); t.destroy(); } });
+      [p.name, p.score, p.kind].forEach(function (t) { if (t) { labelLayer.removeChild(t); t.destroy(); } });
     }
     function sideOf(id, e) {
       if (e.group === "rivals") return "right";
       if (e.group === "backers") return e.a === id ? "bottom" : "top";
       return "left";
     }
+    function kindWord(id, e) {
+      var w = KIND_WORD[e.type] || [e.type, e.type];
+      return e.a === id ? w[1] : w[0];
+    }
     var SIDE_RANK = { top: 0, bottom: 1, right: 2, left: 3 };
-    function constellation(id) {
-      var groups = { left: [], right: [], top: [], bottom: [] }, links = {}, sideFor = {};
-      edgesOf(id).forEach(function (e) {
-        var other = e.a === id ? e.b : e.a;
-        if (mainOf[other].off) return;
-        var side = sideOf(id, e);
-        (links[other] = links[other] || []).push(e);
-        if (!sideFor[other] || SIDE_RANK[side] < SIDE_RANK[sideFor[other]]) sideFor[other] = side;
+    /** Ring positions (relative to the company on screen) for the neighbours too far to show in place. */
+    function ringLayout(id, plan) {
+      var groups = { left: [], right: [], top: [], bottom: [] }, sideFor = {};
+      plan.ring.forEach(function (o) {
+        plan.links[o].forEach(function (e) {
+          var side = sideOf(id, e);
+          if (!sideFor[o] || SIDE_RANK[side] < SIDE_RANK[sideFor[o]]) sideFor[o] = side;
+        });
       });
       Object.keys(sideFor).sort(function (a, b) { return (ent[b].ovr || 0) - (ent[a].ovr || 0); })
         .forEach(function (o) { groups[sideFor[o]].push(o); });
-      var small = compact(), radius = Math.max(140, Math.min(view.w, view.h) * 0.31), gap = 118;
-      // a narrow screen gets one ellipse that fills the free map; a wide one gets arcs by side
-      if (small) return { ring: C.ellipseRing(groups, Math.max(60, view.w / 2 - 58), Math.max(60, view.h / 2 - 66)), links: links, side: sideFor };
-      var ring = C.focusRing(groups, radius, gap), ext = 1;
+      var fw = view.w - inset.right, fh = view.h - inset.top - inset.bottom;
+      if (compact()) return C.ellipseRing(groups, Math.max(60, fw / 2 - 52), Math.max(60, fh / 2 - 60));
+      var ring = C.focusRing(groups, Math.max(140, Math.min(fw, fh) * 0.34), 112), ext = 1;
       Object.keys(ring).forEach(function (o) {
-        ext = Math.max(ext, Math.abs(ring[o].x) / (view.w / 2 - 70), Math.abs(ring[o].y) / (view.h / 2 - 50));
+        ext = Math.max(ext, Math.abs(ring[o].x) / (fw / 2 - 74), Math.abs(ring[o].y) / (fh / 2 - 52));
       });
       Object.keys(ring).forEach(function (o) { ring[o] = { x: ring[o].x / ext, y: ring[o].y / ext }; });
-      return { ring: ring, links: links, side: sideFor };
+      return ring;
     }
     function homeScreen(id) {
       var n = mainOf[id], s = screenOfNode(n);
@@ -433,7 +534,6 @@
     }
     function setFocus(id) {
       var now = performance.now(), old = focus && !focus.leaving ? focus.proxies : {}, keep = {};
-      // a constellation still flying home is cleared before a new one forms
       if (focus && focus.leaving && id) {
         Object.keys(focus.proxies).forEach(function (k) { dropProxy(focus.proxies[k]); });
         (focus.leavers || []).forEach(dropProxy);
@@ -441,38 +541,54 @@
       }
       if (!id) {
         if (!focus) return;
-        Object.keys(focus.proxies).forEach(function (k) {
-          var p = focus.proxies[k]; p.from = p.pos; p.to = null;
-        });
+        Object.keys(focus.proxies).forEach(function (k) { var p = focus.proxies[k]; p.from = p.pos; p.mode = null; });
         focus.leaving = true; focus.t0 = now;
         return;
       }
-      var plan = constellation(id), ids = [id].concat(Object.keys(plan.ring));
-      ids.forEach(function (k) {
+      loadBadges();
+      var plan = spotPlan(id), ring = ringLayout(id, plan), ids = {};
+      [id].concat(plan.inPlace, plan.ring).forEach(function (k) {
         var p = old[k] || makeProxy(k, k === id);
-        if (old[k] && p.centre !== (k === id)) { dropProxy(p); p = makeProxy(k, k === id); p.pos = old[k].pos; }
+        if (old[k] && p.centre !== (k === id)) { var pos = p.pos; dropProxy(p); p = makeProxy(k, k === id); p.pos = pos; }
         p.from = p.pos || homeScreen(k);
-        p.to = k === id ? { x: 0, y: 0 } : plan.ring[k];
-        keep[k] = p;
+        p.mode = k === id ? "centre" : ring[k] ? "ring" : "place";
+        p.ringAt = ring[k] || null;
+        if (p.kind) { labelLayer.removeChild(p.kind); p.kind.destroy(); p.kind = null; }
+        if (k !== id) {
+          var e0 = plan.links[k][0];
+          p.kind = text(plan.links[k].map(function (e) { return kindWord(id, e); }).join(" · "),
+                        { fontFamily: SANS, fontSize: 11, fontWeight: "600", letterSpacing: 0.6, fill: LINE[e0.group], stroke: { color: SPACE, width: 3.5, join: "round" } });
+        }
+        keep[k] = p; ids[k] = true;
       });
-      // companies that are not in the new constellation go home
       var leaving = [];
-      Object.keys(old).forEach(function (k) { if (!keep[k]) { old[k].from = old[k].pos; old[k].to = null; leaving.push(old[k]); } });
+      Object.keys(old).forEach(function (k) { if (!keep[k]) { old[k].from = old[k].pos; old[k].mode = null; leaving.push(old[k]); } });
       if (focus && focus.leavers) focus.leavers.forEach(dropProxy);
-      focus = { id: id, t0: now, proxies: keep, plan: plan, leavers: leaving, leaving: false };
+      focus = { id: id, t0: now, proxies: keep, plan: plan, ids: ids, leavers: leaving, leaving: false };
+    }
+    function target(px) {
+      if (px.mode === "ring") { var c = homeScreen(focus.id); return { x: c.x + px.ringAt.x, y: c.y + px.ringAt.y }; }
+      return homeScreen(px.id);
     }
     function drawFocus(now) {
       focusLines.clear(); focusDots.clear();
       if (!focus) return;
-      var raw = reduced() ? 1 : Math.min(1, (now - focus.t0) / FOCUS_MS), p = C.easeInOut(raw), cx = view.w / 2, cy = view.h / 2;
+      var still = reduced(), raw = still ? 1 : Math.min(1, (now - focus.t0) / FOCUS_MS), p = C.easeInOut(raw), cx = view.w / 2, cy = view.h / 2;
       function move(px) {
-        var to = px.to || homeScreen(px.id), from = px.from || to;
-        px.pos = { x: from.x + (to.x - from.x) * p, y: from.y + (to.y - from.y) * p };
-        var pulse = px.centre && !reduced() && !focus.leaving ? 1 + 0.045 * Math.sin(now / 380) : 1;
+        var to = px.mode ? target(px) : homeScreen(px.id), from = px.from || to;
+        px.pos = raw >= 1 ? to : { x: from.x + (to.x - from.x) * p, y: from.y + (to.y - from.y) * p };
+        var pulse = px.centre && !still && !focus.leaving ? 1 + 0.04 * Math.sin(now / 380) : 1;
         px.c.position.set(cx + px.pos.x, cy + px.pos.y);
         px.c.scale.set(pulse);
-        px.alpha = px.to ? Math.min(1, 0.25 + p) : 1 - p;
+        px.alpha = px.mode ? Math.min(1, 0.25 + p) : 1 - p;
         px.c.alpha = px.alpha;
+        // a comet's tail while it travels
+        if (!still && raw < 1) { px.trail.push({ x: cx + px.pos.x, y: cy + px.pos.y }); if (px.trail.length > 9) px.trail.shift(); }
+        else px.trail = [];
+        for (var i = 1; i < px.trail.length; i++) {
+          focusLines.moveTo(px.trail[i - 1].x, px.trail[i - 1].y).lineTo(px.trail[i].x, px.trail[i].y)
+            .stroke({ width: 1 + i * 0.35, color: SILVER, alpha: 0.05 * i * px.alpha, cap: "round" });
+        }
       }
       Object.keys(focus.proxies).forEach(function (k) { move(focus.proxies[k]); });
       (focus.leavers || []).forEach(move);
@@ -493,15 +609,15 @@
         focus.plan.links[o].forEach(function (e, i) {
           var off = (i - (focus.plan.links[o].length - 1) / 2) * 5;
           var s2 = { x: s.x - uy * off, y: s.y + ux * off }, t2 = { x: t.x - uy * off, y: t.y + ux * off };
-          strokeLine(focusLines, s2, t2, e.group, hot ? 2.6 : 1.8, la * (hot ? 1 : 0.85));
-          if (e.group === "backers" && !reduced()) {
+          strokeLine(focusLines, s2, t2, e.group, hot ? 2.6 : 1.8, la * (hot ? 1 : 0.88));
+          if (e.group === "backers" && !still) {
             var from = e.a === focus.id ? s2 : t2, to = e.a === focus.id ? t2 : s2;
             for (var q = 0; q < 3; q++) {
               var f = ((now / 1300) + q / 3) % 1;
               focusDots.circle(from.x + (to.x - from.x) * f, from.y + (to.y - from.y) * f, 2.4).fill({ color: LINE.backers, alpha: la });
             }
           }
-          if (e.group === "backers" && reduced()) {
+          if (e.group === "backers" && still) {
             var tip = e.a === focus.id ? t2 : s2, back = e.a === focus.id ? s2 : t2;
             var bx = tip.x - back.x, by = tip.y - back.y, bl = Math.hypot(bx, by) || 1;
             bx /= bl; by /= bl;
@@ -509,27 +625,62 @@
               .fill({ color: LINE.backers, alpha: la });
           }
         });
+        px.mid = { x: (s.x + t.x) / 2, y: (s.y + t.y) / 2, ux: ux, uy: uy };
+      });
+    }
+    /** A soft light on the company in the spotlight, and the vignette over everything else (HTML, via hooks). */
+    function drawSpot(fp) {
+      var c = focus && focus.proxies[focus.id];
+      if (!c || !c.pos || fp < 0.01) { spotLight.visible = false; if (hooks.onSpot) hooks.onSpot(null); return; }
+      var x = view.w / 2 + c.pos.x, y = view.h / 2 + c.pos.y, r = Math.min(view.w - inset.right, view.h) * 0.62;
+      spotLight.visible = true; spotLight.position.set(x, y); spotLight.width = spotLight.height = r * 2; spotLight.alpha = 0.13 * fp;
+      if (hooks.onSpot) hooks.onSpot({ x: x, y: y, r: r, a: fp });
+    }
+
+    /* ---------------------------------------------------------- teams */
+    function teamProgress(now) {
+      if (!team) return 0;
+      if (reduced()) return team.leaving ? 0 : 1;
+      var p = C.easeInOut(Math.min(1, (now - team.t0) / TEAM_MS));
+      if (team.leaving && p >= 1) { team = null; return 0; }
+      return team.leaving ? 1 - p : p;
+    }
+    function setTeam(id, members) {
+      if (!id) { if (team && !team.leaving) { team.leaving = true; team.t0 = performance.now(); } return; }
+      loadBadges();
+      team = { id: id, members: new Set(members), t0: performance.now(), leaving: false };
+    }
+    function drawTeam(tp) {
+      teamG.clear();
+      if (!team || tp < 0.02) return;
+      var k = screenScale();
+      enabledEdges().forEach(function (e) {
+        if (!team.members.has(e.a) || !team.members.has(e.b) || !mainOf[e.a] || !mainOf[e.b]) return;
+        var a = screenOfNode(mainOf[e.a]), b = screenOfNode(mainOf[e.b]);
+        var c = C.arc(a, b, mainOf[e.a].r * k + 5, mainOf[e.b].r * k + 5, 0.12, 2, e.a, e.b), pts = [c.start];
+        for (var i = 1; i <= 14; i++) pts.push(C.onCurve(c, i / 14));
+        for (i = 0; i < pts.length - 1; i++) strokeLine(teamG, pts[i], pts[i + 1], e.group, 1.4, 0.7 * tp);
       });
     }
 
     /* ------------------------------------------------- label placing */
     var NODE_POS = [[0, 1], [1, 0], [-1, 0], [0, -1]];
     function nodeAlts(n, s, w, h, k) {
-      var r = n.r * k + 4;
+      var r = (n.sr || n.r * k) + 4;
       return NODE_POS.map(function (p) {
         var x = p[0] === 0 ? s.x - w / 2 : p[0] > 0 ? s.x + r + 2 : s.x - r - 2 - w;
         var y = p[1] === 0 ? s.y - h / 2 : p[1] > 0 ? s.y + r : s.y - r - h;
         return { x: x, y: y, w: w, h: h };
       });
     }
-    function placeLabels(d, fp) {
+    function placeLabels(d, fp, tp) {
       var k = screenScale(), items = [], blocks = [], small = view.w < 600, ids = 0;
       var lview = { w: view.w, h: view.h, top: hooks.reserveTop || 0, bottom: hooks.reserveBottom || 0 };
       labels.forEach(function (l) { l.texts.forEach(function (t) { t.visible = false; }); l.pick = null; });
       if (fp < 1) {
         if (d > 0.35) nodes.forEach(function (n) {
           if (n.off) return;
-          var s = screenOfNode(n), r = (n.r + 4) * k;
+          var s = screenOfNode(n), r = (n.sr || n.r * k) + 4 * k;
           if (s.x + r < 0 || s.y + r < 0 || s.x - r > view.w || s.y - r > view.h) return;
           blocks.push({ x: s.x - r, y: s.y - r, w: 2 * r, h: 2 * r });
         });
@@ -555,7 +706,7 @@
             return;
           }
           if (l.kind === "stats") {
-            if (d > 0.5) return;
+            if (d > 0.5 || tp > 0.05) return;
             var cs = screenOfSector(l.sid);
             alts = l.texts.map(function (t) { return { x: cs.x - t.width / 2, y: cs.y + 6, w: t.width, h: t.height }; });
             items.push({ id: i, p: 3000, alts: alts });
@@ -569,13 +720,15 @@
             items.push({ id: i, p: 300, avoid: true, alts: [{ x: bx, y: sb.y - t0.height / 2, w: t0.width, h: t0.height }] });
             return;
           }
-          var n = l.n;
-          if (d < 0.35 || n.off) return;
-          var special = n.main && (n.id === state.hover || n.id === state.keyFocus);
+          var n = l.n, member = team && tp > 0.3 && n.main && team.members.has(n.id);
+          if ((d < 0.35 && !member) || n.off || (team && tp > 0.3 && !member)) return;
+          var special = n.main && (n.id === state.hover || n.id === state.keyFocus || member);
           var sn = screenOfNode(n);
           if (sn.x < -40 || sn.y < -40 || sn.x > view.w + 40 || sn.y > view.h + 40) return;
           p = special ? 4000 : (n.main ? 100 : 0) + (ent[n.id].ovr || 30) + (n.sector === state.sector ? 60 : 0);
-          items.push({ id: i, p: p, avoid: !special, force: special, alts: nodeAlts(n, sn, t0.width, t0.height, k) });
+          // the best-rated names may sit over a neighbour's badge, never over another name
+          var top = n.main && (ent[n.id].ovr || 0) >= 85;
+          items.push({ id: i, p: p, avoid: !special && !top, force: special, alts: nodeAlts(n, sn, t0.width, t0.height, k) });
         });
       }
       var shown = C.collide(items, lview, 3, blocks), byId = {};
@@ -585,7 +738,8 @@
         var box = byId[i].alts[alt];
         t.visible = true;
         t.position.set(box.x, box.y);
-        var fade = kind === "title" ? 1 : kind === "stats" ? (1 - d / 0.5) : Math.min(1, (d - 0.35) / 0.3);
+        var fade = kind === "title" ? 1 - 0.45 * (tp || 0) : kind === "stats" ? (1 - d / 0.5) :
+          kind === "node" && team && team.members.has(l.n.id) ? Math.max(tp, Math.min(1, (d - 0.35) / 0.3)) : Math.min(1, (d - 0.35) / 0.3);
         t.alpha = fade * (1 - fp);
         ids++;
       });
@@ -599,6 +753,7 @@
       all.forEach(function (px) {
         px.name.visible = false;
         if (px.score) px.score.visible = false;
+        if (px.kind) px.kind.visible = false;
         if (!px.pos || px.alpha < 0.05) return;
         var x = cx + px.pos.x, y = cy + px.pos.y, r = px.r + 5;
         blocks.push({ x: x - r, y: y - r, w: 2 * r, h: 2 * r });
@@ -614,7 +769,21 @@
         var alts = px.centre ? [below, above, outward, inward] : px.pos.y < -10 ? [above, outward, below, inward] : [below, outward, above, inward];
         items.push({ id: i, p: px.centre ? 100 : 10 + (ent[px.id].ovr || 0) / 100, avoid: true, force: true, alts: alts });
       });
-      var shown = C.collide(items, { w: view.w, h: view.h, top: hooks.reserveTop || 0, bottom: 0 }, 3, blocks);
+      // what each neighbour is to the company, at the middle of its line, where it fits
+      var kinds = [];
+      all.forEach(function (px, i) {
+        if (!px.kind || !px.mid || px.alpha < 0.3 || px.mode === null) return;
+        var w = px.kind.width, h = px.kind.height, m = px.mid, nx = -m.uy * (h * 0.9), ny = m.ux * (h * 0.9);
+        kinds.push({ id: "k" + i, px: px, p: 1, avoid: true, alts: [
+          { x: m.x - w / 2, y: m.y - h / 2, w: w, h: h }, { x: m.x + nx - w / 2, y: m.y + ny - h / 2, w: w, h: h },
+          { x: m.x - nx - w / 2, y: m.y - ny - h / 2, w: w, h: h }] });
+      });
+      var shown = C.collide(items.concat(kinds), { w: view.w, h: view.h, top: hooks.reserveTop || 0, bottom: 0 }, 3, blocks);
+      kinds.forEach(function (it) {
+        if (!shown.has(it.id)) return;
+        var b = it.alts[shown.get(it.id)];
+        it.px.kind.position.set(b.x, b.y); it.px.kind.visible = true; it.px.kind.alpha = it.px.alpha;
+      });
       items.forEach(function (it) {
         var px = all[it.id], b = it.alts[shown.has(it.id) ? shown.get(it.id) : 0];
         px.name.position.set(b.x, b.y);
@@ -640,16 +809,23 @@
           var p = focus.proxies[o];
           if (!best && p && p.pos && distToSeg(s, { x: cx + c.pos.x, y: cy + c.pos.y }, { x: cx + p.pos.x, y: cy + p.pos.y }) < 9) best = { kind: "line", id: o };
         });
-        return best || { kind: "focus-bg" };
+        if (best) return best;
+        var kk = screenScale(), hitN = null, bd = Infinity;
+        nodes.forEach(function (n) {
+          if (n.off || !n.main || focus.ids[n.id]) return;
+          var sn = screenOfNode(n), dd = Math.hypot(sn.x - s.x, sn.y - s.y);
+          if (dd <= Math.max(n.r * kk + 6, 12) && dd < bd) { bd = dd; hitN = { kind: "node", id: n.id, main: true, sector: n.sector }; }
+        });
+        return hitN || { kind: "focus-bg" };
       }
       var k = screenScale(), d = state.detail, hit = null, bestD = Infinity;
       if (d > 0.35) nodes.forEach(function (n) {
         if (n.off) return;
         var sn = screenOfNode(n), dd = Math.hypot(sn.x - s.x, sn.y - s.y);
-        if (dd <= Math.max(n.r * k + 6, 12) && dd < bestD) { bestD = dd; hit = { kind: "node", id: n.id, main: n.main, sector: n.sector }; }
+        if (dd <= Math.max((n.sr || n.r * k) + 6, 12) && dd < bestD) { bestD = dd; hit = { kind: "node", id: n.id, main: n.main, sector: n.sector }; }
       });
       if (hit) return hit;
-      if (d < 0.6) bundleList.forEach(function (b) {
+      if (d < 0.6 && !team) bundleList.forEach(function (b) {
         if (hit) return;
         var c = bundleCurve(b);
         for (var t = 0; t <= 1; t += 1 / 24) {
@@ -674,7 +850,7 @@
     function targets(level, sector) {
       if (focus && !focus.leaving) {
         var cx = view.w / 2, cy = view.h / 2;
-        return [focus.id].concat(Object.keys(focus.plan.ring)).map(function (k) {
+        return [focus.id].concat(focus.plan.inPlace, focus.plan.ring).map(function (k) {
           var p = focus.proxies[k];
           return p && p.pos ? { kind: "proxy", id: k, x: cx + p.pos.x, y: cy + p.pos.y, r: p.r + 6 } : null;
         }).filter(Boolean);
@@ -717,19 +893,26 @@
       cam: function () { return cam; },
       kGal: function () { return kGal; },
       detail: function () { return state.detail; },
-      galaxyCam: galaxyCam, sectorCam: sectorCam, companyCam: companyCam,
+      galaxyCam: galaxyCam, sectorCam: sectorCam, companyCam: companyCam, teamCam: teamCam, setTeam: setTeam,
+      team: function () { return team && !team.leaving ? team.id : null; },
+      setInset: function (v) { inset = { right: v.right || 0, top: v.top || 0, bottom: v.bottom || 0 }; },
+      spotlight: function () { return focus && !focus.leaving ? { id: focus.id, inPlace: focus.plan.inPlace.slice(), ring: focus.plan.ring.slice() } : null; },
       fly: fly, jump: jump, resize: resize, pick: pick, targets: targets, setFilters: setFilters,
       focus: setFocus, focused: function () { return focus && !focus.leaving ? focus.id : null; },
       linkText: function (o) { return focus && focus.plan.links[o] ? focus.plan.links[o] : []; },
       setHover: function (h) { state.hover = h; },
       setKeyFocus: function (id) { state.keyFocus = id; },
       setSector: function (sid) { state.sector = sid; },
-      busy: function () { return !!(fl || zoomTo || vel); },
+      busy: function () { return !!(fl || zoomTo || vel || panLeft); },
+      panBy: function (dx, dy) {
+        fl = null; vel = null;
+        panLeft = { x: (panLeft ? panLeft.x : 0) + dx, y: (panLeft ? panLeft.y : 0) + dy };
+      },
       // the render loop stops while the map is out of sight
       pause: function () { app.ticker.stop(); },
       resume: function () { if (!app.ticker.started) { last = performance.now(); app.ticker.start(); } },
       labelsShown: function () { return state.labelsShown; },
-      dragStart: function () { fl = null; zoomTo = null; vel = null; },
+      dragStart: function () { fl = null; zoomTo = null; vel = null; panLeft = null; },
       dragBy: function (dx, dy) { cam = { x: cam.x - dx / cam.k, y: cam.y - dy / cam.k, k: cam.k }; clampNow(); },
       release: function (v) { vel = reduced() || !v ? null : v; },
       zoomBy: function (factor, s) {
@@ -739,7 +922,18 @@
         if (reduced()) { cam = C.zoomAround(cam, view, s, k); clampNow(); zoomTo = null; return; }
         zoomTo = { k: k, s: s, w: C.toWorld(cam, view, s) };
       },
-      debug: function () { return { cam: cam, kGal: kGal, detail: state.detail, focus: focus && focus.id }; },
+      debug: function () {
+        return { cam: cam, kGal: kGal, detail: state.detail, focus: focus && focus.id, badges: Object.keys(badgeTex).length,
+                 horses: sectorIds.filter(function (sid) { return sectors[sid].horse.visible; }).length, team: team && team.id };
+      },
+      // for the browser checks: where each spotlight proxy is on screen
+      proxyBoxes: function () {
+        if (!focus) return [];
+        return Object.keys(focus.proxies).map(function (k) {
+          var p = focus.proxies[k];
+          return p.pos ? { id: k, x: view.w / 2 + p.pos.x, y: view.h / 2 + p.pos.y, r: p.r, mode: p.mode } : null;
+        }).filter(Boolean);
+      },
       // for the browser checks: which sector names show, and every visible label's box on screen
       visibleTitles: function () {
         return labels.filter(function (l) { return l.kind === "title" && l.texts.some(function (x) { return x.visible && x.alpha > 0.5; }); })

@@ -248,6 +248,45 @@
       ]
     }
   ],
+  "teams": [
+    {
+      "id": "microsoft_openai",
+      "name": "Microsoft and OpenAI",
+      "captains": [
+        "microsoft",
+        "openai"
+      ]
+    },
+    {
+      "id": "google",
+      "name": "Google",
+      "captains": [
+        "google"
+      ]
+    },
+    {
+      "id": "nvidia",
+      "name": "Nvidia",
+      "captains": [
+        "nvidia"
+      ]
+    },
+    {
+      "id": "amazon_anthropic",
+      "name": "Amazon and Anthropic",
+      "captains": [
+        "amazon",
+        "anthropic"
+      ]
+    },
+    {
+      "id": "meta",
+      "name": "Meta",
+      "captains": [
+        "meta"
+      ]
+    }
+  ],
   "companies": {
     "nvidia": {
       "name": "Nvidia",
@@ -335,6 +374,26 @@
           ],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "nvidia.svg",
+        "kind": "simple-icons",
+        "source": "https://www.nvidia.com/en-us",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: NVDA",
+        "listed": "Public",
+        "hq": "Santa Clara, California",
+        "founded": "1993",
+        "ceo": "Jen-Hsun Huang",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001045810.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001045810.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001045810.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm"
+        }
       }
     },
     "amd": {
@@ -409,6 +468,28 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "team": "microsoft_openai",
+      "team_reason": "Its 6 GW supply agreement with OpenAI is larger than the up to 2 GW it agreed with Anthropic.",
+      "logo": {
+        "file": "amd.svg",
+        "kind": "simple-icons",
+        "source": "https://www.amd.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: AMD",
+        "listed": "Public",
+        "hq": "Santa Clara, California",
+        "founded": "1969",
+        "ceo": "Lisa T. Su",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000002488.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000002488.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000002488.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm"
+        }
       }
     },
     "intel": {
@@ -479,6 +560,26 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "intel.svg",
+        "kind": "simple-icons",
+        "source": "https://www.intel.com/content/www/us/en/newsroom/resources/press-kits-intel-overview.html",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: INTC",
+        "listed": "Public",
+        "hq": "Santa Clara, California",
+        "founded": "1968",
+        "ceo": "Lip-Bu Tan",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000050863.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000050863.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000050863.json",
+          "founded": "https://timeline.intel.com/1968/establishing-intel",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000011/intc-20251227.htm"
         }
       }
     },
@@ -553,6 +654,26 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "arm.svg",
+        "kind": "simple-icons",
+        "source": "https://www.arm.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: ARM",
+        "listed": "Public",
+        "hq": "Cambridge, United Kingdom",
+        "founded": "1990",
+        "ceo": "Rene Haas",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001973239.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001973239.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001973239.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000097/arm-20260331.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000097/arm-20260331.htm"
         }
       }
     },
@@ -638,7 +759,13 @@
           ],
           "status": "draft"
         }
-      ]
+      ],
+      "logo": {
+        "file": "qualcomm.svg",
+        "kind": "simple-icons",
+        "source": "https://www.qualcomm.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      }
     },
     "broadcom": {
       "name": "Broadcom",
@@ -711,6 +838,20 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "team": "google",
+      "team_reason": "It builds Google's TPUs in volume under a long-term agreement, while its OpenAI accelerators rest on a term sheet.",
+      "bio": {
+        "ticker": "NASDAQ: AVGO",
+        "listed": "Public",
+        "hq": "Palo Alto, California",
+        "ceo": "Hock E. Tan",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001730168.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001730168.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001730168.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1730168/000173016825000121/avgo-20251102.htm"
         }
       }
     },
@@ -791,12 +932,32 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "google.svg",
+        "kind": "simple-icons",
+        "source": "https://partnermarketinghub.withgoogle.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: GOOGL",
+        "listed": "Public",
+        "hq": "Mountain View, California",
+        "founded": "1998",
+        "ceo": "Sundar Pichai",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001652044.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001652044.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001652044.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm"
+        }
       }
     },
     "amazon": {
       "name": "Amazon",
       "description": "Retail, AWS and its own Trainium AI chips.",
-      "sector": "silicon",
+      "sector": "cloud",
       "ovr_reason": "Amazon held 28% of cloud infrastructure spending in Q2 2026 on Synergy's figures, and AWS sales were $42.2bn, up 37%, with operating income of $16.6bn.",
       "ovr_updated": "2026-11-02",
       "ovr_by": "Claude (draft)",
@@ -874,6 +1035,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "amazon.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Amazon_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: AMZN",
+        "listed": "Public",
+        "hq": "Seattle, Washington",
+        "founded": "1994",
+        "ceo": "Andrew R. Jassy",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001018724.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001018724.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001018724.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm"
+        }
       }
     },
     "marvell": {
@@ -944,12 +1125,18 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "marvell.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Marvell_Logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "openai": {
       "name": "OpenAI",
       "description": "Frontier model lab, now also a designer of its own accelerators.",
-      "sector": "silicon",
+      "sector": "models",
       "ovr_reason": "OpenAI closed a $122bn round at an $852bn post-money valuation in March 2026 on the largest consumer audience, and its rating rests on turning compute commitments into revenue.",
       "ovr_updated": "2026-11-02",
       "ovr_by": "Claude (draft)",
@@ -1014,6 +1201,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "openai.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:OpenAI_logo_2025_(symbol).svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "huawei": {
@@ -1080,6 +1273,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "huawei.svg",
+        "kind": "simple-icons",
+        "source": "https://e.huawei.com/ph/material/partner/0a72728b864949c48b22106454352483",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "cerebras": {
@@ -1146,6 +1345,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "cerebras.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Cerebras_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: CBRS",
+        "listed": "Public",
+        "hq": "Sunnyvale, California",
+        "founded": "2016",
+        "ceo": "Andrew D. Feldman",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0002021728.json",
+          "listed": "https://data.sec.gov/submissions/CIK0002021728.json",
+          "hq": "https://www.sec.gov/Archives/edgar/data/2021728/000162828026035214/cerebras-424b4.htm",
+          "founded": "https://www.sec.gov/Archives/edgar/data/2021728/000162828026035214/cerebras-424b4.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/2021728/000162828026056357/cbrs-20260630.htm"
+        }
       }
     },
     "groq": {
@@ -1206,6 +1425,16 @@
           "reason": "The Atlas reports the Nvidia licence as done in Dec 2025 and no further deal activity.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "bio": {
+        "listed": "Private",
+        "founded": "2016",
+        "ceo": "Adam Winter",
+        "sources": {
+          "listed": "https://groq.com/newsroom/groq-raises-usd650m-to-scale-its-ai-inference-cloud-business",
+          "founded": "https://groq.com/newsroom/groq-raises-usd650m-to-scale-its-ai-inference-cloud-business",
+          "ceo": "https://groq.com/newsroom/groq-raises-usd650m-to-scale-its-ai-inference-cloud-business"
         }
       }
     },
@@ -1409,6 +1638,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "tsmc.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Tsmc-text.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "TWSE: 2330",
+        "listed": "Public",
+        "hq": "Hsinchu, Taiwan",
+        "founded": "1987",
+        "ceo": "C.C. Wei",
+        "sources": {
+          "ticker": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm",
+          "listed": "https://data.sec.gov/submissions/CIK0001046179.json",
+          "hq": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm"
+        }
       }
     },
     "samsung": {
@@ -1491,6 +1740,24 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "samsung.svg",
+        "kind": "simple-icons",
+        "source": "https://www.samsung.com/us/about-us/brand-identity/logo/",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "KRX: 005930",
+        "listed": "Public",
+        "founded": "1969",
+        "ceo": "Young-Hyun Jun and Tae-Moon Roh",
+        "sources": {
+          "ticker": "https://www.samsung.com/global/ir/ir-resources/faq/",
+          "listed": "https://www.samsung.com/global/ir/ir-resources/faq/",
+          "founded": "https://www.samsung.com/us/about-us/leadership-and-mission/",
+          "ceo": "https://www.samsung.com/global/ir/governance-csr/board-of-directors/"
+        }
       }
     },
     "smic": {
@@ -1557,6 +1824,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "smic.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:SMIC_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "intel_foundry": {
@@ -1750,6 +2023,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "rapidus.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Rapidus_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "sk_hynix": {
@@ -1825,6 +2104,20 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "sk_hynix.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:SK_Hynix.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "hq": "Icheon, Gyeonggi-do, South Korea",
+        "ceo": "Kwak Noh-Jung",
+        "sources": {
+          "hq": "https://www.skhynix.com/company/UI-FR-CP02/",
+          "ceo": "https://www.skhynix.com/company/UI-FR-CP02/"
+        }
       }
     },
     "micron": {
@@ -1885,6 +2178,26 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "micron.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Micron_Technology_logo_2024.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: MU",
+        "listed": "Public",
+        "hq": "Boise, Idaho",
+        "founded": "1978",
+        "ceo": "Sanjay Mehrotra",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000723125.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000723125.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000723125.json",
+          "founded": "https://www.micron.com/about/company/company-timeline",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000023/mu-20260903.htm"
         }
       }
     },
@@ -2017,6 +2330,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "asml.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:ASML_Logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: ASML",
+        "listed": "Public",
+        "hq": "Veldhoven, Netherlands",
+        "founded": "1984",
+        "ceo": "Christophe Fouquet",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000937966.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000937966.json",
+          "hq": "https://www.sec.gov/Archives/edgar/data/937966/000162828026011378/asml-20251231.htm",
+          "founded": "https://www.asml.com/en/company/about-asml",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/937966/000162828026011378/asml-20251231.htm"
+        }
       }
     },
     "amat": {
@@ -2077,6 +2410,24 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "amat.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Applied_Materials_Inc._Logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: AMAT",
+        "listed": "Public",
+        "hq": "Santa Clara, California",
+        "ceo": "Gary E. Dickerson",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000006951.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000006951.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000006951.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/6951/000162828025056742/amat-20251026.htm"
         }
       }
     },
@@ -2139,6 +2490,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "lam.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Lam_Research_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: LRCX",
+        "listed": "Public",
+        "hq": "Fremont, California",
+        "founded": "1980",
+        "ceo": "Timothy M. Archer",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000707549.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000707549.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000707549.json",
+          "founded": "https://www.lamresearch.com/company/company-overview/",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/707549/000070754926000037/lrcx-20260628.htm"
+        }
       }
     },
     "tel": {
@@ -2200,6 +2571,22 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "tel.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Tokyo_Electron_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "hq": "Tokyo, Japan",
+        "founded": "1963",
+        "ceo": "Toshiki Kawai",
+        "sources": {
+          "hq": "https://www.tel.com/about/summary/",
+          "founded": "https://www.tel.com/about/summary/",
+          "ceo": "https://www.tel.com/about/summary/"
+        }
       }
     },
     "kla": {
@@ -2260,6 +2647,26 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "kla.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:KLA_Corp._logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: KLAC",
+        "listed": "Public",
+        "hq": "Milpitas, California",
+        "founded": "1975",
+        "ceo": "Richard P. Wallace",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000319201.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000319201.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000319201.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/319201/000031920126000027/klac-20260630.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/319201/000031920126000027/klac-20260630.htm"
         }
       }
     },
@@ -2459,7 +2866,13 @@
     "softbank": {
       "name": "SoftBank",
       "description": "Holds about 90% of Arm.",
-      "sector": "backers"
+      "sector": "backers",
+      "logo": {
+        "file": "softbank.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:SoftBank_Group_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      }
     },
     "meti": {
       "name": "Japan's METI",
@@ -2548,7 +2961,25 @@
           ],
           "status": "draft"
         }
-      ]
+      ],
+      "logo": {
+        "file": "anthropic.svg",
+        "kind": "simple-icons",
+        "source": "https://www.anthropic.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "listed": "Private",
+        "hq": "San Francisco, California",
+        "founded": "2021",
+        "ceo": "Dario Amodei",
+        "sources": {
+          "listed": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm",
+          "hq": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm",
+          "founded": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm"
+        }
+      }
     },
     "meta": {
       "name": "Meta",
@@ -2623,12 +3054,38 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "meta.svg",
+        "kind": "simple-icons",
+        "source": "https://www.meta.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: META",
+        "listed": "Public",
+        "hq": "Menlo Park, California",
+        "founded": "2004",
+        "ceo": "Mark Zuckerberg",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001326801.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001326801.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001326801.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm"
+        }
       }
     },
     "tesla": {
       "name": "Tesla",
       "description": "Electric vehicles, energy storage, robotaxis and its own AI chips.",
-      "sector": "backers"
+      "sector": "backers",
+      "logo": {
+        "file": "tesla.svg",
+        "kind": "simple-icons",
+        "source": "https://www.tesla.com/tesla-gallery",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      }
     },
     "apple": {
       "name": "Apple",
@@ -2702,6 +3159,24 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "apple.svg",
+        "kind": "simple-icons",
+        "source": "https://www.apple.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: AAPL",
+        "listed": "Public",
+        "hq": "Cupertino, California",
+        "ceo": "John Ternus",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000320193.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000320193.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000320193.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/aapl-20260926.htm"
+        }
       }
     },
     "celestica": {
@@ -2762,6 +3237,20 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "NYSE: CLS",
+        "listed": "Public",
+        "hq": "Toronto, Ontario, Canada",
+        "founded": "1996",
+        "ceo": "Robert A. Mionis",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001030894.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001030894.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001030894.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1030894/000103089426000011/cls-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1030894/000103089426000011/cls-20251231.htm"
         }
       }
     },
@@ -2828,6 +3317,26 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "arista.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Arista-networks-logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: ANET",
+        "listed": "Public",
+        "hq": "Santa Clara, California",
+        "founded": "2008",
+        "ceo": "Jayshree Ullal",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001596532.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001596532.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001596532.json",
+          "founded": "https://www.arista.com/en/company/quick-facts",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000013/anet-20251231.htm"
         }
       }
     },
@@ -2904,6 +3413,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "cisco.svg",
+        "kind": "simple-icons",
+        "source": "https://www.cisco.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "ayar": {
@@ -3040,6 +3555,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "dell.svg",
+        "kind": "simple-icons",
+        "source": "https://www.dell.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: DELL",
+        "listed": "Public",
+        "hq": "Round Rock, Texas",
+        "founded": "1984",
+        "ceo": "Michael S. Dell",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001571996.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001571996.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001571996.json",
+          "founded": "https://www.dell.com/en-in/learn/our-company/lp/timeline",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1571996/000157199626000008/dell-20260130.htm"
+        }
       }
     },
     "netapp": {
@@ -3101,6 +3636,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "netapp.svg",
+        "kind": "simple-icons",
+        "source": "https://www.netapp.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: NTAP",
+        "listed": "Public",
+        "hq": "San Jose, California",
+        "founded": "1992",
+        "ceo": "George Kurian",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001002047.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001002047.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001002047.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1002047/000119312526259683/ntap-20260424.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1002047/000119312526259683/ntap-20260424.htm"
+        }
       }
     },
     "everpure": {
@@ -3161,6 +3716,20 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "NYSE: P",
+        "listed": "Public",
+        "hq": "Santa Clara, California",
+        "founded": "2009",
+        "ceo": "Charles Giancarlo",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001474432.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001474432.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001474432.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/pstg-20260201.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/pstg-20260201.htm"
         }
       }
     },
@@ -3232,6 +3801,22 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "vast.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:VAST_Data_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "listed": "Private",
+        "founded": "2016",
+        "ceo": "Renen Hallak",
+        "sources": {
+          "listed": "https://www.vastdata.com/about",
+          "founded": "https://www.vastdata.com/about",
+          "ceo": "https://www.vastdata.com/about"
         }
       }
     },
@@ -3421,6 +4006,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "supermicro.svg",
+        "kind": "simple-icons",
+        "source": "https://www.supermicro.com/manuals/supermicro_logo_guidelines.pdf",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "odms": {
@@ -3543,6 +4134,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "hpe.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Hewlett_Packard_Enterprise_logo_2025.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "lenovo": {
@@ -3613,6 +4210,22 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "lenovo.svg",
+        "kind": "simple-icons",
+        "source": "https://news.lenovo.com/press-kits/",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "HKEX: 992",
+        "listed": "Public",
+        "ceo": "Yuanqing Yang",
+        "sources": {
+          "ticker": "https://news.lenovo.com/pressroom/press-releases/fy-2025-26/",
+          "listed": "https://news.lenovo.com/pressroom/press-releases/fy-2025-26/",
+          "ceo": "https://news.lenovo.com/pressroom/press-releases/fy-2025-26/"
+        }
       }
     },
     "equinix": {
@@ -3679,6 +4292,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "equinix.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Equinix_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: EQIX",
+        "listed": "Public",
+        "hq": "Redwood City, California",
+        "founded": "1998",
+        "ceo": "Adaire Fox-Martin",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001101239.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001101239.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001101239.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1101239/000110123926000032/eqix-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1101239/000110123926000032/eqix-20251231.htm"
+        }
       }
     },
     "digital_realty": {
@@ -3744,6 +4377,20 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "NYSE: DLR",
+        "listed": "Public",
+        "hq": "Austin, Texas",
+        "founded": "2004",
+        "ceo": "Andrew P. Power",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001297996.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001297996.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001297996.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1297996/000110465926015365/dlr-20251231x10k.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1297996/000110465926015365/dlr-20251231x10k.htm"
         }
       }
     },
@@ -3882,6 +4529,13 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "blue_owl.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Blue_Owl_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner.",
+        "ground": "dark"
       }
     },
     "apollo": {
@@ -3948,6 +4602,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "apollo.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Apollo_Global_Management_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "crusoe": {
@@ -4075,6 +4735,24 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "ge_vernova.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:GE_Vernova_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: GEV",
+        "listed": "Public",
+        "hq": "Cambridge, Massachusetts",
+        "ceo": "Scott Strazik",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001996810.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001996810.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001996810.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1996810/000199681026000015/gev-20251231.htm"
+        }
       }
     },
     "vertiv": {
@@ -4140,6 +4818,24 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "vertiv.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Vertiv_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: VRT",
+        "listed": "Public",
+        "hq": "Westerville, Ohio",
+        "ceo": "Giordano Albertazzi",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001674101.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001674101.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001674101.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1674101/000167410126000008/vrt-20251231.htm"
         }
       }
     },
@@ -4207,6 +4903,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "eaton.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Eaton_Corporation_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: ETN",
+        "listed": "Public",
+        "hq": "Dublin, Ireland",
+        "founded": "1911",
+        "ceo": "Paulo Ruiz",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001551182.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001551182.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001551182.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000007/etn-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000007/etn-20251231.htm"
+        }
       }
     },
     "bloom": {
@@ -4273,6 +4989,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "bloom.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Bloom_Energy_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "constellation": {
@@ -4338,12 +5060,36 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "bio": {
+        "ticker": "NASDAQ: CEG",
+        "listed": "Public",
+        "hq": "Baltimore, Maryland",
+        "ceo": "Joseph Dominguez",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001868275.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001868275.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001868275.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1868275/000186827526000032/ceg-20251231.htm"
+        }
       }
     },
     "talen": {
       "name": "Talen",
       "description": "Owns the Susquehanna nuclear plant that supplies Amazon.",
-      "sector": "backers"
+      "sector": "backers",
+      "bio": {
+        "ticker": "NASDAQ: TLN",
+        "listed": "Public",
+        "hq": "Houston, Texas",
+        "ceo": "Mark A. McFarland",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001622536.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001622536.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001622536.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1622536/000162253626000017/tln-20251231.htm"
+        }
+      }
     },
     "x_energy": {
       "name": "X-energy",
@@ -4409,6 +5155,18 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "bio": {
+        "ticker": "NASDAQ: XE",
+        "listed": "Public",
+        "hq": "Rockville, Maryland",
+        "ceo": "J. Clay Sell",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0002088896.json",
+          "listed": "https://data.sec.gov/submissions/CIK0002088896.json",
+          "hq": "https://www.sec.gov/Archives/edgar/data/2088896/000119312526347752/xe-20260630.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/2088896/000110465926049515/tm2527015-22_424b4.htm"
+        }
       }
     },
     "oklo": {
@@ -4470,6 +5228,20 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "bio": {
+        "ticker": "NYSE: OKLO",
+        "listed": "Public",
+        "hq": "Santa Clara, California",
+        "founded": "2013",
+        "ceo": "Jacob DeWitte",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001849056.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001849056.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001849056.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1849056/000162828026018698/oklo-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1849056/000162828026018698/oklo-20251231.htm"
+        }
       }
     },
     "terrapower": {
@@ -4530,6 +5302,14 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "bio": {
+        "hq": "Seattle, Washington",
+        "ceo": "Chris Levesque",
+        "sources": {
+          "hq": "https://www.terrapower.com/about/",
+          "ceo": "https://www.terrapower.com/about/"
         }
       }
     },
@@ -4680,12 +5460,38 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "microsoft.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Microsoft_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: MSFT",
+        "listed": "Public",
+        "hq": "Redmond, Washington",
+        "founded": "1975",
+        "ceo": "Satya Nadella",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000789019.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000789019.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000789019.json",
+          "founded": "https://news.microsoft.com/facts-about-Microsoft/",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm"
+        }
       }
     },
     "williams": {
       "name": "Williams",
       "description": "Pipeline company building behind-the-meter gas power for data centers.",
-      "sector": "backers"
+      "sector": "backers",
+      "logo": {
+        "file": "williams.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Williams_Companies_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      }
     },
     "elementl": {
       "name": "Elementl Power",
@@ -4769,7 +5575,27 @@
           ],
           "status": "draft"
         }
-      ]
+      ],
+      "logo": {
+        "file": "oracle.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Oracle_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: ORCL",
+        "listed": "Public",
+        "hq": "Austin, Texas",
+        "founded": "1977",
+        "ceo": "Clayton M. Magouyrk and Michael D. Sicilia",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001341439.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001341439.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001341439.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        }
+      }
     },
     "alibaba": {
       "name": "Alibaba Cloud",
@@ -4840,6 +5666,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "alibaba.svg",
+        "kind": "simple-icons",
+        "source": "https://www.alibabagroup.com/en/ir/reports",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "coreweave": {
@@ -4931,7 +5763,27 @@
           ],
           "status": "draft"
         }
-      ]
+      ],
+      "logo": {
+        "file": "coreweave.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:CoreWeave_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: CRWV",
+        "listed": "Public",
+        "hq": "Livingston, New Jersey",
+        "founded": "2017",
+        "ceo": "Michael Intrator",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001769628.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001769628.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001769628.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm"
+        }
+      }
     },
     "nebius": {
       "name": "Nebius",
@@ -4991,6 +5843,28 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "team": "microsoft_openai",
+      "team_reason": "Its Microsoft contract of about $17.4bn is larger than the $12bn it agreed with Meta.",
+      "logo": {
+        "file": "nebius.svg",
+        "kind": "press-kit",
+        "source": "https://nebius.com/media-kit",
+        "license": "Company press kit. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: NBIS",
+        "listed": "Public",
+        "hq": "Amsterdam, Netherlands",
+        "founded": "2004",
+        "ceo": "Arkady Volozh",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001513845.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001513845.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001513845.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm"
         }
       }
     },
@@ -5208,6 +6082,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "together.svg",
+        "kind": "press-kit",
+        "source": "https://www.together.ai/press",
+        "license": "Company press kit. The mark is a trademark of its owner."
       }
     },
     "baseten": {
@@ -5340,6 +6220,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "modal.svg",
+        "kind": "simple-icons",
+        "source": "https://modal.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "wasabi": {
@@ -5406,6 +6292,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "wasabi.svg",
+        "kind": "simple-icons",
+        "source": "https://wasabi.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "xai": {
@@ -5467,12 +6359,24 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "xai.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:XAI-Logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "spacex": {
       "name": "SpaceX",
       "description": "Rockets, Starlink, and the owner of xAI.",
-      "sector": "backers"
+      "sector": "backers",
+      "logo": {
+        "file": "spacex.svg",
+        "kind": "simple-icons",
+        "source": "https://www.spacex.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      }
     },
     "deepseek": {
       "name": "DeepSeek",
@@ -5538,6 +6442,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "deepseek.svg",
+        "kind": "simple-icons",
+        "source": "https://www.deepseek.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "mistral": {
@@ -5604,6 +6514,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "mistral.svg",
+        "kind": "simple-icons",
+        "source": "https://chat.mistral.ai",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "thinking_machines": {
@@ -5818,7 +6734,19 @@
           ],
           "status": "draft"
         }
-      ]
+      ],
+      "logo": {
+        "file": "cursor.svg",
+        "kind": "simple-icons",
+        "source": "https://cursor.com/brand",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "listed": "Private",
+        "sources": {
+          "listed": "https://cursor.com/blog/series-c"
+        }
+      }
     },
     "perplexity": {
       "name": "Perplexity",
@@ -5884,6 +6812,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "perplexity.svg",
+        "kind": "simple-icons",
+        "source": "https://www.perplexity.ai",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "salesforce": {
@@ -5949,6 +6883,26 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "salesforce.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Salesforce.com_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: CRM",
+        "listed": "Public",
+        "hq": "San Francisco, California",
+        "founded": "1999",
+        "ceo": "Marc Benioff",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001108524.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001108524.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001108524.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1108524/000110852426000060/crm-20260131.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1108524/000110852426000060/crm-20260131.htm"
         }
       }
     },
@@ -6039,7 +6993,25 @@
           ],
           "status": "draft"
         }
-      ]
+      ],
+      "logo": {
+        "file": "servicenow.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:ServiceNow_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: NOW",
+        "listed": "Public",
+        "hq": "Santa Clara, California",
+        "ceo": "William R. McDermott",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001373715.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001373715.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001373715.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1373715/000137371526000007/now-20251231.htm"
+        }
+      }
     },
     "sap": {
       "name": "SAP",
@@ -6104,6 +7076,26 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "sap.svg",
+        "kind": "simple-icons",
+        "source": "https://www.sap.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: SAP",
+        "listed": "Public",
+        "hq": "Walldorf, Germany",
+        "founded": "1972",
+        "ceo": "Christian Klein",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001000184.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001000184.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001000184.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1000184/000110465926020058/sap-20251231x20f.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1000184/000110465926020058/sap-20251231x20f.htm"
         }
       }
     },
@@ -6189,7 +7181,13 @@
           ],
           "status": "draft"
         }
-      ]
+      ],
+      "logo": {
+        "file": "workday.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Workday_2024_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      }
     },
     "snowflake": {
       "name": "Snowflake",
@@ -6254,6 +7252,26 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "snowflake.svg",
+        "kind": "simple-icons",
+        "source": "https://www.snowflake.com/brand-guidelines/",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: SNOW",
+        "listed": "Public",
+        "hq": "Menlo Park, California",
+        "founded": "2012",
+        "ceo": "Sridhar Ramaswamy",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001640147.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001640147.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001640147.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000008/snow-20260131.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000008/snow-20260131.htm"
         }
       }
     },
@@ -6331,6 +7349,20 @@
           ],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "databricks.svg",
+        "kind": "simple-icons",
+        "source": "https://www.databricks.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "hq": "San Francisco, California",
+        "founded": "2013",
+        "sources": {
+          "hq": "https://www.databricks.com/company/about-us",
+          "founded": "https://www.databricks.com/company/about-us"
+        }
       }
     },
     "palantir": {
@@ -6396,6 +7428,26 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "palantir.svg",
+        "kind": "simple-icons",
+        "source": "https://github.com/palantir/conjure/blob/1b0d450dc52c4822b4c9d1da8c61ad7f78855fe5/docs/media/palantir-logo.svg",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: PLTR",
+        "listed": "Public",
+        "hq": "Aventura, Florida",
+        "founded": "2003",
+        "ceo": "Alexander C. Karp",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001321655.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001321655.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001321655.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000011/pltr-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000011/pltr-20251231.htm"
         }
       }
     },
@@ -6468,6 +7520,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "datadog.svg",
+        "kind": "simple-icons",
+        "source": "https://www.datadoghq.com/about/resources",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: DDOG",
+        "listed": "Public",
+        "hq": "New York, New York",
+        "founded": "2010",
+        "ceo": "Olivier Pomel",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001561550.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001561550.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001561550.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1561550/000162828026008819/ddog-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1561550/000162828026008819/ddog-20251231.htm"
+        }
       }
     },
     "grafana": {
@@ -6529,6 +7601,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "grafana.svg",
+        "kind": "simple-icons",
+        "source": "https://grafana.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "sierra": {
@@ -6661,6 +7739,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "harvey.svg",
+        "kind": "press-kit",
+        "source": "https://www.harvey.ai/press",
+        "license": "Company press kit. The mark is a trademark of its owner."
       }
     },
     "decagon": {
@@ -6793,6 +7877,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "glean.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Glean_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "elevenlabs": {
@@ -6859,12 +7949,24 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "elevenlabs.svg",
+        "kind": "simple-icons",
+        "source": "https://elevenlabs.io/brand",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "silver_lake": {
       "name": "Silver Lake",
       "description": "Technology buyout firm.",
-      "sector": "backers"
+      "sector": "backers",
+      "logo": {
+        "file": "silver_lake.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Silver_Lake_(Unternehmen)_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      }
     },
     "palo_alto": {
       "name": "Palo Alto Networks",
@@ -6934,6 +8036,26 @@
           "reason": "The Atlas reports the CyberArk purchase as completed and no further deal activity.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "palo_alto.svg",
+        "kind": "simple-icons",
+        "source": "https://www.paloaltonetworks.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: PANW",
+        "listed": "Public",
+        "hq": "Santa Clara, California",
+        "founded": "2005",
+        "ceo": "Nikesh Arora",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001327567.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001327567.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001327567.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1327567/000132756726000023/panw-20260731.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1327567/000132756726000023/panw-20260731.htm"
         }
       }
     },
@@ -7006,6 +8128,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "crowdstrike.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:CrowdStrike_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: CRWD",
+        "listed": "Public",
+        "hq": "Austin, Texas",
+        "founded": "2011",
+        "ceo": "George Kurtz",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001535527.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001535527.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001535527.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1535527/000153552726000010/crwd-20260131.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1535527/000153552726000010/crwd-20260131.htm"
+        }
       }
     },
     "fortinet": {
@@ -7071,6 +8213,26 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "fortinet.svg",
+        "kind": "simple-icons",
+        "source": "https://www.fortinet.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: FTNT",
+        "listed": "Public",
+        "hq": "Sunnyvale, California",
+        "founded": "2000",
+        "ceo": "Ken Xie",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001262039.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001262039.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001262039.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1262039/000126203926000007/ftnt-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1262039/000126203926000007/ftnt-20251231.htm"
         }
       }
     },
@@ -7204,6 +8366,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "okta.svg",
+        "kind": "simple-icons",
+        "source": "https://www.okta.com/press-room/media-assets/",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "wiz": {
@@ -7265,6 +8433,20 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "wiz.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Wiz_logo.svg",
+        "license": "Wikimedia Commons: public domain. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "hq": "New York",
+        "ceo": "Assaf Rappaport",
+        "sources": {
+          "hq": "https://abc.xyz/investor/news/news-details/2026/Google-Completes-Acquisition-of-Wiz-2026-ta7OaU2uA0/default.aspx",
+          "ceo": "https://abc.xyz/investor/news/news-details/2026/Google-Completes-Acquisition-of-Wiz-2026-ta7OaU2uA0/default.aspx"
+        }
       }
     },
     "cyberark": {
@@ -7325,6 +8507,18 @@
           "reason": "The Atlas reports Palo Alto's purchase of CyberArk as closed on 11 Feb 2026.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "cyberark.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Cyberark-logo-dark.svg",
+        "license": "Wikimedia Commons: public domain. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ceo": "Matt Cohen",
+        "sources": {
+          "ceo": "https://www.paloaltonetworks.com/company/press/2026/palo-alto-networks-completes-acquisition-of-cyberark-to-secure-the-ai-era"
         }
       }
     },
@@ -7669,12 +8863,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "team": "independent",
+      "team_reason": "ByteDance keeps the largest stated stake, 19.9%, and ByteDance is on no team.",
+      "logo": {
+        "file": "tiktok.svg",
+        "kind": "simple-icons",
+        "source": "https://tiktok.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "bytedance": {
       "name": "ByteDance",
       "description": "TikTok's parent, retaining 19.9% of the US venture.",
-      "sector": "backers"
+      "sector": "backers",
+      "logo": {
+        "file": "bytedance.svg",
+        "kind": "simple-icons",
+        "source": "https://www.bytedance.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      }
     },
     "mgx": {
       "name": "MGX",
@@ -7754,6 +8962,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "netflix.svg",
+        "kind": "simple-icons",
+        "source": "https://brand.netflix.com/en/assets/logos",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: NFLX",
+        "listed": "Public",
+        "hq": "Los Gatos, California",
+        "founded": "1997",
+        "ceo": "Ted Sarandos and Greg Peters",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001065280.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001065280.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001065280.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm"
+        }
       }
     },
     "paramount": {
@@ -7815,6 +9043,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "paramount.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Paramount_Skydance_Logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "disney": {
@@ -7876,6 +9110,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "disney.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Walt_Disney_wordmark.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "shopify": {
@@ -7941,6 +9181,26 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "shopify.svg",
+        "kind": "simple-icons",
+        "source": "https://www.shopify.com/brand-assets",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NASDAQ: SHOP",
+        "listed": "Public",
+        "hq": "Ottawa, Ontario, Canada",
+        "founded": "2004",
+        "ceo": "Tobias Lütke",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001594805.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001594805.json",
+          "hq": "https://www.sec.gov/Archives/edgar/data/1594805/000159480526000007/shop-20251231.htm",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1594805/000159480526000007/shop-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1594805/000159480526000007/shop-20251231.htm"
         }
       }
     },
@@ -8008,6 +9268,20 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "tencent.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Tencent_Logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "hq": "Shenzhen, China",
+        "founded": "1998",
+        "sources": {
+          "hq": "https://www.tencent.com/en-us/about.html",
+          "founded": "https://www.tencent.com/en-us/about.html"
+        }
       }
     },
     "roblox": {
@@ -8074,6 +9348,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "roblox.svg",
+        "kind": "simple-icons",
+        "source": "https://www.roblox.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "xiaomi": {
@@ -8140,6 +9420,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "xiaomi.svg",
+        "kind": "simple-icons",
+        "source": "https://www.mi.com/global",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "oppo": {
@@ -8206,6 +9492,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "oppo.svg",
+        "kind": "simple-icons",
+        "source": "https://www.figma.com/community/file/832815970641696814/OPPO-Media-Kit",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "vivo": {
@@ -8272,6 +9564,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "vivo.svg",
+        "kind": "simple-icons",
+        "source": "https://www.vivo.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "hp": {
@@ -8337,6 +9635,24 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "hp.svg",
+        "kind": "simple-icons",
+        "source": "https://brandcentral.hp.com/us/en/elements/hp-logo.html",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: HPQ",
+        "listed": "Public",
+        "hq": "Palo Alto, California",
+        "ceo": "Bruce Broussard (interim)",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000047217.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000047217.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000047217.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/47217/000114036126003514/ef20064653_8k.htm"
         }
       }
     },
@@ -8408,6 +9724,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "essilor.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Logo_EssilorLuxottica.svg",
+        "license": "Wikimedia Commons: public domain. The mark is a trademark of its owner."
       }
     },
     "visa": {
@@ -8474,6 +9796,24 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "visa.svg",
+        "kind": "simple-icons",
+        "source": "https://merchantsignageeu.visa.com/product.asp?dptID=696",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: V",
+        "listed": "Public",
+        "hq": "San Francisco, California",
+        "ceo": "Ryan McInerney",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001403161.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001403161.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001403161.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/v-20250930.htm"
+        }
       }
     },
     "mastercard": {
@@ -8539,6 +9879,24 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "mastercard.svg",
+        "kind": "simple-icons",
+        "source": "https://www.mastercard.com/brandcenter/us/en/download-artwork.html",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: MA",
+        "listed": "Public",
+        "hq": "Purchase, New York",
+        "ceo": "Michael Miebach",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001141391.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001141391.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001141391.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000013/ma-20251231.htm"
         }
       }
     },
@@ -8624,7 +9982,13 @@
           ],
           "status": "draft"
         }
-      ]
+      ],
+      "logo": {
+        "file": "paypal.svg",
+        "kind": "simple-icons",
+        "source": "https://www.paypal.com/us",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      }
     },
     "stripe": {
       "name": "Stripe",
@@ -8713,7 +10077,13 @@
           ],
           "status": "draft"
         }
-      ]
+      ],
+      "logo": {
+        "file": "stripe.svg",
+        "kind": "simple-icons",
+        "source": "https://stripe.com/newsroom/information",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      }
     },
     "adyen": {
       "name": "Adyen",
@@ -8779,6 +10149,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "adyen.svg",
+        "kind": "simple-icons",
+        "source": "https://www.adyen.com/press-and-media/presskit",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "block": {
@@ -8924,6 +10300,26 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "nubank.svg",
+        "kind": "simple-icons",
+        "source": "https://nubank.com.br/en/press/",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: NU",
+        "listed": "Public",
+        "hq": "São Paulo, Brazil",
+        "founded": "2013",
+        "ceo": "David Vélez Osorno",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001691493.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001691493.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001691493.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1691493/000129281426002166/nuform20f_2025.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1691493/000129281426002166/nuform20f_2025.htm"
+        }
       }
     },
     "revolut": {
@@ -8985,6 +10381,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "revolut.svg",
+        "kind": "simple-icons",
+        "source": "https://developer.revolut.com/docs/resources/marketing-assets-guidelines/marketing-guidelines",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "chime": {
@@ -9051,6 +10453,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "chime.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Chime_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "sofi": {
@@ -9112,6 +10520,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "sofi.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:SoFi_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "tether": {
@@ -9173,6 +10587,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "tether.svg",
+        "kind": "simple-icons",
+        "source": "https://tether.to/branding/",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     },
     "circle": {
@@ -9238,6 +10658,26 @@
           "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
           "evidence": [],
           "status": "draft"
+        }
+      },
+      "logo": {
+        "file": "circle.svg",
+        "kind": "simple-icons",
+        "source": "https://www.circle.com",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      },
+      "bio": {
+        "ticker": "NYSE: CRCL",
+        "listed": "Public",
+        "hq": "New York, New York",
+        "founded": "2013",
+        "ceo": "Jeremy Allaire",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001876042.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001876042.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001876042.json",
+          "founded": "https://www.sec.gov/Archives/edgar/data/1876042/000187604226000062/crcl-20251231.htm",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/1876042/000187604226000062/crcl-20251231.htm"
         }
       }
     },
@@ -9305,6 +10745,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "coinbase.svg",
+        "kind": "simple-icons",
+        "source": "https://www.coinbase.com/press",
+        "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
       }
     }
   },
@@ -9318,7 +10764,21 @@
       "why": "Sells the chips, the networking and the software together, so a customer buys one working rack.",
       "could_change": "Large buyers shift volume to in-house chips, and China, where IDC has Nvidia at 34% of H1 2026 shipments.",
       "source": "https://pulse2.com/nvidia-operating-income-jumps-124-to-63-7-billion-as-revenue-doubles-and-q3-outlook-hits-108-billion/",
-      "trust": "sourced"
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Data Center revenue, quarter",
+          "value": "$89.0bn"
+        },
+        {
+          "label": "Total revenue",
+          "value": "$96.2bn"
+        },
+        {
+          "label": "Next-quarter guide",
+          "value": "$108bn"
+        }
+      ]
     },
     {
       "company": "amd",
@@ -9396,7 +10856,17 @@
       "why": "Co-designs the accelerators for the biggest buyers and sells the Ethernet that connects them.",
       "could_change": "Customers bring more design in-house, or OpenAI's chips arrive late. Racks are planned from the second half of 2026.",
       "source": "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-third-quarter-fiscal-year-2026-financial",
-      "trust": "sourced"
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "AI semiconductor revenue",
+          "value": "$16.7bn"
+        },
+        {
+          "label": "Custom accelerators' share",
+          "value": "73%"
+        }
+      ]
     },
     {
       "company": "google",
@@ -9451,7 +10921,21 @@
       "why": "Still ships about seven in ten x86 chips, and Nvidia bought $5bn of its stock and will co-develop x86 products with it.",
       "could_change": "AMD keeps taking share, and 14A needs a named outside anchor customer.",
       "source": "https://www.tomshardware.com/pc-components/cpus/intel-commits-to-14a-mass-production-in-2028-as-its-sales-rise-25-percent-year-over-year",
-      "trust": "sourced"
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Q2 2026 revenue",
+          "value": "$16.1bn"
+        },
+        {
+          "label": "Data Center and AI",
+          "value": "$6.3bn"
+        },
+        {
+          "label": "x86 share",
+          "value": "69.3%"
+        }
+      ]
     },
     {
       "company": "amd",
@@ -9495,7 +10979,21 @@
       "why": "Makes the leading-edge chips for Nvidia, Apple and most others.",
       "could_change": "Taiwan concentration, and whether Samsung or Intel win 2nm customers.",
       "source": "https://www.trendforce.com/presscenter/news/20260909-13225.html",
-      "trust": "sourced"
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Foundry share, 2Q26",
+          "value": "72.5%"
+        },
+        {
+          "label": "Revenue",
+          "value": "$40.2bn"
+        },
+        {
+          "label": "Growth on the quarter",
+          "value": "+12.1%"
+        }
+      ]
     },
     {
       "company": "samsung",
@@ -9605,7 +11103,17 @@
       "why": "The only company that makes EUV machines, so every leading-edge fab is its customer.",
       "could_change": "China's share of its sales (about 14% in Q2 by one estimate), and a rival lithography method.",
       "source": "https://www.nasdaq.com/articles/asml-q2-earnings-call-highlights",
-      "trust": "sourced"
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Net sales, Q2 2026",
+          "value": "EUR 9.3bn"
+        },
+        {
+          "label": "From EUV systems",
+          "value": "EUR 3.8bn"
+        }
+      ]
     },
     {
       "company": "amat",
@@ -10059,7 +11567,21 @@
       "why": "Largest installed base, and the fastest growth in 18 quarters.",
       "could_change": "Google and Microsoft growing faster from smaller bases.",
       "source": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results",
-      "trust": "sourced"
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "AWS sales, Q2 2026",
+          "value": "$42.2bn"
+        },
+        {
+          "label": "AWS growth",
+          "value": "+37%"
+        },
+        {
+          "label": "AWS operating income",
+          "value": "$16.6bn"
+        }
+      ]
     },
     {
       "company": "microsoft",
@@ -10070,7 +11592,21 @@
       "why": "Sells cloud into customers who already run its software, and holds a large OpenAI stake.",
       "could_change": "Capacity to serve the backlog.",
       "source": "https://redmondmag.com/articles/2026/07/30/microsoft-tops-90b-quarterly-revenue.aspx",
-      "trust": "reported"
+      "trust": "reported",
+      "stats": [
+        {
+          "label": "Azure growth",
+          "value": "+43%"
+        },
+        {
+          "label": "Microsoft Cloud revenue",
+          "value": "$59.3bn"
+        },
+        {
+          "label": "Commercial backlog",
+          "value": "$678bn"
+        }
+      ]
     },
     {
       "company": "google",
@@ -10092,7 +11628,25 @@
       "why": "Signed the largest AI contracts and delivered more than 300,000 GPUs since the end of May.",
       "could_change": "Pre-earnings estimates put OpenAI at about half of the backlog (analyst estimate), so one customer carries much of it.",
       "source": "https://www.oracle.com/news/announcement/q1fy27-earnings-release-2026-09-10/",
-      "trust": "sourced"
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Cloud infrastructure revenue",
+          "value": "$7.4bn"
+        },
+        {
+          "label": "Growth",
+          "value": "+121%"
+        },
+        {
+          "label": "Remaining performance obligations",
+          "value": "$664bn"
+        },
+        {
+          "label": "Free cash flow",
+          "value": "−$5bn"
+        }
+      ]
     },
     {
       "company": "alibaba",
@@ -10114,7 +11668,21 @@
       "why": "Rents GPUs by the contract to buyers that cannot build fast enough, including Meta, OpenAI and Microsoft.",
       "could_change": "Customer concentration (Microsoft was about 67% of 2025 revenue) and the interest bill.",
       "source": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Second-Quarter-2026-Results/default.aspx",
-      "trust": "sourced"
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Q2 2026 revenue",
+          "value": "$2.575bn"
+        },
+        {
+          "label": "Backlog",
+          "value": "$104bn"
+        },
+        {
+          "label": "Net interest expense",
+          "value": "$640m"
+        }
+      ]
     },
     {
       "company": "nebius",
@@ -10203,7 +11771,21 @@
       "why": "Leads enterprise API spend and coding, and buys compute from Google, Amazon, Nvidia and AMD.",
       "could_change": "Compute supply, and OpenAI and Google closing the enterprise gap.",
       "source": "https://www.cnbc.com/2026/08/17/anthropic-says-annualized-revenue-climbed-to-65-billion-in-july.html",
-      "trust": "reported"
+      "trust": "reported",
+      "stats": [
+        {
+          "label": "Run-rate revenue, July 2026",
+          "value": "$65bn"
+        },
+        {
+          "label": "Series H, May 2026",
+          "value": "$65bn"
+        },
+        {
+          "label": "Post-money valuation",
+          "value": "$965bn"
+        }
+      ]
     },
     {
       "company": "openai",
@@ -10214,7 +11796,21 @@
       "why": "The largest consumer audience, with signed compute commitments across Nvidia, AMD, Broadcom, Cerebras and Oracle.",
       "could_change": "Turning compute commitments into revenue. Amazon's $35bn is contingent on an IPO or an AGI milestone.",
       "source": "https://news.bloomberglaw.com/tech-and-telecom-law/openai-valued-at-852-billion-after-closing-122-billion-round",
-      "trust": "reported"
+      "trust": "reported",
+      "stats": [
+        {
+          "label": "Round, March 2026",
+          "value": "$122bn"
+        },
+        {
+          "label": "Post-money valuation",
+          "value": "$852bn"
+        },
+        {
+          "label": "Amazon commitment",
+          "value": "$50bn"
+        }
+      ]
     },
     {
       "company": "google",
@@ -10236,7 +11832,21 @@
       "why": "Spends at hyperscaler scale and has 3 billion-plus users to deploy models to.",
       "could_change": "Whether the spending produces a model that leads, since investors sold the shares after Q2.",
       "source": "https://finance.yahoo.com/markets/stocks/articles/meta-platforms-inc-meta-q2-050330313.html",
-      "trust": "reported"
+      "trust": "reported",
+      "stats": [
+        {
+          "label": "Q2 2026 capex",
+          "value": "$31.1bn"
+        },
+        {
+          "label": "Q2 free cash flow",
+          "value": "$784m"
+        },
+        {
+          "label": "2026 capex guide, top",
+          "value": "$145bn"
+        }
+      ]
     },
     {
       "company": "xai",
