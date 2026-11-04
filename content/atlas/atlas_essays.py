@@ -6,10 +6,9 @@ in the atlas data. Quotations are short, attributed and linked. No em dashes,
 no semicolons, no rhetorical questions.
 """
 
-INTRO = [
- "A depth chart for the technology industry, ranked the way a football coach ranks a roster. Each row is a position in the stack. The starters are winning today, the second string is closing the gap, and the practice squad is startups that have raised real money. It covers the sectors a Bay Area technology coverage banker or a tech M&amp;A banker works in.",
- "Click a company to see three things: who it works with, who it competes with, and who owns or funds it. Related companies in the same sector light up and are joined by a line. Partners in other sectors are listed by name. Every figure links to its source, with a tag for how far to trust it: sourced, reported, or inferred, which is my reading.",
-]
+# The two-paragraph intro under the chart title was removed at the owner's
+# request on 4 November 2026.
+INTRO = []
 
 SECTOR_PIECES = {
 

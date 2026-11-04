@@ -48,6 +48,9 @@ HEAD = """<!doctype html>
 </head>
 <body>
 """
+# a new site.css gets a new URL, so browsers never pair new pages with old styles
+import hashlib as _hashlib
+HEAD = HEAD.replace('href="site.css"', 'href="site.css?v=' + _hashlib.sha1((HERE / "assets/site.css").read_bytes()).hexdigest()[:8] + '"')
 
 # the column capital, drawn once and referenced by every silo card
 CAPITAL_DEF = """
@@ -835,7 +838,7 @@ def build_atlas():
         f'<details><summary>{_esc(sec[sid]["name"])}</summary><ul>' + "".join(f"<li>{_esc(x)}</li>" for x in AT_GAPS[sid]) + "</ul></details>"
         for sid in [s["id"] for s in AD.SECTORS])
     method = "".join(f"<p>{_esc(x)}</p>" for x in AT_METHOD)
-    intro = "".join(f"<p>{x}</p>" for x in AT_INTRO)
+    intro = ('<div class="atlas-intro">' + "".join(f"<p>{x}</p>" for x in AT_INTRO) + "</div>") if AT_INTRO else ""
     n_cards = sum(len(p["players"]) for s in AD.SECTORS for p in s["positions"])
     standings_links = "".join(f'<a href="atlas/sector-{s["id"]}.html">{_esc(s["name"])}</a>' for s in AD.SECTORS)
 
@@ -852,7 +855,7 @@ def build_atlas():
     <p class="atlas-head__l">{len(AD.SECTORS)} sectors, {n_cards} companies, ranked like a depth chart.</p>
     <p class="atlas-head__by">Francis Ruan, Ryan Chian and Timothy Zhang</p>
   </header>
-  <div class="atlas-intro">{intro}</div>
+  {intro}
   <nav class="atlas-standings" aria-label="Standings and teams"><span class="atlas-standings__k">Standings</span>{standings_links}<a class="atlas-standings__t" href="atlas/teams.html">Teams</a></nav>
 </div>
 

@@ -1089,88 +1089,68 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
 .silohead--bare .silohead__line{ margin-top:clamp(26px,3.4vw,44px); }
 
 /* ====================================================== TROJAN HORSES ===
-   The stories sit on the homepage in full view, set the way a newspaper sets
-   its leads: the company mark and a date, a headline, one sentence to pull you
-   in, and a way to read on. Columns divided by a hairline under a double rule.
-   Air is the point. Every element has room, so nothing reads as stuck together. */
+   The stories run down the homepage as one list, newest at the bottom: the
+   company mark and date on the left, then the headline, one sentence and a
+   way to read on. Type is kept modest so the list is quick to scan, scroll
+   and click, and each row sits between hairlines. */
 .th{
-  --g:clamp(36px,4.4vw,68px);
   padding:clamp(56px,8vw,104px) 0 clamp(28px,4vw,52px);
 }
-.th .shell{ max-width:min(1120px,94%); }
+.th .shell{ max-width:min(860px,94%); }
 .th__k{
   font-size:11.5px; letter-spacing:.3em; text-transform:uppercase;
-  color:var(--silver); margin:0 0 clamp(30px,4vw,48px);
+  color:var(--silver); margin:0;
   padding-top:clamp(16px,2vw,24px);
   border-top:3px double rgba(255,255,255,.3);
 }
-.th__grid{
-  display:grid; grid-template-columns:repeat(3,1fr);
-  column-gap:var(--g);
+.th__grid{ display:flex; flex-direction:column; }
+.th__c{
+  display:grid; grid-template-columns:150px minmax(0,1fr);
+  column-gap:clamp(24px,4vw,48px); align-items:start;
+  padding:clamp(24px,3vw,32px) 0;
+  border-bottom:1px solid rgba(255,255,255,.14);
 }
-.th__c{ display:flex; flex-direction:column; position:relative; padding-bottom:clamp(4px,1vw,12px); }
-/* the divider is drawn in the middle of the gap, so the columns stay equal */
-.th__c + .th__c::before{
-  content:""; position:absolute; top:0; bottom:0; left:calc(-1 * var(--g) / 2);
-  border-left:1px solid rgba(255,255,255,.16);
-}
-
-/* mark on the left, date on the right, on one baseline */
 .th__top{
-  display:flex; align-items:center; justify-content:space-between; gap:16px;
-  box-sizing:border-box; height:68px; margin-bottom:clamp(26px,3.2vw,40px);
-  padding-bottom:clamp(16px,2vw,22px);
-  border-bottom:1px solid rgba(255,255,255,.12);
+  grid-row:1 / span 3;
+  display:flex; flex-direction:column; align-items:flex-start; gap:12px;
+  padding-top:4px;
 }
 .th__logo{
-  display:block; flex:none; height:var(--lh,30px); aspect-ratio:var(--ar);
+  display:block; flex:none; max-width:120px; height:calc(var(--lh,30px) * .72);
+  aspect-ratio:var(--ar);
   background-color:var(--silver); opacity:.92;
   -webkit-mask:var(--logo) left center/contain no-repeat;
           mask:var(--logo) left center/contain no-repeat;
 }
 .th__d{
-  font-size:10.5px; letter-spacing:.2em; text-transform:uppercase;
-  color:var(--silver-dim); margin:0; text-align:right; line-height:1.5;
+  font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--silver-dim); margin:0; line-height:1.5;
 }
 .th__t{
-  font-size:clamp(25px,1rem + 1.25vw,35px); font-weight:500; line-height:1.14;
-  color:var(--silver); margin:0 0 clamp(20px,2.6vw,30px);
+  grid-column:2;
+  font-size:clamp(20px,1rem + .45vw,23px); font-weight:500; line-height:1.22;
+  color:var(--silver); margin:0 0 8px;
 }
-@media (min-width:901px){ .th__t{ min-height:3.45em; } }
 .th__t a{ transition:color .25s ease; }
 .th__t a:hover{ color:#fff; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.14em; }
 .th__p{
-  font-size:clamp(16.5px,1.15vw,18.5px); line-height:1.66; color:var(--silver-dim);
-  margin:0 0 clamp(28px,3.4vw,42px);
+  grid-column:2;
+  font-size:15.5px; line-height:1.6; color:var(--silver-dim);
+  margin:0 0 12px;
 }
 .th__go{
-  margin-top:auto; align-self:flex-start;
-  font-size:11.5px; letter-spacing:.24em; text-transform:uppercase;
+  grid-column:2; justify-self:start;
+  font-size:10.5px; letter-spacing:.22em; text-transform:uppercase;
   color:var(--silver); border-bottom:1px solid rgba(255,255,255,.3);
   padding-bottom:.3em; transition:border-color .25s ease;
 }
 .th__go:hover{ border-bottom-color:var(--silver); }
 
-/* four stories sit two by two, the second row under its own hairline */
-@media (min-width:901px){
-  .th__grid--n4{ grid-template-columns:repeat(2,1fr); }
-  .th__grid--n4 .th__c:nth-child(odd)::before{ display:none; }
-  .th__grid--n4 .th__c:nth-child(n+3){
-    margin-top:clamp(44px,5vw,64px); padding-top:clamp(44px,5vw,64px);
-    border-top:1px solid rgba(255,255,255,.16);
-  }
-  .th__grid--n4 .th__c:nth-child(n+3)::before{ top:clamp(44px,5vw,64px); }
-  .th__grid--n4 .th__t{ min-height:2.3em; }
-}
-
-/* below three columns the stories stack, each with room above and below */
-@media (max-width:900px){
-  .th__grid{ grid-template-columns:1fr; row-gap:clamp(44px,8vw,64px); }
-  .th__c + .th__c{
-    padding-top:clamp(44px,8vw,64px); border-top:1px solid rgba(255,255,255,.16);
-  }
-  .th__c + .th__c::before{ display:none; }
-  .th__top{ height:auto; min-height:44px; }
+/* on a phone the mark and date sit on one line above the headline */
+@media (max-width:600px){
+  .th__c{ grid-template-columns:1fr; }
+  .th__top{ grid-row:auto; flex-direction:row; align-items:center; justify-content:space-between; padding:0 0 12px; }
+  .th__t,.th__p,.th__go{ grid-column:1; }
 }
 
 /* the company mark above a story's header, in the plate's own ink */
