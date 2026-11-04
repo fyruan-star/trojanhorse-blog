@@ -9,7 +9,7 @@ TAGLINE = "Hidden Risks Behind Promising Deals"
 # The stories on the homepage, left to right. Each name is a file in
 # content/stories/ (without .py). To add a story, add its file there and its
 # name here.
-STORIES = ["oura", "thorne", "uber", "health", "attention"]
+STORIES = ["oura", "thorne", "uber", "health", "attention", "hourglass"]
 
 # The essay under the cover. It is HTML, so keep the <p> tags and write
 # &rsquo; for an apostrophe and &amp; for an ampersand.
