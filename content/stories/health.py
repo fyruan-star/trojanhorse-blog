@@ -1,18 +1,17 @@
-"""Trojan Horse of the Week: ultra-personalized health.
+"""Trojan Horse of the Week: health becomes an aesthetic.
 
-Rewritten 3 November 2026 to the owner's brief: what these businesses reveal
-about consumers, how that behavior becomes recurring revenue, and how the
-spending reaches mainstream tech platforms. Under 1,200 words with the note.
+Rewritten 3 November 2026 to the owner's brief: one point, argued with
+conviction. Health tech is a small slice of startups but the fastest-growing
+one, and it will keep exploding because people now buy health the way they buy
+fashion, by how it looks and feels. That is how it reaches Amazon, clothing
+resale, Uber Eats and the look of tech itself. Predictions are labelled as
+predictions. No figure is invented.
 
-Y Combinator counts are the author's arithmetic from the directory's industry
-pages, downloaded 3 November 2026 (5,243 companies across the eight top-level
-industries, each company listed once). "Consumer health" means YC's own
-Consumer Health and Wellness label, so the same definition covers every year.
-Company descriptions and headquarters are self-reported on YC profiles. Hims &
-Hers figures are from its second-quarter 2026 release and its 2025 10-K. Oura's
-panels are from Oura's own page. SURMOUNT-4 is from the ACC summary of the JAMA
-Internal Medicine analysis. Platform features marked as proposals are the
-author's.
+Sources read: YC directory industry pages, downloaded 3 November 2026 (counts
+are the author's arithmetic, grouped by batch year). KFF poll, Oct to Nov 2025.
+Rock Health Q3 2026 via HIT Consultant. Function Health's Series B via Athletech
+News. Amazon's own Medicare GLP-1 announcement. Scripps on high-protein menus.
+RonanRx figures are self-reported on its YC profile.
 
 No em dashes, no semicolons, no rhetorical questions, no sub-description.
 """
@@ -20,10 +19,9 @@ No em dashes, no semicolons, no rhetorical questions, no sub-description.
 WEEK = "3 November 2026"
 SLUG = "personalized-health"
 KICKER = "Trojan Horse of the Week"
-TITLE = "The Protein Shake Is the Front Door"
-HOOK = ("A tub of protein is bought once, and a whole set of companies is "
-        "betting its buyer will pay every month to be measured, interpreted "
-        "and treated.")
+TITLE = "Health Is the New Aesthetic"
+HOOK = ("Y Combinator funded 56% more healthcare startups in 2026 than in 2025, "
+        "and the demand behind them looks more like fashion than medicine.")
 LOGO = {"file": "ycombinator.svg", "w": 256, "h": 256, "name": "Y Combinator",
         "height": 36}
 GO = ("uber-rival-dinner.html",
@@ -31,18 +29,16 @@ GO = ("uber-rival-dinner.html",
 
 YC = "https://www.ycombinator.com/companies/"
 YC_HEALTH = "https://www.ycombinator.com/companies/industry/healthcare"
-YC_CHW = "https://www.ycombinator.com/companies/industry/consumer-health-and-wellness"
-HELIOS = YC + "helios-intelligence"
-GUT = YC + "gutgutgoose"
 RONAN = YC + "ronanrx-inc"
-ILLUME = YC + "illume-labs"
-HIMS = ("https://www.sec.gov/Archives/edgar/data/0001773751/000177375126000161/"
-        "hims-20260630x8xkearningsr.htm")
-HIMS_10K = "https://www.sec.gov/Archives/edgar/data/1773751/000177375126000022/hims-20251231.htm"
-SURMOUNT = ("https://www.acc.org/latest-in-cardiology/journal-scans/2025/12/09/"
-            "16/51/surmount-4")
-OURA_LABS = "https://ouraring.com/blog/health-panels/"
-INSTACART = "https://company.instacart.com/health"
+LUMERIA = YC + "lumeria"
+LAYERS = YC + "layers"
+HELIOS = YC + "helios-intelligence"
+KFF = ("https://www.kff.org/health-costs/poll-1-in-8-adults-say-they-are-currently-"
+       "taking-a-glp-1-drug-for-weight-loss-diabetes-or-another-condition-even-as-"
+       "half-say-the-drugs-are-difficult-to-afford/")
+ROCK = "https://hitconsultant.net/?p=98197"
+FUNCTION = "https://athletechnews.com/function-health-raises-298-million-at-2-5-billion-valuation/"
+AMAZON = "https://www.aboutamazon.com/news/retail/amazon-pharmacy-glp-1-medicare"
 MENUS = ("https://www.scrippsnews.com/life/money/heres-how-the-glp-1-boom-is-"
          "changing-fast-food-menus-and-prices")
 
@@ -53,125 +49,102 @@ SECTIONS = [
   "Pancakes. Chips. Ice cream. The interesting question is what the customer "
   "buys next.",
 
-  "A tub of whey is a one-time sale. The person who bought it has told the "
-  "market something worth far more: they want their body to change, and they "
-  "will pay to watch it happen. That is this week&rsquo;s Trojan horse. The "
-  "first purchase is cheap and sensible, and inside it rides a willingness to "
-  "pay again, every month, for measurement, interpretation and treatment. "
-  "There is no acquisition in this story.",
+  "My answer: more health, every year, from more of the companies they already "
+  "use. The health boom is nowhere near its peak, and the reason is simple. "
+  "People now buy health to look well, and looking well is a purchase that "
+  "never finishes. That is this week&rsquo;s "
+  "Trojan horse. A protein shake looks like a snack. Inside it rides a customer "
+  "who will pay for the rest of their life to see their body change. There is "
+  "no acquisition in this story. It is a prediction about where that customer "
+  "takes the rest of tech.",
  ]),
 
- ("What the startups reveal", [
-  "Recent Y Combinator profiles point to four things customers want.",
+ ("The numbers already point one way", [
+  "Healthcare is a small slice of Y Combinator, 67 of the 813 companies it "
+  f"funded in 2026 by my count of its <a href=\"{YC_HEALTH}\">directory</a>. "
+  "It is also the slice that is growing fastest. In 2025 YC funded 43 "
+  "healthcare companies. This year it funded 67, a rise of 56%, while the "
+  "whole program grew 34%. The consumer companies in that group cover the "
+  f"entire body: a <a href=\"{HELIOS}\">1,000-biomarker blood test</a>, a "
+  f"<a href=\"{LUMERIA}\">skin scanner</a> that calls itself the Oura Ring for "
+  f"skin, and <a href=\"{RONAN}\">RonanRx</a>, which sells personalized "
+  "peptides and GLP-1s and says it has grown 50% a week since launch.",
 
-  f"They want specific answers. <a href=\"{HELIOS}\">Helios Intelligence</a>, "
-  "a Boston company from the fall 2026 batch, says its home kit reads more "
-  "than 1,000 biomarkers from a drop of blood.",
+  "The money is following. Digital health startups raised "
+  f"<a href=\"{ROCK}\">$11.1 billion</a> through the third quarter, according "
+  "to Rock Health, which expects more than $14.8 billion for the year, and the "
+  "average round has grown from $20.6 million in 2024 to $31.0 million. "
+  f"Function Health, which sells a yearly blood-testing membership, raised "
+  f"<a href=\"{FUNCTION}\">$298 million at a $2.5 billion valuation</a>.",
 
-  f"They want visible progress. <a href=\"{GUT}\">Gutgutgoose</a>, in San "
-  "Francisco, sequences a customer&rsquo;s stool, formulates probiotics, then "
-  "sequences again 90 days later to see what took hold. The retest is part of "
-  "the product.",
-
-  f"They want easy access. <a href=\"{RONAN}\">RonanRx</a>, also based in San "
-  "Francisco, makes personalized peptides and GLP-1 drugs and sells them after "
-  "a telehealth visit. Its base is one city, but where it can treat patients "
-  "depends on state licenses, which it says it won in 33 states in ten weeks.",
-
-  f"They want to be told what to do next. <a href=\"{ILLUME}\">Illume Labs</a> "
-  "joins wearable, blood and genetic data and texts users their next step.",
-
-  "None of these profiles proves that customers stay. They show where founders "
-  "are placing bets.",
+  "And the customers are already here. One in eight American adults says they "
+  f"are <a href=\"{KFF}\">currently taking a GLP-1 drug</a>, up from 18 months "
+  "earlier. Rock Health finds 46% own a wearable and 57% track their health "
+  "digitally.",
  ]),
 
- ("How big the bet is", [
-  "Healthcare is a small part of Y Combinator. By my count of its "
-  f"<a href=\"{YC_HEALTH}\">directory</a>, 67 of the 813 companies YC funded "
-  "in 2026 are healthcare companies, about 8%. YC labels 8 of those 67 as "
-  f"<a href=\"{YC_CHW}\">consumer health and wellness</a>, about 12%. That is "
-  "no surge. By the same label the share was 21 of 92 in 2021.",
+ ("Why it keeps exploding", [
+  "Health is an aesthetic purchase now. People care far more about how they look "
+  "and feel than they did a decade ago, and a product that works but does not "
+  "look the part loses to one that does.",
 
-  "RonanRx and Gutgutgoose carry other tags, so the label undercounts the "
-  "theme. What stands out this year is breadth: blood testing, gut "
-  "sequencing, prescription drugs and the software that reads "
-  "them all. Most are in San Francisco, like 46 of this year&rsquo;s 67 YC "
-  "healthcare companies, so headquarters says more about YC than about the "
-  "market. Licenses and lab networks decide where each one can sell.",
+  "That changes the economics. Feeling better is invisible, so people stop "
+  "paying once they feel fine. Looking better is visible, measurable and "
+  "public, so people keep paying to keep it. Peptides and GLP-1s are the "
+  "clearest case: the result shows in the mirror and in every photo, and that "
+  f"makes the next refill an easy sale. <a href=\"{LAYERS}\">Layers</a>, a YC "
+  "company, says it outright on its profile, that improving how you look and "
+  "feel leads to better outcomes in career and relationships, and that belief "
+  "is the demand I expect to drive the next decade of health spending.",
  ]),
 
- ("Recurring revenue is not cash", [
-  "Each step invites a repeat. A blood panel invites a retest. A wearable "
-  "carries a membership. A prescription refills. Treatment can also run long. "
-  f"In Lilly&rsquo;s SURMOUNT-4 trial, <a href=\"{SURMOUNT}\">82% of the "
-  "participants</a> switched from tirzepatide to placebo regained more than a "
-  "quarter of their lost weight within a year, and the rest did not. Peptides "
-  "are a looser group, with far less evidence behind most of them.",
+ ("How it trickles into the platforms", [
+  "The boom will not stay inside health companies. It will leak into every "
+  "app that already has the customer, and the first leaks are visible.",
 
-  "Hims &amp; Hers shows the economics in public. In the second quarter it "
-  f"reported <a href=\"{HIMS}\">nearly 2.9 million subscribers</a> paying an "
-  "average of $92 a month, and revenue of $753.2 million. It also spent $262.2 "
-  "million on marketing, about 35% of revenue by my arithmetic, saw gross "
-  "margin fall to 64% from 76%, and reported free cash flow of negative $68.2 "
-  "million.",
+  f"Amazon is already a weight-loss pharmacy. It now <a href=\"{AMAZON}\">"
+  "delivers GLP-1 drugs</a> to eligible Medicare patients for $50 a month, runs "
+  "a One Medical weight-management program in 48 states, and offers same-day "
+  "pharmacy delivery in more than 3,100 American cities and towns. My "
+  "prediction: the next step is the cart around the prescription, with protein, "
+  "scales and supplements recommended beside the refill.",
 
-  "Recurring revenue is a promise of future payments. Cash flow is what "
-  "remains after the drug, the pharmacy, the clinician, the lab, shipping, "
-  "advertising and every customer who cancels. The customer comes back because the next measurement says whether the last "
-  "purchase worked.",
+  "Clothing is next. My prediction is that eBay and Etsy become quiet winners "
+  "of the GLP-1 era. A body that changes size needs a new wardrobe, and the old "
+  "one has to go somewhere. Resale gets both sides of that trade, the closet "
+  "people sell and the smaller sizes they buy, and sellers who list by fit and "
+  "body change will get found first.",
+
+  "Food delivery follows. Chains are already adding "
+  f"<a href=\"{MENUS}\">high-protein menus</a> for GLP-1 customers. My "
+  "prediction is a Healthy section on Uber Eats, with protein filters, smaller "
+  "portions and sponsored placement for the restaurants that cook for it. The "
+  "spending already exists. The app that organizes it collects the fee and the "
+  "advertising.",
  ]),
 
- ("Where the spending reaches tech", [
-  "Every new health habit is a product change waiting for a platform that "
-  "already has the customer.",
+ ("Tech has to look like health", [
+  "If health is an aesthetic, then technology has to look healthy. Look at the brands winning "
+  "this market: clean futuristic marks, thin precise type, matte surfaces, "
+  "dashboards that read like a lab report. Oura, Function and the new YC "
+  "companies all look like they came out of the same clinic of the future.",
 
-  "Wearables are becoming lab storefronts. Oura now sells "
-  f"<a href=\"{OURA_LABS}\">$99 blood panels</a> to members in most American "
-  "states, drawn at Quest and reported inside the app. A ring that measured "
-  "sleep now sells the next measurement. That is new spending on top of the "
-  "membership, and one more reason not to cancel it.",
-
-  "Grocery apps can turn plans into baskets. Instacart already runs "
-  f"<a href=\"{INSTACART}\">AI-powered health tags</a> across its catalog and "
-  "Care Carts that let providers send groceries to patients. My proposal: a "
-  "nutrition plan from a blood test becomes a weekly basket that reorders "
-  "itself. That captures grocery spending from rival stores and makes orders "
-  "more frequent.",
-
-  "Delivery apps can sell the high-protein lunch. Chains are already adding "
-  f"<a href=\"{MENUS}\">high-protein menus</a> for the GLP-1 era. I found no "
-  "protein filter on Uber Eats, so these are proposals: filters by protein, "
-  "discovery by nutrition goal, a standing weekly order and sponsored placement "
-  "for high-protein dishes. Most of that captures spending from home cooking "
-  "and rivals. Sponsored placement adds advertising revenue on top, sold to "
-  "restaurants the app already serves.",
-
-  f"Ad platforms collect from all of it. Hims <a href=\"{HIMS_10K}\">says</a> it "
-  "buys space on digital, social, television, radio and outdoor media, and its "
-  "marketing bill was a third of revenue. For whoever sells that space, it is "
-  "additional spending, paid by the whole category.",
+  "My prediction is that this look spreads to companies that have nothing to "
+  "do with health. Logos, fonts and app screens will keep moving toward that "
+  "calm, clinical style, because customers now read it as trust. The companies "
+  "that win the next decade of consumer tech will be the ones that hold a daily "
+  "measurement of the body and look good enough to be opened every morning.",
  ]),
 
- ("Who keeps the customer", [
-  "Whoever holds the latest measurement holds the relationship, because the "
-  "latest number decides what gets recommended next and where it is bought. A "
-  "ring that sells blood tests, or a grocery app that receives the plan, sits "
-  "closer to that decision than a supplement on a shelf. Even "
-  f"<a href=\"thorne-loyalty.html\">Thorne</a>, which P&amp;G agreed to buy for "
-  "$3.8 billion, could become the product someone else&rsquo;s app recommends.",
- ]),
-
- ("What could break it", [
-  "Customers quit when the numbers stop moving, and Hims&rsquo; marketing bill "
-  "shows what replacing them costs. A thousand biomarkers will flag some that "
-  "mean nothing, and each false alarm costs a follow-up. Hims reshaped its weight-loss offer this year "
-  "and now offers compounded GLP-1 drugs only on a limited scale. And if "
-  "testing does not lead to results people can see, the retest is the first "
-  "purchase they cancel.",
+ ("What would prove me wrong", [
+  "Two things. If GLP-1 prices or rules cut access sharply, the most visible "
+  "results disappear and the spending slows. And if results stop showing, the "
+  "aesthetic case loses its proof.",
  ]),
 ]
 
 NOTE = ("YC counts are my arithmetic from the directory&rsquo;s industry pages "
-        "on 3 November 2026, and consumer health means YC&rsquo;s own label. "
-        "Startup descriptions and RonanRx&rsquo;s license count are "
-        "company-reported. Features marked as proposals are mine. Nothing here is medical advice.")
+        "on 3 November 2026, grouped by batch year. RonanRx&rsquo;s growth is "
+        "company-reported. Rock Health figures are as reported by HIT Consultant. "
+        "Statements marked as predictions are mine. Nothing here is medical "
+        "advice.")
