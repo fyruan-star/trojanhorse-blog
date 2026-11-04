@@ -41,6 +41,7 @@ The owner wants every change pushed and confirmed live without waiting for appro
 - Every story carries the subject company's logo (`LOGO`, file in `assets/images/logos/`).
 - Homepage order is `STORIES` in `content/home.py`, not date order.
 - Full procedure: `docs/HANDOFF.md` section 7B.
+- To draft a new story, start from `docs/STORY_PROMPT.md` (argument mode or diary mode). It encodes the method and the failures already rejected.
 
 ## Gotchas that have already cost time
 
