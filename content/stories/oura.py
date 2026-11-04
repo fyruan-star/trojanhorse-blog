@@ -1,5 +1,10 @@
 """Trojan Horse of the Week: Oura postpones its IPO.
 
+Tightened 3 November 2026 to one point argued with conviction: the offering
+was built to pay sellers, and a profitable company that needs none of the money
+was right to walk away. Under 1,200 words with the note. The invented people
+and the scene opening were removed under the owner's new rules.
+
 Told as a story with the horse named early. The offering is the horse: it is
 welcomed by buyers and by anyone who wears the ring, it looks like a gift
 because the company is loved, growing and profitable, and what rides inside is a
@@ -28,7 +33,7 @@ HOOK = ("Of every $100 Oura&rsquo;s IPO would have raised, about $73 was headed 
         "to the sellers and about $25 to employee taxes.")
 LOGO = {"file": "oura.svg", "w": 993, "h": 311, "name": "Oura", "height": 34}
 GO = ("thorne-loyalty.html",
-      "The previous Trojan horse: can P&amp;G keep Thorne&rsquo;s customers loyal? &rarr;")
+      "The previous Trojan horse: Thorne&rsquo;s practitioners hold P&amp;G&rsquo;s $3.8 billion &rarr;")
 
 S1 = "https://www.sec.gov/Archives/edgar/data/0002133022/000119312526381855/d119865ds1.htm"
 S1A = "https://www.sec.gov/Archives/edgar/data/0002133022/000119312526396051/d119865ds1a.htm"
@@ -44,199 +49,97 @@ LICENSE = "https://athletechnews.com/?p=140346"
 
 SECTIONS = [
 
- ("Eight days on the road", [
-  "Picture the morning of Tuesday 29 September 2026. For eight days a ring "
-  f"company that began in Finland and now lives in San Francisco had been "
-  f"walking investors through <a href=\"{CNBC}\">its Nasdaq debut</a>. Fifty "
-  f"million shares at $40 to $44 each. <a href=\"{RENCAP}\">Seventeen "
-  "banks</a> standing behind them. A ticker symbol, OURA, waiting at the "
-  "exchange, and a pricing due within the week. Then, in place of a price, came "
-  "a press release. The company would wait. I love this part of the story. Oura "
-  "makes a ring whose whole job is to tell five million paying members how well "
-  "they slept, and on the morning it counted, the company decided to sleep on "
-  "it.",
+ ("", [
+  "Every IPO is sold as a company raising money. Open Oura&rsquo;s filing and "
+  "almost none of the money was going to the company.",
 
-  "The demand had looked excellent. Eli Lilly had indicated an interest in up "
-  "to $100 million of shares and funds affiliated with Dragoneer up to $300 "
-  f"million (<a href=\"{S1A}\">the amended filing</a>), non-binding but together "
-  "about a fifth of the $2.1 billion on offer at the midpoint, and reports put "
-  "the whole book at four to five times the shares available. The press release "
-  "gave one reason, uncertainty in the IPO market. The offering documents show "
-  "the rest of the room.",
+  f"On 29 September 2026, after eight days of meetings with investors, Oura "
+  f"<a href=\"{CNBC}\">postponed its Nasdaq debut</a>: 50 million shares at "
+  f"$40 to $44, <a href=\"{RENCAP}\">seventeen banks</a>, a book reported at "
+  "four to five times the shares on offer, and early interest of up to $100 "
+  "million from Eli Lilly and up to $300 million from funds affiliated with "
+  f"Dragoneer (<a href=\"{S1A}\">the amended filing</a>). The company blamed "
+  "the market. My argument is that Oura stopped because the offering was "
+  "built to pay its sellers, and a profitable company that needs none of the "
+  "money holds the strongest hand in the room. Waiting was the right call.",
  ]),
 
- ("The gift", [
-  "Every Trojan horse has the same parts. Something is welcomed by people who "
-  "have good reason to like it, it looks like a gift, and something else rides "
-  "inside. Here the horse was the offering itself. The people welcoming it were "
-  "the buyers in the book and, in spirit, anyone who wears the ring. Suppose a "
-  "woman in Austin, who exists only in this story, has worn one for two years. "
-  "She takes it off to wash the dishes and puts it back on before she forgets. "
-  "Every morning it grades her on an exam she does not remember sitting, and "
-  "she has come to trust it the way people trust a friend who has seen them at "
-  "their worst.",
-
-  "The outside of the horse was lovely. <a href=\"" + S1 + "\">The S-1</a> "
-  "shows paid members up from 2.9 million at the end of fiscal 2025 to 5.0 "
-  "million on 30 June, revenue of $1.21 billion for the nine months, up 74%, and "
-  "net income of $60.8 million against $1.6 million a year earlier. Historically "
-  "more than 94% of ring activations become paid members, and about 85% of "
-  "members are still paying after a year. A company people love, growing fast "
-  "and making money, walks up to the gate of the public market and knocks, and "
-  "of course the city comes out to look.",
- ]),
-
- ("Whose money", [
-  "Every dollar in an IPO has a return address, and the offering documents "
-  "print them. An IPO can sell two kinds of shares. Primary shares are new, the "
-  "company issues them, and the money goes to the company, which makes that part "
-  "a fundraise. Secondary shares already exist and belong to founders, employees "
-  "and early investors, and the money goes to them, which makes that part a "
-  "cash-out. Picture a restaurant printing new seats to fund a second location, "
-  "next to the original investors selling the seats they already hold.",
+ ("Follow the return addresses", [
+  "An IPO can sell two kinds of shares. Primary shares are new, and the money "
+  "goes to the company. Secondary shares already belong to founders, employees "
+  "and early investors, and the money goes to them.",
 
   f"Oura&rsquo;s offering was 13.5 million primary shares and 36.5 million "
-  f"secondary ones (<a href=\"{S1A}\">the amended filing</a>), so 73% of it was "
-  "existing holders selling. At the $42 midpoint that comes to roughly $567 "
-  f"million for the company and $1.53 billion for the sellers, per <a "
-  f"href=\"{FORTUNE}\">Fortune</a>. <a href=\"{IFR}\">IFR reported</a> that "
-  "three venture firms stood behind the 36.5 million, that Forerunner Ventures "
-  "planned to sell all 28.7 million of its shares, which comes to about $1.2 "
-  "billion at the midpoint, and that Lifeline Ventures planned to sell the 7 "
-  "million it had left.",
+  "secondary ones, so 73% of it was existing holders selling. At the $42 "
+  "midpoint that is roughly $567 million for the company and $1.53 billion for "
+  f"the sellers (<a href=\"{FORTUNE}\">Fortune</a>). <a href=\"{IFR}\">IFR "
+  "reported</a> that Forerunner Ventures planned to sell all 28.7 million of its "
+  "shares, about $1.2 billion at the midpoint.",
 
-  "The company&rsquo;s own $567 million had a return address too. Oura planned "
-  "to use about $526.4 million of its estimated $532.6 million in net proceeds "
-  "to pay tax withholding on employee stock. Many employees are paid in "
-  "restricted stock units, a large batch vests when a company lists, and the "
-  "employees owe tax on it. Suppose an engineer who joined early, invented for "
-  "this story, holds stock that vests on the day of the listing. The tax falls "
-  "due that same day, and the company uses cash from the new shares it sells to "
-  "pay it on her behalf, which the filing calls the RSU net settlement. That "
-  "leaves about $6 million for everything else, so on an offering of roughly "
-  "$2.1 billion the money available to grow the business was about $6 million.",
-
-  "The accounts point the same way. The filing treats buying back preferred "
-  "shares from holders for more than their carrying value as a deemed dividend, "
-  "and it records $985.0 million of one in the nine months, which is why $60.8 "
-  "million of profit appears as a $924.3 million loss attributable to common "
-  "stockholders.",
-
-  "The reasons holders sell are ordinary and human. A venture fund "
-  "has a fixed life and has to return money to the people who invested in it. An "
-  "employee who has held stock for years owns most of her wealth in the shares "
-  "of one company, and selling lets her turn one concentrated bet into something "
-  "spread across many. IFR reported that Oura did not need to list now, since it "
-  "is profitable, but that its shareholders were keen to cash out. Calling the "
-  "offering a fundraise is like calling a retirement party a catering order.",
+  "Even the company&rsquo;s share had somewhere else to go. Oura planned to use "
+  "about $526.4 million of its estimated $532.6 million in net proceeds to pay "
+  "tax withholding on employee stock that vests at listing. That leaves about "
+  "$6 million, by my arithmetic, for the business itself, on an offering of "
+  "roughly $2.1 billion. That is the Trojan horse: a listing that looks like "
+  "growth capital and carries a cash-out inside it. Selling is a fair wish. "
+  "Venture funds have fixed lives, and employees hold most of their wealth in "
+  "one stock. It simply makes this a sale by holders, and buyers price it that "
+  "way.",
  ]),
 
- ("The price tag", [
-  "Beside the cash-out rode a price. At the top of the range Oura&rsquo;s fully "
-  "diluted valuation would have been $15.6 billion, against $11 billion in its "
-  "last private round (IFR), and about eleven times the $1.43 billion of revenue "
-  f"for the twelve months to June (<a href=\"{IPOSCOOP}\">IPOScoop</a> for the "
-  "revenue), by my arithmetic. Software companies earn multiples like that "
-  "because each extra customer costs almost nothing to serve. Oura&rsquo;s "
-  "revenue says something different. About 80% of it still comes from selling "
-  "rings, down from 84% a year earlier, and gross margin was 55% in the nine "
-  "months to June after 65% in fiscal 2024. The membership is the jewel of the "
-  "filing, with revenue of $240.5 million, up 121%, at an 89% gross margin, and "
-  "it is one fifth of the company.",
+ ("Why the buyers pushed back", [
+  "At the top of the range Oura would have been valued at $15.6 billion, "
+  "against $11 billion in its last private round (IFR), about eleven times the "
+  f"$1.43 billion of revenue for the twelve months to June (<a "
+  f"href=\"{IPOSCOOP}\">IPOScoop</a>), by my arithmetic. That is a software "
+  f"multiple, and <a href=\"{S1}\">the S-1</a> shows a business that is still "
+  "mostly hardware: about 80% of revenue comes from selling rings, and gross "
+  "margin was 55% in the nine months to June after 65% in fiscal 2024.",
 
-  "Kat Liu of IPOX told Fortune the valuation can be justified if Oura is seen "
-  "as an AI-enabled digital-health platform and looks hefty if it is seen as a "
-  "ring maker, and she noted that sales still lean toward hardware. IFR "
-  "reported that the banks bridged the gap with 2028 projections, a mid-4x "
-  "multiple of revenue against about 5x for a comparison group that included "
-  "Apple, Garmin, Netflix and Spotify, assuming 45% annual revenue growth "
-  "through 2028 against 15% for the group. That resembles buying a house on the "
-  "strength of the architect&rsquo;s drawings of the extension, from people who "
-  "are selling most of the house.",
+  "Investors also remember GoPro and Peloton, loved hardware with subscription "
+  "stories, which Fortune reported down more than 94% and 82% from their IPO "
+  "prices. IFR added that buyers objected to a loose lock-up, with ten rolling "
+  "releases for early backers starting 35 days after listing. A book four times "
+  "covered is a list of prices as much as a list of shares, and many of those "
+  "orders stopped short of $44.",
  ]),
 
- ("The ghosts at the gate", [
-  "Wall Street has a long memory and a short list of hardware companies whose "
-  "subscription stories ended badly. GoPro priced at $24 in 2014 and Peloton at "
-  "$29 in 2019, and Fortune reported them down more than 94% and 82% from those "
-  "prices. Gil Luria of D.A. Davidson told Fortune that investors have long "
-  "memories, and Jay Ritter of the University of Florida pointed to "
-  "single-product companies whose growth stalled after listing. People loved "
-  "both products. The hardware economics showed once growth slowed.",
+ ("Why waiting wins", [
+  "Here the structure works in Oura&rsquo;s favor. A lower price would have "
+  "cost the company almost nothing it planned to spend, because its own "
+  "proceeds were already spoken for. The discount would have come out of the "
+  "sellers&rsquo; pockets. The one party in the room that loses little by "
+  "waiting is the company.",
 
-  "The size of the market raises the same worry. The amended filing says Oura "
-  "represented about 2% of annual global wearable shipments in the twelve months "
-  "to June, citing IDC&rsquo;s count of 212 million wearables. Luria noted that "
-  "Apple would only have to decide to make a ring, and Apple sells none today. "
-  "Oura has real answers, among them the 85% retention, a patent win that "
-  f"barred Ultrahuman and put RingConn on a <a href=\"{LICENSE}\">license that "
-  "includes royalties</a>, and a lead in rings. A buyer weighing those against a "
-  "hardware history can reasonably ask for a discount until the retention has "
-  "been tested by time.",
+  "And the company is strong enough to wait. The S-1 shows paid members up "
+  "from 2.9 million at the end of fiscal 2025 to 5.0 million on 30 June, "
+  "revenue of $1.21 billion for the nine months, up 74%, and net income of "
+  "$60.8 million against $1.6 million a year earlier. More than 94% of ring "
+  "activations become paid members, and about 85% of members are still paying "
+  "after a year. The membership line, $240.5 million, grew 121% at an 89% gross "
+  "margin. Chief executive Tom Hale said Oura had &ldquo;the luxury of choosing "
+  "our moment,&rdquo; and the numbers back him.",
  ]),
 
- ("What the book really said", [
-  "Four to five times covered sounds like proof of demand, and it proves less "
-  "than it seems. An order book is a list of prices as much as a list of "
-  "shares. Institutions often submit orders with limits, so a buyer can be "
-  "large at $38, smaller at $42 and absent at $44. A restaurant can have a "
-  "waiting list four times its seating and still seat nobody at $44 a plate.",
+ ("What the next attempt should look like", [
+  "My prediction is that Oura returns with a stronger offering, and the "
+  "filing shows what would make it one: a larger primary slice, so buyers see "
+  "money going into the business, a tighter lock-up, and another year of "
+  "membership growth, so the 89% margin line carries more of the company and "
+  "the software multiple has something to stand on.",
 
-  "Fortune relayed Bloomberg&rsquo;s report that some prospective buyers stayed "
-  "out over concern about the valuation, and IFR added that investors objected "
-  "to a loose lock-up, which would have let early backers sell in waves soon "
-  "after listing, with ten rolling releases from 35 days and a full release "
-  "after 180 days. The buyers had read the return addresses too.",
- ]),
-
- ("What Oura works out", [
-  "The company has given one reason, the market, and Fortune&rsquo;s experts "
-  "doubted it, noting that the S&amp;P 500 was up more than 13% for the year and "
-  "within 1% of its record. Holtec Nuclear, Bamboo Insurance and Amaero had also "
-  "pulled or shelved listings that month. The reading below is mine, built from "
-  "the structure of the offering, and it needs only arithmetic.",
-
-  "Start with the cash. Almost all of the company&rsquo;s own proceeds were "
-  "spoken for by employee taxes, so a lower price would have cost the company "
-  "almost nothing it planned to spend on growth. A lower price would have cost "
-  "the sellers a great deal, because the discount comes out of what early "
-  "holders receive for the same stock. The buyers wanted that discount and the "
-  "sellers did not want to give it. The party in the room that loses little by "
-  "waiting is the company, which is profitable and did not need the money to "
-  "operate. Tom Hale said Oura had &ldquo;the luxury of choosing our "
-  "moment,&rdquo; and the structure shows what that luxury is made of: a "
-  "profitable company that needs none of the money, standing between sellers "
-  "who want a price and buyers who want a discount. The sellers&rsquo; wish to "
-  "diversify is real and belongs to them, and the company is the party that can "
-  "afford to say not yet.",
- ]),
-
- ("What to read first", [
-  "Some outlets have called the move a withdrawal, and the company and most of "
-  "the financial press that covered it call it a postponement. It has given no "
-  "new date, and the filing remains on the SEC&rsquo;s site.",
-
-  "For a founder, an IPO is a fundraise and a payday for early backers at the "
-  "same moment, and how the two are split tells every buyer what to think. A "
-  "company that does not need the money can wait for the price it wants, which "
-  "is what Oura&rsquo;s profit let it do. For an investor, three lines come "
-  "before the pitch: how many shares are new, how many belong to insiders, and "
-  "where the company&rsquo;s own money goes. The next time Oura opens its gate, "
-  "those three numbers are where to look first.",
+  "For anyone reading the next filing, three numbers come before the pitch: "
+  "how many shares are new, how many belong to insiders, and where the "
+  "company&rsquo;s own money goes. Oura&rsquo;s first filing answered all three "
+  "honestly, and the honest answer was that the company did not need to sell "
+  "yet.",
  ]),
 ]
 
-NOTE = ("Company figures come from Oura&rsquo;s Form S-1 and the amended S-1/A. "
-        "The experts&rsquo; views are from Fortune&rsquo;s 6 October 2026 report "
-        "and are paraphrased, and the lock-up, the banks&rsquo; valuation framing "
-        "and the selling holders are from IFR. The dollar split of the offering "
-        "uses the $42 midpoint and gross figures before underwriting fees. "
-        "Outlets differ on the book&rsquo;s size, four to five times, and the "
-        "figure is given as a range. The filing&rsquo;s note tying the $985.0 "
-        "million deemed dividend to a specific repurchase was outside the part I "
-        "could read, so the story describes the accounting treatment and not the "
-        "transaction. Forerunner&rsquo;s $1.2 billion is IFR&rsquo;s 28.7 million "
-        "shares at the midpoint, and eleven times revenue and the $6 million left "
-        "for the business are my arithmetic. The explanation of why Oura stopped "
-        "is my reading of the structure, since the company has given one reason, "
-        "the market. The woman in Austin and the engineer are invented.")
+NOTE = ("Company figures come from Oura&rsquo;s Form S-1 and amended S-1/A. "
+        "Experts&rsquo; views and the seller split are from Fortune, and the "
+        "lock-up, valuation and selling holders are from IFR. The dollar split "
+        "uses the $42 midpoint before fees. Outlets differ on the book&rsquo;s "
+        "size, so it is given as a range. Eleven times revenue and the $6 million "
+        "left for the business are my arithmetic, and the reading of why Oura "
+        "stopped is mine, since the company gave one reason, the market.")

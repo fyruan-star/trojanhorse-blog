@@ -31,6 +31,7 @@ The owner wants every change pushed and confirmed live without waiting for appro
 
 ## Trojan Horse stories (`content/stories/`)
 
+- **One point, argued with conviction.** Each story picks a single claim, states it early as the author's own ("My argument is..."), and spends every section expanding it. Be bullish: commit to the claim and to labelled predictions ("My prediction is...") instead of hedging, and keep caveats to one short closing section. Conviction never licenses invented data: every figure still needs a source that was read.
 - **Length: under 1,200 words including the `NOTE`, aiming for 800 to 1,000.** Every paragraph must advance the argument. Cut company descriptions that do not support the thesis, repeated caveats and unsupported numbers. Count with the snippet in `docs/HANDOFF.md` section 11.
 - **Opening:** start with a familiar, concrete observation that raises the business question at once. Never open with "Picture the morning", an invented character, or a date and time. Example: "Walk into a grocery store and count the things promising protein... The interesting question is what the customer buys next."
 - Name the horse early and briefly (what is welcomed, what rides inside), then spend the words on the argument. Do not build or explain an extended metaphor.
