@@ -19,13 +19,13 @@ No em dashes, no semicolons, no rhetorical questions, no sub-description.
 WEEK = "3 November 2026"
 SLUG = "personalized-health"
 KICKER = "Trojan Horse of the Week"
-TITLE = "Health Is the New Aesthetic"
+TITLE = "Peptides Inject Their Way Into Tech"
 HOOK = ("Y Combinator funded 56% more healthcare startups in 2026 than in 2025, "
         "and the demand behind them looks more like fashion than medicine.")
 LOGO = {"file": "ycombinator.svg", "w": 256, "h": 256, "name": "Y Combinator",
         "height": 36}
 GO = ("uber-rival-dinner.html",
-      "The previous Trojan horse: Uber gets into the expense report &rarr;")
+      "The previous Trojan horse: Uber Eats, Uber Hotels, Uber Catering, Uber Everything? &rarr;")
 
 YC = "https://www.ycombinator.com/companies/"
 YC_HEALTH = "https://www.ycombinator.com/companies/industry/healthcare"

@@ -23,13 +23,13 @@ No em dashes, no semicolons, no rhetorical questions, no sub-description.
 WEEK = "3 November 2026"
 SLUG = "attention-revolt"
 KICKER = "Trojan Horse of the Week"
-TITLE = "The Revolt Against the Fast Hit"
+TITLE = "Tech Induced Dopamine Revolution"
 HOOK = ("The average YouTube Short in one study of 800,000 videos held its viewer "
         "for 16 seconds, and the companies racing to shorten everything else are "
         "building the market for slowness.")
 LOGO = {"file": "youtube.svg", "w": 90, "h": 20, "name": "YouTube", "height": 26}
 GO = ("personalized-health.html",
-      "The previous Trojan horse: health is the new aesthetic &rarr;")
+      "The previous Trojan horse: Peptides Inject Their Way Into Tech &rarr;")
 
 TUBULAR = ("https://www.tvrev.com/news/tube-trends-over-75-of-youtube-views-came-"
            "from-shorts-in-2025-tubular")

@@ -24,10 +24,12 @@ No em dashes, no semicolons.
 WEEK = "Week of 26 October 2026"
 SLUG = "thorne-loyalty"
 KICKER = "Trojan Horse of the Week"
-TITLE = "Thorne&rsquo;s Practitioners Hold P&amp;G&rsquo;s $3.8 Billion"
+TITLE = "Every Deal Has Its Thorne"
 HOOK = ("P&amp;G agreed to pay $3.8 billion for a supplement brand, and the "
         "customers who justify that price never signed anything.")
-LOGO = {"file": "thorne.svg", "w": 146, "h": 22, "name": "Thorne", "height": 20}
+PG = {"file": "pg.svg", "w": 720, "h": 720, "name": "P&amp;G", "height": 36}
+THORNE = {"file": "thorne.svg", "w": 146, "h": 22, "name": "Thorne", "height": 20}
+LOGO = [PG, THORNE]
 GO = ("trojan-horses.html", "The prices and dates behind this deal &rarr;")
 
 MD = ("https://www.marketingdive.com/news/how-thornes-brand-platform-led-to-a-38b-"

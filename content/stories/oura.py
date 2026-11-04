@@ -28,12 +28,12 @@ the title.
 WEEK = "31 October 2026"
 SLUG = "oura-ipo"
 KICKER = "Trojan Horse of the Week"
-TITLE = "Oura Sleeps On Its IPO"
+TITLE = "Oura Ring Sleeps On Its IPO"
 HOOK = ("Of every $100 Oura&rsquo;s IPO would have raised, about $73 was headed "
         "to the sellers and about $25 to employee taxes.")
 LOGO = {"file": "oura.svg", "w": 993, "h": 311, "name": "Oura", "height": 34}
 GO = ("thorne-loyalty.html",
-      "The previous Trojan horse: Thorne&rsquo;s practitioners hold P&amp;G&rsquo;s $3.8 billion &rarr;")
+      "The previous Trojan horse: Every Deal Has Its Thorne &rarr;")
 
 S1 = "https://www.sec.gov/Archives/edgar/data/0002133022/000119312526381855/d119865ds1.htm"
 S1A = "https://www.sec.gov/Archives/edgar/data/0002133022/000119312526396051/d119865ds1a.htm"

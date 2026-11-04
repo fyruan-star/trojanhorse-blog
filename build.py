@@ -252,10 +252,16 @@ def _logo(m, cls="th__logo", scale=1.0):
     it takes the ink of whatever it sits on: silver on the navy homepage, navy
     on the cream story header. Each file is a plain vector from the company's
     own site, or from Wikimedia Commons for Uber, used to identify its subject."""
-    L = m.LOGO
-    return (f'<span class="{cls}" role="img" aria-label="{L["name"]}" '
-            f'style="--logo:url(images/logos/{L["file"]});'
-            f'--ar:{L["w"]}/{L["h"]};--lh:{round(L["height"] * scale)}px"></span>')
+    logos = m.LOGO if isinstance(m.LOGO, list) else [m.LOGO]
+    spans = "".join(
+        f'<span class="{cls}" role="img" aria-label="{L["name"]}" '
+        f'style="--logo:url(images/logos/{L["file"]});'
+        f'--ar:{L["w"]}/{L["h"]};--lh:{round(L["height"] * scale)}px"></span>'
+        for L in logos)
+    if len(logos) == 1:
+        return spans
+    # two marks side by side, for a story about a company and the brand it bought
+    return f'<span class="logo-row">{spans}</span>'
 
 
 def build_index():

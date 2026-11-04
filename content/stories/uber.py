@@ -22,12 +22,12 @@ the title.
 WEEK = "3 November 2026"
 SLUG = "uber-rival-dinner"
 KICKER = "Trojan Horse of the Week"
-TITLE = "Uber Gets Into the Expense Report"
+TITLE = "Uber Eats, Uber Hotels, Uber Catering, Uber Everything?"
 HOOK = ("Uber is paying $2.3 billion for ezCater, whose orders average more than "
         "$400, to put the office lunch on the account that already pays for the ride.")
 LOGO = {"file": "uber.svg", "w": 926.906, "h": 321.777, "name": "Uber", "height": 34}
 GO = ("oura-ipo.html",
-      "The previous Trojan horse: Oura sleeps on its IPO &rarr;")
+      "The previous Trojan horse: Oura Ring Sleeps On Its IPO &rarr;")
 
 EZ = ("https://www.pymnts.com/news/acquiring/2026/uber-eats-enters-catering-space-"
       "with-2-billion-dollar-ezcater-deal/")

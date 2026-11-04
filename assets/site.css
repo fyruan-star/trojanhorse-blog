@@ -1153,6 +1153,15 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
   .th__t,.th__p,.th__go{ grid-column:1; }
 }
 
+/* two marks side by side (a company and the brand it bought). On the homepage
+   the row sits in the top line; on the story header it keeps the logo margin. */
+.logo-row{
+  display:flex; align-items:center; gap:14px; flex:none; flex-wrap:wrap;
+  margin:0 0 clamp(22px,3vw,34px);
+}
+.logo-row > span{ margin:0; }
+.th__top .logo-row{ margin:0; }
+
 /* the company mark above a story's header, in the plate's own ink */
 .plate__logo{
   display:block; height:var(--lh,30px); aspect-ratio:var(--ar);
