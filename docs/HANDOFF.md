@@ -118,6 +118,7 @@ Find the page in section 6 and edit the file, in the browser or locally. In cont
    - `SLUG`: the page name without `.html`. It must be unique.
    - `KICKER`: `"Trojan Horse of the Week"`.
    - `TITLE`, written with HTML entities (`&amp;`, `&rsquo;`).
+   - `AUTHOR` (optional): the writer's name, shown under the title on the story page. Leave it out for no byline.
    - `HOOK`: one sentence with a concrete number or tension.
    - `LOGO`: see step 3.
    - `GO`: `(href, label)`, the closing link on the story page. Each story currently links to the previous one.

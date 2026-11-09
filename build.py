@@ -309,6 +309,13 @@ def build_index():
     print("index.html")
 
 
+def _byline(m):
+    """The author's name under a story's title, for a story that sets AUTHOR.
+    Stories without one show nothing, as before."""
+    name = getattr(m, "AUTHOR", "").strip()
+    return f'<p class="plate__by">{name}</p>' if name else ""
+
+
 def build_weekly(m):
     """One Trojan Horse of the Week page. A section with no heading is a story
     and renders as running paragraphs, the first set larger."""
@@ -337,6 +344,7 @@ def build_weekly(m):
     {_logo(m, "plate__logo", 1.0)}
     <p class="plate__k">{m.KICKER}<span class="plate__wk">{m.WEEK}</span></p>
     <h1 class="plate__t">{m.TITLE}</h1>
+    {_byline(m)}
   </div>
 </header>
 

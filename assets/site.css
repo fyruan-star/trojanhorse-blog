@@ -1192,5 +1192,12 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
   display:block; margin-top:.55em; letter-spacing:.2em; opacity:.75;
 }
 
+/* the author's name under a story's title, set like the kicker but darker */
+.plate__by{
+  font-size:clamp(12px,1.15vw,15px); letter-spacing:.24em;
+  text-transform:uppercase; color:rgba(28,38,117,.78);
+  margin:0;
+}
+
 /* a story page: running paragraphs with room to breathe */
 .story .wp__p + .wp__p{ margin-top:1.15em; }

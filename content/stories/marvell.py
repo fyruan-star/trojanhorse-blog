@@ -1,7 +1,7 @@
 """Trojan Horse of the Week, week of 9 November 2026: Marvell and Lumentum.
 
-By Ryan Chian. Posted from his own text, which is kept as written. The story
-pages carry no byline, so his name is recorded here.
+By Ryan Chian, who asked for his name under the title (AUTHOR). Posted from
+his own text, which is kept as written.
 
 Its place on the homepage is set by STORIES in content/home.py.
 
@@ -20,6 +20,7 @@ WEEK = "Week of 9 November 2026"
 SLUG = "marvell-lumentum"
 KICKER = "Trojan Horse of the Week"
 TITLE = "Trading Copper for Light"
+AUTHOR = "Ryan Chian"
 HOOK = ("Marvell agreed to pay about $115 billion in stock for Lumentum, whose "
         "two biggest customers make up 41.6% of its sales and can already buy "
         "their optics elsewhere.")
