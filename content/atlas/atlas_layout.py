@@ -18,6 +18,8 @@ BAND_STEP = 98.0     # from the last sub-ring of one rank to the first of the ne
 PAD = 70.0           # from the outermost company to the territory's edge
 WEDGE_GAP = 0.12     # radians left empty between sub-row wedges
 TERR_GAP = 170.0     # least space between two territories
+COLUMN_STEP = 2000.0 # from one sector's centre to the next in a row: room for a label even in a short window
+NARROW_WIDEN = 1.86  # on a narrow screen, column spacing as a multiple of row spacing, the shape of a phone's label cell
 RELAX_ROUNDS = 160
 WOBBLE = ((3, 0.034), (5, 0.02), (7, 0.012))   # harmonics of the hand-drawn outline
 TIER_ORDER = ["end", "platform", "stack"]
@@ -164,22 +166,18 @@ def layout(data):
     rows_of = {t: [sid for sid, s in sectors.items() if s["tier"] == t] for t in TIER_ORDER}
     rows_of["platform"] = rows_of["platform"] + [BACKERS]
 
-    # place each tier row left to right, centred, and stack the rows top to bottom
-    placed, tiers, y = {}, [], 0.0
-    for t in TIER_ORDER:
+    # place each tier row on evenly spaced columns, centred, and stack the rows at
+    # one even spacing, so every sector's label gets the same room
+    tallest = {t: max(local[sid][2] for sid in rows_of[t]) for t in TIER_ORDER}
+    pitch = max(tallest[a] + tallest[b] + TERR_GAP for a, b in zip(TIER_ORDER, TIER_ORDER[1:]))
+    placed, tiers = {}, []
+    for row, t in enumerate(TIER_ORDER):
         ids = rows_of[t]
-        reach = [local[sid][2] for sid in ids]
-        tallest = max(reach)
-        y += tallest
-        width = sum(2 * r for r in reach) + TERR_GAP * (len(ids) - 1)
-        x = -width / 2
-        for sid, r in zip(ids, reach):
-            rng = random.Random(sid)
-            dy = rng.uniform(-0.5, 0.5) * (tallest - r)
-            placed[sid] = (x + r, y + dy)
-            x += 2 * r + TERR_GAP
-        tiers.append({"id": t, "label": TIER_LABEL[t], "y": round(y, 1), "left": -width / 2})
-        y += tallest + TERR_GAP
+        y = tallest[TIER_ORDER[0]] + row * pitch
+        first = -COLUMN_STEP * (len(ids) - 1) / 2
+        for i, sid in enumerate(ids):
+            placed[sid] = (first + i * COLUMN_STEP, y)
+        tiers.append({"id": t, "label": TIER_LABEL[t], "y": round(y, 1), "left": first - local[ids[0]][2]})
 
     left = min(t["left"] for t in tiers) - TERR_GAP * 0.6
     tiers = [{"id": t["id"], "label": t["label"], "x": round(left, 1), "y": t["y"]} for t in tiers]
@@ -210,4 +208,22 @@ def layout(data):
     y0 = min(t["y"] - t["r"] for t in out.values()) - 90
     y1 = max(t["y"] + t["r"] for t in out.values()) + 40
     return {"bounds": [round(x0, 1), round(y0, 1), round(x1, 1), round(y1, 1)],
-            "tiers": tiers, "sectors": out, "cards": cards}
+            "tiers": tiers, "sectors": out, "cards": cards,
+            "narrow": _narrow([sid for t in TIER_ORDER for sid in rows_of[t]], out)}
+
+
+def _narrow(order, sectors):
+    """Where the sectors sit on a narrow screen: two columns of five, reading
+    across and down in tier order. The rows are as tall as the largest territory
+    needs, so a territory never touches the one above it even when zoomed in."""
+    tallest = max(sectors[sid]["r"] for sid in order)
+    pitch = 2 * tallest + TERR_GAP
+    half = pitch * NARROW_WIDEN / 2
+    centres = {sid: [round(-half if i % 2 == 0 else half, 1), round((i // 2) * pitch, 1)]
+               for i, sid in enumerate(order)}
+    reach = {sid: sectors[sid]["r"] for sid in order}
+    x0 = min(c[0] - reach[sid] for sid, c in centres.items())
+    x1 = max(c[0] + reach[sid] for sid, c in centres.items())
+    y0 = min(c[1] - reach[sid] for sid, c in centres.items()) - 90
+    y1 = max(c[1] + reach[sid] for sid, c in centres.items()) + 40
+    return {"centres": centres, "bounds": [round(x0, 1), round(y0, 1), round(x1, 1), round(y1, 1)]}

@@ -141,6 +141,11 @@ html{ scroll-padding-top:calc(var(--atlas-bar, 0px) + 8px); }
   background:rgba(15,21,34,.88); border:1px solid rgba(226,233,243,.3); border-radius:3px; pointer-events:none;
 }
 .amap__hint[hidden]{ display:none; }
+/* the galaxy's labels need the corners of a small frame, so the minimap steps aside; with two columns the
+   legend does too and the hint drops to the edge */
+.amap.tight-galaxy .amap__mini{ display:none; }
+.amap.narrow-galaxy .amap__legend{ display:none; }
+.amap.narrow-galaxy .amap__hint{ bottom:8px; }
 .amap__tip{
   position:absolute; left:0; top:0; z-index:4; max-width:300px; padding:8px 11px;
   font-family:system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size:13px; line-height:1.45; color:var(--silver);
@@ -291,6 +296,8 @@ html{ scroll-padding-top:calc(var(--atlas-bar, 0px) + 8px); }
   .amap__full::before{ content:"\2922"; font-size:17px; }
   .amap__full[aria-pressed="true"]::before{ content:"\2715"; }
   .amap__hud{ padding:8px; }
+  /* tall enough for five rows of labels with their top three */
+  .amap__stage{ min-height:575px; }
   .amap__back{ font-size:0; min-width:38px; }
   .amap__back::before{ content:"\2190"; font-size:18px; }
   .amap__where{ font-size:11.5px; letter-spacing:.14em; }

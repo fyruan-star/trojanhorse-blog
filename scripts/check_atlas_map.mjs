@@ -71,6 +71,32 @@ async function mapChecks(browser, engine, vp) {
   check(engine, vp.name, "nine horses drawn", dbg.horses === 9, `horses ${dbg.horses}`);
   await page.screenshot({ path: `${OUT}/${tag}-galaxy.png` });
 
+  // the galaxy's labels: all ten complete, one title style, clear of each other and of the controls
+  const gal = await page.evaluate(() => {
+    const s = AtlasMap.api().scene, frame = document.querySelector(".amap__canvas").getBoundingClientRect();
+    const keepOut = [...document.querySelectorAll(".amap__legend, .amap__mini, .amap__tools, .amap__hint")].map((el) => {
+      const r = el.getBoundingClientRect();
+      return { name: el.className, x: r.left - frame.left, y: r.top - frame.top, w: r.width, h: r.height };
+    }).filter((r) => r.w && r.h);
+    return { labels: s.galaxyLabels(), view: s.view(), keepOut };
+  });
+  const hits = (a, b) => a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+  const complete = gal.labels.filter((l) => {
+    const lines = (l.stats || "").split("\n");
+    return l.title && lines.length === 4 && (l.sid === "backers" ? /^12 owners and backers$/.test(lines[0]) && lines.slice(1).every((x) => / · \d+ backed$/.test(x)) : /^\d+ compan(y|ies)$/.test(lines[0]) && lines.slice(1).every((x) => /\s\d+$/.test(x)));
+  });
+  check(engine, vp.name, "ten sectors show a title, count and top 3", complete.length === 10, gal.labels.filter((l) => !complete.includes(l)).map((l) => l.sid).join(","));
+  check(engine, vp.name, "all sector titles share one size", new Set(gal.labels.map((l) => l.titleSize)).size === 1, [...new Set(gal.labels.map((l) => l.titleSize))].join(","));
+  const boxes = gal.labels.map((l) => l.box).filter(Boolean);
+  const crossing = boxes.filter((a, i) => boxes.some((b, j) => j > i && hits(a, b))).length;
+  check(engine, vp.name, "sector label blocks do not overlap", boxes.length === 10 && crossing === 0, `${boxes.length} blocks, ${crossing} crossing`);
+  const clipped = gal.labels.filter((l) => l.box && (l.box.x < 0 || l.box.y < 0 || l.box.x + l.box.w > gal.view.w || l.box.y + l.box.h > gal.view.h)).map((l) => l.sid);
+  check(engine, vp.name, "sector labels are not clipped", clipped.length === 0, clipped.join(","));
+  const blocked = gal.labels.flatMap((l) => l.box ? gal.keepOut.filter((k) => hits(l.box, k)).map((k) => `${l.sid}/${k.name}`) : []);
+  check(engine, vp.name, "sector labels clear the controls, legend, hint and minimap", blocked.length === 0, blocked.join(" "));
+  const onLabel = await page.evaluate(() => { const s = AtlasMap.api().scene, b = s.galaxyLabels()[0].box; return s.pick({ x: b.x + b.w / 2, y: b.y + b.h / 2 }); });
+  check(engine, vp.name, "a label belongs to its sector for hover", onLabel && onLabel.kind === "sector" && onLabel.id === "silicon", JSON.stringify(onLabel));
+
   // trackpad swipe: small deltas in both axes pan, the page does not scroll, and a dead stop glides on
   if (vp.name === "desktop") {
     // the galaxy view is held centred, so swipe once zoomed into a sector
@@ -95,7 +121,7 @@ async function mapChecks(browser, engine, vp) {
     results.push({ engine, vp: vp.name, name: "frame times during swipe", ok: true, detail: JSON.stringify(swipeFt) });
 
     // pinch (ctrlKey) and mouse wheel both zoom toward the cursor
-    await page.evaluate(() => AtlasMap.api().goGalaxy()); await settle(page);
+    await page.evaluate(() => { AtlasMap.api().goGalaxy(); }); await settle(page);
     const p = await centre(page);
     const k0 = (await cam(page)).k;
     const zoomFt = await frameTimes(page, async () => {
@@ -144,9 +170,54 @@ async function mapChecks(browser, engine, vp) {
   check(engine, vp.name, "team highlight", (await page.evaluate(() => AtlasMap.api().scene.debug().team)) === "nvidia" && /#t-nvidia$/.test(await page.url()));
   await page.screenshot({ path: `${OUT}/${tag}-team-nvidia.png` });
 
+  // the galaxy's labels at common window sizes, and the map's places surviving a change of arrangement
+  if (vp.name === "desktop") {
+    const hit = (a, b) => a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+    await page.evaluate(() => { AtlasMap.api().goGalaxy(); }); await settle(page);
+    // the fit depends on the label widths, so read it with the site's own font in place
+    await page.waitForFunction(() => [...document.fonts].some((f) => f.status === "loaded" && f.weight === "600"), null, { timeout: 15000 }).catch(() => {});
+    await page.waitForTimeout(400);
+    for (const [width, height, wantFull] of [[1280, 720, true], [1366, 650, true], [1536, 730, true], [1440, 900, true], [1024, 768, true], [820, 1100, true], [390, 844, true], [360, 740, true], [844, 390, false], [667, 375, false]]) {
+      await page.setViewportSize({ width, height });
+      // the map stops drawing while it is out of sight, so bring it back into view before reading it
+      await page.evaluate(() => { document.getElementById("atlas-map").scrollIntoView({ block: "center" }); });
+      await page.waitForTimeout(700);
+      const g = await page.evaluate(() => {
+        const s = AtlasMap.api().scene, frame = document.querySelector(".amap__canvas").getBoundingClientRect();
+        const keepOut = [...document.querySelectorAll(".amap__legend, .amap__mini, .amap__tools")].map((el) => { const r = el.getBoundingClientRect(); return { name: el.className, x: r.left - frame.left, y: r.top - frame.top, w: r.width, h: r.height }; }).filter((r) => r.w && r.h);
+        return { labels: s.galaxyLabels(), view: s.view(), keepOut, font: [...document.fonts].some((f) => f.status === "loaded" && f.weight === "600") };
+      });
+      const b = g.labels.map((l) => l.box).filter(Boolean), size = `${width}x${height}`;
+      const crossed = b.filter((x, i) => b.some((y, j) => j > i && hit(x, y))).length;
+      const lines = new Set(g.labels.map((l) => (l.stats || "").split("\n").length));
+      const blocked = g.labels.flatMap((l) => l.box ? g.keepOut.filter((k) => hit(l.box, k)).map((k) => `${l.sid}/${k.name}`) : []);
+      const off = g.labels.filter((l) => l.box && (l.box.x < 0 || l.box.y < 0 || l.box.x + l.box.w > g.view.w || l.box.y + l.box.h > g.view.h)).map((l) => l.sid);
+      check(engine, vp.name, `${size}: ten labels, none crossing`, b.length === 10 && crossed === 0, `${b.length} blocks, ${crossed} crossing`);
+      check(engine, vp.name, `${size}: labels ${wantFull ? "show the top 3" : "all match"}`, lines.size === 1 && (!wantFull || lines.has(4)), `${[...lines].join()} lines in ${Math.round(g.view.w)}x${Math.round(g.view.h)}, ${g.font ? "site font" : "fallback font"}`);
+      check(engine, vp.name, `${size}: labels unclipped and clear of the controls`, off.length === 0 && blocked.length === 0, [...off, ...blocked].join(" "));
+    }
+    // moving between the wide and narrow arrangements while somewhere on the map
+    const onScreen = () => page.evaluate(() => { const s = AtlasMap.api().scene, v = s.view(), p = s.proxyBoxes(); return { n: p.length, inside: p.filter((b) => b.x >= 0 && b.y >= 0 && b.x <= v.w && b.y <= v.h).length }; });
+    await page.setViewportSize({ width: vp.width, height: vp.height }); await page.waitForTimeout(450);
+    await page.evaluate(() => { document.getElementById("atlas-map").scrollIntoView({ block: "center" }); });
+    await page.evaluate(() => { AtlasMap.api().goCompany("nvidia"); }); await settle(page); await page.waitForTimeout(900);
+    await page.setViewportSize({ width: 700, height: 900 }); await page.waitForTimeout(900);
+    const narrowSpot = await onScreen();
+    check(engine, vp.name, "spotlight stays on screen entering the narrow layout", narrowSpot.n > 1 && narrowSpot.inside === narrowSpot.n, JSON.stringify(narrowSpot));
+    await page.setViewportSize({ width: vp.width, height: vp.height }); await page.waitForTimeout(900);
+    const wideSpot = await onScreen();
+    check(engine, vp.name, "spotlight stays on screen leaving the narrow layout", wideSpot.n > 1 && wideSpot.inside === wideSpot.n, JSON.stringify(wideSpot));
+    await page.evaluate(() => { AtlasMap.api().goSector("cloud"); }); await settle(page); await page.waitForTimeout(400);
+    await page.setViewportSize({ width: 700, height: 900 }); await page.waitForTimeout(700);
+    const sectorView = await page.evaluate(() => { const s = AtlasMap.api().scene, c = s.cam(), t = s.sectorCam("cloud"); return Math.hypot(c.x - t.x, c.y - t.y); });
+    check(engine, vp.name, "sector view follows the sector into the narrow layout", sectorView < 1, `off by ${sectorView.toFixed(1)}`);
+    await page.setViewportSize({ width: vp.width, height: vp.height }); await page.waitForTimeout(500);
+    await page.evaluate(() => { AtlasMap.api().goGalaxy(); }); await settle(page);
+  }
+
   // full screen and back
   if (vp.name === "desktop") {
-    await page.evaluate(() => AtlasMap.api().goGalaxy());
+    await page.evaluate(() => { AtlasMap.api().goGalaxy(); });
     await page.click(".amap__full"); await page.waitForTimeout(600);
     const full = await page.evaluate(() => { const r = document.querySelector(".amap__stage").getBoundingClientRect(); return r.width >= innerWidth - 1 && r.height >= innerHeight - 1; });
     await page.click(".amap__full"); await page.waitForTimeout(600);

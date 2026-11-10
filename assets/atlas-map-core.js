@@ -127,6 +127,81 @@
     return shown;
   }
 
+  /** A sector name as one line, or two lines split as evenly as its words allow. */
+  function splitTitle(name) {
+    if (name.length < 15) return [name];
+    var w = name.split(" "), best = 1, gap = Infinity;
+    for (var i = 1; i < w.length; i++) {
+      var d = Math.abs(w.slice(0, i).join(" ").length - w.slice(i).join(" ").length);
+      if (d < gap) { gap = d; best = i; }
+    }
+    return [w.slice(0, best).join(" "), w.slice(best).join(" ")];
+  }
+
+  /** The words under a sector's title at galaxy zoom: {count, top: [three lines]}. Sectors rank
+      by OVR. Owners and backers have no OVR, so they rank by how many companies each backs,
+      counting each company once, with ties in name order. */
+  function sectorSummary(sid, mains, ent, edges) {
+    function byName(a, b) { return ent[a].name < ent[b].name ? -1 : ent[a].name > ent[b].name ? 1 : 0; }
+    if (sid === "backers") {
+      var backed = {};
+      edges.forEach(function (e) {
+        if (e.group === "backers" && mains.indexOf(e.a) > -1) (backed[e.a] = backed[e.a] || {})[e.b] = true;
+      });
+      var n = function (id) { return Object.keys(backed[id] || {}).length; };
+      return {
+        count: mains.length + (mains.length === 1 ? " owner or backer" : " owners and backers"),
+        top: mains.filter(function (id) { return n(id) > 0; })
+          .sort(function (a, b) { return n(b) - n(a) || byName(a, b); }).slice(0, 3)
+          .map(function (id) { return ent[id].name + " · " + n(id) + " backed"; })
+      };
+    }
+    return {
+      count: mains.length + (mains.length === 1 ? " company" : " companies"),
+      top: mains.filter(function (id) { return ent[id].ovr !== null && ent[id].ovr !== undefined; })
+        .sort(function (a, b) { return ent[b].ovr - ent[a].ovr || byName(a, b); }).slice(0, 3)
+        .map(function (id) { return ent[id].name + "  " + ent[id].ovr; })
+    };
+  }
+
+  /** Move every sector of a layout between its wide and narrow arrangements, in place. The wide
+      arrangement is remembered the first time. Returns how far each sector moved, {sid: {x, y}}. */
+  function relayout(map, narrow) {
+    if (!map.wide) {
+      var saved = {};
+      Object.keys(map.sectors).forEach(function (sid) { saved[sid] = [map.sectors[sid].x, map.sectors[sid].y]; });
+      map.wide = { centres: saved, bounds: map.bounds.slice() };
+    }
+    var to = narrow ? map.narrow : map.wide, moved = {};
+    Object.keys(map.sectors).forEach(function (sid) {
+      var t = map.sectors[sid], dx = to.centres[sid][0] - t.x, dy = to.centres[sid][1] - t.y;
+      moved[sid] = { x: dx, y: dy };
+      t.x += dx; t.y += dy;
+      t.rows.forEach(function (r) { r.x += dx; r.y += dy; });
+      t.spokes.forEach(function (s) { s[0] += dx; s[1] += dy; s[2] += dx; s[3] += dy; });
+    });
+    map.cards.forEach(function (c) { c.x += moved[c.sector].x; c.y += moved[c.sector].y; });
+    map.bounds = to.bounds.slice();
+    return moved;
+  }
+
+  /** The camera that fits every sector's label on screen at galaxy zoom. centres are the sectors'
+      map points, block the largest label {w, h} in pixels, and safe the strips the controls need
+      {top, bottom, side}. The centre of the labels lands in the centre of what the strips leave. */
+  function galaxyFit(centres, block, view, safe) {
+    var xs = centres.map(function (c) { return c.x; }), ys = centres.map(function (c) { return c.y; });
+    var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+    var room = view.h - safe.top - safe.bottom;
+    var k = Math.min((view.w - 2 * safe.side - block.w) / Math.max(1, x1 - x0), (room - block.h) / Math.max(1, y1 - y0));
+    k = Math.max(k, 1e-4);
+    return { x: (x0 + x1) / 2, y: (y0 + y1) / 2 - (safe.top + room / 2 - view.h / 2) / k, k: k };
+  }
+
+  /** Whether no two boxes {x, y, w, h} come within margin of each other. */
+  function blocksClear(boxes, margin) {
+    return !boxes.some(function (a, i) { return boxes.some(function (b, j) { return j > i && overlap(a, b, margin); }); });
+  }
+
   /* ------------------------------------------------------------- lines */
   /** A curved line from a to b that stops short of both ends, with the direction it arrives in. */
   function arc(a, b, ra, rb, bend, gap, ida, idb) {
@@ -341,7 +416,7 @@
   return {
     toScreen: toScreen, toWorld: toWorld, fitCam: fitCam, zoomAround: zoomAround, clampCam: clampCam,
     approach: approach, glide: glide, flight: flight, flightMs: flightMs, easeInOut: easeInOut, detail: detail,
-    collide: collide, arc: arc, onCurve: onCurve, bundles: bundles, bundleText: bundleText, focusRing: focusRing, ellipseRing: ellipseRing,
+    collide: collide, splitTitle: splitTitle, sectorSummary: sectorSummary, relayout: relayout, galaxyFit: galaxyFit, blocksClear: blocksClear, arc: arc, onCurve: onCurve, bundles: bundles, bundleText: bundleText, focusRing: focusRing, ellipseRing: ellipseRing,
     wheelKind: wheelKind, swipeRelease: swipeRelease, panStep: panStep, spotlightPlan: spotlightPlan,
     GESTURE_REST_MS: GESTURE_REST_MS,
     parseHash: parseHash, hashFor: hashFor, radar: radar, tier: tier, nodeRadius: nodeRadius, initials: initials,

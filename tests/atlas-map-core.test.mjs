@@ -334,3 +334,65 @@ test("team addresses open the map with that team highlighted", () => {
   assert.equal(C.hashFor({ level: "galaxy", team: "google" }), "#t-google");
   assert.deepEqual(C.parseHash("#t-nope", new Set(), new Set(), new Set(["google"])), { view: null });
 });
+
+const ENT = { a: { name: "Alpha", ovr: 80 }, b: { name: "Beta", ovr: 91 }, c: { name: "Cobalt", ovr: 80 }, d: { name: "Delta", ovr: null },
+              e: { name: "Echo", ovr: 70 }, x: { name: "Xeno" }, y: { name: "Yield" }, z: { name: "Zinc" }, q: { name: "Quiet" } };
+
+test("a sector's label counts its companies and lists its top 3 by OVR, ties in name order", () => {
+  const s = C.sectorSummary("silicon", ["a", "b", "c", "d", "e"], ENT, []);
+  assert.equal(s.count, "5 companies");
+  assert.deepEqual(s.top, ["Beta  91", "Alpha  80", "Cobalt  80"]);
+  assert.equal(C.sectorSummary("silicon", ["a"], ENT, []).count, "1 company");
+});
+
+test("owners and backers rank by companies backed, counting each company once", () => {
+  const edges = [{ a: "x", b: "a", group: "backers" }, { a: "x", b: "a", group: "backers" }, { a: "x", b: "b", group: "backers" },
+                 { a: "y", b: "a", group: "backers" }, { a: "y", b: "b", group: "backers" }, { a: "z", b: "a", group: "backers" },
+                 { a: "q", b: "a", group: "rivals" }];
+  const s = C.sectorSummary("backers", ["x", "y", "z", "q"], ENT, edges);
+  assert.equal(s.count, "4 owners and backers");
+  assert.deepEqual(s.top, ["Xeno · 2 backed", "Yield · 2 backed", "Zinc · 1 backed"]);
+});
+
+test("long sector names split into two balanced lines and short ones stay on one", () => {
+  assert.deepEqual(C.splitTitle("Silicon"), ["Silicon"]);
+  assert.deepEqual(C.splitTitle("Infrastructure and data centers"), ["Infrastructure", "and data centers"]);
+  assert.deepEqual(C.splitTitle("Owners and backers"), ["Owners and", "backers"]);
+});
+
+function miniMap() {
+  return {
+    bounds: [0, 0, 100, 100],
+    sectors: { a: { x: 10, y: 20, rows: [{ x: 11, y: 21 }], spokes: [[10, 20, 12, 22]] }, b: { x: 50, y: 60, rows: [], spokes: [] } },
+    cards: [{ sector: "a", x: 12, y: 22 }, { sector: "b", x: 49, y: 59 }],
+    narrow: { centres: { a: [-5, 0], b: [5, 30] }, bounds: [-9, -9, 9, 39] }
+  };
+}
+
+test("narrow layout moves each sector with everything in it, and comes back exactly", () => {
+  const m = miniMap(), before = JSON.parse(JSON.stringify(miniMap()));
+  const moved = C.relayout(m, true);
+  assert.deepEqual(moved.a, { x: -15, y: -20 });
+  assert.deepEqual([m.sectors.a.x, m.sectors.a.y, m.sectors.a.rows[0].x, m.sectors.a.spokes[0][2], m.cards[0].x], [-5, 0, -4, -3, -3]);
+  assert.deepEqual(m.bounds, [-9, -9, 9, 39]);
+  C.relayout(m, false);
+  assert.deepEqual([m.sectors.a.x, m.sectors.b.y, m.cards[1].x, m.bounds], [before.sectors.a.x, before.sectors.b.y, before.cards[1].x, before.bounds]);
+});
+
+test("the galaxy fit puts every label block inside the strips the controls leave", () => {
+  const centres = [{ x: -500, y: 0 }, { x: 500, y: 0 }, { x: 0, y: 900 }], block = { w: 200, h: 100 };
+  const view = { w: 1000, h: 600 }, safe = { top: 50, bottom: 90, side: 8 };
+  const cam = C.galaxyFit(centres, block, view, safe);
+  centres.forEach((c) => {
+    const s = C.toScreen(cam, view, c);
+    assert.ok(s.x - block.w / 2 >= safe.side - 1e-6 && s.x + block.w / 2 <= view.w - safe.side + 1e-6, "sides");
+    assert.ok(s.y - block.h / 2 >= safe.top - 1e-6 && s.y + block.h / 2 <= view.h - safe.bottom + 1e-6, "top and bottom");
+  });
+});
+
+test("blocksClear notices two boxes closer than the margin, and only those", () => {
+  const a = { x: 0, y: 0, w: 10, h: 10 };
+  assert.equal(C.blocksClear([a, { x: 14, y: 0, w: 10, h: 10 }], 3), true);
+  assert.equal(C.blocksClear([a, { x: 12, y: 0, w: 10, h: 10 }], 3), false);
+  assert.equal(C.blocksClear([a, { x: 5, y: 5, w: 10, h: 10 }], 0), false);
+});

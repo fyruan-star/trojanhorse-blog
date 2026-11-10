@@ -101,6 +101,53 @@ class Geometry(unittest.TestCase):
             self.assertTrue(y0 <= t["y"] - t["r"] and t["y"] + t["r"] <= y1)
 
 
+class NarrowLayout(unittest.TestCase):
+    def setUp(self):
+        self.narrow = LAYOUT["narrow"]
+        self.centres = self.narrow["centres"]
+
+    def test_every_sector_has_a_narrow_place(self):
+        self.assertEqual(set(self.centres), set(LAYOUT["sectors"]))
+
+    def test_two_columns_of_five(self):
+        columns = {}
+        for x, y in self.centres.values():
+            columns.setdefault(x, []).append(y)
+        self.assertEqual(sorted(len(v) for v in columns.values()), [5, 5])
+        self.assertEqual(len({y for ys in columns.values() for y in ys}), 5)
+
+    def test_territories_do_not_overlap(self):
+        ids = list(self.centres)
+        for i, a in enumerate(ids):
+            for b in ids[i + 1:]:
+                d = math.hypot(self.centres[a][0] - self.centres[b][0], self.centres[a][1] - self.centres[b][1])
+                self.assertGreater(d, LAYOUT["sectors"][a]["r"] + LAYOUT["sectors"][b]["r"], (a, b))
+
+    def test_bounds_hold_every_territory(self):
+        x0, y0, x1, y1 = self.narrow["bounds"]
+        for sid, (x, y) in self.centres.items():
+            r = LAYOUT["sectors"][sid]["r"]
+            self.assertTrue(x0 <= x - r and x + r <= x1 and y0 <= y - r and y + r <= y1, sid)
+
+
+class SectorLabels(unittest.TestCase):
+    """What the galaxy view prints under each title has to exist in the data."""
+
+    def test_every_sector_has_three_rated_companies_to_list(self):
+        for sid, t in LAYOUT["sectors"].items():
+            if sid == "backers":
+                continue
+            mains = [c["company"] for c in LAYOUT["cards"] if c["sector"] == sid and c["main"]]
+            rated = [m for m in mains if AD.RATINGS.get(m, {}).get("ovr") is not None]
+            self.assertGreaterEqual(len(rated), 3, sid)
+
+    def test_owners_and_backers_are_twelve_and_three_have_backed_companies(self):
+        mains = {c["company"] for c in LAYOUT["cards"] if c["sector"] == "backers" and c["main"]}
+        self.assertEqual(len(mains), 12)
+        backing = {e["a"] for e in AD.EDGES if AD.GROUP[e["type"]] == "backers" and e["a"] in mains}
+        self.assertGreaterEqual(len(backing), 3)
+
+
 class Determinism(unittest.TestCase):
     def test_same_data_gives_the_same_map(self):
         self.assertEqual(L.layout(AD.DATA), LAYOUT)

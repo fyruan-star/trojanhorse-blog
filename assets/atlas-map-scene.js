@@ -26,6 +26,11 @@
                     ownership: ["owner", "owned"], investment: ["backer", "backed"], alliance: ["ally", "ally"], rivalry: ["rival", "rival"] };
   var TIERS = [{ id: "end" }, { id: "platform" }, { id: "stack" }];
   var RANK_CODE = { starter: "starter", second_string: "second", practice_squad: "rookie" };
+  // at or below this canvas width the sectors stand in two columns of five
+  var NARROW_W = 780;
+  // the strips the galaxy's labels keep clear of: the controls above, the legend and first-visit hint below
+  var GAL_SAFE = { wide: { top: 54, bottom: 92, side: 8 }, narrow: { top: 52, bottom: 46, side: 6 } };
+  var BLOCK_GAP = 3;   // between a sector's title and the lines under it
 
   function create(PIXI, data, host, hooks) {
     var app = new PIXI.Application();
@@ -70,7 +75,16 @@
       });
       return PIXI.Texture.from(c);
     }
-    var GLOW = glowTexture();
+    // the soft dark ground behind a sector's label: solid in the middle, fading out at the edge
+    function plateTexture() {
+      var c = document.createElement("canvas"), x = c.getContext("2d");
+      c.width = c.height = 128;
+      var g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+      g.addColorStop(0, "rgba(255,255,255,1)"); g.addColorStop(0.6, "rgba(255,255,255,.9)"); g.addColorStop(1, "rgba(255,255,255,0)");
+      x.fillStyle = g; x.fillRect(0, 0, 128, 128);
+      return PIXI.Texture.from(c);
+    }
+    var GLOW = glowTexture(), PLATE = plateTexture();
 
     /* ------------------------------------------------------ layers */
     var bg = new PIXI.Container(), under = new PIXI.Container(), rig = new PIXI.Container(), world = new PIXI.Container(), overlay = new PIXI.Container();
@@ -84,13 +98,13 @@
       bg.addChild(t);
       return { sprite: t, f: l.f };
     });
-    var bundleG = new PIXI.Graphics(), hoverG = new PIXI.Graphics(), focusLayer = new PIXI.Container(), labelLayer = new PIXI.Container();
+    var bundleG = new PIXI.Graphics(), hoverG = new PIXI.Graphics(), focusLayer = new PIXI.Container(), plateLayer = new PIXI.Container(), labelLayer = new PIXI.Container();
     var focusLines = new PIXI.Graphics(), focusDots = new PIXI.Graphics();
     focusLayer.addChild(focusLines, focusDots);
     var teamG = new PIXI.Graphics(), spotLight = new PIXI.Sprite(GLOW);
     spotLight.anchor.set(0.5); spotLight.visible = false;
     under.addChild(bundleG);
-    overlay.addChild(spotLight, hoverG, teamG, focusLayer, labelLayer);
+    overlay.addChild(spotLight, hoverG, teamG, focusLayer, plateLayer, labelLayer);
     var star = ART.shootingStar(PIXI, bg, reduced);
 
     /* --------------------------------------------- sectors (planets) */
@@ -191,39 +205,28 @@
       labelLayer.addChild(t);
       return t;
     }
-    function splitName(name) {
-      if (name.length < 15) return [name];
-      var w = name.split(" "), best = 1, gap = Infinity;
-      for (var i = 1; i < w.length; i++) {
-        var d = Math.abs(w.slice(0, i).join(" ").length - w.slice(i).join(" ").length);
-        if (d < gap) { gap = d; best = i; }
-      }
-      return [w.slice(0, best).join(" "), w.slice(best).join(" ")];
-    }
-    var topOf = {};
-    nodes.forEach(function (n) {
-      if (!n.main || ent[n.id].ovr == null) return;
-      (topOf[n.home] = topOf[n.home] || []).push(n.id);
-    });
-    var labels = [];
+    var labels = [], statsOf = {}, plates = {};
+    // every sector's title has one style: texts[0] for wide canvases, texts[1] for narrow ones
+    // weight 700 draws the site's boldest face (600); WebKit left a canvas asking for 600 in the fallback font
+    var TITLE_STYLE = [{ fontFamily: SERIF, fontSize: 16, fontWeight: "700", letterSpacing: 2.6, align: "center", lineHeight: 18 },
+                       { fontFamily: SERIF, fontSize: 13, fontWeight: "700", letterSpacing: 1, align: "center", lineHeight: 14 }];
+    var STATS_STYLE = [{ fontFamily: SANS, fontSize: 12, fill: DIM, align: "center", lineHeight: 16 },
+                       { fontFamily: SANS, fontSize: 11, fill: DIM, align: "center", lineHeight: 13 }];
     sectorIds.forEach(function (sid) {
       var s = sectors[sid], col = s.color, nm = names[sid];
-      var count = nodes.filter(function (n) { return n.sector === sid && n.main; }).length;
-      var top = (topOf[sid] || []).sort(function (a, b) { return ent[b].ovr - ent[a].ovr; }).slice(0, 3);
-      var titles = [
-        text(nm.toUpperCase(), { fontFamily: SERIF, fontSize: 17, fontWeight: "600", letterSpacing: 3, fill: col, align: "center" }),
-        text(splitName(nm).join("\n").toUpperCase(), { fontFamily: SERIF, fontSize: 15, fontWeight: "600", letterSpacing: 2.4, fill: col, align: "center", lineHeight: 17 }),
-        text(splitName(nm).join("\n"), { fontFamily: SERIF, fontSize: 14.5, fontWeight: "700", fill: col, align: "center", lineHeight: 15 }),
-        text(splitName(nm).join("\n"), { fontFamily: SERIF, fontSize: 12.5, fontWeight: "700", fill: col, align: "center", lineHeight: 13 })
-      ];
-      labels.push({ kind: "title", sid: sid, texts: titles });
-      var noun = sid === "backers" ? (count === 1 ? " firm" : " firms") : (count === 1 ? " company" : " companies");
-      var stats = [
-        text(count + noun + (top.length ? "\n" + top.map(function (id) { return ent[id].name + "  " + ent[id].ovr; }).join("\n") : ""),
-             { fontFamily: SANS, fontSize: 12, fill: DIM, align: "center", lineHeight: 16 }),
-        text(count + noun, { fontFamily: SANS, fontSize: 12, fill: DIM, align: "center" })
-      ];
-      labels.push({ kind: "stats", sid: sid, texts: stats });
+      var mains = nodes.filter(function (n) { return n.sector === sid && n.main; }).map(function (n) { return n.id; });
+      var sum = C.sectorSummary(sid, mains, ent, data.edges);
+      var title = C.splitTitle(nm).join("\n").toUpperCase();
+      labels.push({ kind: "title", sid: sid, texts: TITLE_STYLE.map(function (st) { return text(title, Object.assign({ fill: col }, st)); }) });
+      // full lines, then the count alone for a window too short to hold them, in each of the two sizes
+      var full = [sum.count].concat(sum.top).join("\n"), stats = { kind: "stats", sid: sid, count: sum.count, top: sum.top,
+        texts: [text(full, STATS_STYLE[0]), text(sum.count, STATS_STYLE[0]), text(full, STATS_STYLE[1]), text(sum.count, STATS_STYLE[1])] };
+      labels.push(stats);
+      statsOf[sid] = stats;
+      var plate = new PIXI.Sprite(PLATE);
+      plate.anchor.set(0.5); plate.tint = SPACE; plate.visible = false;
+      plateLayer.addChild(plate);
+      plates[sid] = plate;
       s.t.rows.forEach(function (r, j) {
         var b = s.t.bands[j], mid = b ? (b.a0 + b.a1) / 2 : 0;
         labels.push({ kind: "band", sid: sid, wx: r.x, wy: r.y, anchor: r.anchor, mid: mid,
@@ -242,7 +245,33 @@
     var inset = { right: 0, top: 0, bottom: 0 };
     var team = null;    // {id, members: Set, t0, leaving}
     function limits() { return { min: kGal, max: kGal * MAX_ZOOM }; }
-    function galaxyCam() { return C.fitCam(lay.bounds, view, 24, { min: 1e-4, max: 1e4 }); }
+    var narrow = false, galaxy = { x: 0, y: 0, k: 1 }, brief = false;
+    // every sector's label size, with the top three lines or (brief) with the count alone
+    function blockSizes(short) {
+      var v = narrow ? 1 : 0, s = (narrow ? 2 : 0) + (short ? 1 : 0);
+      return labels.filter(function (l) { return l.kind === "title"; }).map(function (l) {
+        var st = statsOf[l.sid].texts[s], t = l.texts[v];
+        return { sid: l.sid, w: Math.max(t.width, st.width), h: t.height + BLOCK_GAP + st.height };
+      });
+    }
+    function fitBlocks(sizes) {
+      var centres = sectorIds.map(function (sid) { return lay.sectors[sid]; });
+      var most = { w: Math.max.apply(null, sizes.map(function (b) { return b.w; })), h: Math.max.apply(null, sizes.map(function (b) { return b.h; })) };
+      return C.galaxyFit(centres, most, view, narrow ? GAL_SAFE.narrow : GAL_SAFE.wide);
+    }
+    function blocksFit(fit, sizes) {
+      return C.blocksClear(sizes.map(function (b) {
+        var c = C.toScreen(fit, view, lay.sectors[b.sid]);
+        return { x: c.x - b.w / 2, y: c.y - b.h / 2, w: b.w, h: b.h };
+      }), 3);
+    }
+    // the full labels if they all clear each other; if the window is too small, every sector drops to title and count together
+    function measureGalaxy() {
+      var full = blockSizes(false), fit = fitBlocks(full);
+      brief = !blocksFit(fit, full);
+      galaxy = brief ? fitBlocks(blockSizes(true)) : fit;
+    }
+    function galaxyCam() { return { x: galaxy.x, y: galaxy.y, k: galaxy.k }; }
     function sectorCam(sid) {
       var t = lay.sectors[sid];
       return C.fitCam([t.x - t.r, t.y - t.r, t.x + t.r, t.y + t.r], view, 28, limits());
@@ -259,8 +288,9 @@
       var m = 0.5 * Math.max(view.w, view.h) / cam.k;
       cam = C.clampCam(cam, [lay.bounds[0] + m * 0.2, lay.bounds[1] + m * 0.2, lay.bounds[2] - m * 0.2, lay.bounds[3] - m * 0.2], limits());
       var b = lay.bounds;
-      if (view.w / cam.k >= b[2] - b[0]) cam.x = (b[0] + b[2]) / 2;
-      if (view.h / cam.k >= b[3] - b[1]) cam.y = (b[1] + b[3]) / 2;
+      // with the whole map in view it rests where the labels clear the controls
+      if (view.w / cam.k >= b[2] - b[0]) cam.x = galaxy.x;
+      if (view.h / cam.k >= b[3] - b[1]) cam.y = galaxy.y;
     }
     function fly(target, done) {
       zoomTo = null; vel = null;
@@ -330,7 +360,8 @@
       // the horse is clearest far out and fades back once its companies are in view
       sectorIds.forEach(function (sid) {
         var s = sectors[sid], t = s.t, off = state.filters && !state.filters.sectors.has(sid);
-        var dep = still ? 0 : s.depth;
+        // the depth drift only starts once zoomed in, so the galaxy's rows of labels stay evenly spaced
+        var dep = still ? 0 : s.depth * Math.min(1, Math.max(0, (z - 1) / 0.4));
         s.c.position.set(t.x + (cam.x - t.x) * dep, t.y + (cam.y - t.y) * dep);
         s.c.alpha = off ? 0.18 : 1;
         var quiet = (1 - 0.55 * fp) * (1 - 0.55 * tp);
@@ -402,8 +433,10 @@
       if (a < 0.02) return;
       bundleList.forEach(function (b) {
         var c = bundleCurve(b), hot = state.hover === "bundle:" + b.a + "|" + b.b;
+        // faint at rest so the labels read first; a sector under the pointer or keyboard lights up its own lines
+        var lit = hot || state.hover === "sector:" + b.a || state.hover === "sector:" + b.b || state.keyFocus === "sector:" + b.a || state.keyFocus === "sector:" + b.b;
         bundleG.moveTo(c.start.x, c.start.y).quadraticCurveTo(c.ctrl.x, c.ctrl.y, c.end.x, c.end.y)
-          .stroke({ width: 0.8 + 0.9 * Math.sqrt(b.count), color: hot ? 0xFFFFFF : SILVER, alpha: a * (hot ? 0.7 : 0.15), cap: "round" });
+          .stroke({ width: 0.8 + 0.9 * Math.sqrt(b.count), color: lit ? 0xFFFFFF : SILVER, alpha: a * (hot ? 0.7 : lit ? 0.5 : 0.07), cap: "round" });
       });
     }
 
@@ -427,7 +460,7 @@
     }
     function drawHover(d, fp) {
       hoverG.clear();
-      var id = state.hover && state.hover.indexOf("bundle:") !== 0 ? state.hover : state.keyFocus;
+      var id = state.hover && !/^(bundle|sector):/.test(state.hover) ? state.hover : state.keyFocus;
       if (!id || !mainOf[id] || d < 0.5 || fp > 0) return;
       var a = screenOfNode(mainOf[id]), k = screenScale();
       edgesOf(id).forEach(function (e) {
@@ -674,9 +707,13 @@
       });
     }
     function placeLabels(d, fp, tp) {
-      var k = screenScale(), items = [], blocks = [], small = view.w < 600, ids = 0;
+      var k = screenScale(), items = [], blocks = [], ids = 0, v = narrow ? 1 : 0, sv = narrow ? 2 : 0;
       var lview = { w: view.w, h: view.h, top: hooks.reserveTop || 0, bottom: hooks.reserveBottom || 0 };
+      // far out, each sector shows one block: title, count and top three, centred on the sector
+      var blockMode = d < 0.5 && tp <= 0.05;
+      state.blocks = {};
       labels.forEach(function (l) { l.texts.forEach(function (t) { t.visible = false; }); l.pick = null; });
+      sectorIds.forEach(function (sid) { plates[sid].visible = false; });
       if (fp < 1) {
         if (d > 0.35) nodes.forEach(function (n) {
           if (n.off) return;
@@ -689,29 +726,27 @@
           if (l.kind === "title") {
             var c = screenOfSector(l.sid), R = lay.sectors[l.sid].r * k;
             if (c.x + R < 0 || c.x - R > view.w || c.y + R < 0 || c.y - R > view.h) return;
-            var cy = d < 0.5 ? c.y - (fp ? 0 : 14) : c.y - R * 0.98;
-            // each variant centred, then moved down or up inside the planet; on narrow screens the sentence-case ones first
-            var order = small && d < 0.5 ? [2, 3, 0, 1] : [0, 1, 2, 3], shift = d < 0.5 ? Math.max(18, R * 0.55) : 0;
-            alts = []; l.order = [];
+            var tx = l.texts[v];
+            if (blockMode) {
+              if (c.x < 0 || c.x > view.w || c.y < 0 || c.y > view.h) return;
+              // zoomed in a little, a label near the frame slides inside it, and gives up its lines before its title
+              alts = [statsOf[l.sid].texts[sv + (brief ? 1 : 0)], null].map(function (st) {
+                var w = Math.max(tx.width, st ? st.width : 0), h = tx.height + (st ? BLOCK_GAP + st.height : 0);
+                return { x: Math.max(2, Math.min(view.w - 2 - w, c.x - w / 2)), y: Math.max(lview.top, Math.min(view.h - lview.bottom - h, c.y - h / 2)), w: w, h: h, stats: st };
+              });
+              items.push({ id: i, p: 6000, force: true, alts: alts });
+              return;
+            }
+            var cy = d < 0.5 ? c.y : c.y - R * 0.98, shift = d < 0.5 ? Math.max(18, R * 0.55) : 0;
+            alts = [];
             [[0, 0], [0, shift], [0, -shift], [-shift, 0], [shift, 0]].forEach(function (o, pass) {
               if (pass && !shift) return;
-              order.forEach(function (v) {
-                var tx = l.texts[v];
-                alts.push({ x: c.x + o[0] - tx.width / 2, y: cy + o[1] - tx.height / 2, w: tx.width, h: tx.height });
-                l.order.push(v);
-              });
+              alts.push({ x: c.x + o[0] - tx.width / 2, y: cy + o[1] - tx.height / 2, w: tx.width, h: tx.height });
             });
-            // shorter names place first, so a long name is the one that moves or wraps
-            items.push({ id: i, p: 6000 - l.texts[order[0]].width, force: true, alts: alts });
+            items.push({ id: i, p: 6000 - tx.width, force: true, alts: alts });
             return;
           }
-          if (l.kind === "stats") {
-            if (d > 0.5 || tp > 0.05) return;
-            var cs = screenOfSector(l.sid);
-            alts = l.texts.map(function (t) { return { x: cs.x - t.width / 2, y: cs.y + 6, w: t.width, h: t.height }; });
-            items.push({ id: i, p: 3000, alts: alts });
-            return;
-          }
+          if (l.kind === "stats") return;   // placed with its title
           if (l.kind === "band") {
             if (d < 0.6 || !state.filters || !state.filters.sectors.has(l.sid)) return;
             tmp.set(l.wx - lay.sectors[l.sid].x, l.wy - lay.sectors[l.sid].y);
@@ -734,14 +769,30 @@
       var shown = C.collide(items, lview, 3, blocks), byId = {};
       items.forEach(function (x) { byId[x.id] = x; });
       shown.forEach(function (alt, i) {
-        var l = labels[i], kind = l.kind, t = kind === "title" ? l.texts[l.order[alt]] : kind === "stats" ? l.texts[alt] : l.texts[0];
+        var l = labels[i], kind = l.kind, t = kind === "title" ? l.texts[v] : l.texts[0];
         var box = byId[i].alts[alt];
         t.visible = true;
-        t.position.set(box.x, box.y);
-        var fade = kind === "title" ? 1 - 0.45 * (tp || 0) : kind === "stats" ? (1 - d / 0.5) :
+        var fade = kind === "title" ? 1 - 0.45 * (tp || 0) :
           kind === "node" && team && team.members.has(l.n.id) ? Math.max(tp, Math.min(1, (d - 0.35) / 0.3)) : Math.min(1, (d - 0.35) / 0.3);
         t.alpha = fade * (1 - fp);
         ids++;
+        if (kind === "title" && blockMode) {
+          t.position.set(box.x + (box.w - t.width) / 2, box.y);
+          var st = box.stats, show = (1 - d / 0.5) * (1 - fp), plate = plates[l.sid];
+          if (st) {
+            st.visible = true;
+            st.position.set(box.x + (box.w - st.width) / 2, box.y + t.height + BLOCK_GAP);
+            st.alpha = show;
+            ids++;
+          }
+          plate.visible = true;
+          plate.position.set(box.x + box.w / 2, box.y + box.h / 2);
+          plate.width = box.w * 1.5 + 34; plate.height = box.h * 1.55 + 30;
+          plate.alpha = 0.72 * show;
+          state.blocks[l.sid] = box;
+          return;
+        }
+        t.position.set(box.x, box.y);
       });
       if (focus) placeFocusLabels();
       state.labelsShown = ids;
@@ -825,6 +876,12 @@
         if (dd <= Math.max((n.sr || n.r * k) + 6, 12) && dd < bestD) { bestD = dd; hit = { kind: "node", id: n.id, main: n.main, sector: n.sector }; }
       });
       if (hit) return hit;
+      // a label is its sector, so a line passing behind the words does not take the pointer
+      Object.keys(state.blocks || {}).forEach(function (sid) {
+        var b = state.blocks[sid];
+        if (!hit && s.x >= b.x && s.x <= b.x + b.w && s.y >= b.y && s.y <= b.y + b.h) hit = { kind: "sector", id: sid };
+      });
+      if (hit) return hit;
       if (d < 0.6 && !team) bundleList.forEach(function (b) {
         if (hit) return;
         var c = bundleCurve(b);
@@ -871,8 +928,17 @@
       view = { w: Math.max(1, w), h: Math.max(1, h) };
       app.renderer.resize(view.w, view.h);
       STAR_LAYERS.forEach(function (l) { l.sprite.width = view.w; l.sprite.height = view.h; });
-      kGal = galaxyCam().k;
+      var wantNarrow = view.w <= NARROW_W, flipped = wantNarrow !== narrow;
+      if (flipped) {
+        narrow = wantNarrow;
+        var moved = C.relayout(lay, narrow);
+        nodes.forEach(function (n) { n.x += moved[n.sector].x; n.y += moved[n.sector].y; });
+        labels.forEach(function (l) { if (l.kind === "band") { l.wx += moved[l.sid].x; l.wy += moved[l.sid].y; } });
+      }
+      measureGalaxy();
+      kGal = galaxy.k;
       clampNow();
+      return flipped;
     }
     function setFilters(f) {
       state.filters = f;
@@ -882,6 +948,14 @@
     }
     resize(view.w, view.h);
     cam = galaxyCam();
+    // a web font that arrives late changes every label's size, so draw and measure them again
+    if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener("loadingdone", function () {
+      var home = Math.abs(cam.k / kGal - 1) < 1e-3 && !focus && !team && !fl;
+      labels.forEach(function (l) { l.texts.forEach(function (t) { t.style.update(); }); });
+      measureGalaxy();
+      kGal = galaxy.k;
+      if (home) cam = galaxyCam(); else clampNow();
+    });
     // the first constellation pays for building its text; do that once while nothing is moving
     setTimeout(function () {
       var first = Object.keys(mainOf)[0];
@@ -897,6 +971,8 @@
       team: function () { return team && !team.leaving ? team.id : null; },
       setInset: function (v) { inset = { right: v.right || 0, top: v.top || 0, bottom: v.bottom || 0 }; },
       spotlight: function () { return focus && !focus.leaving ? { id: focus.id, inPlace: focus.plan.inPlace.slice(), ring: focus.plan.ring.slice() } : null; },
+      // set the camera exactly, without the edge limits a spotlight is allowed to go past
+      place: function (c) { fl = null; zoomTo = null; vel = null; panLeft = null; cam = { x: c.x, y: c.y, k: c.k }; },
       fly: fly, jump: jump, resize: resize, pick: pick, targets: targets, setFilters: setFilters,
       focus: setFocus, focused: function () { return focus && !focus.leaving ? focus.id : null; },
       linkText: function (o) { return focus && focus.plan.links[o] ? focus.plan.links[o] : []; },
@@ -933,6 +1009,16 @@
           var p = focus.proxies[k];
           return p.pos ? { id: k, x: view.w / 2 + p.pos.x, y: view.h / 2 + p.pos.y, r: p.r, mode: p.mode } : null;
         }).filter(Boolean);
+      },
+      narrow: function () { return narrow; },
+      // for the browser checks: each sector's label block as it stands on screen
+      galaxyLabels: function () {
+        return sectorIds.map(function (sid) {
+          var st = statsOf[sid], title = labels.filter(function (l) { return l.kind === "title" && l.sid === sid; })[0];
+          var t = title.texts.filter(function (x) { return x.visible; })[0], s = st.texts.filter(function (x) { return x.visible; })[0];
+          var b = (state.blocks || {})[sid];
+          return { sid: sid, brief: brief, title: t ? t.text : null, titleSize: t ? t.style.fontSize : null, stats: s ? s.text : null, box: b ? { x: b.x, y: b.y, w: b.w, h: b.h } : null };
+        });
       },
       // for the browser checks: which sector names show, and every visible label's box on screen
       visibleTitles: function () {

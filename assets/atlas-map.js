@@ -26,7 +26,7 @@
   var VIEW_KEY = "atlas-view", HINT_KEY = "atlas-map-hint";
   var DRAG_SLOP = 6, VELOCITY_WINDOW = 90, LOAD_TIMEOUT_MS = 12000;
   // a page scroll that reaches the map within this long keeps scrolling the page
-  var PAGE_SCROLL_GRACE_MS = 300, SWIPE_END_MS = 70, CARD_GAP = 24, DESKTOP = 900;
+  var PAGE_SCROLL_GRACE_MS = 300, SWIPE_END_MS = 70, CARD_GAP = 24, DESKTOP = 900, MINI_ROOM = 940;
 
   var host = root.querySelector(".amap__canvas");
   var keys = root.querySelector(".amap__keys");
@@ -170,13 +170,24 @@
         if (!r.width || !r.height) return;
         var before = scene.view();
         if (Math.abs(before.w - r.width) < 1 && Math.abs(before.h - r.height) < 1) return;
-        scene.resize(r.width, r.height);
+        var moved = scene.resize(r.width, r.height);
         scene.setInset(inset());
         if (nav.level === "galaxy" && nav.team) scene.jump(scene.teamCam(teamById[nav.team].members));
         else if (nav.level === "galaxy") scene.jump(scene.galaxyCam());
         else if (nav.level === "sector") scene.jump(scene.sectorCam(nav.sector));
-        else if (nav.level === "company") scene.focus(nav.selected);
+        else if (nav.level === "company") {
+          scene.focus(nav.selected);
+          // the sectors have changed places, so the camera has to follow the company
+          if (moved) scene.place(scene.companyCam(nav.selected));
+        }
+        markNarrowGalaxy();
         drawMini(true);
+      }
+      // below MINI_ROOM the minimap's corner is needed for labels; with two columns the legend's strip is too
+      function markNarrowGalaxy() {
+        var galaxy = nav.level === "galaxy" && !nav.team;
+        root.classList.toggle("narrow-galaxy", scene.narrow() && galaxy);
+        root.classList.toggle("tight-galaxy", scene.view().w <= MINI_ROOM && galaxy);
       }
       // on desktop the card floats inside the frame, so the spotlight centres in the space beside it
       function inset() {
@@ -189,6 +200,8 @@
       /* ---- where we are */
       function sync() {
         backBtn.hidden = nav.level === "galaxy" && !nav.team;
+        markNarrowGalaxy();
+        scene.setHover(null);
         where.textContent = nav.team && nav.level === "galaxy" ? "Team " + teamById[nav.team].name :
           nav.level === "galaxy" ? "All sectors" : sectorName[nav.sector] + (nav.selected ? " · " + ent[nav.selected].name : "");
         [].forEach.call(teamsBox.querySelectorAll("[data-team]"), function (b) {
@@ -305,7 +318,7 @@
             b = document.createElement("button");
             b.type = "button"; b.className = "amap__key"; b.dataset.kind = t.kind; b.dataset.id = t.id;
             b.addEventListener("focus", function () {
-              scene.setKeyFocus(t.kind === "sector" ? null : t.id);
+              scene.setKeyFocus(t.kind === "sector" ? "sector:" + t.id : t.id);
               // a company tabbed to while zoomed in may be off screen, so the camera brings it into view
               var cur = keyTarget[key], v = scene.view();
               if (cur && cur.wx !== undefined && (cur.x < 30 || cur.y < 60 || cur.x > v.w - 30 || cur.y > v.h - 40)) {
@@ -472,6 +485,7 @@
           return;
         }
         if (hit.kind === "node") { scene.setHover(hit.id); hideTip(); return; }
+        if (hit.kind === "sector") { scene.setHover("sector:" + hit.id); hideTip(); return; }
         scene.setHover(null); hideTip();
       }
       function showTip(t, p) {
