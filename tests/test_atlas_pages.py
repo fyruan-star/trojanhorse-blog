@@ -16,6 +16,14 @@ def text_of(page):
     return html.unescape(re.sub(r"<[^>]+>", " ", page))
 
 
+class Stylesheet(unittest.TestCase):
+    def test_a_page_in_the_atlas_folder_finds_a_versioned_stylesheet(self):
+        head = HEAD.replace('href="site.css"', 'href="site.css?v=abc"')
+        ctx = P.context(AD, head, FOOT)
+        page = P.page(ctx, "x.html", "A title", "A description", "<main></main>")
+        self.assertIn('href="../site.css?v=abc"', page)
+
+
 class Logos(unittest.TestCase):
     def test_initials_match_the_map(self):
         cases = {"Oracle": "OR", "Palo Alto Networks": "PA", "Cursor (Anysphere)": "CU", "Foxconn, Quanta, Wistron": "FQ",

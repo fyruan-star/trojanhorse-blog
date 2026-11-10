@@ -145,7 +145,7 @@ def _value(r, key):
 
 # ------------------------------------------------------------------ page frame
 def page(ctx, path, title, desc, body, crumbs=""):
-    head = ctx.head.format(title=esc(title), desc=esc(desc)).replace('href="site.css"', 'href="../site.css"')
+    head = ctx.head.format(title=esc(title), desc=esc(desc)).replace('href="site.css', 'href="../site.css')
     extra = (f'<link rel="canonical" href="{SITE}/atlas/{path}">\n<link rel="stylesheet" href="../atlas.css">\n'
              f'<link rel="stylesheet" href="../atlas-pages.css">\n</head>')
     nav = f'<nav class="pg__nav" aria-label="Atlas"><a class="pg__back" href="../tech-atlas.html">&larr; The Tech Atlas</a>{crumbs}</nav>'
