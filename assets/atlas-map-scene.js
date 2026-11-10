@@ -1,6 +1,6 @@
 /* Tech Atlas map: the WebGL scene, drawn with PixiJS.
 
-   One camera moves over the galaxy. Far out, each sector is a horse drawn in
+   One camera moves over the galaxy. Far out, each sector is a helmet drawn in
    its own colour over a nebula wash, and sectors are joined by bundled lines.
    Closer in, the sectors open into their companies, shown by their logos on
    the orbits of their rows. Selecting a company puts it in a spotlight: the
@@ -30,6 +30,7 @@
   var NARROW_W = 780;
   // the strips the galaxy's labels keep clear of: the controls above, the legend and first-visit hint below
   var GAL_SAFE = { wide: { top: 54, bottom: 92, side: 8 }, narrow: { top: 52, bottom: 46, side: 6 } };
+  var HELMET_MAX = 1250;   // tallest a helmet may be, in map units
   var BLOCK_GAP = 3;   // between a sector's title and the lines under it
 
   function create(PIXI, data, host, hooks) {
@@ -119,11 +120,11 @@
     sectorIds.forEach(function (sid, i) {
       var t = lay.sectors[sid], color = SECTOR_COLOR[sid] || SILVER;
       var sc = new PIXI.Container();
-      // a soft nebula wash in the sector colour, the horse over it, then the orbits of its rows
+      // a soft nebula wash in the sector colour, the helmet over it, then the orbits of its rows
       var glow = new PIXI.Sprite(GLOW);
       glow.anchor.set(0.5); glow.tint = color; glow.width = glow.height = t.r * 3.1; glow.alpha = 0.22;
-      var horse = new PIXI.Sprite(PIXI.Texture.EMPTY);
-      horse.anchor.set(0.5); horse.tint = color; horse.visible = false;
+      var helmet = new PIXI.Sprite(PIXI.Texture.EMPTY);
+      helmet.anchor.set(0.5); helmet.tint = color; helmet.visible = false;
       var bands = new PIXI.Graphics();
       t.rings.forEach(function (r) { bands.circle(0, 0, r); });
       bands.stroke({ width: 1, color: color, alpha: 0.13 });
@@ -137,21 +138,20 @@
       });
       bands.stroke({ width: 1, color: color, alpha: 0.35 });
       var nodesC = new PIXI.Container();
-      sc.addChild(glow, horse, bands, nodesC);
+      sc.addChild(glow, helmet, bands, nodesC);
       world.addChild(sc);
       // sectors sit at slightly different depths, so they slide against each other as the camera moves
-      sectors[sid] = { id: sid, t: t, c: sc, glow: glow, horse: horse, bands: bands, nodes: nodesC, color: color,
+      sectors[sid] = { id: sid, t: t, c: sc, glow: glow, helmet: helmet, bands: bands, nodes: nodesC, color: color,
                        depth: [-0.03, 0.02, -0.012, 0.034, -0.024, 0.012, 0.028, -0.034, 0.006, -0.018][i % 10] };
     });
-    // the backers island keeps a plain wash: the horses belong to the nine sectors
-    ART.horse(PIXI).then(function (h) {
-      if (!h) return;
+    ART.helmets(PIXI, sectorIds).then(function (all) {
       sectorIds.forEach(function (sid) {
-        if (sid === "backers") return;
-        var s = sectors[sid];
-        s.horse.texture = h.texture;
-        s.horse.height = s.t.r * 2.5; s.horse.width = s.horse.height * h.ratio;
-        s.horse.visible = true;
+        var s = sectors[sid], h = all[sid];
+        if (!h) return;
+        s.helmet.texture = h.texture;
+        // the two largest sectors are capped so they do not run into the row above
+        s.helmet.height = Math.min(s.t.r * 2.5, HELMET_MAX); s.helmet.width = s.helmet.height * h.ratio;
+        s.helmet.visible = true;
       });
     });
 
@@ -357,7 +357,7 @@
       });
       if (d > 0.3) loadBadges();
       var fp = focusProgress(now), tp = teamProgress(now);
-      // the horse is clearest far out and fades back once its companies are in view
+      // the helmet is clearest far out and fades back once its companies are in view; it stays faint enough to read a label over
       sectorIds.forEach(function (sid) {
         var s = sectors[sid], t = s.t, off = state.filters && !state.filters.sectors.has(sid);
         // the depth drift only starts once zoomed in, so the galaxy's rows of labels stay evenly spaced
@@ -365,7 +365,7 @@
         s.c.position.set(t.x + (cam.x - t.x) * dep, t.y + (cam.y - t.y) * dep);
         s.c.alpha = off ? 0.18 : 1;
         var quiet = (1 - 0.55 * fp) * (1 - 0.55 * tp);
-        s.horse.alpha = (0.62 - 0.44 * d) * quiet;
+        s.helmet.alpha = (0.26 - 0.16 * d) * quiet;
         s.glow.alpha = 0.22 * (1 - 0.35 * d) * quiet;
         s.bands.alpha = d * (1 - 0.6 * fp);
         s.nodes.alpha = Math.max(d, tp);
@@ -787,8 +787,8 @@
           }
           plate.visible = true;
           plate.position.set(box.x + box.w / 2, box.y + box.h / 2);
-          plate.width = box.w * 1.5 + 34; plate.height = box.h * 1.55 + 30;
-          plate.alpha = 0.72 * show;
+          plate.width = box.w * 1.25 + 20; plate.height = box.h * 1.3 + 16;
+          plate.alpha = (narrow ? 0.18 : 0.3) * show;
           state.blocks[l.sid] = box;
           return;
         }
@@ -1000,7 +1000,7 @@
       },
       debug: function () {
         return { cam: cam, kGal: kGal, detail: state.detail, focus: focus && focus.id, badges: Object.keys(badgeTex).length,
-                 horses: sectorIds.filter(function (sid) { return sectors[sid].horse.visible; }).length, team: team && team.id };
+                 helmets: sectorIds.filter(function (sid) { return sectors[sid].helmet.visible; }).length, team: team && team.id };
       },
       // for the browser checks: where each spotlight proxy is on screen
       proxyBoxes: function () {

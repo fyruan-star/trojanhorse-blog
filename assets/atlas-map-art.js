@@ -1,15 +1,14 @@
 /* Tech Atlas map: the art the scene draws with, made into WebGL textures.
 
-   The horse is one drawing (images/atlas-horse.svg, traced from the homepage
-   horse by scripts/atlas-horse/), drawn in white so each sector can tint it
-   its own colour. Logo badges put a company's official mark on a round light
+   Each sector has one helmet (images/helmets/<sector>.svg, drawn by
+   scripts/atlas-helmets/), in white so the map can tint it the sector's colour.
+   Logo badges put a company's official mark on a round light
    or dark ground, or its initials in the sector colour when the Atlas has no
    official file. Logos are drawn as published: never recoloured or reshaped. */
 (function () {
   "use strict";
 
-  var HORSE_URL = "images/atlas-horse.svg";
-  var HORSE_PX = 1100;          // texture height: sharp at sector zoom without wasting memory
+  var HELMET_PX = 800;          // texture height: sharp at sector zoom without wasting memory on ten of them
   var BADGE_PX = 128;
   var SANS = 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
 
@@ -29,14 +28,17 @@
     return c;
   }
 
-  /** The horse as a white texture, or null if it cannot load (the map still works without it). */
-  function horse(PIXI) {
-    return loadImage(HORSE_URL).then(function (img) {
-      var ratio = (img.naturalWidth || 849) / (img.naturalHeight || 1012);
-      var c = canvas(Math.round(HORSE_PX * ratio), HORSE_PX);
-      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-      return { texture: PIXI.Texture.from(c), ratio: ratio };
-    }).catch(function () { return null; });
+  /** Each sector's helmet as a white texture, {sid: {texture, ratio}}. One that cannot load is left out, and the map still works without it. */
+  function helmets(PIXI, ids) {
+    var out = {};
+    return Promise.all(ids.map(function (sid) {
+      return loadImage("images/helmets/" + sid + ".svg").then(function (img) {
+        var ratio = (img.naturalWidth || 800) / (img.naturalHeight || 840);
+        var c = canvas(Math.round(HELMET_PX * ratio), HELMET_PX);
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+        out[sid] = { texture: PIXI.Texture.from(c), ratio: ratio };
+      }).catch(function () { /* this sector goes without */ });
+    })).then(function () { return out; });
   }
 
   function monogram(x, text, color) {
@@ -100,5 +102,5 @@
     return { step: step };
   }
 
-  window.AtlasMapArt = { horse: horse, badge: badge, shootingStar: shootingStar };
+  window.AtlasMapArt = { helmets: helmets, badge: badge, shootingStar: shootingStar };
 })();

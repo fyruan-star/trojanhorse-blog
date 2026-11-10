@@ -24,7 +24,7 @@ const check = (engine, vp, name, ok, detail) => results.push({ engine, vp, name,
 async function openMap(page, hash = "") {
   await page.goto(`${BASE}/tech-atlas.html?check=${Date.now()}${hash}`);
   await page.evaluate(() => window.AtlasMap && window.AtlasMap.ready());
-  await page.waitForFunction(() => window.AtlasMap && window.AtlasMap.api() && window.AtlasMap.api().scene.debug().horses > 0, null, { timeout: 15000 });
+  await page.waitForFunction(() => window.AtlasMap && window.AtlasMap.api() && window.AtlasMap.api().scene.debug().helmets > 0, null, { timeout: 15000 });
   await page.evaluate(() => document.getElementById("atlas-map").scrollIntoView({ block: "center" }));
   await page.waitForTimeout(900);
 }
@@ -68,7 +68,7 @@ async function mapChecks(browser, engine, vp) {
   else check(engine, vp.name, "frame goes edge to edge", fr.l === 0 && fr.r === 0 && fr.h >= 400, JSON.stringify(fr));
 
   const dbg = await page.evaluate(() => AtlasMap.api().scene.debug());
-  check(engine, vp.name, "nine horses drawn", dbg.horses === 9, `horses ${dbg.horses}`);
+  check(engine, vp.name, "ten helmets drawn", dbg.helmets === 10, `helmets ${dbg.helmets}`);
   await page.screenshot({ path: `${OUT}/${tag}-galaxy.png` });
 
   // the galaxy's labels: all ten complete, one title style, clear of each other and of the controls
@@ -140,7 +140,7 @@ async function mapChecks(browser, engine, vp) {
     results.push({ engine, vp: vp.name, name: "frame times during zoom", ok: true, detail: JSON.stringify(zoomFt) });
   }
 
-  // sector close-up: nodes and their labels readable over the horse
+  // sector close-up: nodes and their labels readable over the helmet
   await page.evaluate(() => AtlasMap.api().goSector("silicon")); await settle(page); await page.waitForTimeout(500);
   const labels = await page.evaluate(() => AtlasMap.api().scene.labelBoxes());
   const overlaps = labels.filter((a, i) => labels.some((b, j) => j > i && a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h)).length;

@@ -1,7 +1,7 @@
 /* Tech Atlas: the Map view and the Map/List switch.
 
    The List works without this file. With it, the page opens on a galaxy of
-   sectors, each drawn as a horse: click one to fly in, click a company to put
+   sectors, each drawn as a helmet: click one to fly in, click a company to put
    it and its connections in the spotlight, choose a team to light up its
    members, and press Esc or Back to step out. PixiJS (the WebGL
    renderer) and the data (tech-atlas.json) load only when the Map is first
