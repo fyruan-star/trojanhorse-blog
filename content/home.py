@@ -6,10 +6,20 @@ rebuilds itself after you commit.
 # The line under "Mergers & Acquisitions" on the cover.
 TAGLINE = "Hidden Risks Behind Promising Deals"
 
-# The stories on the homepage, left to right. Each name is a file in
-# content/stories/ (without .py). To add a story, add its file there and its
-# name here.
+# Every Trojan Horse story. Each name is a file in content/stories/ (without
+# .py). To add a story, add its file there and its name here. The homepage
+# features the newest by date and the Articles page lists them all by date.
 STORIES = ["oura", "thorne", "uber", "health", "attention", "hourglass", "marvell"]
+
+# The smaller list under the stories on the Articles page: (link, title, one line).
+MORE_FROM_JOURNAL = [
+    ("palo-alto.html", "Deals From Palo Alto",
+     "Technology transactions from the BofA Securities Palo Alto software team, told as stories."),
+    ("the-buyers-bank.html", "The Buyer&rsquo;s Bank",
+     "BofA Securities&rsquo; technology record across 2025 and 2026, built on acquirers."),
+    ("how-a-company-gets-sold.html", "How a Company Gets Sold",
+     "How an investment bank gets hired, how a sale then runs stage by stage, and why the managing director matters more than the logo."),
+]
 
 # The essay under the cover. It is HTML, so keep the <p> tags and write
 # &rsquo; for an apostrophe and &amp; for an ampersand.

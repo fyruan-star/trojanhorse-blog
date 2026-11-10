@@ -256,6 +256,54 @@ async function pageChecks(browser, engine, vp) {
   await page.close();
 }
 
+// the homepage, Articles, Prologue and Atlas: the nav, the current page, and what each must still show
+const NAV_PAGES = [["index.html", null], ["articles.html", "Articles"], ["ten-years.html", "Prologue"], ["tech-atlas.html", "Atlas"]];
+async function siteChecks(browser, engine, vp) {
+  const page = await browser.newPage({ viewport: { width: vp.width, height: vp.height } });
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(String(e)));
+  page.on("console", (m) => { if (m.type() === "error" && !IGNORE.test(m.text())) errors.push(m.text()); });
+  const tag = `${engine}-${vp.name}`;
+  for (const [file, current] of NAV_PAGES) {
+    await page.goto(`${BASE}/${file}?check=${Date.now()}`);
+    await page.waitForTimeout(500);
+    const n = await page.evaluate(() => {
+      const links = [...document.querySelectorAll(".sitenav__a")], box = (el) => el.getBoundingClientRect();
+      const words = links.map((a) => a.querySelector(".sitenav__w").textContent);
+      const marked = links.filter((a) => a.getAttribute("aria-current") === "page").map((a) => a.querySelector(".sitenav__w").textContent);
+      const line = marked.length ? getComputedStyle(links.find((a) => a.getAttribute("aria-current")).querySelector(".sitenav__w")).borderBottomColor : "";
+      const nav = box(document.querySelector(".sitenav")), back = document.querySelector(".back");
+      const backHit = back ? (() => { const b = box(back); return b.left < nav.right && nav.left < b.right && links.some((a) => { const r = box(a); return r.left < b.right && b.left < r.right && r.top < b.bottom && b.top < r.bottom; }); })() : false;
+      const head = document.querySelector(".atlas-head__k, .silohead__kicker, .articles .th__k");
+      return { words, marked, line, tops: new Set(links.map((a) => Math.round(box(a).top))).size, backHit, gap: head ? box(head).top - nav.bottom : null,
+               wide: document.documentElement.scrollWidth <= innerWidth, width: nav.width };
+    });
+    const name = file.replace(".html", "");
+    check(engine, vp.name, `${name}: nav in order`, n.words.join() === "Prologue,Articles,Atlas", n.words.join());
+    check(engine, vp.name, `${name}: current page marked`, current ? n.marked.join() === current && n.line !== "rgba(0, 0, 0, 0)" : n.marked.length === 0, `${n.marked} ${n.line}`);
+    check(engine, vp.name, `${name}: nav stays on one line`, n.tops === 1);
+    check(engine, vp.name, `${name}: nav clears the back link and heading`, !n.backHit && (n.gap === null || n.gap >= 0), `gap ${n.gap}`);
+    check(engine, vp.name, `${name}: no sideways scroll`, n.wide);
+    await page.screenshot({ path: `${OUT}/${tag}-${name}.png`, fullPage: file === "articles.html" });
+    // WebKit on a Mac only tabs through links with Option held, as Safari does by default
+    const tab = engine === "webkit" ? "Alt+Tab" : "Tab";
+    await page.keyboard.press(tab); await page.keyboard.press(tab);
+    const focus = await page.evaluate(() => document.activeElement.className);
+    check(engine, vp.name, `${name}: nav reached by keyboard`, /sitenav__a/.test(focus), focus);
+    if (file === "index.html") {
+      const h = await page.evaluate(() => ({ sign: !!document.querySelector(".essay .tale__sign") && getComputedStyle(document.querySelector(".essay .tale__sign")).display !== "none",
+        cards: document.querySelectorAll(".th__c").length, label: document.querySelector(".th__k").textContent, title: document.querySelector(".th__t").textContent, all: !!document.querySelector('a[href="articles.html"].th__all'), pod: document.querySelector(".spot__name").textContent }));
+      check(engine, vp.name, "homepage: Francis's story is there", h.sign);
+      check(engine, vp.name, "homepage: one featured Trojan Horse, the latest", h.cards === 1 && h.label === "Trojan Horse of the Week" && h.title === "Trading Copper for Light" && h.all, JSON.stringify(h));
+      check(engine, vp.name, "homepage: podcast named", h.pod === "In The Belly");
+      await page.evaluate(() => document.querySelector(".th").scrollIntoView()); await page.waitForTimeout(500);
+      await page.screenshot({ path: `${OUT}/${tag}-home-featured.png` });
+    }
+  }
+  check(engine, vp.name, "nav pages: no console errors", errors.length === 0, errors.slice(0, 3).join(" | "));
+  await page.close();
+}
+
 // headless Chromium draws WebGL in software unless told to use the GPU, which would skew frame times
 const LAUNCH = { chromium: { args: ["--use-angle=metal", "--ignore-gpu-blocklist"] }, webkit: {} };
 for (const [engine, type] of [["chromium", chromium], ["webkit", webkit]]) {
@@ -263,6 +311,7 @@ for (const [engine, type] of [["chromium", chromium], ["webkit", webkit]]) {
   for (const vp of VIEWPORTS) {
     try { await mapChecks(browser, engine, vp); } catch (e) { check(engine, vp.name, "map checks ran", false, String(e).slice(0, 300)); }
     try { await pageChecks(browser, engine, vp); } catch (e) { check(engine, vp.name, "page checks ran", false, String(e).slice(0, 300)); }
+    try { await siteChecks(browser, engine, vp); } catch (e) { check(engine, vp.name, "site checks ran", false, String(e).slice(0, 300)); }
   }
   await browser.close();
 }

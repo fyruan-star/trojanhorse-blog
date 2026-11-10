@@ -143,15 +143,19 @@ body::before{
 }
 
 /* =========================================================== SPOTIFY === */
-/* Last thing on the page, and wordless on purpose. */
+/* Last thing on the page: the mark and the podcast's name. */
 .spot{ padding:clamp(20px,3vw,40px) 0 clamp(64px,9vw,112px); text-align:center; }
 .spot__link{
-  display:inline-block; line-height:0; border-radius:50%;
+  display:inline-block; line-height:0;
   color:var(--silver-faint); transition:color .32s ease, transform .32s ease;
 }
 .spot__link:hover{ color:#1DB954; transform:translateY(-2px); }
 .spot__link:focus-visible{ outline:2px solid var(--silver); outline-offset:6px; }
-.spot__mark{ width:clamp(38px,4vw,52px); height:auto; display:block; }
+.spot__mark{ width:clamp(38px,4vw,52px); height:auto; display:block; margin-inline:auto; }
+.spot__name{
+  display:block; margin-top:clamp(10px,1.4vw,14px); line-height:1.3; white-space:nowrap;
+  font-size:13px; letter-spacing:.24em; text-transform:uppercase;
+}
 
 /* =========================================================== THE BELT === */
 .belt{ padding:clamp(34px,6vw,80px) 0 clamp(80px,11vw,150px); }
@@ -1171,23 +1175,6 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
           mask:var(--logo) left center/contain no-repeat;
 }
 
-/* the Prologue is a single row, so it needs neither a label nor a number */
-.idx--one{ padding:clamp(48px,7vw,88px) 0 0; border-top:1px solid rgba(255,255,255,.1); }
-/* same container as the stories below it, so the two share their edges */
-.idx--one .shell{ max-width:min(1040px,94%); }
-.idx--one .idx__row{ max-width:none; }
-.idx--one .idx__c{ grid-template-columns:1fr auto; }
-.idx--one .idx__t{ font-size:clamp(20px,.95rem + 1vw,30px); }
-
-/* Atlas, small, under the Spotify mark */
-.spot__atlas{
-  display:block; width:max-content; margin:clamp(20px,2.6vw,30px) auto 0;
-  font-size:11px; letter-spacing:.3em; text-transform:uppercase;
-  color:var(--silver-faint); border-bottom:1px solid transparent;
-  padding-bottom:.2em; transition:color .25s ease, border-color .25s ease;
-}
-.spot__atlas:hover{ color:var(--silver); border-bottom-color:rgba(255,255,255,.3); }
-
 .plate__wk{
   display:block; margin-top:.55em; letter-spacing:.2em; opacity:.75;
 }
@@ -1201,3 +1188,52 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
 
 /* a story page: running paragraphs with room to breathe */
 .story .wp__p + .wp__p{ margin-top:1.15em; }
+
+/* ======================================================= THE SITE NAV === */
+/* Prologue, Articles and Atlas. On the cover it sits under the tagline. On the
+   other pages it floats in the space their headers already leave at the top. */
+.sitenav{
+  display:flex; justify-content:center; align-items:flex-start;
+  gap:clamp(12px,2vw,22px); text-align:center; z-index:2;
+}
+.sitenav--cover{ position:relative; padding:0 16px clamp(20px,3vw,34px); }
+.sitenav--page{ position:absolute; left:0; right:0; top:10px; }
+/* below this the fixed back link would touch the row, so the row drops under it */
+@media (max-width:700px){
+  .sitenav--page{ top:42px; }
+  /* the headers under the row need to start below its caption */
+  .sitenav--page + .silohead,
+  .sitenav--page + .atlas-wide .atlas-head{ padding-top:108px; }
+}
+.sitenav__a{
+  display:inline-flex; flex-direction:column; align-items:center;
+  padding:6px 2px; color:var(--silver);
+}
+.sitenav__w{
+  font-size:clamp(19px,1.7vw,23px); line-height:1.2; letter-spacing:.05em;
+  border-bottom:1px solid transparent; transition:border-color .25s ease;
+}
+.sitenav__a:hover .sitenav__w,
+.sitenav__a[aria-current="page"] .sitenav__w{ border-bottom-color:var(--silver); }
+.sitenav__a:focus-visible{ outline:2px solid var(--silver); outline-offset:3px; }
+.sitenav__cap{ margin-top:3px; font-size:10.5px; line-height:1.2; letter-spacing:.14em; color:var(--silver-dim); white-space:nowrap; }
+.sitenav__dot{ padding-top:6px; font-size:clamp(19px,1.7vw,23px); line-height:1.2; color:var(--silver-faint); }
+
+/* the homepage's link on to the full list */
+.th__all{ display:inline-block; margin-top:clamp(18px,2.4vw,26px); }
+
+/* ========================================================== ARTICLES === */
+.articles .th{ padding-top:clamp(112px,11vw,150px); }
+h1.th__k{ font-weight:400; }
+.more{ padding:clamp(8px,1.6vw,20px) 0 clamp(36px,5vw,64px); }
+.more .shell{ max-width:min(860px,94%); }
+.more__k{
+  margin:0; padding-top:clamp(14px,1.8vw,20px); border-top:1px solid rgba(255,255,255,.3);
+  font-size:11.5px; font-weight:400; letter-spacing:.3em; text-transform:uppercase; color:var(--silver);
+}
+.more__l{ list-style:none; margin:clamp(8px,1vw,12px) 0 0; padding:0; }
+.more__i a{ display:block; padding:12px 0; }
+.more__t{ display:block; font-size:clamp(17px,.95rem + .25vw,19px); line-height:1.25; color:var(--silver); transition:color .25s ease; }
+.more__d{ display:block; margin-top:3px; font-size:14.5px; line-height:1.5; color:var(--silver-dim); }
+.more__i a:hover .more__t{ color:#fff; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.14em; }
+.more__i a:focus-visible{ outline:2px solid var(--silver); outline-offset:3px; }

@@ -88,7 +88,8 @@ Stylesheets: `assets/site.css` is used by every page, `assets/story.css` by deal
 
 | Page(s) | Edit this |
 | --- | --- |
-| `index.html` | `content/home.py` for the tagline, essay, story order and podcast list. The cover, the Spotify mark and the footer markup are `COVER`, `ROOMS` and `FOOT` in `build.py`. Card text comes from each story's `TITLE` and `HOOK`. |
+| `index.html` | `content/home.py` for the tagline, essay, list of stories and podcast list. The cover, the Spotify mark and the footer markup are `COVER`, `ROOMS` and `FOOT` in `build.py`. The site nav is `site_nav`. The featured story is the newest by `WEEK`. Card text comes from each story's `TITLE` and `HOOK`. |
+| `articles.html` | Stories by `WEEK`, newest first. The smaller list is `MORE_FROM_JOURNAL` in `content/home.py`. |
 | `oura-ipo.html`, `thorne-loyalty.html`, `uber-rival-dinner.html`, `personalized-health.html` | `content/stories/oura.py`, `thorne.py`, `uber.py`, `health.py` |
 | `ten-years.html` (the Prologue) | `content/prologue.py` (`YEARS`: eleven years, 28 entries). Its `INTRO`, `INTRO_2` and `CLOSE` are imported but not rendered. |
 | 10 deal notes | `content/deal_notes.py`. Prologue entries link to them through `DEAL_LINKS` in `build.py`. |
@@ -125,7 +126,7 @@ Find the page in section 6 and edit the file, in the browser or locally. In cont
    - `SECTIONS`: a list of `(heading, [paragraph, ...])`. Paragraphs are raw HTML. An empty heading renders running prose with a larger first paragraph.
    - `NOTE`: the sourcing note under the story. Say where figures come from, what could not be verified, which numbers are your arithmetic, and which people are invented.
 3. **Get the logo.** Take it from the company's own site (view source for the header `<svg>` or an `<img src="...svg">`), or from Wikimedia Commons when the site hides it. Uber's header draws its mark in CSS, so its file came from Commons, where it is tagged public domain and flagged as a trademark. Before use, open the file and confirm it has no `<script>`, no `on...=` handlers, no `<foreignObject>`, no `<image>` and no external `href` or `url(http`. Save it as `assets/images/logos/<name>.svg` and set `LOGO = {"file": "<name>.svg", "w": <viewBox width>, "h": <viewBox height>, "name": "<Company>", "height": <px>}`. Choose `height` so the rendered width lands near 100 to 135 px (Oura 34, Thorne 20, Uber 34). A square mark such as Y Combinator's is built as one path with `fill-rule="evenodd"` so the letter knocks out of the square (height 36). The mark renders as a one-colour mask, silver on the homepage and navy on the story page, so it never needs recolouring. Logos are the companies' trademarks, used only to identify the subject.
-4. **Add `"<name>"` to `STORIES`** in `content/home.py`, in the position you want on the homepage.
+4. **Add `"<name>"` to `STORIES`** in `content/home.py`. The homepage features the newest story by `WEEK` and the Articles page sorts by it. Stories sharing a date show the later-added one first.
 5. **Preview** the homepage and the story at about 1280px, 900px and 375px. Below 900px the cards stack.
 6. **Audit** with the snippet in section 11.
 7. **Commit** the story file and the logo, push, and confirm the build and the page.
@@ -133,7 +134,7 @@ Find the page in section 6 and edit the file, in the browser or locally. In cont
 
 ### 7C. Reorder, hide or retire a story
 
-`STORIES` controls both the homepage order and which story pages are built. Reorder it to reorder the cards. Removing a name takes the story off the homepage and also stops publishing its page, because the site is rebuilt from scratch each time. If the URL was ever shared, add a redirect first (see `build_stories_page` for the pattern).
+`STORIES` controls which story pages are built, and breaks ties between stories with the same date. To reorder the list, change the dates in `WEEK`. Removing a name takes the story off the homepage and also stops publishing its page, because the site is rebuilt from scratch each time. If the URL was ever shared, add a redirect first (see `build_stories_page` for the pattern).
 
 ### 7D. Podcast page
 
@@ -156,10 +157,11 @@ Each is a dictionary in its content file with a `slug`, title lines, sections an
 
 ## 8. Page inventory and how each page is reached
 
-- **Linked from the homepage:** `ten-years.html` (Prologue), `oura-ipo.html`, `thorne-loyalty.html`, `uber-rival-dinner.html`, `personalized-health.html`, `tech-atlas.html`, `podcast.html`.
-- **Reached from other pages:** `trojan-horses.html` (from the Thorne story), `how-a-company-gets-sold.html` (only from `trojan-horses.html`), the ten deal notes (from Prologue entries), and the Palo Alto pages (through the `fetching.html` deal note, then `desk-ddn.html`, then `palo-alto.html`).
+- **Linked from the homepage:** the nav (`ten-years.html`, `articles.html`, `tech-atlas.html`), the newest story, and `podcast.html`.
+- **Linked from the Articles page:** every Trojan Horse story, `palo-alto.html`, `the-buyers-bank.html` and `how-a-company-gets-sold.html`.
+- **Reached from other pages:** `trojan-horses.html` (from the Thorne story), the ten deal notes (from Prologue entries), and the three Palo Alto stories (through `palo-alto.html` and the `fetching.html` deal note).
 - **The Atlas pages** (`atlas/`): every profile, standings page and team page is linked from the Atlas page (the Standings row under the introduction, the "Full profile" link on each List card and "Open full profile" on the map card) and from each other.
-- **Live but linked from nowhere:** `the-buyers-bank.html` and the five background pages (`what-a-chip-is.html`, `what-the-cloud-is.html`, `what-ai-needs.html`, `the-building.html`, `what-a-bank-does.html`), plus `404.html`.
+- **Live but linked from nowhere:** the five background pages (`what-a-chip-is.html`, `what-the-cloud-is.html`, `what-ai-needs.html`, `the-building.html`, `what-a-bank-does.html`), plus `404.html`.
 - **Redirects:** `strategemata.html`, `horse-credit.html`, `horse-apprenticeship.html`, `katabasis.html`.
 
 ## 9. Editorial standards in full
@@ -199,6 +201,7 @@ The rules in `CLAUDE.md` are the short version. The detail behind them:
 - **2026-11-04 (story list, Atlas intro):** the homepage Trojan Horses now run as one vertical list in `STORIES` order (mark and date left, headline, hook, link), with smaller type so the list is quick to scroll and click. The old 3-column and two-by-two grid rules are gone from `site.css`. The two intro paragraphs under the Tech Atlas title were removed (`INTRO = []` in `content/atlas/atlas_essays.py`, and `build.py` skips the empty block). `build.py` now appends a content hash to `site.css` (`site.css?v=...`) so a deploy never pairs new pages with a cached old stylesheet.
 - **2026-11-04 (titles):** the five stories were retitled: "Oura Ring Sleeps On Its IPO", "Every Deal Has Its Thorne", "Uber Eats, Uber Hotels, Uber Catering, Uber Everything?", "Peptides Inject Their Way Into Tech" and "Tech Induced Dopamine Revolution". Slugs did not change, so links still work. The Thorne story now carries two marks, P&G (`assets/images/logos/pg.svg`, the Commons file marked public domain and flagged as a trademark, with the letters cut out as an even-odd path) and Thorne. A story may set `LOGO` to a list; `build.py` `_logo` then wraps the marks in `.logo-row`.
 - **2026-11-04 (The Hourglass):** added the owner's fable "The Hourglass" (`content/stories/hourglass.py`, slug the-hourglass, Anthropic mark reused from the Atlas's Simple Icons file). Four short passages were added at his request to show the Anthropic IPO inside the story without naming it (the prospectus proof, the paper loss going into the prospectus, Tom's margin sentence, the bound prospectus at the end). Every claim in Behind the fable was checked, the S-1 text against EDGAR in the browser because SEC blocks scripted downloads without a declared contact. It is about 2,600 words, over the 1,200-word cap, because it is his own fable posted whole.
+- **2026-11-09 (atlas-map branch, homepage):** a Prologue, Articles and Atlas row (`site_nav` in `build.py`) sits under the cover tagline and at the top of those three pages. The homepage now features only the newest Trojan Horse by date, and `articles.html` lists them all, newest first, with a smaller More from the journal section (`MORE_FROM_JOURNAL` in `content/home.py`). The Spotify mark gained the name In The Belly. The Prologue door and the small Atlas link were removed.
 - **2026-11-09 (atlas-map branch, galaxy labels):** every sector in the galaxy view now shows one block: its title in a single style, the count and the top three. Owners and backers read "12 owners and backers" and rank by companies backed. Sectors stand on even columns, and at a canvas width of 780px or less they move to two columns of five (`narrow` in the layout, applied by `relayout` in `atlas-map-core.js`). The minimap steps aside in the galaxy view at 940px or less. In a window too small for the full labels, every sector shows its title and count together. Bundled lines are fainter and brighten when a sector is hovered.
 - **2026-11-03 (atlas-map branch, round 3):** every company got a profile page, every sector a standings page, and five teams (Microsoft and OpenAI, Google, Nvidia, Amazon and Anthropic, Meta) were formed by written rules with four ties settled by hand. The map moved into a framed window with full screen, trackpad panning with the system's momentum, pinch and wheel zoom, and a spotlight that fits a company and its connections or pulls far ones into a ring. Sector bubbles became the homepage horse traced as line-work and tinted per sector. 101 companies show official logos (54 from Simple Icons, 44 from Wikimedia Commons, 3 from press kits), and 43 show monograms. 63 companies have sourced facts (ticker, HQ, founded, CEO). OpenAI's home moved to AI models and Amazon's to Cloud. Google stays in Silicon.
 - **2026-11-02 (atlas-map branch, round 2):** the Map moved to WebGL (PixiJS) with planets, sector bundles, focus mode, glide and pinch zoom, deep links (`#c-`, `#s-`) and a minimap. Ratings became six attributes with a calculated OVR and badges. Timothy Zhang added as co-author.
@@ -265,7 +268,7 @@ curl -s https://trojanhorse.blog/<page>.html | grep -c "<a string from your chan
 3. **`archive/` exists only on Francis's Mac.** Back it up if the old pieces matter.
 4. **Podcast statuses are stale.** `EPISODES` says "Recording October" on two entries and "In production" on six, and there is no audio.
 5. **Standfirsts remain on two pages**, `how-a-company-gets-sold.html` and `trojan-horses.html` (class `plate__l`). The owner's rule is no sub-descriptions, but he only pointed at the stories, so ask before stripping them. The homepage Prologue row also carries the label "2016 to 2026".
-6. **Orphaned pages.** The Buyer's Bank and the five background pages have no inbound links. The process page is reached only through `trojan-horses.html`, and the Palo Alto stories only through the Fetching deal note. Decide whether to relink, redirect or delete.
+6. **Orphaned pages.** The five background pages have no inbound links. Decide whether to relink, redirect or delete.
 7. **Stories go stale as events land.** P&G said the Thorne purchase should close in the fourth quarter of 2026. Uber's Delivery Hero offer is expected to close in the second half of 2027 and needs acceptances and clearances. Oura gave no new IPO date. Check each story's facts before promoting it again.
 8. **Verification gaps in the current stories.**
    - Oura: the filing's note tying the $985.0 million deemed dividend to a specific repurchase, and its principal and selling stockholders table, were outside the readable part. The WSJ article the owner pointed to could not be found, so it is not cited.

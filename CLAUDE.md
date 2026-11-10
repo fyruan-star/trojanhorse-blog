@@ -39,7 +39,7 @@ The owner wants every change pushed and confirmed live without waiting for appro
 - No standfirst or sub-description under any title.
 - `HOOK` is exactly one sentence with a concrete number or a tension and no cliche. It is the only text on the homepage card besides the headline.
 - Every story carries the subject company's logo (`LOGO`, file in `assets/images/logos/`).
-- Homepage order is `STORIES` in `content/home.py`, not date order.
+- The homepage features the newest story by `WEEK` and `articles.html` lists them all by date, newest first. `STORIES` in `content/home.py` breaks ties.
 - Full procedure: `docs/HANDOFF.md` section 7B.
 - To draft a new story, start from `docs/STORY_PROMPT.md` (argument mode or diary mode). It encodes the method and the failures already rejected.
 

@@ -9,14 +9,15 @@ _site/, so nobody needs to run it to change the site. Run it yourself only to
 preview: python3 build.py && python3 -m http.server -d _site 8731
 """
 import importlib, pathlib, re, shutil, sys
+from datetime import datetime as _datetime
 
 HERE = pathlib.Path(__file__).parent
 for folder in ("content", "content/stories", "content/atlas", "content/companies"):
     sys.path.insert(0, str(HERE / folder))
 
 import line_art as sketch
-from home import TAGLINE, ESSAY, EPISODES, STORIES
-# the homepage shows the stories in this order, and every one keeps its own page
+from home import TAGLINE, ESSAY, EPISODES, STORIES, MORE_FROM_JOURNAL
+# every story keeps its own page; the homepage and Articles page order them by date
 WEEKLIES = [importlib.import_module(name) for name in STORIES]
 # a stats page for every company with both a words file and a numbers file
 COMPANIES = [importlib.import_module(p.stem) for p in sorted((HERE / "content/companies").glob("*.py"))
@@ -115,6 +116,20 @@ VINE_DEF = """
 </svg>
 """
 
+def site_nav(current=None, cls="sitenav--page"):
+    """Prologue, Articles and Atlas, in that order, with the page you are on marked."""
+    links = [("prologue", "ten-years.html", "Prologue", "2016 to 2026"),
+             ("articles", "articles.html", "Articles", ""),
+             ("atlas", "tech-atlas.html", "Atlas", "")]
+    items = []
+    for key, href, word, cap in links:
+        mark = ' aria-current="page"' if key == current else ""
+        note = f'<span class="sitenav__cap">{cap}</span>' if cap else ""
+        items.append(f'<a class="sitenav__a" href="{href}"{mark}><span class="sitenav__w">{word}</span>{note}</a>')
+    dot = '<span class="sitenav__dot" aria-hidden="true">&middot;</span>'
+    return f'\n<nav class="sitenav {cls}" aria-label="Main">{dot.join(items)}</nav>\n'
+
+
 COVER = """
 <!-- ============================================================= COVER === -->
 <header class="cover">
@@ -129,7 +144,7 @@ COVER = """
          alt="A rearing horse drawn in silver line work, its hindquarters breaking apart into fragments">
     <p class="cover__tag">Mergers &amp; Acquisitions<span class="cover__tag__sub">{TAGLINE}</span></p>
   </div>
-
+{SITENAV}
   <div class="cover__mist" aria-hidden="true"></div>
 
   <div class="shell cover__foot">
@@ -189,8 +204,8 @@ def build_podcast():
     print("podcast.html")
 
 
-# The podcast is the last thing on the page and says nothing. The mark is the
-# whole invitation; it opens the page of episodes that are still being cut.
+# The podcast is the last thing on the page: its mark and its name, which open
+# the page of episodes that are still being cut.
 ROOMS = """
 <!-- =========================================================== PODCAST === -->
 <section class="spot">
@@ -198,8 +213,8 @@ ROOMS = """
     <svg class="spot__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path fill="currentColor" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
     </svg>
+    <span class="spot__name">In The Belly</span>
   </a>
-  <a class="spot__atlas" href="tech-atlas.html">Atlas</a>
 </section>
 """
 
@@ -264,49 +279,88 @@ def _logo(m, cls="th__logo", scale=1.0):
     return f'<span class="logo-row">{spans}</span>'
 
 
-def build_index():
-    # The Prologue is a single door. The stories sit below it in full view, set
-    # out the way a newspaper front page sets out its leads: a date, a headline,
-    # the opening of the piece, and a way to read on. The newest is first.
-    prologue = '''
-<!-- =========================================================== PROLOGUE === -->
-<nav class="idx idx--one" aria-label="Prologue">
-  <div class="shell">
-    <div class="idx__row">
-      <a class="idx__c" href="ten-years.html">
-        <span class="idx__t">Prologue</span>
-        <span class="idx__d">2016 to 2026</span>
-      </a>
-    </div>
-  </div>
-</nav>
-'''
+def story_date(m):
+    """The day a story is dated, read from its WEEK line ("Week of 9 November 2026")."""
+    return _datetime.strptime(m.WEEK.replace("Week of", "").strip(), "%d %B %Y").date()
 
-    cards = "".join(f'''
+
+def stories_newest_first():
+    """Every Trojan Horse by date, newest first. Stories sharing a date keep the
+    order they were added, latest first, which is their place in STORIES."""
+    placed = sorted(enumerate(WEEKLIES), key=lambda pair: (story_date(pair[1]), pair[0]), reverse=True)
+    return [m for _, m in placed]
+
+
+def _story_card(m):
+    """One Trojan Horse as it is set in a list: mark and date, headline, hook, link."""
+    return f'''
       <article class="th__c">
         <div class="th__top">{_logo(m)}<p class="th__d">{m.WEEK}</p></div>
         <h2 class="th__t"><a href="{m.SLUG}.html">{m.TITLE}</a></h2>
         <p class="th__p">{m.HOOK}</p>
         <a class="th__go" href="{m.SLUG}.html">Continue reading &rarr;</a>
-      </article>''' for m in WEEKLIES)
+      </article>'''
 
-    horses = f'''
-<!-- ============================================================ TROJAN HORSES === -->
-<section class="th" aria-label="Trojan Horses">
+
+def home_html():
+    # The homepage opens with the cover and Francis's story, then features the
+    # latest Trojan Horse. The full list is on the Articles page.
+    latest = stories_newest_first()[0]
+    featured = f'''
+<!-- ============================================================ TROJAN HORSE OF THE WEEK === -->
+<section class="th" aria-label="Trojan Horse of the Week">
   <div class="shell">
-    <p class="th__k">Trojan Horses</p>
-    <div class="th__grid th__grid--n{len(WEEKLIES)}">{cards}
+    <p class="th__k">Trojan Horse of the Week</p>
+    <div class="th__grid">{_story_card(latest)}
     </div>
+    <a class="th__go th__all" href="articles.html">See all articles &rarr;</a>
   </div>
 </section>
 '''
-
-    html = (HEAD.format(title="The Trojan Horse",
+    cover = COVER.replace("{TAGLINE}", TAGLINE).replace("{SITENAV}", site_nav(cls="sitenav--cover"))
+    return (HEAD.format(title="The Trojan Horse",
                         desc="A mergers and acquisitions journal and podcast by Francis Ruan, Ryan Chian and Timothy Zhang.")
-            + CAPITAL_DEF + COVER.replace("{TAGLINE}", TAGLINE) + ESSAY
-            + prologue + horses + ROOMS + FOOT)
-    (ROOT / "index.html").write_text(html, encoding="utf-8")
+            + CAPITAL_DEF + cover + ESSAY + featured + ROOMS + FOOT)
+
+
+def build_index():
+    (ROOT / "index.html").write_text(home_html(), encoding="utf-8")
     print("index.html")
+
+
+def articles_html():
+    cards = "".join(_story_card(m) for m in stories_newest_first())
+    more = "".join(f'''
+      <li class="more__i"><a href="{href}"><span class="more__t">{title}</span><span class="more__d">{line}</span></a></li>'''
+                   for href, title, line in MORE_FROM_JOURNAL)
+    return (HEAD.format(title="Articles | The Trojan Horse",
+                        desc="Every Trojan Horse story, newest first, and more from the journal.")
+            + f'''
+<a class="back" href="index.html">&larr; The Trojan Horse</a>
+{site_nav("articles")}
+<main class="articles">
+<section class="th" aria-label="Trojan Horses">
+  <div class="shell">
+    <h1 class="th__k">Trojan Horses</h1>
+    <div class="th__grid">{cards}
+    </div>
+  </div>
+</section>
+
+<section class="more" aria-label="More from the journal">
+  <div class="shell">
+    <h2 class="more__k">More from the journal</h2>
+    <ul class="more__l">{more}
+    </ul>
+  </div>
+</section>
+</main>
+''' + ROOMS + FOOT)
+
+
+def build_articles():
+    (ROOT / "articles.html").write_text(articles_html(), encoding="utf-8")
+    print("articles.html")
 
 
 def _byline(m):
@@ -861,7 +915,7 @@ def build_atlas():
             + '<link rel="stylesheet" href="atlas.css">\n<link rel="stylesheet" href="atlas-map.css">\n<link rel="stylesheet" href="atlas-pages.css">\n'
             + f"""
 <a class="back" href="index.html">&larr; The Trojan Horse</a>
-
+{site_nav("atlas")}
 <div class="atlas-wide">
   <header class="atlas-head">
     <p class="atlas-head__k">As of {AD.ASOF}</p>
@@ -1176,7 +1230,7 @@ def build_katabasis():
                         desc="A map of technology transactions from 2016 to 2026.")
             + CAPITAL_DEF + f'''
 <a class="back" href="index.html">&larr; The Trojan Horse</a>
-
+{site_nav("prologue")}
 <header class="silohead silohead--bare">
   <div class="shell">
     <p class="silohead__kicker">2016 to 2026</p>
@@ -1381,6 +1435,7 @@ if __name__ == "__main__":
         shutil.rmtree(ROOT)
     shutil.copytree(HERE / "assets", ROOT)
     build_index()
+    build_articles()
     build_stories_page()
     build_process()
     build_horses()
