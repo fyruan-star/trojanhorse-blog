@@ -43,7 +43,10 @@ def _player(pl):
     out.update(stat=pl["key_figure"], why=pl["why"], cond=pl["could_change"], src=pl["source"])
     return out
 
-SECTORS = [dict(id=s["id"], name=s["name"], band=s["tier"], blurb=s["blurb"], positions=[
+# the author who covers a sector alone, by full name, or None when all three do
+OWNER_NAME = {"Francis": "Francis Ruan", "Ryan": "Ryan Chian", "Timothy": "Timothy Zhang"}
+
+SECTORS = [dict(id=s["id"], name=s["name"], band=s["tier"], blurb=s["blurb"], owner=OWNER_NAME.get(s.get("owner")), positions=[
     dict(id=r["id"], name=r["name"], metric=r["metric"], metric_src=r["metric_source"],
          players=[_player(pl) for pl in DATA["placements"] if pl["sector"] == s["id"] and pl["row"] == r["id"]])
     for r in s["rows"]]) for s in DATA["sectors"]]

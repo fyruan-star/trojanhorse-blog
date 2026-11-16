@@ -13,7 +13,7 @@
   var C = window.AtlasMapCore, ART = window.AtlasMapArt;
 
   var SECTOR_COLOR = { silicon: 0xA6DB8C, infra: 0xE9B47E, cloud: 0x84D2E3, models: 0xBCA6F4, software: 0x93B2F6,
-                       security: 0xEDA3DA, internet: 0xF4A9A0, devices: 0xE6DB8C, fintech: 0x8EDCC4, backers: 0xC9D2DF };
+                       security: 0xEDA3DA, internet: 0xF4A9A0, devices: 0xE6DB8C, fintech: 0x8EDCC4, biotech: 0xD7E36E, backers: 0xC9D2DF };
   var LINE = { allies: 0x8FD0B0, rivals: 0xEE8B7C, backers: 0x8DB4F2 };
   var SPACE = 0x151C2A, SILVER = 0xE2E9F3, DIM = 0xC3CCDA;
   var SERIF = '"Cormorant Garamond", Georgia, serif';
@@ -26,11 +26,14 @@
                     ownership: ["owner", "owned"], investment: ["backer", "backed"], alliance: ["ally", "ally"], rivalry: ["rival", "rival"] };
   var TIERS = [{ id: "end" }, { id: "platform" }, { id: "stack" }];
   var RANK_CODE = { starter: "starter", second_string: "second", practice_squad: "rookie" };
-  // at or below this canvas width the sectors stand in two columns of five
+  // at or below this canvas width the sectors stand in two columns
   var NARROW_W = 780;
   // the strips the galaxy's labels keep clear of: the controls above, the legend and first-visit hint below
   var GAL_SAFE = { wide: { top: 54, bottom: 92, side: 8 }, narrow: { top: 52, bottom: 46, side: 6 } };
   var HELMET_MAX = 1250;   // tallest a helmet may be, in map units
+  var HELMET_MIN = 900;    // shortest, so the small owners-and-backers island still reads as a helmet beside the others
+  var HELMET_ALPHA_FAR = 0.62, HELMET_ALPHA_NEAR = 0.16;   // the helmet in the galaxy view, and behind a sector's companies
+  var GLOW_ALPHA = 0.34;   // the sector-coloured halo behind each helmet
   var BLOCK_GAP = 3;   // between a sector's title and the lines under it
 
   function create(PIXI, data, host, hooks) {
@@ -122,7 +125,7 @@
       var sc = new PIXI.Container();
       // a soft nebula wash in the sector colour, the helmet over it, then the orbits of its rows
       var glow = new PIXI.Sprite(GLOW);
-      glow.anchor.set(0.5); glow.tint = color; glow.width = glow.height = t.r * 3.1; glow.alpha = 0.22;
+      glow.anchor.set(0.5); glow.tint = color; glow.width = glow.height = t.r * 3.1; glow.alpha = GLOW_ALPHA;
       var helmet = new PIXI.Sprite(PIXI.Texture.EMPTY);
       helmet.anchor.set(0.5); helmet.tint = color; helmet.visible = false;
       var bands = new PIXI.Graphics();
@@ -150,7 +153,7 @@
         if (!h) return;
         s.helmet.texture = h.texture;
         // the two largest sectors are capped so they do not run into the row above
-        s.helmet.height = Math.min(s.t.r * 2.5, HELMET_MAX); s.helmet.width = s.helmet.height * h.ratio;
+        s.helmet.height = Math.max(HELMET_MIN, Math.min(s.t.r * 2.5, HELMET_MAX)); s.helmet.width = s.helmet.height * h.ratio;
         s.helmet.visible = true;
       });
     });
@@ -357,7 +360,7 @@
       });
       if (d > 0.3) loadBadges();
       var fp = focusProgress(now), tp = teamProgress(now);
-      // the helmet is clearest far out and fades back once its companies are in view; it stays faint enough to read a label over
+      // the helmet is clearest far out and steps back once its companies are in view; labels sit on their own dark plates, so it can be bold
       sectorIds.forEach(function (sid) {
         var s = sectors[sid], t = s.t, off = state.filters && !state.filters.sectors.has(sid);
         // the depth drift only starts once zoomed in, so the galaxy's rows of labels stay evenly spaced
@@ -365,8 +368,8 @@
         s.c.position.set(t.x + (cam.x - t.x) * dep, t.y + (cam.y - t.y) * dep);
         s.c.alpha = off ? 0.18 : 1;
         var quiet = (1 - 0.55 * fp) * (1 - 0.55 * tp);
-        s.helmet.alpha = (0.26 - 0.16 * d) * quiet;
-        s.glow.alpha = 0.22 * (1 - 0.35 * d) * quiet;
+        s.helmet.alpha = (HELMET_ALPHA_FAR - (HELMET_ALPHA_FAR - HELMET_ALPHA_NEAR) * d) * quiet;
+        s.glow.alpha = GLOW_ALPHA * (1 - 0.4 * d) * quiet;
         s.bands.alpha = d * (1 - 0.6 * fp);
         s.nodes.alpha = Math.max(d, tp);
         s.nodes.visible = d > 0.01 || tp > 0.01;
@@ -1000,7 +1003,7 @@
       },
       debug: function () {
         return { cam: cam, kGal: kGal, detail: state.detail, focus: focus && focus.id, badges: Object.keys(badgeTex).length,
-                 helmets: sectorIds.filter(function (sid) { return sectors[sid].helmet.visible; }).length, team: team && team.id };
+                 helmets: sectorIds.filter(function (sid) { return sectors[sid].helmet.visible; }).length, sectors: sectorIds.length, team: team && team.id };
       },
       // for the browser checks: where each spotlight proxy is on screen
       proxyBoxes: function () {

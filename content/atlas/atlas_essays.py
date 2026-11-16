@@ -562,3 +562,28 @@ SECTOR_PIECES.update({
   "delivers power will show which of them was right.",
  ],
 })
+
+# Biotech, added 15 November 2026. Ryan Chian covers it.
+SECTOR_PIECES.update({
+ "biotech": [
+  "Eli Lilly's third-quarter revenue was $24.4 billion, up 39%, and "
+  "Mounjaro alone sold $10.7 billion "
+  "(<a href=\"https://www.sec.gov/Archives/edgar/data/0000059478/000005947826000104/q326lillysalesandearningsp.htm\">Lilly 8-K</a>). "
+  "Novo Nordisk, which sells the rival GLP-1 drugs, grew its quarter's sales "
+  "4% at constant exchange rates "
+  "(<a href=\"https://www.sec.gov/Archives/edgar/data/0000353278/000162828026069805/caq32026.htm\">Novo Nordisk 6-K</a>). "
+  "The obesity market decides most of the money in this sector, and for now "
+  "it is going to Lilly.",
+  "Lilly is also the biggest buyer of the tools that are meant to find the "
+  "next drug. It built its AI supercomputer on Nvidia systems, opened a "
+  "co-innovation lab with Nvidia worth up to $1 billion over five years "
+  "(<a href=\"https://nvidianews.nvidia.com/news/nvidia-and-lilly-announce-co-innovation-lab-to-reinvent-drug-discovery-in-the-age-of-ai\">Nvidia</a>), "
+  "and licensed Insilico programs in a deal worth up to $2.75 billion with "
+  "$115 million upfront "
+  "(<a href=\"https://insilico.com/news/s11n46hx31-commercialization-roadmap-validated-with?amp=true\">Insilico</a>). "
+  "Revenue in AI drug discovery comes from partnerships like these. The links on the map "
+  "show the AI labs selling into the sector too: Anthropic's Claude runs "
+  "inside 10x Genomics' analysis cloud, and OpenAI supplies Moderna and "
+  "Thermo Fisher.",
+ ],
+})

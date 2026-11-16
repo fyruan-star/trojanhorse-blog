@@ -246,6 +246,39 @@
           "metric_source": "https://transak.com/blog/stablecoin-market-cap-2026"
         }
       ]
+    },
+    {
+      "id": "biotech",
+      "name": "Biotech",
+      "tier": "end",
+      "owner": "Ryan",
+      "blurb": "Who sells the medicines, who sells the machines that read the cell, and who is betting AI can find the next drug.",
+      "rows": [
+        {
+          "id": "pharma",
+          "name": "Large-cap biotech and pharma",
+          "metric": "Lilly's Q3 2026 revenue was $24.4bn, up 39%, with Mounjaro at $10.7bn, up 65%. Lilly raised its 2026 revenue guide to $91.0bn to $92.0bn. Novo Nordisk's Q3 2026 sales were DKK 79.2bn, up 4% at constant exchange rates, and Regeneron's revenue was $5.1bn, up 36%.",
+          "metric_source": "https://www.sec.gov/Archives/edgar/data/0000059478/000005947826000104/q326lillysalesandearningsp.htm"
+        },
+        {
+          "id": "tools",
+          "name": "Tools and sequencing",
+          "metric": "Thermo Fisher's Q3 2026 revenue was $12.14bn, up 9%, with 6% organic growth. Illumina's was $1.13bn, up 4.2%, and 10x Genomics' was $150.7m, up 1%.",
+          "metric_source": "https://www.sec.gov/Archives/edgar/data/0000097745/000009774526000173/q32026earnings8kex99_1.htm"
+        },
+        {
+          "id": "ai_discovery",
+          "name": "AI drug discovery",
+          "metric": "Revenue in this row comes from pharma partnerships. Insilico's H1 2026 revenue was $106.3m, up 287.2%, led by a Lilly deal worth up to $2.75bn. Isomorphic Labs raised $2.1bn in May 2026. Recursion's Q3 2026 revenue was $18.6m.",
+          "metric_source": "https://insilico.com/news/s11n46hx31-commercialization-roadmap-validated-with?amp=true"
+        },
+        {
+          "id": "editing",
+          "name": "Gene editing and cell therapy",
+          "metric": "Casgevy, the gene-edited medicine Vertex sells with CRISPR Therapeutics, made $99m in Q3 2026, up 30% on the quarter and nearly six times a year earlier. More than 750 patients have started treatment. Vertex and CRISPR Therapeutics share its costs and profits 60/40.",
+          "metric_source": "https://www.sec.gov/Archives/edgar/data/0001674416/000119312526443644/crsp-ex99_1.htm"
+        }
+      ]
     }
   ],
   "teams": [
@@ -853,6 +886,12 @@
           "hq": "https://data.sec.gov/submissions/CIK0001730168.json",
           "ceo": "https://www.sec.gov/Archives/edgar/data/1730168/000173016825000121/avgo-20251102.htm"
         }
+      },
+      "logo": {
+        "file": "broadcom.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Broadcom_logo_(2016-present).svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "google": {
@@ -1436,6 +1475,12 @@
           "founded": "https://groq.com/newsroom/groq-raises-usd650m-to-scale-its-ai-inference-cloud-business",
           "ceo": "https://groq.com/newsroom/groq-raises-usd650m-to-scale-its-ai-inference-cloud-business"
         }
+      },
+      "logo": {
+        "file": "groq.svg",
+        "kind": "site",
+        "source": "https://groq.com/",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "tenstorrent": {
@@ -1502,6 +1547,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "tenstorrent.svg",
+        "kind": "site",
+        "source": "https://tenstorrent.com/",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "etched": {
@@ -1568,6 +1619,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "etched.svg",
+        "kind": "site",
+        "source": "https://www.etched.com/",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "tsmc": {
@@ -2260,6 +2317,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "cxmt.svg",
+        "kind": "site",
+        "source": "https://www.cxmt.com/statics/shuwon//assets/img/svg/logo.svg",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "asml": {
@@ -2861,6 +2924,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "substrate.svg",
+        "kind": "site",
+        "source": "https://assets.substratecdn.com/a61570144a675c267ff54e20903b5354cac2a96c3c6fc059583fc8ba18083eb5.svg",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "softbank": {
@@ -2877,7 +2946,13 @@
     "meti": {
       "name": "Japan's METI",
       "description": "Japan's industry ministry, funding Rapidus through its IPA.",
-      "sector": "backers"
+      "sector": "backers",
+      "logo": {
+        "file": "meti.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:経済産業省ロゴ.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      }
     },
     "anthropic": {
       "name": "Anthropic",
@@ -3252,6 +3327,12 @@
           "founded": "https://www.sec.gov/Archives/edgar/data/1030894/000103089426000011/cls-20251231.htm",
           "ceo": "https://www.sec.gov/Archives/edgar/data/1030894/000103089426000011/cls-20251231.htm"
         }
+      },
+      "logo": {
+        "file": "celestica.svg",
+        "kind": "site",
+        "source": "https://www.celestica.com/static/images/logo_celestica_pos.svg",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "arista": {
@@ -3485,6 +3566,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "ayar.svg",
+        "kind": "site",
+        "source": "https://ayarlabs.com/wp-content/uploads/2025/03/AyarLabs-logo-solid.svg",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "dell": {
@@ -3731,6 +3818,12 @@
           "founded": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/pstg-20260201.htm",
           "ceo": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/pstg-20260201.htm"
         }
+      },
+      "logo": {
+        "file": "everpure.svg",
+        "kind": "site",
+        "source": "https://www.everpuredata.com/content/dam/purestorage/2026/logos/everpure-logo.svg",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "vast": {
@@ -3945,6 +4038,13 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "weka.svg",
+        "kind": "site",
+        "source": "https://www.weka.io/",
+        "license": "Company website. The mark is a trademark of its owner.",
+        "ground": "dark"
       }
     },
     "supermicro": {
@@ -4392,6 +4492,12 @@
           "founded": "https://www.sec.gov/Archives/edgar/data/1297996/000110465926015365/dlr-20251231x10k.htm",
           "ceo": "https://www.sec.gov/Archives/edgar/data/1297996/000110465926015365/dlr-20251231x10k.htm"
         }
+      },
+      "logo": {
+        "file": "digital_realty.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Digital_Realty_TM_Brandmark_RGB_Black.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "qts": {
@@ -4458,12 +4564,24 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "qts.svg",
+        "kind": "site",
+        "source": "https://q.com/wp-content/uploads/2025/06/QTS-Logo_new.svg",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "blackstone": {
       "name": "Blackstone",
       "description": "Alternative asset manager and owner of QTS and a stake in DDN.",
-      "sector": "backers"
+      "sector": "backers",
+      "logo": {
+        "file": "blackstone.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:The_Blackstone_Group_logo_(2).svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      }
     },
     "blue_owl": {
       "name": "Blue Owl",
@@ -4674,6 +4792,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "crusoe.svg",
+        "kind": "site",
+        "source": "https://www.crusoe.ai/",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "ge_vernova": {
@@ -5072,6 +5196,12 @@
           "hq": "https://data.sec.gov/submissions/CIK0001868275.json",
           "ceo": "https://www.sec.gov/Archives/edgar/data/1868275/000186827526000032/ceg-20251231.htm"
         }
+      },
+      "logo": {
+        "file": "constellation.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Constellation_Logo_2012.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
       }
     },
     "talen": {
@@ -5167,6 +5297,12 @@
           "hq": "https://www.sec.gov/Archives/edgar/data/2088896/000119312526347752/xe-20260630.htm",
           "ceo": "https://www.sec.gov/Archives/edgar/data/2088896/000110465926049515/tm2527015-22_424b4.htm"
         }
+      },
+      "logo": {
+        "file": "x_energy.svg",
+        "kind": "site",
+        "source": "https://x-energy.com/wp-content/uploads/2025/12/logo-dark.svg",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "oklo": {
@@ -5311,6 +5447,12 @@
           "hq": "https://www.terrapower.com/about/",
           "ceo": "https://www.terrapower.com/about/"
         }
+      },
+      "logo": {
+        "file": "terrapower.svg",
+        "kind": "site",
+        "source": "https://www.terrapower.com/",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "valar": {
@@ -5377,6 +5519,13 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "valar.svg",
+        "kind": "site",
+        "source": "https://www.valaratomics.com/",
+        "license": "Company website. The mark is a trademark of its owner.",
+        "ground": "dark"
       }
     },
     "microsoft": {
@@ -5496,7 +5645,14 @@
     "elementl": {
       "name": "Elementl Power",
       "description": "Nuclear developer that agreed to supply Google.",
-      "sector": "backers"
+      "sector": "backers",
+      "logo": {
+        "file": "elementl.svg",
+        "kind": "site",
+        "source": "https://elementlpower.com/__l5e/assets-v1/680c6aba-2df0-42a5-be00-9c85a190ba6b/elementl-logo.svg",
+        "license": "Company website. The mark is a trademark of its owner.",
+        "ground": "dark"
+      }
     },
     "oracle": {
       "name": "Oracle",
@@ -5950,7 +6106,14 @@
           ],
           "status": "draft"
         }
-      ]
+      ],
+      "logo": {
+        "file": "lambda.svg",
+        "kind": "site",
+        "source": "https://lambda.ai/",
+        "license": "Company website. The mark is a trademark of its owner.",
+        "ground": "dark"
+      }
     },
     "fireworks": {
       "name": "Fireworks AI",
@@ -6016,6 +6179,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "fireworks.svg",
+        "kind": "site",
+        "source": "https://fireworks.ai/",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "together": {
@@ -6154,6 +6323,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "baseten.svg",
+        "kind": "site",
+        "source": "https://www.baseten.co/",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "modal": {
@@ -7673,6 +7848,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "sierra.svg",
+        "kind": "site",
+        "source": "https://sierra.ai/",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "harvey": {
@@ -7811,6 +7992,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "decagon.svg",
+        "kind": "site",
+        "source": "https://decagon.ai/",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "glean": {
@@ -8300,6 +8487,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "zscaler.svg",
+        "kind": "site",
+        "source": "https://www.zscaler.com/",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "okta": {
@@ -8586,6 +8779,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "island.svg",
+        "kind": "site",
+        "source": "https://www.island.io/",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "cyera": {
@@ -8652,6 +8851,12 @@
           "evidence": [],
           "status": "draft"
         }
+      },
+      "logo": {
+        "file": "cyera.svg",
+        "kind": "site",
+        "source": "https://www.cyera.com/",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     },
     "armis": {
@@ -8887,7 +9092,14 @@
     "mgx": {
       "name": "MGX",
       "description": "Abu Dhabi investment firm in AI infrastructure.",
-      "sector": "backers"
+      "sector": "backers",
+      "logo": {
+        "file": "mgx.svg",
+        "kind": "site",
+        "source": "https://www.mgx.ae/sites/mgx-corp-v2/files/mgx/mgx-logo.svg",
+        "license": "Company website. The mark is a trademark of its owner.",
+        "ground": "dark"
+      }
     },
     "netflix": {
       "name": "Netflix",
@@ -10234,7 +10446,13 @@
           ],
           "status": "draft"
         }
-      ]
+      ],
+      "logo": {
+        "file": "block.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Block-lockup_black.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      }
     },
     "nubank": {
       "name": "Nubank",
@@ -10751,6 +10969,1175 @@
         "kind": "simple-icons",
         "source": "https://www.coinbase.com/press",
         "license": "CC0 via Simple Icons 16.36.0. The mark is a trademark of its owner."
+      }
+    },
+    "lilly": {
+      "name": "Eli Lilly",
+      "description": "Drug maker behind Mounjaro and Zepbound, its GLP-1 medicines for diabetes and obesity.",
+      "sector": "biotech",
+      "ovr_reason": "Lilly's Q3 2026 revenue rose 39% to $24.4bn on Mounjaro and Zepbound, and it raised its 2026 guide to $91.0bn to $92.0bn.",
+      "ovr_updated": "2026-11-15",
+      "ovr_by": "Claude (draft)",
+      "attributes": {
+        "dominance": {
+          "value": 90,
+          "reason": "Leads the row by revenue, with Q3 2026 revenue of $24.4bn.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000059478/000005947826000104/q326lillysalesandearningsp.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "momentum": {
+          "value": 82,
+          "reason": "Q3 2026 revenue grew 39%, with Mounjaro up 65%.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000059478/000005947826000104/q326lillysalesandearningsp.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "leverage": {
+          "adjust": 0,
+          "reason": "The Atlas states no company that depends on Lilly.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000059478/000005947826000104/q326lillysalesandearningsp.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "durability": {
+          "value": 80,
+          "reason": "Realized prices fell 15% in Q3 2026, a risk its 53% volume growth absorbed.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000059478/000005947826000104/q326lillysalesandearningsp.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "firepower": {
+          "value": 82,
+          "reason": "Took $4.2bn of acquired research charges in Q3 2026 and plans with Nvidia to invest up to $1bn over five years.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000059478/000005947826000104/q326lillysalesandearningsp.htm",
+              "trust": "sourced"
+            },
+            {
+              "url": "https://nvidianews.nvidia.com/news/nvidia-and-lilly-announce-co-innovation-lab-to-reinvent-drug-discovery-in-the-age-of-ai",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "deal_heat": {
+          "value": 70,
+          "reason": "Completed the AtaiBeckley and Curevo purchases in Q3 2026 and lists Merida Biosciences as a further acquisition.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000059478/000005947826000104/q326lillysalesandearningsp.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "NYSE: LLY",
+        "listed": "Public",
+        "hq": "Indianapolis, Indiana",
+        "ceo": "David A. Ricks",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000059478.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000059478.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000059478.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/0000059478/000005947826000104/q326lillysalesandearningsp.htm"
+        }
+      },
+      "logo": {
+        "file": "lilly.svg",
+        "kind": "site",
+        "source": "https://www.lilly.com/",
+        "license": "Company website. The mark is a trademark of its owner."
+      }
+    },
+    "novo_nordisk": {
+      "name": "Novo Nordisk",
+      "description": "Danish maker of Ozempic and Wegovy, the semaglutide medicines.",
+      "sector": "biotech",
+      "ovr_reason": "Novo Nordisk's adjusted sales grew 2% at constant exchange rates in the first nine months of 2026, as lower US prices and competition held back Ozempic and Wegovy.",
+      "ovr_updated": "2026-11-15",
+      "ovr_by": "Claude (draft)",
+      "attributes": {
+        "dominance": {
+          "value": 76,
+          "reason": "A strong number two by scale, with DKK 254,506m of sales in the first nine months of 2026.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000353278/000162828026069805/caq32026.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "momentum": {
+          "value": 60,
+          "reason": "Adjusted sales grew 2% at constant exchange rates in the first nine months of 2026, close to flat.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000353278/000162828026069805/caq32026.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "leverage": {
+          "adjust": 0,
+          "reason": "The Atlas states no company that depends on Novo Nordisk.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000353278/000162828026069805/caq32026.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "durability": {
+          "value": 70,
+          "reason": "US Wegovy injectable sales fell 15% on lower prices, and it names intensifying competition and semaglutide patent expiry in some markets.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000353278/000162828026069805/caq32026.htm",
+              "trust": "sourced"
+            },
+            {
+              "url": "https://247wallst.com/investing/2026/02/04/eli-lilly-is-dominating-the-glp-1-wars-as-novo-nordisk-sales-tank/",
+              "trust": "reported"
+            }
+          ],
+          "status": "draft"
+        },
+        "firepower": {
+          "value": 86,
+          "reason": "Returned DKK 61.9bn to shareholders in the first nine months of 2026 on operating profit of DKK 109,690m.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000353278/000162828026069805/caq32026.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "deal_heat": {
+          "value": null,
+          "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
+          "evidence": [],
+          "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "NYSE: NVO",
+        "listed": "Public",
+        "hq": "Bagsvaerd, Denmark",
+        "ceo": "Mike Doustdar",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000353278.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000353278.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000353278.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/0000353278/000162828026069805/caq32026.htm"
+        }
+      },
+      "team": "nvidia",
+      "team_reason": "Its Nvidia collaboration builds custom models on Nvidia's BioNeMo and the Nvidia-powered Gefion supercomputer, while its Claude tie is a customer listing."
+    },
+    "regeneron": {
+      "name": "Regeneron",
+      "description": "Antibody drug maker behind EYLEA HD and, with Sanofi, Dupixent.",
+      "sector": "biotech",
+      "ovr_reason": "Regeneron's Q3 2026 revenue rose 36% to $5.1bn on Dupixent profits, and it holds $18.9bn of cash and marketable securities.",
+      "ovr_updated": "2026-11-15",
+      "ovr_by": "Claude (draft)",
+      "attributes": {
+        "dominance": {
+          "value": 72,
+          "reason": "A second-string drug maker with Q3 2026 revenue of $5.1bn and no stated share.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000872589/000087258926000032/exhibit991q32026.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "momentum": {
+          "value": 80,
+          "reason": "Q3 2026 revenue grew 36%.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000872589/000087258926000032/exhibit991q32026.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "leverage": {
+          "adjust": 0,
+          "reason": "The Atlas states no company that depends on Regeneron.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000872589/000087258926000032/exhibit991q32026.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "durability": {
+          "value": 74,
+          "reason": "US EYLEA sales fell 41% to $400m, and its largest revenue line is its share of Dupixent, which Sanofi sells.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000872589/000087258926000032/exhibit991q32026.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "firepower": {
+          "value": 88,
+          "reason": "Held $18,858.5m of cash and marketable securities at 30 Sep 2026 and bought back $2.3bn of stock in nine months.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000872589/000087258926000032/exhibit991q32026.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "deal_heat": {
+          "value": null,
+          "reason": "The Atlas reports the expanded Sanofi alliance and no purchase, sale or takeover talks.",
+          "evidence": [],
+          "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "Nasdaq: REGN",
+        "listed": "Public",
+        "hq": "Tarrytown, New York",
+        "ceo": "Leonard S. Schleifer",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000872589.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000872589.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000872589.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/0000872589/000087258926000032/exhibit991q32026.htm"
+        }
+      },
+      "logo": {
+        "file": "regeneron.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Regeneron_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      }
+    },
+    "moderna": {
+      "name": "Moderna",
+      "description": "mRNA vaccine maker, best known for its COVID vaccine.",
+      "sector": "biotech",
+      "ovr_reason": "Moderna's Q3 2026 revenue rose 29% to $1.3bn on international COVID vaccine sales, with a net profit of $162m.",
+      "ovr_updated": "2026-11-15",
+      "ovr_by": "Claude (draft)",
+      "attributes": {
+        "dominance": {
+          "value": 58,
+          "reason": "A practice-squad player in this row, with Q3 2026 revenue of $1.3bn.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001682852/000168285226000194/exhibit9912026q3pressrelea.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "momentum": {
+          "value": 76,
+          "reason": "Q3 2026 revenue grew 29%, and it raised its 2026 growth guide to 15% to 25%.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001682852/000168285226000194/exhibit9912026q3pressrelea.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "leverage": {
+          "adjust": 0,
+          "reason": "The Atlas states no company that depends on Moderna.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001682852/000168285226000194/exhibit9912026q3pressrelea.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "durability": {
+          "value": 68,
+          "reason": "Q3 growth came mainly from COVID vaccine sales, and 2026 costs include a $0.9bn litigation settlement charge.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001682852/000168285226000194/exhibit9912026q3pressrelea.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "firepower": {
+          "value": 78,
+          "reason": "Held $8.0bn of cash and investments at 30 Sep 2026.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001682852/000168285226000194/exhibit9912026q3pressrelea.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "deal_heat": {
+          "value": null,
+          "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
+          "evidence": [],
+          "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "Nasdaq: MRNA",
+        "listed": "Public",
+        "hq": "Cambridge, Massachusetts",
+        "ceo": "Stéphane Bancel",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001682852.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001682852.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001682852.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/0001682852/000168285226000194/exhibit9912026q3pressrelea.htm"
+        }
+      },
+      "logo": {
+        "file": "moderna.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Moderna_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      }
+    },
+    "thermo_fisher": {
+      "name": "Thermo Fisher Scientific",
+      "description": "Seller of lab instruments, consumables and clinical research services to drug makers.",
+      "sector": "biotech",
+      "ovr_reason": "Thermo Fisher's Q3 2026 revenue rose 9% to $12.14bn, and it spent $8.88bn on acquisitions and $4.00bn on buybacks in nine months.",
+      "ovr_updated": "2026-11-15",
+      "ovr_by": "Claude (draft)",
+      "attributes": {
+        "dominance": {
+          "value": 88,
+          "reason": "Leads the row by revenue, with Q3 2026 revenue of $12.14bn against Illumina's $1.13bn.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000097745/000009774526000173/q32026earnings8kex99_1.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "momentum": {
+          "value": 68,
+          "reason": "Q3 2026 revenue grew 9%, with 6% organic growth.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000097745/000009774526000173/q32026earnings8kex99_1.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "leverage": {
+          "adjust": 10,
+          "reason": "Runs clinical trials for drug makers through PPD, so its customers depend on it to bring medicines to market.",
+          "evidence": [
+            {
+              "url": "https://ir.thermofisher.com/investors/news-events/news/news-details/2025/Thermo-Fisher-Scientific-to-Accelerate-Life-Science-Breakthroughs-with-OpenAI/default.aspx",
+              "trust": "sourced"
+            },
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000097745/000009774526000173/q32026earnings8kex99_1.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "durability": {
+          "value": 85,
+          "reason": "A diversified business whose named exposure is cash falling to $5.46bn from $9.85bn after nine months of deals and buybacks.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000097745/000009774526000173/q32026earnings8kex99_1.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "firepower": {
+          "value": 90,
+          "reason": "Spent $8.88bn on acquisitions and $4.00bn on buybacks in the nine months to 26 Sep 2026.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000097745/000009774526000173/q32026earnings8kex99_1.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "deal_heat": {
+          "value": 66,
+          "reason": "Spent $8.88bn on acquisitions and completed the sale of its microbiology business in 2026.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0000097745/000009774526000173/q32026earnings8kex99_1.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "NYSE: TMO",
+        "listed": "Public",
+        "hq": "Waltham, Massachusetts",
+        "ceo": "Marc N. Casper",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000097745.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000097745.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000097745.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/0000097745/000009774526000173/q32026earnings8kex99_1.htm"
+        }
+      },
+      "logo": {
+        "file": "thermo_fisher.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Thermo_Fisher_Scientific_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      }
+    },
+    "illumina": {
+      "name": "Illumina",
+      "description": "Maker of DNA sequencers and the chemistry they run on.",
+      "sector": "biotech",
+      "ovr_reason": "Illumina's Q3 2026 revenue rose 4.2% to $1.13bn, and it raised its 2026 guide to $4.64bn to $4.66bn.",
+      "ovr_updated": "2026-11-15",
+      "ovr_by": "Claude (draft)",
+      "attributes": {
+        "dominance": {
+          "value": 74,
+          "reason": "A second-string tools maker with Q3 2026 revenue of $1.13bn.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001110803/000111080326000202/q326earningsrelease.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "momentum": {
+          "value": 66,
+          "reason": "Q3 2026 revenue grew 4.2%, or 7.6% excluding tariff refunds.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001110803/000111080326000202/q326earningsrelease.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "leverage": {
+          "adjust": 6,
+          "reason": "Its sequencing data feeds the Billion Cell Atlas that AstraZeneca, Merck and Lilly use to train AI models.",
+          "evidence": [
+            {
+              "url": "https://www.illumina.com/company/news-center/press-releases/2026/fda84c92-b4b3-4691-a402-35555abe8605.html",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "durability": {
+          "value": 80,
+          "reason": "Its named exposures are tariff refunds and a small drag from China, which took 0.1 points off Q3 organic growth.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001110803/000111080326000202/q326earningsrelease.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "firepower": {
+          "value": 70,
+          "reason": "Held $1.34bn of cash and short-term investments at the end of Q3 2026.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001110803/000111080326000202/q326earningsrelease.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "deal_heat": {
+          "value": null,
+          "reason": "The Atlas reports past acquisitions, SomaLogic and GRAIL, and no current deal activity.",
+          "evidence": [],
+          "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "Nasdaq: ILMN",
+        "listed": "Public",
+        "hq": "San Diego, California",
+        "ceo": "Jacob Thaysen",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001110803.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001110803.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001110803.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/0001110803/000111080326000202/q326earningsrelease.htm"
+        }
+      },
+      "logo": {
+        "file": "illumina.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Illumina_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      }
+    },
+    "tenx_genomics": {
+      "name": "10x Genomics",
+      "description": "Single-cell and spatial biology instruments and the consumables they use.",
+      "sector": "biotech",
+      "ovr_reason": "10x Genomics' Q3 2026 revenue was flat at $150.7m as instrument sales fell, and it launched Sentira, an analysis cloud built on Nvidia computing and Anthropic's Claude.",
+      "ovr_updated": "2026-11-15",
+      "ovr_by": "Claude (draft)",
+      "attributes": {
+        "dominance": {
+          "value": 56,
+          "reason": "A practice-squad tools maker with Q3 2026 revenue of $150.7m.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001770787/000162828026071025/txg-20261105xexx991.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "momentum": {
+          "value": 58,
+          "reason": "Q3 2026 revenue grew 1%, close to flat.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001770787/000162828026071025/txg-20261105xexx991.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "leverage": {
+          "adjust": 0,
+          "reason": "The Atlas states no company that depends on 10x Genomics.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001770787/000162828026071025/txg-20261105xexx991.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "durability": {
+          "value": 66,
+          "reason": "Instrument revenue fell to $6.9m from $12.0m and it lost $19.4m in Q3 2026.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001770787/000162828026071025/txg-20261105xexx991.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "firepower": {
+          "value": 66,
+          "reason": "Held $575.7m of cash and marketable securities at 30 Sep 2026, with a Q3 net loss of $19.4m.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001770787/000162828026071025/txg-20261105xexx991.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "deal_heat": {
+          "value": null,
+          "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
+          "evidence": [],
+          "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "Nasdaq: TXG",
+        "listed": "Public",
+        "hq": "Pleasanton, California",
+        "ceo": "Serge Saxonov",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001770787.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001770787.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001770787.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/0001770787/000162828026071025/txg-20261105xexx991.htm"
+        }
+      },
+      "team": "amazon_anthropic",
+      "team_reason": "It is a launch connector in Claude for Life Sciences and uses Claude in Sentira, while Nvidia supplies only Sentira's computing.",
+      "logo": {
+        "file": "tenx_genomics.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:10x_Genomics_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      }
+    },
+    "isomorphic": {
+      "name": "Isomorphic Labs",
+      "description": "Alphabet's AI drug design company, spun out of Google DeepMind.",
+      "sector": "biotech",
+      "ovr_reason": "Isomorphic Labs raised a $2.1bn Series B in May 2026, led by Thrive Capital with Alphabet and GV.",
+      "ovr_updated": "2026-11-15",
+      "ovr_by": "Claude (draft)",
+      "attributes": {
+        "dominance": {
+          "value": 78,
+          "reason": "The starter in AI drug discovery, with the row's largest raise at $2.1bn and partnerships with Novartis, Lilly and Johnson and Johnson.",
+          "evidence": [
+            {
+              "url": "https://www.isomorphiclabs.com/press/isomorphic-labs-funding",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "momentum": {
+          "value": null,
+          "reason": "The Atlas gives no growth figure and no stated direction for this company.",
+          "evidence": [],
+          "status": "draft"
+        },
+        "leverage": {
+          "adjust": 0,
+          "reason": "The Atlas states no company that depends on Isomorphic Labs.",
+          "evidence": [
+            {
+              "url": "https://www.isomorphiclabs.com/press/isomorphic-labs-funding",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "durability": {
+          "value": 68,
+          "reason": "It has disclosed no program in the clinic and says the new money will move programs towards it.",
+          "evidence": [
+            {
+              "url": "https://www.isomorphiclabs.com/press/isomorphic-labs-funding",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "firepower": {
+          "value": 82,
+          "reason": "Raised $2.1bn in a Series B led by Thrive Capital, announced 12 May 2026.",
+          "evidence": [
+            {
+              "url": "https://www.isomorphiclabs.com/press/isomorphic-labs-funding",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "deal_heat": {
+          "value": null,
+          "reason": "The Atlas reports a completed funding round in May 2026 and no sale, purchase or listing plan.",
+          "evidence": [],
+          "status": "draft"
+        }
+      },
+      "bio": {
+        "listed": "Private",
+        "hq": "London",
+        "founded": "2021",
+        "ceo": "Demis Hassabis",
+        "sources": {
+          "listed": "https://www.isomorphiclabs.com/press/isomorphic-labs-funding",
+          "hq": "https://www.isomorphiclabs.com/press/isomorphic-labs-funding",
+          "founded": "https://www.isomorphiclabs.com/press/isomorphic-labs-funding",
+          "ceo": "https://www.isomorphiclabs.com/press/isomorphic-labs-funding"
+        }
+      }
+    },
+    "recursion": {
+      "name": "Recursion",
+      "description": "Biotech that runs automated labs to feed AI models for drug discovery.",
+      "sector": "biotech",
+      "ovr_reason": "Recursion's Q3 2026 revenue rose to $18.6m on a Sanofi milestone, against a net loss of $119.0m funded by share sales.",
+      "ovr_updated": "2026-11-15",
+      "ovr_by": "Claude (draft)",
+      "attributes": {
+        "dominance": {
+          "value": 64,
+          "reason": "A second-string AI drug developer with Q3 2026 revenue of $18.6m.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001601830/000160183026000145/rxrx-20260930.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "momentum": {
+          "value": 78,
+          "reason": "Q3 2026 revenue rose to $18.6m from $5.2m, mainly on a $10.0m Sanofi milestone.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001601830/000160183026000145/rxrx-20260930.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "leverage": {
+          "adjust": 0,
+          "reason": "The Atlas states no company that depends on Recursion.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001601830/000160183026000145/rxrx-20260930.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "durability": {
+          "value": 60,
+          "reason": "Lost $119.0m in Q3 2026 and sold 61.5 million new shares in October to extend its runway.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001601830/000160183026000145/rxrx-20260930.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "firepower": {
+          "value": 66,
+          "reason": "Raised about $187.2m net in October 2026, on top of $561.5m of cash at 30 Sep.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001601830/000160183026000145/rxrx-20260930.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "deal_heat": {
+          "value": null,
+          "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
+          "evidence": [],
+          "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "Nasdaq: RXRX",
+        "listed": "Public",
+        "hq": "Salt Lake City, Utah",
+        "ceo": "Najat Khan",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001601830.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001601830.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001601830.json",
+          "ceo": "https://finviz.com/news/413647/recursion-reports-third-quarter-2026-financial-results-and-extends-cash-runway-highlights-positive-clinical-data-in-rec-4881-and-rec-1245-sanofi-development-candidate-option-and-appointment-of-fred-hassan-as-chair"
+        }
+      },
+      "logo": {
+        "file": "recursion.svg",
+        "kind": "site",
+        "source": "https://cdn.prod.website-files.com/604197abb43603652c167bfa/6556d670e8da976dc91d11c4_Recursion%20Logo%20Horizontal%20Black.svg",
+        "license": "Company website. The mark is a trademark of its owner."
+      }
+    },
+    "insilico": {
+      "name": "Insilico Medicine",
+      "description": "Hong Kong-listed AI drug discovery company with a drug in Phase III.",
+      "sector": "biotech",
+      "ovr_reason": "Insilico Medicine's H1 2026 revenue rose 287.2% to $106.3m on pharma deals led by Lilly, and it turned a profit of $35.54m.",
+      "ovr_updated": "2026-11-15",
+      "ovr_by": "Claude (draft)",
+      "attributes": {
+        "dominance": {
+          "value": 70,
+          "reason": "Leads the row by stated revenue, $106.3m in H1 2026, while ranked second-string.",
+          "evidence": [
+            {
+              "url": "https://insilico.com/news/s11n46hx31-commercialization-roadmap-validated-with?amp=true",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "momentum": {
+          "value": 90,
+          "reason": "H1 2026 revenue grew 287.2%, from deal payments that vary from period to period.",
+          "evidence": [
+            {
+              "url": "https://insilico.com/news/s11n46hx31-commercialization-roadmap-validated-with?amp=true",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "leverage": {
+          "adjust": 0,
+          "reason": "Lilly licenses its drug programs, which the network base already counts.",
+          "evidence": [
+            {
+              "url": "https://insilico.com/news/s11n46hx31-commercialization-roadmap-validated-with?amp=true",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "durability": {
+          "value": 70,
+          "reason": "Its revenue comes from upfront and milestone payments, led by $115m from one partner, Lilly.",
+          "evidence": [
+            {
+              "url": "https://insilico.com/news/s11n46hx31-commercialization-roadmap-validated-with?amp=true",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "firepower": {
+          "value": 72,
+          "reason": "Held $584.8m of cash and investments at 30 Jun 2026 and made a net profit of $35.54m.",
+          "evidence": [
+            {
+              "url": "https://insilico.com/news/s11n46hx31-commercialization-roadmap-validated-with?amp=true",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "deal_heat": {
+          "value": null,
+          "reason": "The Atlas reports the Lilly licence as signed in March 2026 and no purchase, sale or takeover talks.",
+          "evidence": [],
+          "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "HKEX: 3696",
+        "listed": "Public",
+        "sources": {
+          "ticker": "https://www.rttnews.com/3606878/insilico-medicine-debuts-on-hkex-as-first-ai-driven-biotech-under-chapter-8-05.aspx",
+          "listed": "https://www.rttnews.com/3606878/insilico-medicine-debuts-on-hkex-as-first-ai-driven-biotech-under-chapter-8-05.aspx"
+        }
+      },
+      "logo": {
+        "file": "insilico.svg",
+        "kind": "site",
+        "source": "https://insilico.com/images/tild6538-3539-4162-a330-373039636563__2024_insilico_medici.svg",
+        "license": "Company website. The mark is a trademark of its owner."
+      }
+    },
+    "xaira": {
+      "name": "Xaira Therapeutics",
+      "description": "AI drug discovery startup building models and a lab at once.",
+      "sector": "biotech",
+      "ovr_reason": "Xaira Therapeutics has raised $1.3bn since its 2024 launch and is now looking for its first partners.",
+      "ovr_updated": "2026-11-15",
+      "ovr_by": "Claude (draft)",
+      "attributes": {
+        "dominance": {
+          "value": 50,
+          "reason": "Pre-revenue, with no disclosed drug program as of July 2026.",
+          "evidence": [
+            {
+              "url": "https://www.biospace.com/business/secretive-ai-drug-hunter-xaira-dips-toe-into-dealmaking-with-hunt-for-partners",
+              "trust": "reported"
+            }
+          ],
+          "status": "draft"
+        },
+        "momentum": {
+          "value": null,
+          "reason": "The Atlas gives no growth figure and no stated direction for this company.",
+          "evidence": [],
+          "status": "draft"
+        },
+        "leverage": {
+          "adjust": 0,
+          "reason": "The Atlas states no company that depends on Xaira.",
+          "evidence": [
+            {
+              "url": "https://www.biospace.com/business/secretive-ai-drug-hunter-xaira-dips-toe-into-dealmaking-with-hunt-for-partners",
+              "trust": "reported"
+            }
+          ],
+          "status": "draft"
+        },
+        "durability": {
+          "value": 60,
+          "reason": "It has not disclosed a drug program or a partner.",
+          "evidence": [
+            {
+              "url": "https://www.biospace.com/business/secretive-ai-drug-hunter-xaira-dips-toe-into-dealmaking-with-hunt-for-partners",
+              "trust": "reported"
+            }
+          ],
+          "status": "draft"
+        },
+        "firepower": {
+          "value": 78,
+          "reason": "Has raised $1.3bn to date according to PitchBook, after launching with $1bn in 2024.",
+          "evidence": [
+            {
+              "url": "https://www.biospace.com/business/secretive-ai-drug-hunter-xaira-dips-toe-into-dealmaking-with-hunt-for-partners",
+              "trust": "reported"
+            }
+          ],
+          "status": "draft"
+        },
+        "deal_heat": {
+          "value": 76,
+          "reason": "Hired a business development head in March 2026 to find pharma and biotech partners.",
+          "evidence": [
+            {
+              "url": "https://www.biospace.com/business/secretive-ai-drug-hunter-xaira-dips-toe-into-dealmaking-with-hunt-for-partners",
+              "trust": "reported"
+            }
+          ],
+          "status": "draft"
+        }
+      },
+      "bio": {
+        "listed": "Private",
+        "hq": "South San Francisco, California",
+        "ceo": "Marc Tessier-Lavigne",
+        "sources": {
+          "listed": "https://www.biospace.com/business/secretive-ai-drug-hunter-xaira-dips-toe-into-dealmaking-with-hunt-for-partners",
+          "hq": "https://www.biospace.com/press-releases/xaira-therapeutics-launches-x-cell-its-first-virtual-cell-model-trained-on-the-largest-ever-genome-wide-perturbation-dataset-x-atlas-pisces",
+          "ceo": "https://www.biospace.com/press-releases/xaira-therapeutics-launches-x-cell-its-first-virtual-cell-model-trained-on-the-largest-ever-genome-wide-perturbation-dataset-x-atlas-pisces"
+        }
+      },
+      "logo": {
+        "file": "xaira.svg",
+        "kind": "site",
+        "source": "https://xaira.com/",
+        "license": "Company website. The mark is a trademark of its owner."
+      }
+    },
+    "vertex": {
+      "name": "Vertex Pharmaceuticals",
+      "description": "Cystic fibrosis drug maker that sells the gene-edited medicine Casgevy.",
+      "sector": "biotech",
+      "ovr_reason": "Vertex's Q3 2026 revenue rose 12% to $3.44bn, and it closed its $10.0bn purchase of Crinetics on 1 Sep 2026.",
+      "ovr_updated": "2026-11-15",
+      "ovr_by": "Claude (draft)",
+      "attributes": {
+        "dominance": {
+          "value": 86,
+          "reason": "Leads the row by revenue, $3.44bn in Q3 2026, and runs Casgevy's development, manufacturing and sales.",
+          "evidence": [
+            {
+              "url": "https://finviz.com/news/413471/vertex-reports-third-quarter-2026-financial-results",
+              "trust": "sourced"
+            },
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001674416/000119312526443644/crsp-ex99_1.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "momentum": {
+          "value": 70,
+          "reason": "Q3 2026 revenue grew 12%, while Casgevy grew nearly six times from a small base.",
+          "evidence": [
+            {
+              "url": "https://finviz.com/news/413471/vertex-reports-third-quarter-2026-financial-results",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "leverage": {
+          "adjust": 6,
+          "reason": "CRISPR Therapeutics relies on Vertex to develop, make and sell Casgevy.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001674416/000119312526443644/crsp-ex99_1.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "durability": {
+          "value": 82,
+          "reason": "Cash and marketable securities fell to $9.8bn from $12.3bn after the Crinetics purchase and buybacks.",
+          "evidence": [
+            {
+              "url": "https://finviz.com/news/413471/vertex-reports-third-quarter-2026-financial-results",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "firepower": {
+          "value": 92,
+          "reason": "Closed the Crinetics purchase at a total equity value of about $10.0bn on 1 Sep 2026.",
+          "evidence": [
+            {
+              "url": "https://finviz.com/news/413471/vertex-reports-third-quarter-2026-financial-results",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "deal_heat": {
+          "value": 70,
+          "reason": "Closed the about $10.0bn Crinetics purchase in September 2026 and signed an AbCellera collaboration in July.",
+          "evidence": [
+            {
+              "url": "https://finviz.com/news/413471/vertex-reports-third-quarter-2026-financial-results",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "Nasdaq: VRTX",
+        "listed": "Public",
+        "hq": "Boston, Massachusetts",
+        "ceo": "Reshma Kewalramani",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0000875320.json",
+          "listed": "https://data.sec.gov/submissions/CIK0000875320.json",
+          "hq": "https://data.sec.gov/submissions/CIK0000875320.json",
+          "ceo": "https://finviz.com/news/413471/vertex-reports-third-quarter-2026-financial-results"
+        }
+      },
+      "logo": {
+        "file": "vertex.svg",
+        "kind": "commons",
+        "source": "https://commons.wikimedia.org/wiki/File:Vertex_logo.svg",
+        "license": "Wikimedia Commons: public domain, with a trademark restriction. The mark is a trademark of its owner."
+      }
+    },
+    "crispr_tx": {
+      "name": "CRISPR Therapeutics",
+      "description": "Gene editing company that co-owns Casgevy with Vertex.",
+      "sector": "biotech",
+      "ovr_reason": "Casgevy sales grew 30% on the quarter to $99m in Q3 2026, and CRISPR Therapeutics holds $2.28bn of cash against a quarterly loss of $111.4m.",
+      "ovr_updated": "2026-11-15",
+      "ovr_by": "Claude (draft)",
+      "attributes": {
+        "dominance": {
+          "value": 66,
+          "reason": "A second-string gene editor whose Casgevy made $99m in Q3 2026, booked by Vertex.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001674416/000119312526443644/crsp-ex99_1.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "momentum": {
+          "value": 86,
+          "reason": "Casgevy revenue grew 30% on the quarter and nearly six times on the year.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001674416/000119312526443644/crsp-ex99_1.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "leverage": {
+          "adjust": 0,
+          "reason": "The Atlas states no company that depends on CRISPR Therapeutics.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001674416/000119312526443644/crsp-ex99_1.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "durability": {
+          "value": 64,
+          "reason": "Relies on Vertex to sell its only approved product and lost $111.4m in Q3 2026.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001674416/000119312526443644/crsp-ex99_1.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "firepower": {
+          "value": 80,
+          "reason": "Held $2,276.6m of cash and marketable securities at 30 Sep 2026.",
+          "evidence": [
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/0001674416/000119312526443644/crsp-ex99_1.htm",
+              "trust": "sourced"
+            }
+          ],
+          "status": "draft"
+        },
+        "deal_heat": {
+          "value": null,
+          "reason": "The Atlas reports no deal talks, pending deal, listing plan or stated acquisition plan for this company.",
+          "evidence": [],
+          "status": "draft"
+        }
+      },
+      "bio": {
+        "ticker": "Nasdaq: CRSP",
+        "listed": "Public",
+        "hq": "Zug, Switzerland",
+        "ceo": "Samarth Kulkarni",
+        "sources": {
+          "ticker": "https://data.sec.gov/submissions/CIK0001674416.json",
+          "listed": "https://data.sec.gov/submissions/CIK0001674416.json",
+          "hq": "https://data.sec.gov/submissions/CIK0001674416.json",
+          "ceo": "https://www.sec.gov/Archives/edgar/data/0001674416/000119312526443644/crsp-ex99_1.htm"
+        }
+      },
+      "logo": {
+        "file": "crispr_tx.svg",
+        "kind": "site",
+        "source": "https://crisprtx.com/assets/build/img/logo-main.svg",
+        "license": "Company website. The mark is a trademark of its owner."
       }
     }
   },
@@ -12675,6 +14062,303 @@
       "could_change": "Trading revenue is cyclical.",
       "source": "https://www.cnbc.com/2026/07/30/coinbase-coin-earnings-q2-2026.html",
       "trust": "sourced"
+    },
+    {
+      "company": "lilly",
+      "sector": "biotech",
+      "row": "pharma",
+      "rank": "starter",
+      "key_figure": "Q3 2026 revenue $24.4bn, up 39%. Mounjaro $10.7bn, up 65%. Zepbound $5.4bn, up 49%. 2026 guide raised to $91.0bn to $92.0bn.",
+      "why": "Its GLP-1 medicines grow on volume, which rose 53% in Q3 even as realized prices fell 15%.",
+      "could_change": "Lower prices, and the slower start of its oral GLP-1 Foundayo at $184m in Q3.",
+      "source": "https://www.sec.gov/Archives/edgar/data/0000059478/000005947826000104/q326lillysalesandearningsp.htm",
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Q3 2026 revenue",
+          "value": "$24.4bn"
+        },
+        {
+          "label": "Mounjaro, quarter",
+          "value": "$10.7bn"
+        },
+        {
+          "label": "2026 revenue guide",
+          "value": "$92.0bn"
+        }
+      ]
+    },
+    {
+      "company": "novo_nordisk",
+      "sector": "biotech",
+      "row": "pharma",
+      "rank": "second_string",
+      "key_figure": "Sales DKK 254,506m in the first nine months of 2026, up 13% at constant exchange rates as reported and 2% adjusted. Q3 sales DKK 79,195m, up 4%. 2026 guide raised to -2% to +2%.",
+      "why": "Ozempic and Wegovy still sell at scale, and the Wegovy pill added DKK 5,394m in Q3.",
+      "could_change": "Lower US prices, including the Most Favoured Nations agreement, competition from Lilly, and semaglutide patent expiry in some markets.",
+      "source": "https://www.sec.gov/Archives/edgar/data/0000353278/000162828026069805/caq32026.htm",
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Nine-month sales, DKK",
+          "value": "254,506m"
+        },
+        {
+          "label": "Q3 sales, DKK",
+          "value": "79,195m"
+        }
+      ]
+    },
+    {
+      "company": "regeneron",
+      "sector": "biotech",
+      "row": "pharma",
+      "rank": "second_string",
+      "key_figure": "Q3 2026 revenue $5.1bn, up 36%. Dupixent sales $6.5bn, up 35%, recorded by Sanofi. EYLEA HD US $699m, up 62%. Cash and marketable securities $18,858.5m.",
+      "why": "Its share of Dupixent profits and the switch to EYLEA HD carry growth.",
+      "could_change": "US EYLEA sales fell 41% to $400m on competition.",
+      "source": "https://www.sec.gov/Archives/edgar/data/0000872589/000087258926000032/exhibit991q32026.htm",
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Q3 2026 revenue",
+          "value": "$5.1bn"
+        },
+        {
+          "label": "Dupixent, quarter",
+          "value": "$6.5bn"
+        },
+        {
+          "label": "EYLEA HD US",
+          "value": "$699m"
+        }
+      ]
+    },
+    {
+      "company": "moderna",
+      "sector": "biotech",
+      "row": "pharma",
+      "rank": "practice_squad",
+      "key_figure": "Q3 2026 revenue $1.3bn, up 29%. Net income $162m. Cash and investments $8.0bn. 2026 growth guide raised to 15% to 25%.",
+      "why": "International COVID vaccine sales made it profitable in Q3, and its flu vaccine mFLUSIVA was approved by the FDA in August.",
+      "could_change": "Dependence on COVID vaccine sales and a $0.9bn litigation settlement charge in 2026 costs.",
+      "source": "https://www.sec.gov/Archives/edgar/data/0001682852/000168285226000194/exhibit9912026q3pressrelea.htm",
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Q3 2026 revenue",
+          "value": "$1.3bn"
+        },
+        {
+          "label": "Net income",
+          "value": "$162m"
+        },
+        {
+          "label": "Cash and investments",
+          "value": "$8.0bn"
+        }
+      ]
+    },
+    {
+      "company": "thermo_fisher",
+      "sector": "biotech",
+      "row": "tools",
+      "rank": "starter",
+      "key_figure": "Q3 2026 revenue $12.14bn, up 9%, with 6% organic growth. $8.88bn spent on acquisitions and $4.00bn on buybacks in nine months.",
+      "why": "Sells instruments, consumables and PPD clinical research to drug makers, and builds OpenAI tools into its trial business.",
+      "could_change": "Cash fell to $5.46bn from $9.85bn at the end of 2025.",
+      "source": "https://www.sec.gov/Archives/edgar/data/0000097745/000009774526000173/q32026earnings8kex99_1.htm",
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Q3 2026 revenue",
+          "value": "$12.14bn"
+        },
+        {
+          "label": "Acquisitions, nine months",
+          "value": "$8.88bn"
+        },
+        {
+          "label": "Buybacks, nine months",
+          "value": "$4.00bn"
+        }
+      ]
+    },
+    {
+      "company": "illumina",
+      "sector": "biotech",
+      "row": "tools",
+      "rank": "second_string",
+      "key_figure": "Q3 2026 revenue $1.13bn, up 4.2%, or $1.166bn excluding tariff refunds. 2026 guide raised to $4.64bn to $4.66bn.",
+      "why": "Its sequencers and DRAGEN software generate the data that drug makers now use to train AI models.",
+      "could_change": "Tariff refunds and slow growth, with China a small drag on organic growth.",
+      "source": "https://www.sec.gov/Archives/edgar/data/0001110803/000111080326000202/q326earningsrelease.htm",
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Q3 2026 revenue",
+          "value": "$1.13bn"
+        },
+        {
+          "label": "2026 revenue guide",
+          "value": "$4.66bn"
+        }
+      ]
+    },
+    {
+      "company": "tenx_genomics",
+      "sector": "biotech",
+      "row": "tools",
+      "rank": "practice_squad",
+      "key_figure": "Q3 2026 revenue $150.7m, up 1%. Instruments $6.9m, down from $12.0m. Net loss $19.4m. 2026 guide raised to $625m to $635m.",
+      "why": "Sells single-cell and spatial tools, and its new Sentira cloud runs on Nvidia computing and Anthropic's Claude.",
+      "could_change": "Falling instrument sales while its new Atera platform ramps, and litigation costs.",
+      "source": "https://www.sec.gov/Archives/edgar/data/0001770787/000162828026071025/txg-20261105xexx991.htm",
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Q3 2026 revenue",
+          "value": "$150.7m"
+        },
+        {
+          "label": "Net loss",
+          "value": "$19.4m"
+        }
+      ]
+    },
+    {
+      "company": "isomorphic",
+      "sector": "biotech",
+      "row": "ai_discovery",
+      "rank": "starter",
+      "key_figure": "$2.1bn Series B announced 12 May 2026, led by Thrive Capital with Alphabet and GV.",
+      "why": "Spun out of Google DeepMind, with drug discovery partnerships with Novartis, Lilly and Johnson and Johnson.",
+      "could_change": "No program has been disclosed in the clinic.",
+      "source": "https://www.isomorphiclabs.com/press/isomorphic-labs-funding",
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Series B",
+          "value": "$2.1bn"
+        }
+      ]
+    },
+    {
+      "company": "recursion",
+      "sector": "biotech",
+      "row": "ai_discovery",
+      "rank": "second_string",
+      "key_figure": "Q3 2026 revenue $18.6m, up from $5.2m. Net loss $119.0m. Cash $561.5m at 30 Sep, plus about $187.2m raised in October.",
+      "why": "Runs automated labs that generate its own data, and has partnerships with Sanofi and Roche.",
+      "could_change": "Losses funded by selling new shares.",
+      "source": "https://www.sec.gov/Archives/edgar/data/0001601830/000160183026000145/rxrx-20260930.htm",
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Q3 2026 revenue",
+          "value": "$18.6m"
+        },
+        {
+          "label": "Net loss",
+          "value": "$119.0m"
+        },
+        {
+          "label": "Cash at 30 Sep",
+          "value": "$561.5m"
+        }
+      ]
+    },
+    {
+      "company": "insilico",
+      "sector": "biotech",
+      "row": "ai_discovery",
+      "rank": "second_string",
+      "key_figure": "H1 2026 revenue $106.3m, up 287.2%. Net profit $35.54m. Lilly licence worth up to $2.75bn with $115m upfront (March 2026). Rentosertib in a Phase III trial in China.",
+      "why": "Pharma deals already pay it enough to make a profit, and its lead candidate is in Phase III.",
+      "could_change": "Revenue depends on new deals and milestones, which vary by period.",
+      "source": "https://insilico.com/news/s11n46hx31-commercialization-roadmap-validated-with?amp=true",
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "H1 2026 revenue",
+          "value": "$106.3m"
+        },
+        {
+          "label": "Net profit",
+          "value": "$35.54m"
+        },
+        {
+          "label": "Lilly deal, up to",
+          "value": "$2.75bn"
+        }
+      ]
+    },
+    {
+      "company": "xaira",
+      "sector": "biotech",
+      "row": "ai_discovery",
+      "rank": "practice_squad",
+      "key_figure": "$1.3bn raised to date (PitchBook, as reported), after a $1bn launch in 2024. No drug program disclosed as of July 2026. Its X-Cell model has 4.9 billion parameters.",
+      "why": "Large funding to build its own data, models and lab at once.",
+      "could_change": "No disclosed program or partner yet.",
+      "source": "https://www.biospace.com/business/secretive-ai-drug-hunter-xaira-dips-toe-into-dealmaking-with-hunt-for-partners",
+      "trust": "reported",
+      "stats": [
+        {
+          "label": "Raised to date",
+          "value": "$1.3bn"
+        }
+      ]
+    },
+    {
+      "company": "vertex",
+      "sector": "biotech",
+      "row": "editing",
+      "rank": "starter",
+      "key_figure": "Q3 2026 revenue $3.44bn, up 12%. Casgevy $99m. 2026 guide raised to $13.15bn to $13.25bn. Crinetics purchase closed 1 Sep 2026 at about $10.0bn.",
+      "why": "Leads Casgevy's development, manufacturing and sales, backed by its cystic fibrosis business.",
+      "could_change": "Casgevy is still a small part of revenue, and cash fell to $9.8bn after the Crinetics deal.",
+      "source": "https://finviz.com/news/413471/vertex-reports-third-quarter-2026-financial-results",
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Q3 2026 revenue",
+          "value": "$3.44bn"
+        },
+        {
+          "label": "Casgevy, quarter",
+          "value": "$99m"
+        },
+        {
+          "label": "Crinetics purchase",
+          "value": "$10.0bn"
+        }
+      ]
+    },
+    {
+      "company": "crispr_tx",
+      "sector": "biotech",
+      "row": "editing",
+      "rank": "second_string",
+      "key_figure": "Casgevy revenue $99m in Q3 2026, up 30% on the quarter. More than 750 patients started treatment. Own revenue $12.7m. Net loss $111.4m. Cash $2,276.6m.",
+      "why": "Co-owns Casgevy, and its in vivo program CTX310 gained two FDA RMAT designations.",
+      "could_change": "Depends on Vertex to sell Casgevy, and on trials it has not yet run to late stage.",
+      "source": "https://www.sec.gov/Archives/edgar/data/0001674416/000119312526443644/crsp-ex99_1.htm",
+      "trust": "sourced",
+      "stats": [
+        {
+          "label": "Casgevy, quarter",
+          "value": "$99m"
+        },
+        {
+          "label": "Net loss",
+          "value": "$111.4m"
+        },
+        {
+          "label": "Cash",
+          "value": "$2,276.6m"
+        }
+      ]
     }
   ],
   "relationships": [
@@ -13567,6 +15251,183 @@
       "trust": "reported",
       "date": "2026",
       "added": "2026-10-23"
+    },
+    {
+      "from": "nvidia",
+      "to": "lilly",
+      "type": "alliance",
+      "text": "Co-innovation AI lab in the Bay Area, with up to $1bn over five years for talent, infrastructure and compute.",
+      "source": "https://nvidianews.nvidia.com/news/nvidia-and-lilly-announce-co-innovation-lab-to-reinvent-drug-discovery-in-the-age-of-ai",
+      "trust": "sourced",
+      "date": "2026-01",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "nvidia",
+      "to": "lilly",
+      "type": "supply",
+      "text": "Lilly's AI supercomputer is the first Nvidia DGX SuperPOD with DGX B300 systems, with more than 1,000 B300 GPUs.",
+      "source": "https://www.biospace.com/press-releases/lilly-partners-with-nvidia-to-build-the-industrys-most-powerful-ai-supercomputer-supercharging-medicine-discovery-and-delivery-for-patients",
+      "trust": "sourced",
+      "date": "2025-10",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "nvidia",
+      "to": "recursion",
+      "type": "investment",
+      "text": "Invested $50m in Recursion alongside a collaboration on AI models for drug discovery.",
+      "source": "https://www.cnbc.com/2023/07/12/nvidia-invests-in-biotech-company-recursion-for-ai-drug-discovery-.html",
+      "trust": "reported",
+      "date": "2023-07",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "google",
+      "to": "isomorphic",
+      "type": "ownership",
+      "text": "Isomorphic Labs is an Alphabet subsidiary, spun out of Google DeepMind in 2021. Alphabet and GV joined its $2.1bn Series B.",
+      "source": "https://www.thedailyupside.com/technology/artificial-intelligence/alphabets-ai-drug-designer-isomorphic-lays-out-lofty-plans-for-2-1-billion-in-new-funding/",
+      "trust": "reported",
+      "date": "2026-05",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "isomorphic",
+      "to": "lilly",
+      "type": "alliance",
+      "text": "Multi-target small molecule research collaboration, with $45m upfront to Isomorphic.",
+      "source": "https://www.isomorphiclabs.com/articles/isomorphic-labs-kicks-off-2024-with-two-pharmaceutical-collaborations",
+      "trust": "sourced",
+      "date": "2024-01",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "nvidia",
+      "to": "illumina",
+      "type": "alliance",
+      "text": "Illumina runs its DRAGEN software on Nvidia GPUs and offers Nvidia's biology models and tools to customers.",
+      "source": "https://www.illumina.com/company/news-center/press-releases/2025/845f124d-a4f0-4a9a-82b0-b55415993eee.html",
+      "trust": "sourced",
+      "date": "2025-01",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "nvidia",
+      "to": "novo_nordisk",
+      "type": "alliance",
+      "text": "Novo Nordisk uses Nvidia BioNeMo, NIM and Omniverse to build AI models and agents for drug research, on the Nvidia-powered Gefion supercomputer.",
+      "source": "https://nvidianews.nvidia.com/news/nvidia-partners-with-novo-nordisk-and-dcai-to-advance-drug-discovery",
+      "trust": "sourced",
+      "date": "2025-06",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "anthropic",
+      "to": "tenx_genomics",
+      "type": "supply",
+      "text": "10x Genomics' Sentira cloud uses Claude for AI analysis of single-cell data, and 10x is a connector in Claude for Life Sciences.",
+      "source": "https://www.sec.gov/Archives/edgar/data/0001770787/000162828026071025/txg-20261105xexx991.htm",
+      "trust": "sourced",
+      "date": "2026-11",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "nvidia",
+      "to": "tenx_genomics",
+      "type": "supply",
+      "text": "Sentira, 10x Genomics' analysis cloud, runs spatial data processing on Nvidia accelerated computing.",
+      "source": "https://www.sec.gov/Archives/edgar/data/0001770787/000162828026071025/txg-20261105xexx991.htm",
+      "trust": "sourced",
+      "date": "2026-11",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "anthropic",
+      "to": "novo_nordisk",
+      "type": "supply",
+      "text": "Novo Nordisk is a named Claude for Life Sciences customer.",
+      "source": "https://www.anthropic.com/news/claude-for-life-sciences",
+      "trust": "sourced",
+      "date": "2025-10",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "openai",
+      "to": "moderna",
+      "type": "supply",
+      "text": "Moderna runs ChatGPT Enterprise across its business functions, after building its internal mChat on OpenAI's API in 2023.",
+      "source": "https://www.modernatx.com/media-center/all-media/blogs/collaboration-with-openai",
+      "trust": "sourced",
+      "date": "2024-04",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "openai",
+      "to": "thermo_fisher",
+      "type": "supply",
+      "text": "Thermo Fisher builds OpenAI APIs into PPD clinical research and gives employees ChatGPT Enterprise.",
+      "source": "https://ir.thermofisher.com/investors/news-events/news/news-details/2025/Thermo-Fisher-Scientific-to-Accelerate-Life-Science-Breakthroughs-with-OpenAI/default.aspx",
+      "trust": "sourced",
+      "date": "2025-10",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "vertex",
+      "to": "crispr_tx",
+      "type": "alliance",
+      "text": "Vertex leads Casgevy's development, manufacturing and sales and shares costs and profits 60/40 with CRISPR Therapeutics.",
+      "source": "https://www.sec.gov/Archives/edgar/data/0001674416/000119312526443644/crsp-ex99_1.htm",
+      "trust": "sourced",
+      "date": "2026-11",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "lilly",
+      "to": "insilico",
+      "type": "license",
+      "text": "Lilly licensed Insilico programs in a deal worth up to $2.75bn, with $115m upfront.",
+      "source": "https://insilico.com/news/s11n46hx31-commercialization-roadmap-validated-with?amp=true",
+      "trust": "sourced",
+      "date": "2026-03",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "illumina",
+      "to": "lilly",
+      "type": "alliance",
+      "text": "Lilly is a founding participant in Illumina's Billion Cell Atlas, with AstraZeneca and Merck.",
+      "source": "https://www.illumina.com/company/news-center/press-releases/2026/fda84c92-b4b3-4691-a402-35555abe8605.html",
+      "trust": "sourced",
+      "date": "2026-01",
+      "added": "2026-11-15"
+    },
+    {
+      "from": "lilly",
+      "to": "novo_nordisk",
+      "type": "rivalry",
+      "text": "Novo Nordisk cited competition from Lilly's Zepbound, which has overtaken Wegovy in US prescriptions.",
+      "source": "https://247wallst.com/investing/2026/02/04/eli-lilly-is-dominating-the-glp-1-wars-as-novo-nordisk-sales-tank/",
+      "trust": "reported",
+      "date": "2026-02",
+      "added": "2026-11-15"
     }
-  ]
+  ],
+  "monograms": {
+    "amec": "AMEC's site serves its logo only as a PNG, and the public-domain Commons file is a PNG too, so no vector file exists.",
+    "armis": "Armis's site returned a Cloudflare challenge, and neither Simple Icons nor Wikimedia Commons has a file.",
+    "ddn": "Both SVGs on DDN's site wrap an embedded raster image, and the Commons file is a CC BY-SA JPG.",
+    "intel_foundry": "Simple Icons and Commons carry only the Intel logo, which belongs to the Intel card, and intel.com blocked the search for a separate Intel Foundry mark.",
+    "isomorphic": "The only file on Isomorphic Labs' site is its header lockup, whose mark is an animation and renders as an empty box, and Simple Icons and Commons have no file.",
+    "naura": "Naura's site serves PNG logos only, and neither Simple Icons nor Wikimedia Commons has a file.",
+    "novo_nordisk": "Novo Nordisk's site draws its logo with an icon font, so there is no file, and Commons holds only the Novo Nordisk Foundation and Novo Holdings marks.",
+    "odms": "This card covers three companies, Foxconn, Quanta and Wistron, so no single mark fits it.",
+    "oklo": "The SVG on Oklo's site wraps an embedded PNG, and the Commons file is a CC BY PNG.",
+    "sgnl": "SGNL's site now redirects to CrowdStrike, which bought it, and neither Simple Icons nor Commons has a file.",
+    "ssi": "Safe Superintelligence's site is a text-only page with no logo, and the Commons file is a JPG.",
+    "talen": "Talen Energy's site header is a white PNG, and neither Simple Icons nor Wikimedia Commons has a file.",
+    "thinking_machines": "Thinking Machines Lab's site header is plain text, and the Commons file is a JPG.",
+    "umc_gf": "This card covers two companies, UMC and GlobalFoundries, so no single mark fits it, though both have public-domain Commons files if it is ever split.",
+    "veza": "Veza's site header is a PNG, and Wikimedia Commons has no file."
+  }
 }

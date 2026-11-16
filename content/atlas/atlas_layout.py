@@ -19,7 +19,8 @@ PAD = 70.0           # from the outermost company to the territory's edge
 WEDGE_GAP = 0.12     # radians left empty between sub-row wedges
 TERR_GAP = 170.0     # least space between two territories
 COLUMN_STEP = 2000.0 # from one sector's centre to the next in a row: room for a label even in a short window
-NARROW_WIDEN = 1.86  # on a narrow screen, column spacing as a multiple of row spacing, the shape of a phone's label cell
+NARROW_WIDEN = 1.9   # on a narrow screen, column spacing as a multiple of row spacing: narrow enough that a 360px
+                     # phone still fits six rows of full labels, wide enough that the columns clear in a landscape window
 RELAX_ROUNDS = 160
 WOBBLE = ((3, 0.034), (5, 0.02), (7, 0.012))   # harmonics of the hand-drawn outline
 TIER_ORDER = ["end", "platform", "stack"]
@@ -213,7 +214,7 @@ def layout(data):
 
 
 def _narrow(order, sectors):
-    """Where the sectors sit on a narrow screen: two columns of five, reading
+    """Where the sectors sit on a narrow screen: two columns, reading
     across and down in tier order. The rows are as tall as the largest territory
     needs, so a territory never touches the one above it even when zoomed in."""
     tallest = max(sectors[sid]["r"] for sid in order)

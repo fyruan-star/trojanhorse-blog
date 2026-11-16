@@ -68,10 +68,10 @@ async function mapChecks(browser, engine, vp) {
   else check(engine, vp.name, "frame goes edge to edge", fr.l === 0 && fr.r === 0 && fr.h >= 400, JSON.stringify(fr));
 
   const dbg = await page.evaluate(() => AtlasMap.api().scene.debug());
-  check(engine, vp.name, "ten helmets drawn", dbg.helmets === 10, `helmets ${dbg.helmets}`);
+  check(engine, vp.name, "a helmet for every sector", dbg.helmets === dbg.sectors && dbg.sectors >= 11, `helmets ${dbg.helmets} of ${dbg.sectors}`);
   await page.screenshot({ path: `${OUT}/${tag}-galaxy.png` });
 
-  // the galaxy's labels: all ten complete, one title style, clear of each other and of the controls
+  // the galaxy's labels: all complete, one title style, clear of each other and of the controls
   const gal = await page.evaluate(() => {
     const s = AtlasMap.api().scene, frame = document.querySelector(".amap__canvas").getBoundingClientRect();
     const keepOut = [...document.querySelectorAll(".amap__legend, .amap__mini, .amap__tools, .amap__hint")].map((el) => {
@@ -85,11 +85,11 @@ async function mapChecks(browser, engine, vp) {
     const lines = (l.stats || "").split("\n");
     return l.title && lines.length === 4 && (l.sid === "backers" ? /^12 owners and backers$/.test(lines[0]) && lines.slice(1).every((x) => / · \d+ backed$/.test(x)) : /^\d+ compan(y|ies)$/.test(lines[0]) && lines.slice(1).every((x) => /\s\d+$/.test(x)));
   });
-  check(engine, vp.name, "ten sectors show a title, count and top 3", complete.length === 10, gal.labels.filter((l) => !complete.includes(l)).map((l) => l.sid).join(","));
+  check(engine, vp.name, "every sector shows a title, count and top 3", complete.length === gal.labels.length && complete.length >= 11, gal.labels.filter((l) => !complete.includes(l)).map((l) => l.sid).join(","));
   check(engine, vp.name, "all sector titles share one size", new Set(gal.labels.map((l) => l.titleSize)).size === 1, [...new Set(gal.labels.map((l) => l.titleSize))].join(","));
   const boxes = gal.labels.map((l) => l.box).filter(Boolean);
   const crossing = boxes.filter((a, i) => boxes.some((b, j) => j > i && hits(a, b))).length;
-  check(engine, vp.name, "sector label blocks do not overlap", boxes.length === 10 && crossing === 0, `${boxes.length} blocks, ${crossing} crossing`);
+  check(engine, vp.name, "sector label blocks do not overlap", boxes.length === dbg.sectors && crossing === 0, `${boxes.length} blocks, ${crossing} crossing`);
   const clipped = gal.labels.filter((l) => l.box && (l.box.x < 0 || l.box.y < 0 || l.box.x + l.box.w > gal.view.w || l.box.y + l.box.h > gal.view.h)).map((l) => l.sid);
   check(engine, vp.name, "sector labels are not clipped", clipped.length === 0, clipped.join(","));
   const blocked = gal.labels.flatMap((l) => l.box ? gal.keepOut.filter((k) => hits(l.box, k)).map((k) => `${l.sid}/${k.name}`) : []);
@@ -192,7 +192,7 @@ async function mapChecks(browser, engine, vp) {
       const lines = new Set(g.labels.map((l) => (l.stats || "").split("\n").length));
       const blocked = g.labels.flatMap((l) => l.box ? g.keepOut.filter((k) => hit(l.box, k)).map((k) => `${l.sid}/${k.name}`) : []);
       const off = g.labels.filter((l) => l.box && (l.box.x < 0 || l.box.y < 0 || l.box.x + l.box.w > g.view.w || l.box.y + l.box.h > g.view.h)).map((l) => l.sid);
-      check(engine, vp.name, `${size}: ten labels, none crossing`, b.length === 10 && crossed === 0, `${b.length} blocks, ${crossed} crossing`);
+      check(engine, vp.name, `${size}: every label placed, none crossing`, b.length >= 11 && crossed === 0, `${b.length} blocks, ${crossed} crossing`);
       check(engine, vp.name, `${size}: labels ${wantFull ? "show the top 3" : "all match"}`, lines.size === 1 && (!wantFull || lines.has(4)), `${[...lines].join()} lines in ${Math.round(g.view.w)}x${Math.round(g.view.h)}, ${g.font ? "site font" : "fallback font"}`);
       check(engine, vp.name, `${size}: labels unclipped and clear of the controls`, off.length === 0 && blocked.length === 0, [...off, ...blocked].join(" "));
     }
@@ -272,17 +272,22 @@ async function siteChecks(browser, engine, vp) {
       const words = links.map((a) => a.querySelector(".sitenav__w").textContent);
       const marked = links.filter((a) => a.getAttribute("aria-current") === "page").map((a) => a.querySelector(".sitenav__w").textContent);
       const line = marked.length ? getComputedStyle(links.find((a) => a.getAttribute("aria-current")).querySelector(".sitenav__w")).borderBottomColor : "";
-      const nav = box(document.querySelector(".sitenav")), back = document.querySelector(".back");
-      const backHit = back ? (() => { const b = box(back); return b.left < nav.right && nav.left < b.right && links.some((a) => { const r = box(a); return r.left < b.right && b.left < r.right && r.top < b.bottom && b.top < r.bottom; }); })() : false;
-      const head = document.querySelector(".atlas-head__k, .silohead__kicker, .articles .th__k");
-      return { words, marked, line, tops: new Set(links.map((a) => Math.round(box(a).top))).size, backHit, gap: head ? box(head).top - nav.bottom : null,
-               wide: document.documentElement.scrollWidth <= innerWidth, width: nav.width };
+      const nav = box(document.querySelector(".masthead .sitenav")), title = box(document.querySelector(".masthead__title"));
+      const bar = box(document.querySelector(".masthead"));
+      const head = document.querySelector(".atlas-head__k, .silohead__kicker, .articles .th__k, .cover__stage");
+      return { words, marked, line, tops: new Set(links.map((a) => Math.round(box(a).top))).size,
+               // desktop: the nav on the title's line at the right; phone: centred under the title
+               sameLine: nav.top < title.bottom && title.top < nav.bottom, rightGap: Math.round(innerWidth - nav.right), leftOfNav: title.right <= nav.left,
+               below: nav.top >= title.bottom, centred: Math.abs((nav.left + nav.right) / 2 - innerWidth / 2) < 4,
+               gap: head ? Math.round(box(head).top - bar.bottom) : null, wide: document.documentElement.scrollWidth <= innerWidth };
     });
     const name = file.replace(".html", "");
     check(engine, vp.name, `${name}: nav in order`, n.words.join() === "Prologue,Articles,Atlas", n.words.join());
     check(engine, vp.name, `${name}: current page marked`, current ? n.marked.join() === current && n.line !== "rgba(0, 0, 0, 0)" : n.marked.length === 0, `${n.marked} ${n.line}`);
     check(engine, vp.name, `${name}: nav stays on one line`, n.tops === 1);
-    check(engine, vp.name, `${name}: nav clears the back link and heading`, !n.backHit && (n.gap === null || n.gap >= 0), `gap ${n.gap}`);
+    if (vp.width > 700) check(engine, vp.name, `${name}: nav in the top right, on the title's line`, n.sameLine && n.leftOfNav && n.rightGap < 120, `right gap ${n.rightGap}`);
+    else check(engine, vp.name, `${name}: nav wraps under the title, centred`, n.below && n.centred, JSON.stringify({ below: n.below, centred: n.centred }));
+    check(engine, vp.name, `${name}: header bar clears the page heading`, n.gap === null || n.gap >= 0, `gap ${n.gap}`);
     check(engine, vp.name, `${name}: no sideways scroll`, n.wide);
     await page.screenshot({ path: `${OUT}/${tag}-${name}.png`, fullPage: file === "articles.html" });
     // WebKit on a Mac only tabs through links with Option held, as Safari does by default
@@ -292,14 +297,26 @@ async function siteChecks(browser, engine, vp) {
     check(engine, vp.name, `${name}: nav reached by keyboard`, /sitenav__a/.test(focus), focus);
     if (file === "index.html") {
       const h = await page.evaluate(() => ({ sign: !!document.querySelector(".essay .tale__sign") && getComputedStyle(document.querySelector(".essay .tale__sign")).display !== "none",
-        cards: document.querySelectorAll(".th__c").length, label: document.querySelector(".th__k").textContent, title: document.querySelector(".th__t").textContent, all: !!document.querySelector('a[href="articles.html"].th__all'), pod: document.querySelector(".spot__name").textContent }));
+        cards: document.querySelectorAll(".feature").length, label: document.querySelector(".feature__k").textContent, title: document.querySelector(".feature__t").textContent,
+        btn: (document.querySelector(".feature__btn") || {}).textContent, names: (document.querySelector(".masthead__by") || {}).textContent,
+        all: !!document.querySelector('a[href="articles.html"].th__all'), pod: document.querySelector(".spot__name").textContent }));
       check(engine, vp.name, "homepage: Francis's story is there", h.sign);
-      check(engine, vp.name, "homepage: one featured Trojan Horse, the latest", h.cards === 1 && h.label === "Trojan Horse of the Week" && h.title === "Trading Copper for Light" && h.all, JSON.stringify(h));
+      check(engine, vp.name, "homepage: one featured Trojan Horse, the latest", h.cards === 1 && h.label === "Trojan Horse of the Week" && h.title === "Trading Copper for Light" && h.btn === "Read \u2192" && h.all, JSON.stringify(h));
+      check(engine, vp.name, "homepage: the three names under the title", h.names === "Francis Ruan \u00b7 Ryan Chian \u00b7 Timothy Zhang", h.names);
       check(engine, vp.name, "homepage: podcast named", h.pod === "In The Belly");
-      await page.evaluate(() => document.querySelector(".th").scrollIntoView()); await page.waitForTimeout(500);
+      await page.evaluate(() => document.querySelector(".feature").scrollIntoView({ block: "center" })); await page.waitForTimeout(500);
       await page.screenshot({ path: `${OUT}/${tag}-home-featured.png` });
     }
   }
+  // every logo the List, profiles and map use loads and decodes in this engine
+  await page.goto(`${BASE}/tech-atlas.html?check=${Date.now()}`);
+  const logos = await page.evaluate(async () => {
+    const srcs = [...new Set([...document.querySelectorAll(".card__logo img")].map((i) => i.getAttribute("src")))];
+    const bad = [];
+    await Promise.all(srcs.map((src) => new Promise((done) => { const im = new Image(); im.onload = () => { if (!im.naturalWidth) bad.push(src); done(); }; im.onerror = () => { bad.push(src); done(); }; im.src = src; })));
+    return { n: srcs.length, monograms: document.querySelectorAll(".card__mono").length, bad };
+  });
+  check(engine, vp.name, "every logo file loads", logos.n > 100 && logos.bad.length === 0, `${logos.n} files, ${logos.monograms} monogram cards, failed: ${logos.bad.join(" ")}`);
   check(engine, vp.name, "nav pages: no console errors", errors.length === 0, errors.slice(0, 3).join(" | "));
   await page.close();
 }

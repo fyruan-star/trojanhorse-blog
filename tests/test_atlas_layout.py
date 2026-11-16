@@ -109,12 +109,12 @@ class NarrowLayout(unittest.TestCase):
     def test_every_sector_has_a_narrow_place(self):
         self.assertEqual(set(self.centres), set(LAYOUT["sectors"]))
 
-    def test_two_columns_of_five(self):
+    def test_two_columns_of_six_and_five(self):
         columns = {}
         for x, y in self.centres.values():
             columns.setdefault(x, []).append(y)
-        self.assertEqual(sorted(len(v) for v in columns.values()), [5, 5])
-        self.assertEqual(len({y for ys in columns.values() for y in ys}), 5)
+        self.assertEqual(sorted(len(v) for v in columns.values()), [5, 6])
+        self.assertEqual(len({y for ys in columns.values() for y in ys}), 6)
 
     def test_territories_do_not_overlap(self):
         ids = list(self.centres)

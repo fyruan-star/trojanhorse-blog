@@ -42,10 +42,10 @@ class RealData(unittest.TestCase):
         errors, _ = V.validate(REAL)
         self.assertEqual(errors, [])
 
-    def test_counts_match_the_old_atlas(self):
-        self.assertEqual(len(REAL["sectors"]), 9)
-        self.assertEqual(len(REAL["placements"]), 159)
-        self.assertEqual(len(REAL["relationships"]), 89)
+    def test_counts_match_the_atlas_with_biotech(self):
+        self.assertEqual(len(REAL["sectors"]), 10)
+        self.assertEqual(len(REAL["placements"]), 172)
+        self.assertEqual(len(REAL["relationships"]), 105)
 
 
 class Relationships(unittest.TestCase):

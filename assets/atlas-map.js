@@ -576,7 +576,7 @@
         return { s: s, ox: (w - s * (b[2] - b[0])) / 2 - s * b[0], oy: (hh - s * (b[3] - b[1])) / 2 - s * b[1], w: w, h: hh };
       }
       var MINI_COLOR = { silicon: "#A6DB8C", infra: "#E9B47E", cloud: "#84D2E3", models: "#BCA6F4", software: "#93B2F6",
-                         security: "#EDA3DA", internet: "#F4A9A0", devices: "#E6DB8C", fintech: "#8EDCC4", backers: "#C9D2DF" };
+                         security: "#EDA3DA", internet: "#F4A9A0", devices: "#E6DB8C", fintech: "#8EDCC4", biotech: "#D7E36E", backers: "#C9D2DF" };
       function drawMini(force) {
         var cam = scene.cam(), v = scene.view(), key = [cam.x | 0, cam.y | 0, cam.k.toFixed(4), v.w, v.h, nav.sector].join();
         if (!force && key === miniKey) return;

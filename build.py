@@ -116,42 +116,63 @@ VINE_DEF = """
 </svg>
 """
 
-def site_nav(current=None, cls="sitenav--page"):
+AUTHORS_LINE = "Francis Ruan &middot; Ryan Chian &middot; Timothy Zhang"
+
+
+def site_nav(current=None):
     """Prologue, Articles and Atlas, in that order, with the page you are on marked."""
-    links = [("prologue", "ten-years.html", "Prologue", "2016 to 2026"),
-             ("articles", "articles.html", "Articles", ""),
-             ("atlas", "tech-atlas.html", "Atlas", "")]
+    links = [("prologue", "ten-years.html", "Prologue"),
+             ("articles", "articles.html", "Articles"),
+             ("atlas", "tech-atlas.html", "Atlas")]
     items = []
-    for key, href, word, cap in links:
+    for key, href, word in links:
         mark = ' aria-current="page"' if key == current else ""
-        note = f'<span class="sitenav__cap">{cap}</span>' if cap else ""
-        items.append(f'<a class="sitenav__a" href="{href}"{mark}><span class="sitenav__w">{word}</span>{note}</a>')
+        items.append(f'<a class="sitenav__a" href="{href}"{mark}><span class="sitenav__w">{word}</span></a>')
     dot = '<span class="sitenav__dot" aria-hidden="true">&middot;</span>'
-    return f'\n<nav class="sitenav {cls}" aria-label="Main">{dot.join(items)}</nav>\n'
+    return f'<nav class="sitenav" aria-label="Main">{dot.join(items)}</nav>'
+
+
+def site_header(current=None, wide=False):
+    """The header bar on every page with the nav: the title on the left, the
+    nav on the right. On the homepage the title is the cover's wordmark, with
+    the three authors under it. Elsewhere it is a link home."""
+    if current is None:
+        ident = (f'<p class="masthead__title">The Trojan Horse</p>\n'
+                 f'      <p class="masthead__by">{AUTHORS_LINE}</p>')
+        cls = "masthead masthead--cover"
+    else:
+        ident = '<a class="masthead__title" href="index.html">The Trojan Horse</a>'
+        cls = "masthead masthead--page" + (" masthead--wide" if wide else "")
+    return f'''
+<header class="{cls}">
+  <div class="shell masthead__in">
+    <div class="masthead__id">
+      {ident}
+    </div>
+    {site_nav(current)}
+  </div>
+</header>
+'''
 
 
 COVER = """
 <!-- ============================================================= COVER === -->
-<header class="cover">
+<div class="cover">
   <div class="shell"><div class="cover__rule"></div></div>
-
-  <div class="shell cover__top">
-    <p class="cover__wordmark">The Trojan Horse</p>
-  </div>
-
+{MASTHEAD}
   <div class="shell cover__stage">
     <img class="cover__horse" src="images/horse-light.png"
          alt="A rearing horse drawn in silver line work, its hindquarters breaking apart into fragments">
     <p class="cover__tag">Mergers &amp; Acquisitions<span class="cover__tag__sub">{TAGLINE}</span></p>
   </div>
-{SITENAV}
+
   <div class="cover__mist" aria-hidden="true"></div>
 
   <div class="shell cover__foot">
     <div class="cover__rule"></div>
     <a class="cover__scroll" href="#opening">Scroll</a>
   </div>
-</header>
+</div>
 
 """
 
@@ -279,6 +300,11 @@ def _logo(m, cls="th__logo", scale=1.0):
     return f'<span class="logo-row">{spans}</span>'
 
 
+def _strip_tags(text):
+    """Text with its HTML tags removed, for an attribute such as aria-label."""
+    return re.sub(r"<[^>]+>", "", text).replace('"', "&quot;")
+
+
 def story_date(m):
     """The day a story is dated, read from its WEEK line ("Week of 9 November 2026")."""
     return _datetime.strptime(m.WEEK.replace("Week of", "").strip(), "%d %B %Y").date()
@@ -308,16 +334,23 @@ def home_html():
     latest = stories_newest_first()[0]
     featured = f'''
 <!-- ============================================================ TROJAN HORSE OF THE WEEK === -->
-<section class="th" aria-label="Trojan Horse of the Week">
+<section class="th th--feature" aria-label="Trojan Horse of the Week">
   <div class="shell">
-    <p class="th__k">Trojan Horse of the Week</p>
-    <div class="th__grid">{_story_card(latest)}
-    </div>
+    <article class="feature">
+      <div class="feature__head">
+        <p class="feature__k">Trojan Horse of the Week</p>
+        <p class="feature__d">{latest.WEEK}</p>
+      </div>
+      <div class="feature__logos">{_logo(latest, scale=1.25)}</div>
+      <h2 class="feature__t"><a href="{latest.SLUG}.html">{latest.TITLE}</a></h2>
+      <p class="feature__p">{latest.HOOK}</p>
+      <a class="feature__btn" href="{latest.SLUG}.html" aria-label="Read {_strip_tags(latest.TITLE)}">Read &rarr;</a>
+    </article>
     <a class="th__go th__all" href="articles.html">See all articles &rarr;</a>
   </div>
 </section>
 '''
-    cover = COVER.replace("{TAGLINE}", TAGLINE).replace("{SITENAV}", site_nav(cls="sitenav--cover"))
+    cover = COVER.replace("{TAGLINE}", TAGLINE).replace("{MASTHEAD}", site_header())
     return (HEAD.format(title="The Trojan Horse",
                         desc="A mergers and acquisitions journal and podcast by Francis Ruan, Ryan Chian and Timothy Zhang.")
             + CAPITAL_DEF + cover + ESSAY + featured + ROOMS + FOOT)
@@ -336,8 +369,7 @@ def articles_html():
     return (HEAD.format(title="Articles | The Trojan Horse",
                         desc="Every Trojan Horse story, newest first, and more from the journal.")
             + f'''
-<a class="back" href="index.html">&larr; The Trojan Horse</a>
-{site_nav("articles")}
+{site_header("articles")}
 <main class="articles">
 <section class="th" aria-label="Trojan Horses">
   <div class="shell">
@@ -746,6 +778,18 @@ def _map_shell(rosters):
   </div>
 </section>"""
 
+def _card_logo(cid):
+    """A List card's mark: the official file on its own ground, or two letters
+    when the company is on the monogram list."""
+    c = AD.DATA["companies"][cid]
+    logo = c.get("logo")
+    if not logo:
+        return f'<span class="card__mono" aria-hidden="true">{_esc(AP.initials(c["name"]))}</span>'
+    dark = " card__logo--dark" if logo.get("ground") == "dark" else ""
+    return (f'<span class="card__logo{dark}"><img src="logos/{_esc(logo["file"])}" '
+            f'alt="" loading="lazy" decoding="async"></span>')
+
+
 def build_atlas():
     if AD.ERRORS:
         raise SystemExit("atlas.json has problems. Run python3 scripts/validate_atlas.py:\n  " + "\n  ".join(AD.ERRORS))
@@ -810,7 +854,7 @@ def build_atlas():
         ovr = AD.RATINGS.get(e, {}).get("ovr", "")
         return f"""<details class="card card--{t}" id="{cid}" data-e="{e}" data-conf="{conf}" data-ovr="{ovr}">
   <summary>
-    <div class="card__top">{_ovr_chip(e)}<span class="card__name">{_esc(names[e])}</span><span class="badge {bcls}">{_esc(badge)}</span></div>
+    <div class="card__top">{_ovr_chip(e)}{_card_logo(e)}<span class="card__name">{_esc(names[e])}</span><span class="badge {bcls}">{_esc(badge)}</span></div>
     <div class="card__where">{_esc(p["name"])} &middot; {RANK_NAME[t]}</div>
     <div class="card__stat">{_esc(pl["stat"])}</div>
   </summary>
@@ -845,7 +889,7 @@ def build_atlas():
         note = "\n".join(f"<p>{x}</p>" for x in AT_PIECES[s["id"]])
         sectors_html.append(f"""<section class="sector" id="sector-{s["id"]}" data-sector="{s["id"]}">
   <h2 class="sector__h">{_esc(s["name"])}</h2>
-  <p class="sector__b">{_esc(s["blurb"])}</p>
+  <p class="sector__b">{_esc(s["blurb"])}</p>{f'<p class="sector__by">Covered by {_esc(s["owner"])}</p>' if s.get("owner") else ""}
   <div class="board">
     <svg class="lines" aria-hidden="true"></svg>
     <div class="cols"><span></span><span>Starters</span><span>Second string</span><span>Practice squad</span></div>
@@ -855,9 +899,8 @@ def build_atlas():
 </section>""")
 
     # overview tiles, grouped by band
-    order = {"end": ["internet", "devices", "fintech"],
-             "platform": ["models", "software", "security"],
-             "stack": ["silicon", "infra", "cloud"]}
+    # each band's sectors in the order atlas.json lists them
+    order = {band: [s["id"] for s in AD.DATA["sectors"] if s["tier"] == band] for band in ("end", "platform", "stack")}
     sec = {s["id"]: s for s in AD.SECTORS}
     def tile(sid):
         s = sec[sid]
@@ -914,8 +957,7 @@ def build_atlas():
                         desc="A depth chart of the technology industry: who leads, who is catching up, and who is allied with, competing with or backed by whom.")
             + '<link rel="stylesheet" href="atlas.css">\n<link rel="stylesheet" href="atlas-map.css">\n<link rel="stylesheet" href="atlas-pages.css">\n'
             + f"""
-<a class="back" href="index.html">&larr; The Trojan Horse</a>
-{site_nav("atlas")}
+{site_header("atlas", wide=True)}
 <div class="atlas-wide">
   <header class="atlas-head">
     <p class="atlas-head__k">As of {AD.ASOF}</p>
@@ -1229,8 +1271,7 @@ def build_katabasis():
     html = (HEAD.format(title="Prologue | The Trojan Horse",
                         desc="A map of technology transactions from 2016 to 2026.")
             + CAPITAL_DEF + f'''
-<a class="back" href="index.html">&larr; The Trojan Horse</a>
-{site_nav("prologue")}
+{site_header("prologue")}
 <header class="silohead silohead--bare">
   <div class="shell">
     <p class="silohead__kicker">2016 to 2026</p>

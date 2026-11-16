@@ -50,8 +50,22 @@ class Navigation(unittest.TestCase):
                 marked = re.findall(r'href="([^"]+)" aria-current="page"', nav_of(read(name)))
                 self.assertEqual(marked, [current] if current else [])
 
-    def test_the_prologue_link_carries_its_dates(self):
-        self.assertIn("2016 to 2026", nav_of(read("index.html")))
+    def test_the_nav_sits_in_a_header_bar_beside_the_title(self):
+        for name in CURRENT:
+            with self.subTest(page=name):
+                bar = re.search(r'<header class="masthead[^"]*">(.*?)</header>', read(name), re.S)
+                self.assertIsNotNone(bar, "header bar")
+                inner = bar.group(1)
+                self.assertIn("The Trojan Horse", inner)
+                self.assertIn('<nav class="sitenav', inner)
+                self.assertLess(inner.index("The Trojan Horse"), inner.index('<nav class="sitenav'))
+
+    def test_interior_pages_link_home_from_the_title(self):
+        for name in ("articles.html", "ten-years.html", "tech-atlas.html"):
+            with self.subTest(page=name):
+                bar = re.search(r'<header class="masthead[^"]*">(.*?)</header>', read(name), re.S).group(1)
+                self.assertRegex(bar, r'<a class="masthead__title" href="index\.html">The Trojan Horse</a>')
+                self.assertNotIn('class="back"', read(name))
 
 
 class Homepage(unittest.TestCase):
@@ -63,14 +77,25 @@ class Homepage(unittest.TestCase):
         self.assertEqual(hashlib.sha256(ESSAY.encode()).hexdigest(), ESSAY_SHA256)
         self.assertIn(ESSAY, self.page)
 
+    def test_the_three_names_sit_directly_under_the_title(self):
+        bar = re.search(r'<header class="masthead[^"]*">(.*?)</header>', self.page, re.S).group(1)
+        self.assertRegex(bar, r'masthead__title">The Trojan Horse</\w+>\s*<p class="masthead__by">'
+                              r'Francis Ruan &middot; Ryan Chian &middot; Timothy Zhang</p>')
+
     def test_only_the_latest_trojan_horse_is_featured(self):
         latest = build.stories_newest_first()[0]
         self.assertEqual(latest.SLUG, "marvell-lumentum")
-        self.assertEqual(self.page.count('class="th__c"'), 1)
-        self.assertIn("Trojan Horse of the Week", self.page)
-        self.assertIn(f'<a href="{latest.SLUG}.html">{latest.TITLE}</a>', self.page)
-        self.assertIn(latest.HOOK, self.page)
-        self.assertIn("Continue reading", self.page)
+        card = re.search(r'<article class="feature">(.*?)</article>', self.page, re.S)
+        self.assertIsNotNone(card, "featured card")
+        card = card.group(1)
+        self.assertEqual(self.page.count('class="feature"'), 1)
+        self.assertEqual(self.page.count('class="th__c"'), 0)
+        self.assertIn('<p class="feature__k">Trojan Horse of the Week</p>', card)
+        self.assertIn('class="feature__logos"', card)
+        self.assertIn('th__logo', card)
+        self.assertIn(f'<h2 class="feature__t"><a href="{latest.SLUG}.html">{latest.TITLE}</a></h2>', card)
+        self.assertIn(f'<p class="feature__p">{latest.HOOK}</p>', card)
+        self.assertRegex(card, rf'<a class="feature__btn" href="{latest.SLUG}\.html"[^>]*>Read &rarr;</a>')
 
     def test_the_rest_of_the_list_has_moved_off_the_homepage(self):
         for m in build.stories_newest_first()[1:]:
@@ -78,7 +103,7 @@ class Homepage(unittest.TestCase):
 
     def test_see_all_articles_follows_the_featured_story(self):
         self.assertRegex(self.page, r'href="articles\.html">See all articles')
-        self.assertLess(self.page.index('class="th__c"'), self.page.index("See all articles"))
+        self.assertLess(self.page.index('class="feature"'), self.page.index("See all articles"))
 
     def test_there_is_one_prologue_link_and_one_atlas_link(self):
         self.assertEqual(self.page.count('href="ten-years.html"'), 1)

@@ -48,6 +48,7 @@ class Context:
     resolved: dict
     sector_name: dict
     sector_blurb: dict
+    sector_owner: dict
     row_name: dict
     placements: dict
     edges: list
@@ -78,6 +79,7 @@ def context(AD, head, foot, stats_pages=None):
         head=head, foot=foot, data=data, companies=dict(data["companies"]), resolved=AD.RESOLVED,
         sector_name={**{s["id"]: s["name"] for s in sectors}, "backers": "Owners and backers"},
         sector_blurb={s["id"]: s["blurb"] for s in sectors},
+        sector_owner={s["id"]: AD.OWNER_NAME.get(s.get("owner")) for s in sectors},
         row_name={(s["id"], r["id"]): r["name"] for s in sectors for r in s["rows"]},
         placements=placements, edges=AD.EDGES, group=AD.GROUP, members=TM.assign(data)["members"],
         rosters=rosters, team_name={t["id"]: t["name"] for t in rosters},
@@ -380,6 +382,12 @@ def profile_page(ctx, cid):
 
 
 # ------------------------------------------------------------------ standings
+def owner_line(ctx, sid):
+    """The author who covers a sector alone, under its description. Most sectors have none."""
+    owner = ctx.sector_owner.get(sid)
+    return f'<p class="pg__by">Covered by {esc(owner)}</p>' if owner else ""
+
+
 def standings_page(ctx, sid):
     st = ctx.standings[sid]
     head = "".join(f"<th scope=\"col\" class=\"st__a\" title=\"{_label(k)}\">{s}</th>" for k, s in SHORT)
@@ -400,7 +408,7 @@ def standings_page(ctx, sid):
         names = ", ".join(f'<a href="{esc(r["company"])}.html">{esc(ctx.companies[r["company"]]["name"])}</a>' for r in st["unrated"])
         unrated = f'<p class="pg__note">Not yet rated, so not ranked: {names}.</p>'
     body = f"""<header class="pg__head"><p class="pg__k">Sector standings</p><h1 class="pg__t">{esc(ctx.sector_name[sid])}</h1>
-<p class="pg__lede">{esc(ctx.sector_blurb[sid])}</p>{sector_nav(ctx, sid)}</header>
+<p class="pg__lede">{esc(ctx.sector_blurb[sid])}</p>{owner_line(ctx, sid)}{sector_nav(ctx, sid)}</header>
 <div class="st__wrap"><table class="st">
 <caption>{esc(ctx.sector_name[sid])} companies ranked by OVR. Change compares with the last recorded rating.</caption>
 <thead><tr><th scope="col" class="st__n">#</th><th scope="col">Company</th><th scope="col">Team</th><th scope="col" class="st__ch">&plusmn;</th><th scope="col" class="st__o">OVR</th>{head}</tr></thead>

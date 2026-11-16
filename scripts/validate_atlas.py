@@ -15,6 +15,7 @@ import atlas_ratings as R
 import atlas_teams as TM
 
 TIERS = {"end", "platform", "stack"}
+OWNERS = {"Francis", "Ryan", "Timothy"}   # a sector one author covers alone names that author
 RANKS = {"starter", "second_string", "practice_squad"}
 CARD_TRUST = {"sourced", "reported"}
 LINE_TRUST = {"sourced", "reported", "inferred"}
@@ -35,7 +36,7 @@ PLACEMENT_KEYS = {"company", "sector", "row", "rank", "label", "key_figure", "wh
 BIO_KEYS = {"ticker", "listed", "hq", "founded", "ceo"}
 LISTED = {"Public", "Private"}
 LOGO_KEYS = {"file", "kind", "source", "license", "ground"}
-LOGO_KINDS = {"simple-icons", "commons", "press-kit"}
+LOGO_KINDS = {"simple-icons", "commons", "press-kit", "site"}   # site: the SVG in the company's own website header
 LOGO_GROUNDS = {"light", "dark"}
 LOGO_DIR = ROOT / "assets" / "logos"
 LOGO_FILE = re.compile(r"^[a-z0-9_]+\.(svg|png)$")
@@ -78,6 +79,8 @@ def _sectors(d, errors):
         if s.get("tier") not in TIERS:
             errors.append(f"sector {sid}: tier must be one of {sorted(TIERS)}")
         _prose(f"sector {sid}", "blurb", s.get("blurb"), errors)
+        if "owner" in s and s["owner"] not in OWNERS:
+            errors.append(f"sector {sid}: owner must be one of {sorted(OWNERS)}")
         ids = [r.get("id") for r in s.get("rows", [])]
         if len(ids) != len(set(ids)):
             errors.append(f"sector {sid}: duplicate row id")
@@ -360,6 +363,29 @@ def _relationships(d, errors):
     return linked
 
 
+def _monograms(d, errors):
+    """Every company shows its official mark, or is listed under monograms with
+    the reason no official file could be used. Never both."""
+    mono = d.get("monograms", {})
+    if not isinstance(mono, dict):
+        errors.append("monograms must be an object of company id to reason")
+        return
+    companies = d.get("companies", {})
+    for cid, reason in mono.items():
+        where = f"monogram {cid}"
+        if cid not in companies:
+            errors.append(f"{where}: company does not exist")
+        elif companies[cid].get("logo"):
+            errors.append(f"{where}: the company has a logo, so remove it from monograms")
+        if not isinstance(reason, str) or len(reason.split()) < 6:
+            errors.append(f"{where}: give the reason in a sentence, saying what was searched")
+        else:
+            _prose(where, "monogram reason", reason, errors)
+    for cid, c in companies.items():
+        if not c.get("logo") and cid not in mono:
+            errors.append(f"company {cid}: needs a logo, or a monogram reason under monograms")
+
+
 def validate(d):
     """Return (errors, warnings) for the parsed atlas.json. Reads, never changes, d."""
     errors, warnings = [], []
@@ -372,6 +398,7 @@ def validate(d):
     plays_in = _placements(d, rows, errors)
     linked = _relationships(d, errors)
     _companies(d, plays_in, linked, errors, warnings)
+    _monograms(d, errors)
     if not errors:
         _teams(d, errors)
     return errors, warnings

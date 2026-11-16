@@ -112,10 +112,20 @@ GAPS.update({
  ],
 })
 
-NOT_YET = ("Not covered. The atlas holds nine sectors, chosen for what a Bay Area "
-           "technology coverage banker or a tech M&A banker works on. Telecom, "
+NOT_YET = ("Not covered. The atlas holds ten sectors, chosen for what a Bay Area "
+           "technology coverage banker or a tech M&A banker works on. Biotech, "
+           "which Ryan Chian covers, was added in November 2026. Telecom, "
            "robotics, mobility, health technology, defense and space, quantum, "
            "energy technology and the materials foundation were researched and "
            "then removed. The companies are mostly American and Chinese, and "
            "Europe, India, Japan and Korea are thin outside the sectors where "
            "they lead.")
+
+GAPS.update({
+ "biotech": [
+  "Investor-relations pages for Regeneron, Vertex and Lilly blocked automated reading, so Vertex's figures come from a reprint of its release and Lilly's supercomputer from BioSpace's copy of Lilly's release.",
+  "Insilico's Hong Kong filing could not be extracted, so its figures come from its own press release. Xaira's funding total is PitchBook's, as reported by BioSpace.",
+  "Not used because they were seen only in search summaries: GLP-1 market shares, Vertex's term loan, Thermo Fisher's segment figures and reports of Xaira's first programs.",
+  "Alphabet's ownership of Isomorphic Labs is drawn from press reports, because no filing or company page stating it was found.",
+ ],
+})

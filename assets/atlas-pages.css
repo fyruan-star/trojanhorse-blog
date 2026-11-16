@@ -16,7 +16,7 @@
 }
 .c-silicon{ --c:#A6DB8C; } .c-infra{ --c:#E9B47E; } .c-cloud{ --c:#84D2E3; }
 .c-models{ --c:#BCA6F4; } .c-software{ --c:#93B2F6; } .c-security{ --c:#EDA3DA; }
-.c-internet{ --c:#F4A9A0; } .c-devices{ --c:#E6DB8C; } .c-fintech{ --c:#8EDCC4; }
+.c-internet{ --c:#F4A9A0; } .c-devices{ --c:#E6DB8C; } .c-fintech{ --c:#8EDCC4; } .c-biotech{ --c:#D7E36E; }
 .c-backers{ --c:#C9D2DF; }
 
 .pg{ max-width:1180px; margin:0 auto; padding:clamp(22px,4vw,44px) clamp(16px,3.2vw,48px) clamp(56px,7vw,96px); position:relative; z-index:1; }
@@ -87,7 +87,7 @@
 .rd__l{ font-family:var(--p-sans); font-size:12px; letter-spacing:.06em; fill:var(--silver-dim); }
 .rd__l--none{ fill:var(--silver-faint); }
 .pf__badges{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px; }
-.pf__badge{ padding:10px 14px; border:1px solid var(--p-rule); border-left:3px solid var(--silver); }
+.pf__badge{ padding:10px 14px; border:1px solid var(--p-rule-strong); border-radius:4px; }
 .pf__badge b{ font-family:var(--p-sans); font-size:13px; letter-spacing:.14em; text-transform:uppercase; font-weight:600; }
 .pf__badge p{ font-family:var(--p-sans); font-size:14px; line-height:1.45; color:var(--silver-dim); margin-top:4px; }
 .pf__badge--chokepoint{ border-left-color:#F2D98D; } .pf__badge--kingmaker{ border-left-color:#D4B6FF; }
@@ -193,7 +193,7 @@ td.st__o{ font-family:var(--f); font-size:24px; font-weight:500; color:var(--tie
 /* the Atlas page: links to the standings under the introduction, and a profile link on List cards */
 .atlas-standings{ display:flex; flex-wrap:wrap; align-items:center; gap:6px 6px; margin-top:clamp(20px,3vw,30px); max-width:980px; }
 .atlas-standings__k{ font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:var(--silver-faint); margin-right:8px; }
-.atlas-standings a{ font-family:var(--p-sans); font-size:13.5px; padding:5px 11px; border:1px solid var(--p-rule); color:var(--silver-dim); text-decoration:none; }
+.atlas-standings a{ font-family:var(--f); font-size:15px; line-height:1.2; padding:5px 12px; border:1px solid var(--p-rule); color:var(--silver-dim); text-decoration:none; }
 .atlas-standings a:hover{ color:var(--silver); border-color:var(--p-rule-strong); }
 .atlas-standings__t{ border-color:var(--p-rule-strong) !important; color:var(--silver) !important; }
 .card__pf a{ font-family:var(--p-sans); font-size:14px; color:var(--silver); }
@@ -209,3 +209,5 @@ td.st__o{ font-family:var(--f); font-size:24px; font-weight:500; color:var(--tie
   .pf__rel ul{ grid-template-columns:1fr; }
   .tm__head{ grid-template-columns:1fr; }
 }
+/* the author who covers a sector alone */
+.pg__by{ margin-top:10px; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--silver-faint); }

@@ -59,12 +59,6 @@ body::before{
   gap:clamp(20px,4vw,60px);
   padding-block:clamp(26px,4vw,52px);
 }
-.cover__wordmark{
-  position:absolute; top:clamp(18px,3.4vw,46px); left:0;
-  font-size:clamp(30px,3.1vw,44px); font-weight:500;
-  letter-spacing:.34em; text-transform:uppercase; color:var(--silver);
-  white-space:nowrap;
-}
 .cover__horse{
   grid-column:1; justify-self:center; align-self:center;
   width:auto; height:clamp(230px,31vw,420px);
@@ -290,13 +284,11 @@ body::before{
   /* The wordmark was absolutely positioned when this rule was written and is
      static now, so the old centring transform dragged the full-width block
      half a shell off the left edge. Centre it with text-align instead. */
-  .cover__wordmark{ transform:none; text-align:center; letter-spacing:.26em; }
   .cover__horse{ grid-column:1; height:clamp(200px,44vw,320px); }
   .cover__tag{ grid-column:1; justify-self:center; text-align:center; max-width:20ch; }
   .cover__tag__sub{ white-space:normal; letter-spacing:.16em; }
 }
 @media (max-width:520px){
-  .cover__wordmark{ font-size:13px; letter-spacing:.2em; }
   .book{ width:min(72vw,300px); }
 }
 @media (prefers-reduced-motion:reduce){
@@ -307,13 +299,6 @@ body::before{
 /* ============================================== THE PICKER, ON THE COVER ==
    Under the wordmark. No chrome of its own: transparent fill, transparent
    border, no shadow. Hover is the only state that renders. */
-.cover__top{ position:relative; z-index:2; padding-top:clamp(16px,2.6vw,34px); }
-.cover__wordmark{
-  position:static; margin:0;
-  font-size:clamp(30px,3.1vw,44px); font-weight:500;
-  letter-spacing:.34em; text-transform:uppercase; color:var(--silver);
-  white-space:nowrap;
-}
 .cover__picker{ position:relative; z-index:2; padding:0 0 clamp(16px,2.4vw,28px); }
 
 .silos__grid{
@@ -388,11 +373,6 @@ body::before{
   background:linear-gradient(var(--rule), rgba(255,255,255,0));
 }
 
-@media (max-width:620px){
-  /* doubled, the wordmark runs 389px wide inside a 375px shell and clips.
-     Scale it to the viewport below this width and tighten the tracking. */
-  .cover__wordmark{ font-size:clamp(16px,5.9vw,28px); letter-spacing:.18em; }
-}
 
 /* ========================================================== DEFINITION ====
    Ported from the curiosity plate on francisruan.com: the word set large and
@@ -1089,7 +1069,7 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
 
 /* The Ten Years header carries no prose any more, so it does not need the
    standing room a header with two paragraphs under it did. */
-.silohead--bare{ padding-top:clamp(64px,9vw,124px); }
+.silohead--bare{ padding-top:clamp(40px,5vw,80px); }
 .silohead--bare .silohead__line{ margin-top:clamp(26px,3.4vw,44px); }
 
 /* ====================================================== TROJAN HORSES ===
@@ -1189,41 +1169,103 @@ a.node__t--go:hover .node__go{ color:var(--silver-dim); }
 /* a story page: running paragraphs with room to breathe */
 .story .wp__p + .wp__p{ margin-top:1.15em; }
 
-/* ======================================================= THE SITE NAV === */
-/* Prologue, Articles and Atlas. On the cover it sits under the tagline. On the
-   other pages it floats in the space their headers already leave at the top. */
-.sitenav{
-  display:flex; justify-content:center; align-items:flex-start;
-  gap:clamp(12px,2vw,22px); text-align:center; z-index:2;
+/* ===================================================== THE HEADER BAR === */
+/* The title on the left and Prologue, Articles and Atlas on the right, on one
+   line. On the cover the title is the wordmark with the three authors under
+   it. Below 700px the nav wraps under the title, centred, over a hairline. */
+.masthead{ position:relative; z-index:3; padding:clamp(14px,2vw,24px) 0; }
+.masthead--page{ border-bottom:1px solid rgba(255,255,255,.14); }
+/* the Atlas runs wider than the reading pages, so its bar uses the Atlas's edges */
+.masthead--wide .shell{ max-width:1420px; padding-inline:clamp(16px,3.2vw,48px); }
+.masthead__in{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:clamp(16px,3vw,40px);
 }
-.sitenav--cover{ position:relative; padding:0 16px clamp(20px,3vw,34px); }
-.sitenav--page{ position:absolute; left:0; right:0; top:10px; }
-/* below this the fixed back link would touch the row, so the row drops under it */
-@media (max-width:700px){
-  .sitenav--page{ top:42px; }
-  /* the headers under the row need to start below its caption */
-  .sitenav--page + .silohead,
-  .sitenav--page + .atlas-wide .atlas-head{ padding-top:108px; }
+.masthead__id{ min-width:0; }
+.masthead__title{
+  display:block; margin:0;
+  font-size:clamp(22px,2.3vw,32px); font-weight:500; line-height:1.1;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--silver);
+  white-space:nowrap;
 }
-.sitenav__a{
-  display:inline-flex; flex-direction:column; align-items:center;
-  padding:6px 2px; color:var(--silver);
+.masthead--page .masthead__title{ font-size:clamp(15px,1.3vw,18px); letter-spacing:.26em; }
+a.masthead__title{ transition:color .25s ease; }
+a.masthead__title:hover{ color:#fff; }
+a.masthead__title:focus-visible{ outline:2px solid var(--silver); outline-offset:4px; }
+.masthead__by{
+  margin:8px 0 0; font-size:clamp(13px,1.05vw,15px); line-height:1.4;
+  letter-spacing:.14em; color:var(--silver-dim); white-space:nowrap;
 }
+
+.sitenav{ display:flex; align-items:center; gap:clamp(10px,1.4vw,16px); flex:none; }
+.sitenav__a{ display:inline-flex; padding:6px 2px; color:var(--silver); }
 .sitenav__w{
-  font-size:clamp(19px,1.7vw,23px); line-height:1.2; letter-spacing:.05em;
+  font-size:clamp(17px,1.45vw,20px); line-height:1.2; letter-spacing:.06em;
   border-bottom:1px solid transparent; transition:border-color .25s ease;
 }
 .sitenav__a:hover .sitenav__w,
 .sitenav__a[aria-current="page"] .sitenav__w{ border-bottom-color:var(--silver); }
 .sitenav__a:focus-visible{ outline:2px solid var(--silver); outline-offset:3px; }
-.sitenav__cap{ margin-top:3px; font-size:10.5px; line-height:1.2; letter-spacing:.14em; color:var(--silver-dim); white-space:nowrap; }
-.sitenav__dot{ padding-top:6px; font-size:clamp(19px,1.7vw,23px); line-height:1.2; color:var(--silver-faint); }
+.sitenav__dot{ font-size:clamp(17px,1.45vw,20px); line-height:1.2; color:var(--silver-faint); }
+
+@media (max-width:700px){
+  .masthead__in{ flex-direction:column; align-items:center; gap:12px; text-align:center; }
+  .masthead__title{ font-size:clamp(17px,5.6vw,24px); letter-spacing:.2em; }
+  .masthead--page .masthead__title{ font-size:15px; }
+  .masthead__by{ font-size:12.5px; letter-spacing:.08em; margin-top:6px; }
+  .sitenav{ justify-content:center; width:100%; padding-top:10px; border-top:1px solid rgba(255,255,255,.14); }
+  .masthead--page .sitenav{ border-top:0; padding-top:0; }
+}
+
+/* ========================================== TROJAN HORSE OF THE WEEK ==== */
+/* The newest story as one featured card: a quiet frame and glow lift it off
+   the navy, the label and date run across the top, then the marks, a larger
+   headline, the hook and a clear button. */
+.th--feature{ padding:clamp(56px,8vw,104px) 0 clamp(28px,4vw,52px); }
+.feature{
+  position:relative;
+  padding:clamp(26px,4vw,48px) clamp(22px,4.4vw,56px) clamp(28px,4vw,44px);
+  border:1px solid rgba(226,233,243,.26);
+  border-radius:6px;
+  background:linear-gradient(180deg, rgba(58,72,96,.55), rgba(43,58,79,.35));
+  box-shadow:0 0 0 1px rgba(226,233,243,.05), 0 24px 70px -30px rgba(0,0,0,.55), 0 0 60px -10px rgba(226,233,243,.10);
+}
+.feature__head{
+  display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;
+  padding-bottom:clamp(14px,1.8vw,20px); margin-bottom:clamp(20px,2.6vw,30px);
+  border-bottom:1px solid rgba(255,255,255,.16);
+}
+.feature__k{ font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:var(--silver); }
+.feature__d{ font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--silver-dim); }
+.feature__logos{ display:flex; align-items:center; margin-bottom:clamp(16px,2vw,22px); }
+.feature__logos .th__logo{ max-width:160px; opacity:1; }
+.feature__logos .logo-row{ margin:0; gap:18px; }
+.feature__t{
+  margin:0 0 14px; max-width:24ch;
+  font-size:clamp(28px,1.2rem + 1.9vw,42px); font-weight:500; line-height:1.12; color:var(--silver);
+}
+.feature__t a{ transition:color .25s ease; }
+.feature__t a:hover{ color:#fff; }
+.feature__t a:focus-visible{ outline:2px solid var(--silver); outline-offset:4px; }
+.feature__p{
+  margin:0 0 clamp(22px,2.8vw,30px); max-width:60ch;
+  font-size:clamp(17px,1rem + .2vw,19px); line-height:1.55; color:var(--silver-dim);
+}
+.feature__btn{
+  display:inline-flex; align-items:center; gap:.5em;
+  padding:12px 24px; border:1px solid var(--silver); border-radius:999px;
+  font-size:12.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--silver);
+  transition:background-color .25s ease, color .25s ease;
+}
+.feature__btn:hover{ background:var(--silver); color:var(--navy); }
+.feature__btn:focus-visible{ outline:2px solid var(--silver); outline-offset:3px; }
+.th--feature .th__all{ margin-top:clamp(20px,2.6vw,28px); }
 
 /* the homepage's link on to the full list */
 .th__all{ display:inline-block; margin-top:clamp(18px,2.4vw,26px); }
 
 /* ========================================================== ARTICLES === */
-.articles .th{ padding-top:clamp(112px,11vw,150px); }
+.articles .th{ padding-top:clamp(40px,5vw,72px); }
 h1.th__k{ font-weight:400; }
 .more{ padding:clamp(8px,1.6vw,20px) 0 clamp(36px,5vw,64px); }
 .more .shell{ max-width:min(860px,94%); }
@@ -1237,3 +1279,8 @@ h1.th__k{ font-weight:400; }
 .more__d{ display:block; margin-top:3px; font-size:14.5px; line-height:1.5; color:var(--silver-dim); }
 .more__i a:hover .more__t{ color:#fff; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.14em; }
 .more__i a:focus-visible{ outline:2px solid var(--silver); outline-offset:3px; }
+/* on the cover the nav lines up with the wordmark, not with the wordmark and names together */
+@media (min-width:701px){
+  .masthead--cover .masthead__in{ align-items:flex-start; }
+  .masthead--cover .sitenav{ margin-top:clamp(0px,.2vw,3px); }
+}

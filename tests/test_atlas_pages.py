@@ -38,11 +38,11 @@ class Logos(unittest.TestCase):
         self.assertNotIn("lg--mono", out)
 
     def test_a_company_without_a_logo_gets_a_monogram_in_its_sector_colour(self):
-        self.assertNotIn("logo", AD.DATA["companies"]["broadcom"])
-        out = P.logo_html(CTX, "broadcom", "md")
+        self.assertNotIn("logo", AD.DATA["companies"]["intel_foundry"])
+        out = P.logo_html(CTX, "intel_foundry", "md")
         self.assertIn("lg--mono", out)
         self.assertIn("c-silicon", out)
-        self.assertIn(">BR<", out)
+        self.assertIn(">IF<", out)
         self.assertNotIn("<img", out)
 
     def test_a_dark_logo_sits_on_a_dark_ground(self):
@@ -135,7 +135,8 @@ class StandingsPage(unittest.TestCase):
         names = re.findall(r'<td class="st__co"><a href="([a-z0-9_]+)\.html"', page)
         ovrs = [AD.RATINGS[n]["ovr"] for n in names]
         self.assertEqual(ovrs, sorted(ovrs, reverse=True))
-        self.assertEqual(names[0], "asml")
+        # Nvidia's Biotech supply lines (Lilly, 10x Genomics) lifted its Leverage past ASML's on 15 November 2026
+        self.assertEqual(names[0], "nvidia")
 
     def test_columns_for_the_six_attributes(self):
         page = P.standings_page(CTX, "silicon")

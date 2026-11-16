@@ -1,14 +1,16 @@
 /* Tech Atlas map: the art the scene draws with, made into WebGL textures.
 
-   Each sector has one helmet (images/helmets/<sector>.svg, drawn by
-   scripts/atlas-helmets/), in white so the map can tint it the sector's colour.
+   Every sector shares one helmet (images/helmets/helmet.svg, drawn by
+   scripts/atlas-helmets/), in white and greys so the map can tint it the
+   sector's colour and keep its shading.
    Logo badges put a company's official mark on a round light
    or dark ground, or its initials in the sector colour when the Atlas has no
    official file. Logos are drawn as published: never recoloured or reshaped. */
 (function () {
   "use strict";
 
-  var HELMET_PX = 800;          // texture height: sharp at sector zoom without wasting memory on ten of them
+  var HELMET_PX = 900;          // texture height: sharp at sector zoom, and one texture serves every sector
+  var HELMET_URL = "images/helmets/helmet.svg";
   var BADGE_PX = 128;
   var SANS = 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
 
@@ -28,17 +30,17 @@
     return c;
   }
 
-  /** Each sector's helmet as a white texture, {sid: {texture, ratio}}. One that cannot load is left out, and the map still works without it. */
+  /** The one helmet every sector shares, as a white and grey texture the scene tints:
+      {sid: {texture, ratio}} with the same texture for each sector. If it cannot load,
+      the result is empty and the map still works without it. */
   function helmets(PIXI, ids) {
-    var out = {};
-    return Promise.all(ids.map(function (sid) {
-      return loadImage("images/helmets/" + sid + ".svg").then(function (img) {
-        var ratio = (img.naturalWidth || 800) / (img.naturalHeight || 840);
-        var c = canvas(Math.round(HELMET_PX * ratio), HELMET_PX);
-        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-        out[sid] = { texture: PIXI.Texture.from(c), ratio: ratio };
-      }).catch(function () { /* this sector goes without */ });
-    })).then(function () { return out; });
+    return loadImage(HELMET_URL).then(function (img) {
+      var ratio = (img.naturalWidth || 432) / (img.naturalHeight || 596);
+      var c = canvas(Math.round(HELMET_PX * ratio), HELMET_PX);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      var shared = { texture: PIXI.Texture.from(c), ratio: ratio };
+      return ids.reduce(function (out, sid) { out[sid] = shared; return out; }, {});
+    }).catch(function () { return {}; });
   }
 
   function monogram(x, text, color) {

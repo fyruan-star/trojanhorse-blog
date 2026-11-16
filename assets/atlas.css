@@ -28,7 +28,7 @@
 .atlas-wide{ max-width:1420px; margin-inline:auto; padding-inline:clamp(16px,3.2vw,48px); position:relative; z-index:1; }
 
 /* header and introduction */
-.atlas-head{ padding:clamp(86px,11vw,150px) 0 clamp(10px,2vw,24px); text-align:left; }
+.atlas-head{ padding:clamp(40px,5vw,72px) 0 clamp(10px,2vw,24px); text-align:left; }
 .atlas-head__k{ font-size:12px; letter-spacing:.34em; text-transform:uppercase; color:var(--silver-faint); margin-bottom:18px; }
 .atlas-head__t{ font-size:clamp(44px,2.2rem + 4vw,104px); font-weight:400; line-height:1; letter-spacing:.01em; margin-bottom:22px; }
 .atlas-head__by{ margin-top:16px; font-size:15px; letter-spacing:.14em; color:var(--silver-faint); }
@@ -97,6 +97,7 @@ body.view-map #atlas-list{ display:none; }
 .sector{ padding-top:clamp(46px,6vw,86px); scroll-margin-top:70px; }
 .sector__k{ font-size:11.5px; letter-spacing:.3em; text-transform:uppercase; color:var(--silver-faint); margin-bottom:8px; }
 .sector__h{ font-size:clamp(32px,1.6rem + 2.2vw,60px); font-weight:400; line-height:1.05; margin-bottom:10px; }
+.sector__by{ margin:-14px 0 26px; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--silver-faint); }
 .sector__b{ max-width:58ch; font-size:clamp(16px,1.4vw,19px); line-height:1.5; font-style:italic; color:var(--silver-dim); margin-bottom:26px; }
 
 .board{ position:relative; }
@@ -112,13 +113,20 @@ body.view-map #atlas-list{ display:none; }
 /* a player card is a native disclosure, so it works without scripts. Cards are
    opaque so that the lines, which sit behind them, only show in the gaps. */
 .card{ border:1px solid var(--a-line); background:var(--a-card); position:relative; z-index:1; transition:background .2s ease, border-color .2s ease, opacity .2s ease; }
-.card--starter{ border-left:3px solid var(--silver); }
-.card--second{ border-left:3px solid var(--silver-faint); }
+/* rank reads from the whole frame, as on the map's rings: solid and bright for a starter, solid and faint for the second string, dashed for the practice squad */
+.card--starter{ border-color:rgba(226,233,243,.62); }
+.card--second{ border-color:rgba(226,233,243,.34); }
 .card--rookie{ border-style:dashed; }
 .card[open]{ background:var(--a-card-open); border-color:var(--silver-faint); }
 .card summary{ list-style:none; cursor:pointer; padding:10px 12px 11px; }
 .card summary::-webkit-details-marker{ display:none; }
 .card__top{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:4px 8px; }
+/* the company's mark beside its name: the same round grounds as the profile pages */
+.card__logo,.card__mono{ flex:none; align-self:center; display:inline-grid; place-items:center; width:28px; height:28px; border-radius:50%; overflow:hidden; }
+.card__logo{ background:#EEF2F7; box-shadow:0 0 0 1px rgba(226,233,243,.5); }
+.card__logo--dark{ background:#0F1522; }
+.card__logo img{ width:64%; height:64%; object-fit:contain; display:block; }
+.card__mono{ background:#0F1522; box-shadow:0 0 0 1px rgba(226,233,243,.45); font:600 11px/1 system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing:.02em; color:var(--silver-dim); }
 .card__name{ font-size:18px; line-height:1.15; font-weight:500; flex:1; min-width:0; }
 .ovr{
   flex:none; align-self:center; display:inline-flex; align-items:baseline; gap:4px; padding:2px 5px 1px; margin-right:2px;
@@ -209,7 +217,7 @@ body.hide-allies .rel--allies,body.hide-rivals .rel--rivals,body.hide-backers .r
 /* print: everything open, no controls */
 @media print{
   body{ background:#fff; color:#111; }
-  .atlas-bar,.back{ display:none; }
+  .atlas-bar,.masthead{ display:none; }
   body.js .sector{ display:block; }
   .card,.tile{ border-color:#999; background:none; color:#111; break-inside:avoid; }
   .note:not([open]) > *:not(summary){ display:block; }
